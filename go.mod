@@ -1,4 +1,4 @@
-module github.com/GoPage
+module github.com/confused-Techie/GoPage
 
 go 1.17
 
