@@ -1,8 +1,8 @@
 package main
 
 import (
-  model "github.com/GoPage/model"
-  config "github.com/GoPage/config"
+  model "github.com/confused-Techie/GoPage/model"
+  config "github.com/confused-Techie/GoPage/config"
   "fmt"
   "log"
   "net/http"

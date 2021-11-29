@@ -4,3 +4,5 @@ installer/Output
 list.json
 # Ignore dev-docs
 DEV-docs
+# Ignore any build left by go build .
+*.exe
