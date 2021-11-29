@@ -1,0 +1,59 @@
+<html>
+<head>
+  <title>All Items</title>
+  <link rel="stylesheet" type="text/css" href="/assets/css/home.css">
+</head>
+<body onload="onload()">
+  <div class="heading">
+    <div class="titleCard"><h1>GoPage</h1></div>
+    <hr class="heading">
+  </div>
+
+  <div class="container">
+    <div id="btnContainer">
+      <button class="btn active" onclick="filterSelection('all')">Show All</button>
+    </div>
+
+
+    {{range .Items}}
+    <div class="filterDiv {{.Category}}">
+      <a href="{{.Link}}">
+        <div>{{.FriendlyName}}</div>
+      </a>
+      <div class="editItem">
+        <a href="/edit/{{.Id}}">
+          <img src="/assets/images/edit.svg">
+        </a>
+      </div>
+      <div class="deleteItem">
+        <a href="PleaseEnableJavascript.html" onclick="modalDelete( {{.Id}} );return false;">
+          <img src="/assets/images/trash-2.svg">
+        </a>
+      </div>
+    </div>
+    {{end}}
+  </div>
+
+  <div class="new-button-container">
+    <form action="/new">
+      <button type="submit">Add New Item</button>
+    </form>
+  </div>
+
+  <div id="deleteModal" class="modal">
+    <div class="modal-content">
+      <h3>Are you Sure you want to Delete this Item?</h3>
+      <button id="delete-modal" class="delete">Confirm</button>
+      <button id="notDelete-modal" class="notDelete">Nevermind</button>
+    </div>
+  </div>
+
+  <footer>
+    <img src="/assets/images/github-white.svg">
+    <p><a href="https://github.com">Source Code</a></p>
+    <img src="/assets/images/git-branch-white.svg">
+    <p><a href="https://github.com">Contribute</a></p>
+  </footer>
+  <script src="/assets/js/home.js"></script>
+</body>
+</html>

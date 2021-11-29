@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Create New Item</title>
+  <link rel="stylesheet" type="text/css" href="/assets/css/form.css">
+</head>
+<body onload="initCategory()">
+  <h2>New Item's Data</h2>
+  <div class="full_form">
+    <form method="POST" action="itemadded">
+      <label>Enter Friendly Name</label><br>
+      <input type="text" name="friendlyName" /><br><br>
+      <label>Enter Link</label><br>
+      <input type="url" name="link" placeholder="https://www.my-favourite-site.com"/><br><br>
+      <label>Enter Category</label><br>
+      <input list="current-category" type="text" name="category" /><br><br>
+      <button id="goBack" class="goBack" type="button">Go Back</button>
+      <input type="submit" value="Submit">
+
+      <datalist id="current-category">
+
+      </datalist>
+    </form>
+  </div>
+  <script src="/assets/js/form.js"></script>
+</body>
+</html>

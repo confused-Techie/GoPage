@@ -1,0 +1,6 @@
+# Ignore the output of installers
+installer/Output
+# Ignore my json file since it'll contain personal data
+list.json
+# Ignore dev-docs
+DEV-docs

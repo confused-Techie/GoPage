@@ -1,0 +1,28 @@
+<html>
+<head>
+  <title>Edit Item</title>
+  <link rel="stylesheet" type="text/css" href="/assets/css/form.css">
+</head>
+<body onload="initCategory()">
+  <h2>Edit Item</h1>
+  <div class="full_form">
+    <form action="/update/" method="POST">
+      <label>Enter a New Friendly Name:</label><br>
+      <input type="text" name="friendlyName" value="{{.FriendlyName}}"/><br><br>
+      <label>Enter a New Link:</label><br>
+      <input type="url" name="link" value="{{.Link}}"/><br><br>
+      <label>Enter a New Category:</label><br>
+      <input list="current-category" type="text" name="category" value="{{.Category}}"/><br><br>
+      <label class="readonly_id">Enter the same ID:</label>
+      <input type="text" name="id" value="{{.Id}}" readonly class="readonly_id"/><br><br>
+      <button id="goBack" class="goBack" type="button">Go Back</button>
+      <input type="submit" value="Save">
+
+      <datalist id="current-category">
+
+      </datalist>
+    </form>
+  </div>
+  <script src="/assets/js/form.js"></script>
+</body>
+</html>
