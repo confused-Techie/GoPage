@@ -9,6 +9,27 @@ function initCategory() {
       });
       document.getElementById('current-category').innerHTML = categoryListToInsert;
     });
+
+
+    // Handle the installed plugins showing up
+    //var plugins = JSON.parse(installedPlugins);
+    //var pluginListToInsert;
+    //plugins.forEach((element, index) => {
+    //  pluginListToInsert += `<option value='${element.name}'>`;
+    //});
+    //document.getElementById('available-plugins').innerHTML = pluginListToInsert;
+
+
+    // Handle the installed plugins showing up, via API
+    fetch('/plugins/installedPlugins.json')
+      .then(response => response.json())
+      .then(data => {
+        var pluginListToInsert;
+        data.forEach((element, index) => {
+          pluginListToInsert += `<option value='${element.name}'>`;
+        });
+        document.getElementById('available-plugins').innerHTML = pluginListToInsert;
+      });
 }
 
 var goBackBtn = document.getElementById("goBack");

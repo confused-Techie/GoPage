@@ -1,5 +1,10 @@
 
-function onload() {
+window.addEventListener('DOMContentLoaded', (event) => {
+  console.log('DOM fully loaded and parsed');
+});
+
+function onPageLoad() {
+  console.log('onPageLoad Fired..');
   // first in the onload we can use the built in api call to get all json objects, to then create the other filter buttons
   fetch('/api/items')
     .then(response => response.json())
@@ -70,11 +75,9 @@ var btnContainer = document.getElementById("btnContainer");
 var btns = btnContainer.getElementsByClassName("btn");
 for (var i = 0; i < btns.length; i++) {
   btns[i].addEventListener("click", function() {
-    console.log('button event listener');
     var current = document.getElementsByClassName("active");
     current[0].className = current[0].className.replace(" active", "");
     this.className += " active";
-    console.log(this);
   });
 }
 

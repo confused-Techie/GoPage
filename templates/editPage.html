@@ -15,10 +15,19 @@
       <input list="current-category" type="text" name="category" value="{{.Category}}"/><br><br>
       <label class="readonly_id">Enter the same ID:</label>
       <input type="text" name="id" value="{{.Id}}" readonly class="readonly_id"/><br><br>
+      <label>Choose your Left Plugin</label><br>
+      <input list="available-plugins" type="text" name="leftPlugin"><br><br>
+      <label>Choose your Center Plugin</label><br>
+      <input list="available-plugins" type="text" name="centerPlugin"><br><br>
+      <label>Choose your Right Plugin</label><br>
+      <input list="available-plugins" type="text" name="rightPlugin"><br><br>
       <button id="goBack" class="goBack" type="button">Go Back</button>
       <input type="submit" value="Save">
 
       <datalist id="current-category">
+
+      </datalist>
+      <datalist id="available-plugins">
 
       </datalist>
     </form>

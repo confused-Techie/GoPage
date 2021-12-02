@@ -14,6 +14,9 @@ type Item struct {
   FriendlyName string `json:"friendlyName"`
   Link string `json:"link"`
   Category string `json:"category"`
+  LeftPlugin string `json:"left-plugin"`
+  CenterPlugin string `json:"center-plugin"`
+  RightPlugin string `json:"right-plugin"`
 }
 
 type AllItems struct {

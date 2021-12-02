@@ -3,6 +3,7 @@ package main
 import (
   model "github.com/confused-Techie/GoPage/model"
   config "github.com/confused-Techie/GoPage/config"
+  apiFunc "github.com/confused-Techie/GoPage/apiFunc"
   "fmt"
   "log"
   "net/http"
@@ -50,6 +51,9 @@ func updateHandler(w http.ResponseWriter, r *http.Request) {
   updateItem.FriendlyName = r.FormValue("friendlyName")
   updateItem.Link = r.FormValue("link")
   updateItem.Category = r.FormValue("category")
+  updateItem.LeftPlugin = r.FormValue("leftPlugin")
+  updateItem.CenterPlugin = r.FormValue("centerPlugin")
+  updateItem.RightPlugin = r.FormValue("rightPlugin")
 
   a, errr := strconv.Atoi(r.FormValue("id"))
   checkError(errr)
@@ -71,6 +75,9 @@ func updateHandler(w http.ResponseWriter, r *http.Request) {
       allItms.Items[i].FriendlyName = updateItem.FriendlyName
       allItms.Items[i].Link = updateItem.Link
       allItms.Items[i].Category = updateItem.Category
+      allItms.Items[i].LeftPlugin = updateItem.LeftPlugin
+      allItms.Items[i].CenterPlugin = updateItem.CenterPlugin
+      allItms.Items[i].RightPlugin = updateItem.RightPlugin
     }
   }
 
@@ -142,6 +149,9 @@ func newHandler(w http.ResponseWriter, r *http.Request) {
     newItem.FriendlyName = r.FormValue("friendlyName")
     newItem.Link = r.FormValue("link")
     newItem.Category = r.FormValue("category")
+    newItem.LeftPlugin = r.FormValue("leftPlugin")
+    newItem.CenterPlugin = r.FormValue("centerPlugin")
+    newItem.RightPlugin = r.FormValue("rightPlugin")
     var err error
     //open file
     file, err := os.OpenFile(viper.GetString("directories.data"), os.O_RDWR, 0644)
@@ -189,6 +199,19 @@ func apiItemsHandler(w http.ResponseWriter, r *http.Request) {
   json.NewEncoder(w).Encode(alItms.Items)
 }
 
+func apiPingHandler(w http.ResponseWriter, r *http.Request) {
+  keys, ok := r.URL.Query()["url"]
+  if !ok || len(keys[0]) < 1 {
+    log.Println("Url Param 'url' is missing")
+    return
+  }
+  url := keys[0]
+  //url := r.URL.Path[len("/api/ping/"):]
+  resp, err := apiFunc.Ping(url)
+  checkError(err)
+  json.NewEncoder(w).Encode(resp)
+}
+
 func main() {
   // Here we can add all viper configuration file/env file setup
   // this will grab the proper config location, home of windows or linux, or if dev flag used the local dir
@@ -216,8 +239,14 @@ func main() {
   fs := http.FileServer(http.Dir(viper.GetString("directories.staticAssets")))
   http.Handle("/assets/", http.StripPrefix("/assets/", fs))
 
+  // allow static file serving from the plugins folder
+  plugin := http.FileServer(http.Dir(viper.GetString("directories.plugin")))
+  http.Handle("/plugins/", http.StripPrefix("/plugins/", plugin))
+
   // For the proper filtering of items, and hopeful searching, here will be an api call for js to get all items as json
   http.HandleFunc("/api/items", apiItemsHandler)
+  // Below will be API declarations used for plugins
+  http.HandleFunc("/api/ping", apiPingHandler)
 
   // We are wrapping the listen in log.Fatal since it will only ever return an error, but otherwise nil
   log.Fatal(http.ListenAndServe(":" + viper.GetString("server.port"), nil))

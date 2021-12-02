@@ -1,9 +1,9 @@
 <html>
 <head>
   <title>All Items</title>
-  <link rel="stylesheet" type="text/css" href="/assets/css/home.css">
+  <link rel="stylesheet" type="text/css" href="/assets/css/homeNew.css">
 </head>
-<body onload="onload()">
+<body onload="onPageLoad()">
   <div class="heading">
     <div class="titleCard"><h1>GoPage</h1></div>
     <hr class="heading">
@@ -14,24 +14,54 @@
       <button class="btn active" onclick="filterSelection('all')">Show All</button>
     </div>
 
+    <div class="itemContainer">
+      {{range .Items}}
+      <div class="filterDiv {{.Category}}">
+        <div class="item">
+        <a href="{{.Link}}">
+          <div class="itemName">{{.FriendlyName}}</div>
+        </a>
+        {{if .LeftPlugin}}
 
-    {{range .Items}}
-    <div class="filterDiv {{.Category}}">
-      <a href="{{.Link}}">
-        <div>{{.FriendlyName}}</div>
-      </a>
-      <div class="editItem">
-        <a href="/edit/{{.Id}}">
-          <img src="/assets/images/edit.svg">
-        </a>
+        <div class="plugin-left {{.LeftPlugin}}" data-url="{{.Link}}" data-pluginName="{{.LeftPlugin}}">
+
+        </div>
+        {{else}}
+        <div class="plugin-left">
+          <!-- Assigning empty div here to allow grid to function properly without div-less grid items to avoid auto-fill -->
+        </div>
+        {{end}}
+        {{if .CenterPlugin}}
+        <div class="plugin-center {{.CenterPlugin}}" data-url="{{.Link}}" data-pluginName="{{.CenterPlugin}}">
+        </div>
+        {{else}}
+        <div class="plugin-center">
+          <!-- Assigning empty div to avoid grid fill -->
+        </div>
+        {{end}}
+        {{if .RightPlugin}}
+        <div class="plugin-right {{.RightPlugin}}" data-url="{{.Link}}" data-pluginName="{{.RightPlugin}}">
+        </div>
+        {{else}}
+        <div class="plugin-right">
+          <!-- Assinging empty div to avoid grid fill -->
+        </div>
+        {{end}}
+
+        <div class="editItem">
+          <a href="/edit/{{.Id}}">
+            <img src="/assets/images/edit.svg">
+          </a>
+        </div>
+        <div class="deleteItem">
+          <a href="PleaseEnableJavascript.html" onclick="modalDelete( {{.Id}} );return false;">
+            <img src="/assets/images/trash-2.svg">
+          </a>
+        </div>
+        </div>
       </div>
-      <div class="deleteItem">
-        <a href="PleaseEnableJavascript.html" onclick="modalDelete( {{.Id}} );return false;">
-          <img src="/assets/images/trash-2.svg">
-        </a>
-      </div>
+      {{end}}
     </div>
-    {{end}}
   </div>
 
   <div class="new-button-container">
@@ -50,10 +80,12 @@
 
   <footer>
     <img src="/assets/images/github-white.svg">
-    <p><a href="https://github.com">Source Code</a></p>
+    <p><a href="https://github.com/confused-Techie/GoPage">Source Code</a></p>
     <img src="/assets/images/git-branch-white.svg">
-    <p><a href="https://github.com">Contribute</a></p>
+    <p><a href="https://github.com/confused-Techie/GoPage">Contribute</a></p>
   </footer>
+  <script src="/assets/js/pluginLoad.js"></script>
   <script src="/assets/js/home.js"></script>
+  <!--<script src="/plugins/statusCheck/main.js"></script>-->
 </body>
 </html>

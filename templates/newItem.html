@@ -14,14 +14,25 @@
       <input type="url" name="link" placeholder="https://www.my-favourite-site.com"/><br><br>
       <label>Enter Category</label><br>
       <input list="current-category" type="text" name="category" /><br><br>
+      <label>Choose your Left Plugin</label><br>
+      <input list="available-plugins" type="text" name="leftPlugin" /><br><br>
+      <label>Choose your Center Plugin</label><br>
+      <input list="available-plugins" type="text" name="centerPlugin" /><br><br>
+      <label>Choose your Right Plugin</label><br>
+      <input list="available-plugins" type="text" name="rightPlugin" /><br><br>
       <button id="goBack" class="goBack" type="button">Go Back</button>
       <input type="submit" value="Submit">
 
       <datalist id="current-category">
 
       </datalist>
+
+      <datalist id="available-plugins">
+
+      </datalist>
     </form>
   </div>
   <script src="/assets/js/form.js"></script>
+  <script type="text/javascript" src="/plugins/installedPlugins.json"></script>
 </body>
 </html>

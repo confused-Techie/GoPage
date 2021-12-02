@@ -1,0 +1,10 @@
+{
+  "name": "statusCheck",
+  "version": "0.1",
+  "description": "Simple way to see if the address is currently reachable",
+  "mainDir": "/statusCheck/",
+  "main": "main.js",
+  "type": "item",
+  "author": "confused-Techie",
+  "license": "ISC"
+}
