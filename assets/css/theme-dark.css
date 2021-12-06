@@ -32,7 +32,12 @@ be added. And along with each revision, will be a CSS version revision.
   --undo-action-back-drop-colour: #261499;
   --undo-action-text-colour: white;
 
+  --destroy-action-back-drop-colour: #b01919;
+  --destroy-action-text-colour: white;
+
   --modal-back-drop-colour: #2b2b2b;
+
+  --error-action-back-drop-colour: #b01919;
 
   /* Settings more specific to the HomePage */
   --category-selector-back-drop-colour: #242424;
@@ -46,5 +51,7 @@ be added. And along with each revision, will be a CSS version revision.
   /* The following will be special to the settings page */
   --settings-seperator-border-bottom: 2px solid black;
 
-
+  /* Specific to Forms editPage/newItem */
+  --form-back-drop-colour: #2b2b2b;
+  --form-text-colour: white;
 }

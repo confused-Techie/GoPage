@@ -14,7 +14,7 @@
 .plugin-item-container {
   width: 100%;
 
-  background-color: #2b2b2b;
+  background-color: var(--card-back-drop-colour);
   text-align: center;
 
   border-radius: 3px;
@@ -89,7 +89,8 @@
 }
 
 .plugin-uninstall {
-  background-color: #b01919;
+  background-color: var(--destroy-action-back-drop-colour);
+  color: var(--destroy-action-text-colour);
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -98,7 +99,8 @@
 }
 
 .plugin-install {
-  background-color: #661294;
+  background-color: var(--create-action-back-drop-colour);
+  color: var(--create-action-text-colour);
   border: none;
   border-radius: 4px;
   cursor: pointer;
