@@ -1,0 +1,86 @@
+.settings-container {
+  width: 80%;
+  text-align: center;
+  border-radius: 3px;
+  padding; 20px;
+  margin: auto;
+}
+
+.seperator {
+  text-align: center;
+  border-bottom: var(--settings-seperator-border-bottom);
+}
+
+.settingsContainerSummary {
+  width: 100%;
+  background-color: var(--card-back-drop-colour);
+  text-align: center;
+  border-radius: 3px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-bottom: 20px;
+  padding-top: 15px;
+  padding-right: 5px;
+  padding-left: 5px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.server-settings {
+  grid-column: 1;
+}
+
+.host-settings {
+  grid-column: 2;
+}
+
+.shortcut-list-item-container {
+  width: 100%;
+  background-color: var(--card-back-drop-colour);
+  text-align: center;
+  border-radius: 3px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-bottom: 20px;
+  padding-top: 15px;
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.shortcut-list-item {
+  display: grid;
+  grid-template-columns: 1fr 50% 1fr;
+}
+
+.shortcut-list-title {
+  grid-column: 1;
+  grid-row: 1;
+  margin-right: auto;
+  margin-left: auto;
+  font-size: 2vw;
+  align-self: center;
+}
+
+.shortcut-list-description {
+  grid-column: 2;
+  grid-row: 1;
+  margin-right: auto;
+  margin-left: auto;
+  font-size: 1.5vw;
+  align-self: center;
+}
+
+.shortcut-list-launch {
+  grid-column: 3;
+  grid-row: 1;
+
+  background-color: var(--create-action-back-drop-colour);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 10px;
+  margin: 10px;
+
+  align-self: center;
+}

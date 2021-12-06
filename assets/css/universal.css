@@ -1,0 +1,75 @@
+body {
+  /* Styles applied to the entire body */
+  background-color: var(--back-drop-colour);
+  /*background-color: #1a1a1a;*/
+  color: var(--body-text-colour);
+  /* Colour of the text */
+  margin-top: 0;
+  margin-left: 0;
+  margin-right: 0;
+  /* remove user-agent margins to allow element to fill to edge of page */
+}
+
+a {
+  /* Targets all links on the page */
+  color: var(--link-text-colour);
+}
+
+.heading {
+  background-color: var(--heading-back-drop-colour);
+  text-align: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.settingsIcon {
+  grid-column: 1;
+  grid-row: 1;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.settingsIcon img {
+  width: 35px;
+  height: auto;
+}
+
+.titleCard {
+  background-color: inherit;
+  color: inherit;
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.timeStamp {
+  background-color: inherit;
+  color: inherit;
+  vertical-align: bottom;
+  grid-column: 3;
+  grid-row: 1;
+}
+
+hr.heading {
+  border: var(--heading-hr-border);
+}
+
+footer {
+  /* The DOM element footer */
+  border-top: var(--footer-border-top);
+  text-align: center;
+  padding: 5px; /* space around the content within its DIV */
+  background-color: var(--footer-back-drop-colour);
+  color: var(--footer-text-colour);
+  position: fixed;  /* removes the footer from the normal document flow.
+        No space will be made for this element, having it in the same place on every page. */
+  bottom: 0;   /* bottom, top, left, right; determine its location within the page */
+  left: 0;
+  width: 100%;  /* Ensures the item takes the entire width of the page */
+}
+
+footer p {
+  /* text inside the DOM element footer */
+  display: inline;  /* Allows the text to be side by side */
+  margin-right: 10px; /* Spacing outside the text element DIV
+    to give them space between multiple text items to breath */
+}

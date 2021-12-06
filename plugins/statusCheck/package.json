@@ -1,10 +1,22 @@
 {
   "name": "statusCheck",
+  "friendlyName": "Status Check",
   "version": "0.1",
   "description": "Simple way to see if the address is currently reachable",
   "mainDir": "/statusCheck/",
   "main": "main.js",
   "type": "item",
+  "config": "true",
+  "options": {
+    "updateFrequency": "300000"
+  },
   "author": "confused-Techie",
-  "license": "ISC"
+  "license": "ISC",
+  "icon": {
+    "available": true,
+    "type": "raw",
+    "style": "GreenCircle",
+    "symbol": "Checkmark"
+  },
+  "link": "https://github.com/confused-Techie/GoPage"
 }

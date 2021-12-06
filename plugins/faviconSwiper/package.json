@@ -1,0 +1,18 @@
+{
+  "name": "faviconSwiper",
+  "friendlyName": "Favicon Swiper",
+  "version": "0.1",
+  "description": "Retreive Favicons Via Google APIs",
+  "mainDir": "/faviconSwiper/",
+  "main": "main.js",
+  "type": "item",
+  "config": "false",
+  "author": "confused-Techie",
+  "link": "https://github.com/confused-Techie/GoPage",
+  "license": "ISC",
+  "icon": {
+    "available": true,
+    "type": "image",
+    "src": "/assets/images/globe.svg"
+  }
+}

@@ -21,6 +21,7 @@ type DirectoriesConfigurations struct {
   StaticAssets string
   Templates string
   Data string
+  Plugin string
 }
 
 func LoadConfig(path string) (config Config, err error) {

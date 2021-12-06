@@ -6,3 +6,4 @@ directories:
   templates: './templates/'
   data: './list.json'
   plugin: './plugins/'
+  setting: './settings/'

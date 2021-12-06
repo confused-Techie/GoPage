@@ -37,6 +37,21 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
   t.Execute(w, au)
 }
 
+func settingsHandler(w http.ResponseWriter, r *http.Request) {
+  au := model.ServSettingGet()
+  t, err := template.ParseFiles(viper.GetString("directories.templates") + "/settings.html")
+  checkError(err)
+  t.Execute(w, au)
+}
+
+func pluginRepoHandler(w http.ResponseWriter, r *http.Request) {
+  //resp := apiFunc.GetInstalledPluginsList()
+  resp := apiFunc.GetPluginData()
+  t, err := template.ParseFiles(viper.GetString("directories.templates") + "/pluginRepo.html")
+  checkError(err)
+  t.Execute(w, resp)
+}
+
 func updateHandler(w http.ResponseWriter, r *http.Request) {
   updateItem := &model.Item{}
 
@@ -212,6 +227,22 @@ func apiPingHandler(w http.ResponseWriter, r *http.Request) {
   json.NewEncoder(w).Encode(resp)
 }
 
+func apiHostNameHandler(w http.ResponseWriter, r *http.Request) {
+  resp, err := apiFunc.HostSettingGet()
+  checkError(err)
+  json.NewEncoder(w).Encode(resp)
+}
+func apiHostOSHandler(w http.ResponseWriter, r *http.Request) {
+  resp := apiFunc.HostOSGet()
+  json.NewEncoder(w).Encode(resp)
+}
+func apiInstalledPluginsHandler(w http.ResponseWriter, r *http.Request) {
+  resp := apiFunc.GetInstalledPluginsList()
+  //fmt.Println(resp)
+  json.NewEncoder(w).Encode(resp)
+
+}
+
 func main() {
   // Here we can add all viper configuration file/env file setup
   // this will grab the proper config location, home of windows or linux, or if dev flag used the local dir
@@ -229,6 +260,8 @@ func main() {
   fmt.Println("Server Port: \t", config.Server.Port)
 
   http.HandleFunc("/", homeHandler)
+  http.HandleFunc("/settings", settingsHandler)
+  http.HandleFunc("/pluginrepo", pluginRepoHandler)
 
   http.HandleFunc("/update/", updateHandler)
   http.HandleFunc("/delete/", deleteHandler)
@@ -247,6 +280,9 @@ func main() {
   http.HandleFunc("/api/items", apiItemsHandler)
   // Below will be API declarations used for plugins
   http.HandleFunc("/api/ping", apiPingHandler)
+  http.HandleFunc("/api/hostname", apiHostNameHandler)
+  http.HandleFunc("/api/hostos", apiHostOSHandler)
+  http.HandleFunc("/api/getinstalledplugins", apiInstalledPluginsHandler)
 
   // We are wrapping the listen in log.Fatal since it will only ever return an error, but otherwise nil
   log.Fatal(http.ListenAndServe(":" + viper.GetString("server.port"), nil))

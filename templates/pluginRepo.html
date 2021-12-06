@@ -1,0 +1,131 @@
+<html>
+<head>
+  <title>Plugin Repo</title>
+  <link rel="stylesheet" type="text/css" href="/assets/css/theme-dark.css">
+  <link rel="stylesheet" type="text/css" href="/assets/css/universal.css">
+  <link rel="stylesheet" type="text/css" href="/assets/css/pluginRepo.css">
+</head>
+<body>
+  <div class="heading">
+    <div class="settingsIcon">
+      <a href="/settings"><img src="/assets/images/settings-white.svg"></a>
+    </div>
+    <div class="titleCard"><a href="/"><h1>GoPage</h1></a></div>
+    <div class="timeStamp" id="timeStamp"> </div>
+    <hr class="heading">
+  </div>
+
+  <div class="seperator"> <h2>Installed</h2></div>
+
+  <div class="plugins-list">
+    {{range .Installed.PluginItem}}
+      <div class="plugin-item-container">
+        <div class="plugin-item">
+          <div class="plugin-icon">
+            {{if .Icon.Available}}
+              {{if eq .Icon.Type "image"}}
+                <img src="{{.Icon.Source}}">
+              {{end}}
+              {{if eq .Icon.Type "raw"}}
+                {{if eq .Icon.Style "GreenCircle"}}
+                  <span style="height: 25px; width: 25px; border-radius: 50%; display: inline-block; background-color: green;">
+                {{else}}
+                  <span>
+                {{end}}
+                {{if eq .Icon.Symbol "Checkmark"}}
+                  &#10004;
+                {{end}}
+                </span>
+              {{end}}
+            {{end}}
+          </div>
+          <div class="plugin-title">
+            <a href="{{.Link}}">{{.FriendlyName}}</a>
+          </div>
+          <div class="plugin-version">
+            Version: {{.Version}}
+          </div>
+          <div class="plugin-description">
+            {{.Description}}
+          </div>
+          <div class="plugin-author">
+            &#64; {{.Author}}
+          </div>
+          <div class="plugin-license">
+            License:
+            {{.License}}
+          </div>
+          <div class="plugin-action">
+            <div class="plugin-uninstall">
+              <img src="/assets/images/minus-circle.svg">
+            </div>
+          </div>
+        </div>
+      </div>
+    {{end}}
+  </div>
+
+  <div class="seperator"> <h2>Available</h2></div>
+
+  <div class="plugins-list">
+    {{range .Available.AvailablePluginItem}}
+    <div class="plugin-item-container">
+      <div class="plugin-item">
+        <div class="plugin-icon">
+          {{if .Icon.Available}}
+            {{if eq .Icon.Type "image"}}
+              <img src="{{.Icon.Source}}">
+            {{end}}
+            {{if eq .Icon.Type "raw"}}
+              {{if eq .Icon.Style "GreenCircle"}}
+                <span style="height: 25px; width: 25px; border-radius: 50%; display: inline-block; background-color: green;">
+              {{else}}
+                <span>
+              {{end}}
+              {{if eq .Icon.Symbol "Checkmark"}}
+                &#10004;
+              {{end}}
+              </span>
+            {{end}}
+          {{end}}
+        </div>
+        <div class="plugin-title">
+          <a href="{{.Link}}">{{.FriendlyName}}</a>
+        </div>
+        <div class="plugin-version">
+          Version: {{.Version}}
+        </div>
+        <div class="plugin-description">
+          {{.Description}}
+        </div>
+        <div class="plugin-author">
+          &#64; {{.Author}}
+        </div>
+        <div class="plugin-license">
+          License: {{.License}}
+        </div>
+        <div class="plugin-action">
+          {{if .Installed}}
+          <div class="plugin-uninstall">
+            <img src="/assets/images/minus-circle.svg">
+          </div>
+          {{else}}
+          <div class="plugin-install">
+            <img src="/assets/images/download.svg">
+          </div>
+          {{end}}
+        </div>
+      </div>
+    </div>
+    {{end}}
+  </div>
+
+  <footer>
+    <img src="/assets/images/github-white.svg">
+    <p><a href="https://github.com/confused-Techie/GoPage">Source Code</a></p>
+    <img src="/assets/images/git-branch-white.svg">
+    <p><a href="https://github.com/confused-Techie/GoPage">Contribute</a></p>
+  </footer>
+  <script src="/assets/js/universal.js"></script>
+</body>
+</html>

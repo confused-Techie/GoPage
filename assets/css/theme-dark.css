@@ -1,0 +1,50 @@
+/* This is intended to create a simple way to change the superficial
+feel of GoPage, allowing easy modification of the theme.
+While more advanced option are not made available through this they can always
+be added. And along with each revision, will be a CSS version revision.
+*/
+
+/* Revision: 0.1 */
+
+:root {
+  /* The following will be generally universally used items */
+  --back-drop-colour: #1a1a1a;
+  --body-text-colour: white;
+
+  --link-text-colour: white;
+
+  --heading-back-drop-colour: #0d0d0d;
+  --heading-hr-border: 2px solid black;
+
+  --footer-border-top: 2px solid black;
+  --footer-back-drop-colour: #0d0d0d;
+  --footer-text-colour: white;
+
+  /* The following is themeing for common elements across pages */
+  --card-back-drop-colour: #2b2b2b;
+
+  --create-action-back-drop-colour: #661294;
+  --create-action-text-colour: white;
+
+  --confirm-action-back-drop-colour: #007523;
+  --confirm-action-text-colour: white;
+
+  --undo-action-back-drop-colour: #261499;
+  --undo-action-text-colour: white;
+
+  --modal-back-drop-colour: #2b2b2b;
+
+  /* Settings more specific to the HomePage */
+  --category-selector-back-drop-colour: #242424;
+  --category-selector-text-colour: white;
+
+  --category-selector-button-back-drop: inherit;
+  --category-selector-button-text: inherit;
+  --category-selector-button-hover-bc: #1c1c1c;
+  --category-selector-button-active-bc: #171616;
+
+  /* The following will be special to the settings page */
+  --settings-seperator-border-bottom: 2px solid black;
+
+
+}

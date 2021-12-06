@@ -1,8 +1,3 @@
-//var script = document.createElement("script"); //create a script DOM node
-//script.src = "/plugins/statusCheck/main.js";
-//document.head.appendChild(script); // add it to the end of the head section
-
-// TODO: load these depending on whats been installed
 
 checkPlugins();
 
@@ -18,15 +13,10 @@ function checkPlugins() {
           .then(packData => {
             var script = document.createElement("script");
             script.src = `/plugins${packData.mainDir}${packData.main}`;
+            // Importing the JS as a module here, ensures that any functions or global variables are not in the global scope
+            script.type = "module";
             document.body.appendChild(script);
           });
-        //var script = document.createElement("script");
-        //script.src = `/plugins${element.loadScript}main.js`;
-        //document.body.appendChild(script);
-      })
+      });
     });
-}
-
-function returnPluginItems(pluginName) {
-  return document.getElementsByClassName(pluginName);
 }

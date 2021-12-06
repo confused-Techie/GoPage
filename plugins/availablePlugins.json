@@ -1,0 +1,35 @@
+[
+  {
+    "name": "statusCheck",
+    "friendlyName": "Status Check",
+    "version": "0.1",
+    "description": "Simple way to see if the address is currently reachable.",
+    "type": "item",
+    "author": "confused-Techie",
+    "license": "ISC",
+    "link": "https://github.com/confused-Techie/GoPage",
+    "installed": true,
+    "icon": {
+      "available": true,
+      "type": "raw",
+      "style": "GreenCircle",
+      "symbol": "Checkmark"
+    }
+  },
+  {
+    "name": "faviconSwiper",
+    "friendlyName": "Favicon Swiper",
+    "version": "0.1",
+    "description": "Retrieve Favicons Via Google APIs.",
+    "type": "item",
+    "author": "confused-Techie",
+    "license": "ISC",
+    "link": "https://github.com/confused-Techie/GoPage",
+    "installed": false,
+    "icon": {
+      "available": true,
+      "type": "image",
+      "src": "/assets/images/globe.svg"
+    }
+  }
+]

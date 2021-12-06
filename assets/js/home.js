@@ -3,9 +3,14 @@ window.addEventListener('DOMContentLoaded', (event) => {
   console.log('DOM fully loaded and parsed');
 });
 
+//setInterval(loadTimeStamp, 1000);
+
 function onPageLoad() {
   console.log('onPageLoad Fired..');
   // first in the onload we can use the built in api call to get all json objects, to then create the other filter buttons
+
+  updaterFunc();
+
   fetch('/api/items')
     .then(response => response.json())
     .then(data => {
@@ -47,6 +52,11 @@ function filterSelection(c) {
     removeClass(filterDivElement[i], "show");
     if (filterDivElement[i].className.indexOf(c) > -1) addClass(filterDivElement[i], "show");
   }
+}
+
+function updaterFunc() {
+  // This function is purely for making any updates as needed.
+
 }
 
 function removeClass(element, name) {
