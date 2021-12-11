@@ -1,0 +1,21 @@
+{
+  "name": "jellyfinApi",
+  "friendlyName": "Jellyfin API",
+  "version": "0.1",
+  "description": "Get infromation about your Jellyfin Instance.",
+  "type": "item",
+  "author": "confused-Techie",
+  "license": "TBD",
+  "link": "https://github.com/confused-Techie/GoPage",
+  "installed": true,
+  "config": true,
+  "mainDir": "/jellyfinApi/",
+  "main": "main.js",
+  "options": {
+    "explain": "temp",
+    "autofill": "url=http://your-server:port;apiKey=yourKey;"
+  },
+  "icon": {
+    "available": false
+  }
+}

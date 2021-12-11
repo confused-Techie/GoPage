@@ -17,45 +17,82 @@ async function favInit() {
 
     var itemURL = elements[i].getAttribute('data-url');
 
-    await favLogic2(itemURL)
-      .then(res => {
-        elements[i].innerHTML = res;
-      })
-      .catch(err => {
+    //checkDefined(itemURL)
+      //.then(res => {
+      //  console.log(res);
+      //})
+      //.catch(err => {
+      //  console.log(err);
+      //});
+
+    //await favLogic2(itemURL)
+      //.then(res => {
+      //  elements[i].innerHTML = res;
+      //})
+      //.catch(err => {
         // Since if this fails I don't want to set a failed img preview as the favicon.
         // I will log and do nothing.
-        console.log(`Unable to grab Favicon for: ${itemURL}`);
-      });
+      //  console.log(`Unable to grab Favicon for: ${itemURL}`);
+      //});
+      await checkDefined(itemURL)
+        .then(res => {
+          elements[i].innerHTML = res;
+        })
+        .catch(err => {
+          console.log(err);
+
+          checkAPI(itemURL)
+            .then(res => {
+              elements[i].innerHTML = res;
+            })
+            .catch(err => {
+              console.log(err);
+              console.log(`Unable to grab Favicon for: ${itemURL}`);
+            });
+        });
   }
 }
 
-function favLogic(url) {
-  return new Promise(function (resolve, reject) {
-    try {
-
-      // We will first try a fetch, to see if this is successful.
-      fetch(`https://s2.googleusercontent.com/s2/favicons?domain=${url}`)
-        .then(response => {
-          if (!response.ok) {
-            reject(response);
-          } else {
-            // Here we know the response is successful, and can return.
-            var tmpHtml = `<img src= 'https://s2.googleusercontent.com/s2/favicons?domain=${url}'></img>`;
-            resolve(tmpHtml);
-          }
-        });
-    } catch(err) {
-      reject(err);
-    }
-  });
-}
-
-function favLogic2(url) {
+function checkAPI(url) {
   return new Promise(function (resolve, reject) {
 
     // Google CORS policy won't let me check the response. But even if I did, Google still reports
-    // a fine response just providing a default not favicon icon for unknown sites. 
+    // a fine response just providing a default not favicon icon for unknown sites.
     var tmpHtml = `<img src= 'https://s2.googleusercontent.com/s2/favicons?domain=${url}&sz=32' style="width: 32px; height: auto;"></img>`;
     resolve(tmpHtml);
+  });
+}
+
+function checkDefined(url) {
+  return new Promise(function (resolve, reject) {
+
+    // This will allow the ability to quickly check many different locations for favicons.
+    // And will use image preloading to avoid any cors errors
+    var methodSrc = [
+      `${url}/favicon.ico`,
+      `${url}/web/favicon.ico`  // this was added especially for jellyfin instances
+    ];
+
+    methodSrc.forEach((element, index) => {
+      var img = new Image();
+
+      img.src = element;
+
+      img.onload = function() {
+        console.log(`Favicon Success: Method: ${element}; Url: ${url}`);
+        var tmpHTML = `<img src= '${element}' style="width: 32px; height: auto;"></img>`;
+        resolve(tmpHTML);
+      }
+
+      img.onerror = function() {
+        //console.log(`Favicon Failed: Method: ${element}; Url: ${url}`);
+
+        if (index = methodSrc.length -1) {
+          // This will be needed to break if all methods fail
+          reject(`Unable to find Favicon for ${url} with any defined methods;`);
+        }
+      }
+    });
+
   });
 }

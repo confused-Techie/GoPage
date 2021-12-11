@@ -17,12 +17,25 @@
       <input list="current-category" type="text" name="category" value="{{.Category}}"/><br><br>
       <label class="readonly_id">Enter the same ID:</label>
       <input type="text" name="id" value="{{.Id}}" readonly class="readonly_id"/><br><br>
+
       <label>Choose your Left Plugin</label><br>
-      <input list="available-plugins" type="text" name="leftPlugin"><br><br>
+      <input oninput="onDataListInput(this)" list="available-plugins" type="text" name="leftPlugin" value="{{.LeftPlugin}}"><br><br>
+      <label class="readonly_id" id="leftPluginLabel">Define any Options Needed for your Left Plugin.</label><br>
+      <input class="readonly_id" readonly type="text" name="leftPluginOptions" id="leftPluginOptions" value="{{.LeftPluginOptions}}"/><br><br>
+      <div class="plugin-example readonly_id" id="left-plugin-example"> </div>
+
       <label>Choose your Center Plugin</label><br>
-      <input list="available-plugins" type="text" name="centerPlugin"><br><br>
+      <input oninput="onDataListInput(this)" list="available-plugins" type="text" name="centerPlugin" value="{{.CenterPlugin}}"><br><br>
+      <label class="readonly_id" id="centerPluginLabel">Define any Options Needed for your Center Plugin.</label><br>
+      <input class="readonly_id" readonly type="text" name="centerPluginOptions" id="centerPluginOptions" value="{{.CenterPluginOptions}}"/><br><br>
+      <div class="plugin-example" id="center-plugin-example"> </div>
+
       <label>Choose your Right Plugin</label><br>
-      <input list="available-plugins" type="text" name="rightPlugin"><br><br>
+      <input oninput="onDataListInput(this)" list="available-plugins" type="text" name="rightPlugin" value="{{.RightPlugin}}"><br><br>
+      <label class="readonly_id" id="rightPluginLabel">Define any Options Needed for your Right Plugin.</label><br>
+      <input class="readonly_id" readonly type="text" name="rightPluginOptions" id="rightPluginOptions" value="{{.RightPluginOptions}}"/><br><br>
+      <div class="plugin-example" id="right-plugin-example"> </div>
+
       <button id="goBack" class="goBack" type="button">Go Back</button>
       <input type="submit" value="Save">
 

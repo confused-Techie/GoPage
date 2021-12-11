@@ -1,43 +1,33 @@
-// This is the first plugin written for GoPage
-// It's simple and goal is to test weather a website is available or not.
+// This is a complete rebuild of main.js from the previous instance
+// After the methodolagy of the plugins has been worked out this can be refined
+// and allow better configuration
+
+// This is used to start the function essentially.
+apiInit();
 
 var updateFrequency = 300000;
 
-
-// This is used to call the function that starts the logic of the plugin
-apiInit();
-
-// The below lets each timeout be effected by how long the current load is.
-var refreshFunc = function() {
-  apiInit();
-  setTimeout(refreshFunc, updateFrequency);
-}
-setTimeout(refreshFunc, updateFrequency);
-
-// This is the main function for the plugin
 async function apiInit() {
-  console.log('apiInit Called...');
+  console.log('Status Check Started...');
 
-
-  // Calling returnPluginItems returns an HTML Collection of all Items that use your plugin
-  //var elements = returnPluginItems('statusCheck');
+  // Here we can use the built in ReturnItems API,
+  // This returns an HTML Collection of all Items that use this plugin
   var elements = pluginAPI.ReturnItems('statusCheck');
-  console.log(elements);
 
-  // Since HTML Collection has no forEach Method, we use a standard for loop here
+  // Since HTML Collection has no forEach Method, we will use a standard for loop
   for (var i = 0; i < elements.length; i++) {
 
-    // Then to allow configuration options for an item.
-    //elements[i].onclick = "statusCheckConfig();return false";
-    //elements[i].setAttribute("onClick", "statusCheckConfig();return false");
-    // Adding an event listener since plugins don't have access to the global namespace,
-    // and will be unable to set onclick on ANY elements.
-    elements[i].addEventListener('click', statusCheckConfig);
-
-    // getAttribute('data-url') makes the URL of the item easily available for the plugin. Letting you operate on it as needed.
+    // Now we are able to grab any attribute available for our plugin
+    // data-url is the url of the item we are attached to
     var itemURL = elements[i].getAttribute('data-url');
+    // data-options is the raw value of the options available for our plugin
+    // This will be in the exact format of options.autofill
+    var rawOptions = elements[i].getAttribute('data-options');
+    // But we can use another buit in method to turn this into JSON data
+    var parseOptions = pluginAPI.ParseConfig(rawOptions);
 
-    await statusCheckLogic(itemURL)
+    // now we can spawn our main function giving it this data
+    await statusCheckLogic(itemURL, parseOptions)
       .then(res => {
         elements[i].innerHTML = res;
       })
@@ -47,22 +37,35 @@ async function apiInit() {
   }
 }
 
-function statusCheckLogic(url) {
-  return new Promise(function (resolve, reject) {
+function statusCheckLogic(url, config) {
+  return new Promise(function(resolve, reject) {
     try {
-      console.log(`statusCheck Called: ${url}`);
-      console.log(`/api/ping?url=${url}`);
-      // Using the built in API of GoPage Ping
-      // We are able to provide the query url and receive a statusCode back, and work with as needed
-      // Here this is simply then returning green checkmark if 200 and red X for everything else
+      // Here we will let the available status codes be an easily accessed index
+      // while accounting for the possiblity of this being blank and reverting to default.
+      var acceptedStatusCode = [ 200 ];
+      var tempAcceptedStatusCode = config.statusCodes ? config.statusCodes : [ 200 ];
+      // But we can't stop here. Since this data is a string, this leaves it as a string. Making indexOf return partial matches.
+      // We will need to conver this to an array.
+      var splitCodes = tempAcceptedStatusCode.split(',');
+      var acceptedStatusCode = [];
+      splitCodes.forEach((element, index) =>{
+        // Then we want to remove the normal brackets.
+        // conver the item to an int, since we don't want to push a string to the array,
+        // and finally add that to the array for checking
+        var eleRem1 = element.replace('[', '');
+        var eleRem2 = eleRem1.replace(']', '');
+        var eleInt = parseInt(eleRem2);
+        acceptedStatusCode.push(eleInt);
+      });
+
       fetch(`/api/ping?url=${url}`)
         .then(response => response.json())
         .then(data => {
-          if (data == 200) {
-            // successful status code
+          // This lets the user per item define acceptible status codes.
+          if (acceptedStatusCode.indexOf(data) != -1) {
             resolve(`<span style="height: 25px; width: 25px; border-radius: 50%; display: inline-block; background-color: green; cursor: pointer;">&#10004;</span>`);
+
           } else {
-            // unsuccessful status code
             resolve(`<span style="height: 25px; width: 25px; border-radius: 50%; display: inline-block; background-color: red; cursor: pointer">&#10006</span>`);
           }
         });
@@ -72,44 +75,11 @@ function statusCheckLogic(url) {
   });
 }
 
-// This function has been attached as the onclick handler for the plugin
-// And we will use it to provide the pluginAPI with our configuration values.
-
-
-function statusCheckConfig() {
-  var configJson = `{
-    "title": "Status Check Options",
-    "options": [
-      {
-      "text": "How often to update Staus?",
-      "id": "statusCheckConfig-updateFrequency",
-      "inputType": "number",
-      "currentValue": ${updateFrequency}
-      }
-    ]
-  }`;
-
-  //createConfigMenu(configJson);
-  pluginAPI.CreateConfigMenu(configJson);
-}
-
-document.addEventListener('pluginAPI.configSetEvt', function(event) {
-  console.log("Status Check Event Fired from Namespace!");
-  console.log(event.detail);
-
-  // Here we want to check for any changes to our data. But since this is a global event
-  // we also need to ensure its OUR data being saved.
-  var tempEventDetail = JSON.parse(event.detail);
-  console.log(tempEventDetail.id);
-  try {
-    if (tempEventDetail.id == "statusCheckConfig-updateFrequency") {
-      updateFrequency = tempEventDetail.value;
-      console.log(updateFrequency);
-    } // else we can check for other config values of ours, or if the config value is not recognized, its not for us.
-  } catch(err) {
-    // An error can occur here if the format is not whats expected from us. Likely meaning the message
-    // wasn't meant for us at all.
-  }
-
-
-});
+// This below will ensure after the first time run to run again after the updateTime,
+// Then within refreshFunc it asks it to refresh again after the updateTime
+// Ensuring every 5 minutes this is updated 
+var refreshFunc = function() {
+  apiInit();
+  setTimeout(refreshFunc, updateFrequency);
+};
+setTimeout(refreshFunc, updateFrequency);

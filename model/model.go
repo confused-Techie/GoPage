@@ -15,8 +15,11 @@ type Item struct {
   Link string `json:"link"`
   Category string `json:"category"`
   LeftPlugin string `json:"left-plugin"`
+  LeftPluginOptions string `json:"left-plugin-options"`
   CenterPlugin string `json:"center-plugin"`
+  CenterPluginOptions string `json:"center-plugin-options"`
   RightPlugin string `json:"right-plugin"`
+  RightPluginOptions string `json:"right-plugin-options"`
 }
 
 type AllItems struct {

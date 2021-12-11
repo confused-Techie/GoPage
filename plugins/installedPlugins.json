@@ -1,8 +1,66 @@
 [
   {
-    "name": "statusCheck"
+    "name": "statusCheck",
+    "friendlyName": "Status Check",
+    "version": "0.2",
+    "description": "Simple way to see if the address is currently reachable.",
+    "type": "item",
+    "author": "confused-Techie",
+    "license": "TBD",
+    "link": "https://github.com/confused-Techie/GoPage",
+    "installed": true,
+    "config": true,
+    "mainDir": "/statusCheck/",
+    "main": "main.js",
+    "options": {
+      "explain": "An array of accepted Status Codes. List of all Acceptible Status Codes within the brackets.",
+      "autofill": "statusCodes=[200];"
+    },
+    "icon": {
+      "available": true,
+      "type": "raw",
+      "style": "GreenCircle",
+      "symbol": "Checkmark"
+    }
   },
   {
-    "name": "faviconSwiper"
+    "name": "faviconSwiper",
+    "friendlyName": "Favicon Swiper",
+    "version": "0.2",
+    "description": "Retreive Favicons via known methods or Google APIs as a fallback.",
+    "type": "item",
+    "author": "confused-Techie",
+    "license": "TBD",
+    "link": "https://github.com/confused-Techie/GoPage",
+    "installed": true,
+    "config": false,
+    "mainDir": "/faviconSwiper/",
+    "main": "main.js",
+    "icon": {
+      "available": true,
+      "type": "image",
+      "src": "/assets/images/globe.svg"
+    }
+  },
+  {
+    "name": "jellyfinApi",
+    "friendlyName": "Jellyfin API",
+    "version": "0.1",
+    "description": "Get infromation about your Jellyfin Instance.",
+    "type": "item",
+    "author": "confused-Techie",
+    "license": "TBD",
+    "link": "https://github.com/confused-Techie/GoPage",
+    "installed": true,
+    "config": true,
+    "mainDir": "/jellyfinApi/",
+    "main": "main.js",
+    "options": {
+      "explain": "temp",
+      "autofill": "url=http://your-server:port;apiKey=yourKey;"
+    },
+    "icon": {
+      "available": false
+    }
   }
 ]

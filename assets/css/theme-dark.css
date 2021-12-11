@@ -54,4 +54,5 @@ be added. And along with each revision, will be a CSS version revision.
   /* Specific to Forms editPage/newItem */
   --form-back-drop-colour: #2b2b2b;
   --form-text-colour: white;
+  --form-example-colour: grey;
 }

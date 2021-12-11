@@ -67,8 +67,11 @@ func updateHandler(w http.ResponseWriter, r *http.Request) {
   updateItem.Link = r.FormValue("link")
   updateItem.Category = r.FormValue("category")
   updateItem.LeftPlugin = r.FormValue("leftPlugin")
+  updateItem.LeftPluginOptions = r.FormValue("leftPluginOptions")
   updateItem.CenterPlugin = r.FormValue("centerPlugin")
+  updateItem.CenterPluginOptions = r.FormValue("centerPluginOptions")
   updateItem.RightPlugin = r.FormValue("rightPlugin")
+  updateItem.RightPluginOptions = r.FormValue("rightPluginOptions")
 
   a, errr := strconv.Atoi(r.FormValue("id"))
   checkError(errr)
@@ -91,8 +94,11 @@ func updateHandler(w http.ResponseWriter, r *http.Request) {
       allItms.Items[i].Link = updateItem.Link
       allItms.Items[i].Category = updateItem.Category
       allItms.Items[i].LeftPlugin = updateItem.LeftPlugin
+      allItms.Items[i].LeftPluginOptions = updateItem.LeftPluginOptions
       allItms.Items[i].CenterPlugin = updateItem.CenterPlugin
+      allItms.Items[i].CenterPluginOptions = updateItem.CenterPluginOptions
       allItms.Items[i].RightPlugin = updateItem.RightPlugin
+      allItms.Items[i].RightPluginOptions = updateItem.RightPluginOptions
     }
   }
 
@@ -165,8 +171,11 @@ func newHandler(w http.ResponseWriter, r *http.Request) {
     newItem.Link = r.FormValue("link")
     newItem.Category = r.FormValue("category")
     newItem.LeftPlugin = r.FormValue("leftPlugin")
+    newItem.LeftPluginOptions = r.FormValue("leftPluginOptions")
     newItem.CenterPlugin = r.FormValue("centerPlugin")
+    newItem.CenterPlugin = r.FormValue("centerPluginOptions")
     newItem.RightPlugin = r.FormValue("rightPlugin")
+    newItem.RightPlugin = r.FormValue("rightPluginOptions")
     var err error
     //open file
     file, err := os.OpenFile(viper.GetString("directories.data"), os.O_RDWR, 0644)

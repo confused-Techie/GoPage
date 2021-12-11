@@ -1,22 +1,24 @@
 {
   "name": "statusCheck",
   "friendlyName": "Status Check",
-  "version": "0.1",
-  "description": "Simple way to see if the address is currently reachable",
+  "version": "0.2",
+  "description": "Simple way to see if the address is currently reachable.",
+  "type": "item",
+  "author": "confused-Techie",
+  "license": "TBD",
+  "link": "https://github.com/confused-Techie/GoPage",
+  "installed": true,
+  "config": true,
   "mainDir": "/statusCheck/",
   "main": "main.js",
-  "type": "item",
-  "config": "true",
   "options": {
-    "updateFrequency": "300000"
+    "explain": "An array of accepted Status Codes. List of all Acceptible Status Codes within the brackets.",
+    "autofill": "statusCodes=[200];"
   },
-  "author": "confused-Techie",
-  "license": "ISC",
   "icon": {
     "available": true,
     "type": "raw",
     "style": "GreenCircle",
     "symbol": "Checkmark"
-  },
-  "link": "https://github.com/confused-Techie/GoPage"
+  }
 }

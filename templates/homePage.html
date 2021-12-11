@@ -29,7 +29,7 @@
         </a>
         {{if .LeftPlugin}}
 
-        <div class="plugin-left {{.LeftPlugin}}" data-url="{{.Link}}" data-pluginName="{{.LeftPlugin}}">
+        <div class="plugin-left {{.LeftPlugin}}" data-url="{{.Link}}" data-pluginName="{{.LeftPlugin}}" data-options="{{.LeftPluginOptions}}">
 
         </div>
         {{else}}
@@ -38,7 +38,7 @@
         </div>
         {{end}}
         {{if .CenterPlugin}}
-        <div class="plugin-center {{.CenterPlugin}}" data-url="{{.Link}}" data-pluginName="{{.CenterPlugin}}">
+        <div class="plugin-center {{.CenterPlugin}}" data-url="{{.Link}}" data-pluginName="{{.CenterPlugin}}" data-options="{{.CenterPluginOptions}}">
         </div>
         {{else}}
         <div class="plugin-center">
@@ -46,7 +46,7 @@
         </div>
         {{end}}
         {{if .RightPlugin}}
-        <div class="plugin-right {{.RightPlugin}}" data-url="{{.Link}}" data-pluginName="{{.RightPlugin}}">
+        <div class="plugin-right {{.RightPlugin}}" data-url="{{.Link}}" data-pluginName="{{.RightPlugin}}" data-options="{{.RightPluginOptions}}">
         </div>
         {{else}}
         <div class="plugin-right">
