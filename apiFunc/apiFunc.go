@@ -8,6 +8,8 @@ import (
   "github.com/spf13/viper"
   "io/ioutil"
   "encoding/json"
+  "os/exec"
+  "runtime"
   )
 
 var client = http.Client{
@@ -53,7 +55,8 @@ type AvailablePluginItem struct {
   Type string `json:"type"`
   Author string `json:"author"`
   License string `json:"license"`
-  Link string `json:"link"`
+  InfoLink string `json:"infoLink"`
+  DownloadLink string `json:"downloadLink"`
   Installed bool `json:"installed"`
   Icon PluginIcon `json:"icon"`
 }
@@ -70,7 +73,8 @@ type PluginItem struct {
   Type string `json:"type"`
   Author string `json:"author"`
   License string `json:"license"`
-  Link string `josn:"link"`
+  InfoLink string `json:"infoLink"`
+  DownloadLink string `json:"downloadLink"`
   Icon PluginIcon `json:"icon"`
 }
 
@@ -149,4 +153,78 @@ func GetPluginData() (au *PluginData) {
   resp1 := AvailablePlugins()
   data := &PluginData{resp, resp1}
   return data
+}
+
+
+func CmdTest(src string) string {
+  // get 'go' executable path
+  //goExecutable, _ := exec.LookPath( "go" )
+  // go version command
+  //cmdGoVer := &exec.Cmd {
+  //  Path: goExecutable,
+  //  Args: []string{ goExecutable, "version" },
+  //  Stdout: os.Stdout,
+  //  Stderr: os.Stdout,
+  //}
+
+  // see command represented by 'cmdGoVer'
+  //fmt.Println( cmdGoVer.String() )
+  // run the command
+  //if err := cmdGoVer.Run(); err != nil {
+  //  fmt.Println("Error:", err);
+  //}
+
+  fmt.Println(os.Getenv("OS"))
+  fmt.Println(runtime.GOOS)
+  fmt.Println(src)
+  // construct go version command
+  //cmd := exec.Command( "go", "version" )
+
+  // run command and wait on output
+  //if otuput, err := cmd.Output(); err != nil {
+  //  fmt.Println("Error:", err)
+  //} else {
+  //  fmt.Printf("Otuput: %s\n", otuput)
+  //}
+
+  if runtime.GOOS == "windows" {
+
+    // Knowing this is windows we can craft a command for the windows plugin installer
+    //data := viper.GetString("directories.scripts")
+    cmd := exec.Command( "PowerShell", "-Command", "./scripts/windowsPluginInstaller.ps1", "-source", src )
+    fmt.Println(cmd)
+    if out, err := cmd.Output(); err != nil {
+      fmt.Println("Error:", err)
+    } else {
+      fmt.Printf("Output: %s\n", out)
+
+      return fmt.Sprintf("%s\n", out)
+    }
+  } else if runtime.GOOS == "darwin" {
+    fmt.Println("Fuck you Apple")
+  }
+
+  return "Shit"
+}
+
+func InstallCmd(src string) (string, error) {
+  // Here we can call the scripts to install new commands.
+
+  if runtime.GOOS == "windows" {
+
+    cmd := exec.Command( "PowerShell", "-File", "./scripts/windowsPluginInstaller.ps1", "-source", src, "-dest", viper.GetString("directories.plugin"))
+
+    if out, err := cmd.Output(); err != nil {
+      fmt.Println("Error:", err)
+      return "", err
+    } else {
+      // %s\n here used to format the return of bytes as text, which in main will be encoded as json
+      fmt.Printf("Output: %s\n", out)
+      return fmt.Sprintf("%s\n", out), nil
+    }
+  } else if runtime.GOOS == "darwin" {
+
+  }
+
+  return "Generic Error", nil
 }

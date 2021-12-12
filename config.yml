@@ -7,3 +7,4 @@ directories:
   data: './list.json'
   plugin: './plugins/'
   setting: './settings/'
+  script: './scripts/'

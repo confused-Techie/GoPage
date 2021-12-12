@@ -22,6 +22,7 @@ type DirectoriesConfigurations struct {
   Templates string
   Data string
   Plugin string
+  Script string
 }
 
 func LoadConfig(path string) (config Config, err error) {

@@ -40,7 +40,7 @@
             {{end}}
           </div>
           <div class="plugin-title">
-            <a href="{{.Link}}">{{.FriendlyName}}</a>
+            <a href="{{.InfoLink}}">{{.FriendlyName}}</a>
           </div>
           <div class="plugin-version">
             Version: {{.Version}}
@@ -90,7 +90,7 @@
           {{end}}
         </div>
         <div class="plugin-title">
-          <a href="{{.Link}}">{{.FriendlyName}}</a>
+          <a href="{{.InfoLink}}">{{.FriendlyName}}</a>
         </div>
         <div class="plugin-version">
           Version: {{.Version}}
@@ -110,7 +110,7 @@
             <img src="/assets/images/minus-circle.svg">
           </div>
           {{else}}
-          <div class="plugin-install">
+          <div class="plugin-install" onclick="installPlugin({{.DownloadLink}}, {{.Name}})">
             <img src="/assets/images/download.svg">
           </div>
           {{end}}
@@ -127,5 +127,6 @@
     <p><a href="https://github.com/confused-Techie/GoPage">Contribute</a></p>
   </footer>
   <script src="/assets/js/universal.js"></script>
+  <script src="/assets/js/pluginRepo.js"></script>
 </body>
 </html>

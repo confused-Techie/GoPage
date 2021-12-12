@@ -252,6 +252,20 @@ func apiInstalledPluginsHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func apiInstallPlugin(w http.ResponseWriter, r *http.Request) {
+  keys, ok := r.URL.Query()["source"]
+  if !ok || len(keys[0]) < 1 {
+    log.Println("URL Param 'source' is missing")
+    return
+  }
+  source := keys[0]
+
+  resp, err := apiFunc.InstallCmd(source)
+  checkError(err)
+  fmt.Println("from goPage.go", resp)
+  json.NewEncoder(w).Encode(resp)
+}
+
 func main() {
   // Here we can add all viper configuration file/env file setup
   // this will grab the proper config location, home of windows or linux, or if dev flag used the local dir
@@ -292,6 +306,8 @@ func main() {
   http.HandleFunc("/api/hostname", apiHostNameHandler)
   http.HandleFunc("/api/hostos", apiHostOSHandler)
   http.HandleFunc("/api/getinstalledplugins", apiInstalledPluginsHandler)
+
+  http.HandleFunc("/plugins/install", apiInstallPlugin)
 
   // We are wrapping the listen in log.Fatal since it will only ever return an error, but otherwise nil
   log.Fatal(http.ListenAndServe(":" + viper.GetString("server.port"), nil))
