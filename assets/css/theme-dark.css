@@ -14,6 +14,7 @@ be added. And along with each revision, will be a CSS version revision.
   --link-text-colour: white;
 
   --heading-back-drop-colour: #0d0d0d;
+  --heading-text-colour: white;
   --heading-hr-border: 2px solid black;
 
   --footer-border-top: 2px solid black;

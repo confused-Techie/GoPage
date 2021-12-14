@@ -17,6 +17,7 @@ a {
 
 .heading {
   background-color: var(--heading-back-drop-colour);
+  color: var(--heading-text-colour);
   text-align: center;
   display: grid;
   grid-template-columns: repeat(3, 1fr);

@@ -275,7 +275,7 @@ type UniversalPluginItem struct {
   FriendlyName string `json:"friendlyName"`
   Version string `json:"version"`
   Description string `json:"description"`
-  Type string `json:"item"`
+  Type string `json:"type"`
   Author string `json:"author"`
   License string `json:"license"`
   InfoLink string `json:"infoLink"`
