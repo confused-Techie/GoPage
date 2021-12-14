@@ -260,7 +260,21 @@ func apiInstallPlugin(w http.ResponseWriter, r *http.Request) {
   }
   source := keys[0]
 
-  resp, err := apiFunc.InstallCmd(source)
+  resp, err := apiFunc.InstallUniversal(source)
+  checkError(err)
+  fmt.Println("from goPage.go", resp)
+  json.NewEncoder(w).Encode(resp)
+}
+
+func apiUninstallPlugin(w http.ResponseWriter, r *http.Request) {
+  keys, ok := r.URL.Query()["pluginName"]
+  if !ok || len(keys[0]) < 1 {
+    log.Println("URL Param 'pluginName' is missing")
+    return
+  }
+  pluginName := keys[0]
+
+  resp, err := apiFunc.UninstallUniversal(pluginName)
   checkError(err)
   fmt.Println("from goPage.go", resp)
   json.NewEncoder(w).Encode(resp)
@@ -308,6 +322,8 @@ func main() {
   http.HandleFunc("/api/getinstalledplugins", apiInstalledPluginsHandler)
 
   http.HandleFunc("/plugins/install", apiInstallPlugin)
+
+  http.HandleFunc("/plugins/uninstall", apiUninstallPlugin)
 
   // We are wrapping the listen in log.Fatal since it will only ever return an error, but otherwise nil
   log.Fatal(http.ListenAndServe(":" + viper.GetString("server.port"), nil))

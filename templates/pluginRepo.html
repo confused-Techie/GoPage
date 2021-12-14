@@ -56,7 +56,7 @@
             {{.License}}
           </div>
           <div class="plugin-action">
-            <div class="plugin-uninstall">
+            <div class="plugin-uninstall" onclick="uninstallPlugin({{.Name}})">
               <img src="/assets/images/minus-circle.svg">
             </div>
           </div>
@@ -106,7 +106,7 @@
         </div>
         <div class="plugin-action">
           {{if .Installed}}
-          <div class="plugin-uninstall">
+          <div class="plugin-uninstall" onclick="uninstallPlugin({{.Name}})">
             <img src="/assets/images/minus-circle.svg">
           </div>
           {{else}}

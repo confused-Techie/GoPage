@@ -21,9 +21,19 @@ function installPlugin(pluginUrl, pluginName) {
     })
     .catch(err => {
       console.log(err);
+      alert(err);
     });
 }
 
-function uninstallPlugin() {
-
+function uninstallPlugin(pluginName) {
+  fetch(`/plugins/uninstall?pluginName=${pluginName}`)
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+      alert(data);
+    })
+    .catch(err => {
+      console.log(err);
+      alert(err);
+    });
 }
