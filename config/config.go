@@ -46,10 +46,14 @@ func LoadConfig(path string) (config Config, err error) {
 
 func DetermineEnv() string {
   devEnv := flag.Bool("dev", false, "a bool")
+  dockerEnv := flag.Bool("docker", false, "a bool")
   flag.Parse()
 
 fmt.Println("App Data Test: \t" + os.Getenv("LOCALAPPDATA"))
   if *devEnv {
+    return "."
+  }
+  if *dockerEnv {
     return "."
   }
 
