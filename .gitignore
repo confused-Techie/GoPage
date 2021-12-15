@@ -1,7 +1,7 @@
 # Ignore the output of installers
 installer/Output
 # Ignore my json file since it'll contain personal data
-list.json
+./list.json
 # Ignore dev-docs
 DEV-docs
 # Ignore any build left by go build .
