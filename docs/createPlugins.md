@@ -1,6 +1,6 @@
 # Creating Plugins
 
-GoPage attempts to make creating Plugins incredibly easy, to allow an ecosystem of plugins to quickly and robustly as possible.
+GoPage attempts to make creating Plugins incredibly easy, to allow an ecosystem of plugins to form as quickly and robustly as possible.
 
 ## Getting Started
 
@@ -34,12 +34,12 @@ Further information on creating a `package.json` file can be found [here](plugin
 
 ### Plugin Types
 
-Further information on declaration of usage of different Plugin Types can be found [here](/pluginDevDocs/types.md).
+Further information on declaration of usage of different Plugin Types can be found [here](pluginDevDocs/types.md).
 
 ### JavaScript API
 
-Further information on availability and functionality of JavaScript API's can be found [here](/pluginDevDocs/javascriptapi.md).
+Further information on availability and functionality of JavaScript API's can be found [here](pluginDevDocs/javascriptapi.md).
 
 ### API Endpoints
 
-Further information on the availability and functionality of the GoPage Backend Server API Endpoints can be found [here](/pluginDevDocs/apiendpoints.md).
+Further information on the availability and functionality of the GoPage Backend Server API Endpoints can be found [here](pluginDevDocs/apiendpoints.md).
