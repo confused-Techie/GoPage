@@ -55,7 +55,7 @@ Once here feel free to read through and explore the Plugins available and downlo
 
 ## Learning More
 
-### [Exploring GoPage](./docs/exploringGoPage.md)
+### [Exploring GoPage](docs/exploringGopage.md)
 
 ### [Exploring Plugins](docs/exploringPlugins.md)
 
