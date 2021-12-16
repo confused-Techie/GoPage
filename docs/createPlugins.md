@@ -30,7 +30,7 @@ As well within your Main file you will be able to use JavaScript API's for addit
 
 ### Package.json
 
-Further information on creating a `package.json` file can be found [here](/pluginDevDocs/package.md).
+Further information on creating a `package.json` file can be found [here](pluginDevDocs/package.md).
 
 ### Plugin Types
 
