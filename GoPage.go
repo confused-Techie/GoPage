@@ -37,6 +37,11 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
   t.Execute(w, au)
 }
 
+func linkHealthHandler(w http.ResponseWriter, r *http.Request) {
+  p := viper.GetString("directories.templates") + "/linkhealth.html"
+  http.ServeFile(w, r, p)
+}
+
 func settingsHandler(w http.ResponseWriter, r *http.Request) {
   au := model.ServSettingGet()
   t, err := template.ParseFiles(viper.GetString("directories.templates") + "/settings.html")
@@ -280,6 +285,13 @@ func apiUninstallPlugin(w http.ResponseWriter, r *http.Request) {
   json.NewEncoder(w).Encode(resp)
 }
 
+func apiUpdatePlugin(w http.ResponseWriter, r *http.Request) {
+  resp, err := apiFunc.UniversalAvailableUpdate()
+  checkError(err)
+  fmt.Println("Form GoPage.go", resp)
+  json.NewEncoder(w).Encode(resp)
+}
+
 func main() {
   // Here we can add all viper configuration file/env file setup
   // this will grab the proper config location, home of windows or linux, or if dev flag used the local dir
@@ -299,6 +311,7 @@ func main() {
   http.HandleFunc("/", homeHandler)
   http.HandleFunc("/settings", settingsHandler)
   http.HandleFunc("/pluginrepo", pluginRepoHandler)
+  http.HandleFunc("/linkhealth", linkHealthHandler)
 
   http.HandleFunc("/update/", updateHandler)
   http.HandleFunc("/delete/", deleteHandler)
@@ -313,6 +326,11 @@ func main() {
   plugin := http.FileServer(http.Dir(viper.GetString("directories.plugin")))
   http.Handle("/plugins/", http.StripPrefix("/plugins/", plugin))
 
+  // Here cna be defiend any static pages needed.
+  // Like the linkhealth page
+  //linkHealth := http.FileServer(http.Dir(viper.GetString("directories.templates") + "/linkhealth.html"))
+  //http.Handle("/linkhealth", http.StripPrefix(viper.GetString("directories.templates"), linkHealth))
+
   // For the proper filtering of items, and hopeful searching, here will be an api call for js to get all items as json
   http.HandleFunc("/api/items", apiItemsHandler)
   // Below will be API declarations used for plugins
@@ -324,6 +342,8 @@ func main() {
   http.HandleFunc("/plugins/install", apiInstallPlugin)
 
   http.HandleFunc("/plugins/uninstall", apiUninstallPlugin)
+
+  http.HandleFunc("/plugins/update", apiUpdatePlugin)
 
   // We are wrapping the listen in log.Fatal since it will only ever return an error, but otherwise nil
   log.Fatal(http.ListenAndServe(":" + viper.GetString("server.port"), nil))

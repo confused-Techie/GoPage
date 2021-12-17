@@ -1,3 +1,17 @@
+.updatePluginButtonContainer {
+  text-align: center;
+}
+
+.updatePluginButton button {
+  background-color: var(--create-action-back-drop-colour);
+  color: var(--create-action-text-colour);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 10px; /* space around content WITHIN DIV */
+  margin-top: 10px;
+}
+
 .seperator {
   text-align: center;
   border-bottom: 2px solid black;

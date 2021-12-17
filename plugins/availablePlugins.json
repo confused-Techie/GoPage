@@ -1,122 +1,132 @@
 [
-  {
-    "name": "statusCheck",
-    "friendlyName": "Status Check",
-    "version": "0.2",
-    "description": "Simple way to see if the address is currently reachable.",
-    "type": "item",
-    "author": "confused-Techie",
-    "license": "GPL-3.0",
-    "infoLink": "https://github.com/confused-Techie/GoPage-Plugins",
-    "downloadLink": "https://github.com/confused-Techie/GoPage-Plugins/releases/download/StatusCheckV0.2/StatusCheckV0.2.zip",
-    "installed": false,
-    "config": true,
-    "mainDir": "/statusCheck/",
-    "main": "main.js",
-    "options": {
-      "explain": "An array of accepted Status Codes. List of all Acceptible Status Codes within the brackets.",
-      "autofill": "statusCodes=[200];"
-    },
-    "icon": {
-      "available": true,
-      "type": "raw",
-      "style": "GreenCircle",
-      "symbol": "Checkmark"
-    }
-  },
-  {
-  "name": "faviconSwiper",
-  "friendlyName": "Favicon Swiper",
-  "version": "0.2",
-  "description": "Retreive Favicons via known methods or Google APIs as a fallback.",
-  "type": "item",
-  "author": "confused-Techie",
-  "license": "GPL-3.0",
-  "infoLink": "https://github.com/confused-Techie/GoPage-Plugins",
-  "downloadLink": "https://github.com/confused-Techie/GoPage-Plugins/releases/download/FaviconSwiperV0.2/FaviconSwiperV0.2.zip",
-  "installed": false,
-  "config": false,
-  "mainDir": "/faviconSwiper/",
-  "main": "main.js",
-  "icon": {
-    "available": true,
-    "type": "image",
-    "src": "/assets/images/globe.svg"
-  }
-},
 {
-  "name": "jellyfinApi",
-  "friendlyName": "Jellyfin API",
-  "version": "0.1",
-  "description": "Get infromation about your Jellyfin Instance.",
-  "type": "item",
-  "author": "confused-Techie",
-  "license": "GPL-3.0",
-  "infoLink": "https://github.com/confused-Techie/GoPage-Plugins",
-  "downloadLink": "https://github.com/confused-Techie/GoPage-Plugins/releases/download/JellyfinAPIV0.1/JellyfinAPIV0.1.zip",
-  "installed": false,
-  "config": true,
-  "mainDir": "/jellyfinApi/",
-  "main": "main.js",
-  "options": {
-    "explain": "temp",
-    "autofill": "url=http://your-server:port;apiKey=yourKey;"
-  },
-  "icon": {
-    "available": false
-  }
+"name": "statusCheck",
+"friendlyName": "Status Check",
+"version": "0.2",
+"description": "Simple way to see if the address is currently reachable.",
+"type": "item",
+"author": "confused-Techie",
+"license": "GPL-3.0",
+"infoLink": "https://github.com/confused-Techie/GoPage-Plugins",
+"downloadLink": "https://github.com/confused-Techie/GoPage-Plugins/releases/download/StatusCheckV0.2/StatusCheckV0.2.zip",
+"installed": false,
+"config": true,
+"mainDir": "/statusCheck/",
+"main": "main.js",
+"options": {
+"explain": "An array of accepted Status Codes. List of all Acceptible Status Codes within the brackets.",
+"autofill": "statusCodes=[200];"
 },
-{
-  "name": "exaggeratorTheme",
-  "friendlyName": "Exaggerator Theme",
-  "version": "0.1",
-  "description": "Exaggerator Theme... Just Colourful.",
-  "type": "theme",
-  "author": "confused-Techie, 'Mrs. Fancy Pants'",
-  "license": "GPL-3.0",
-  "infoLink": "https://github.com/confused-Techie/GoPage-Plugins",
-  "downloadLink": "https://github.com/confused-Techie/GoPage-Plugins/releases/download/ExaggeratorThemeV0.1/ExaggeratorThemeV0.1.zip",
-  "installed": false,
-  "config": false,
-  "mainDir": "/exaggeratorTheme/",
-  "main": "exaggeratorTheme.css",
-  "options": {
-    "explain": "",
-    "autofill": ""
-  },
-  "icon": {
-    "available": true,
-    "type": "image",
-    "src": "/assets/images/pen-tool.svg",
-    "style": "",
-    "symbol": ""
-  }
-},
-{
-  "name": "lightTheme",
-  "friendlyName": "Light Theme",
-  "version": "0.1",
-  "description": "Simple Light Theme of those not loving the Dark Theme.",
-  "type": "theme",
-  "author": "confused-Techie",
-  "license": "GPL-3.0",
-  "infoLink": "https://github.com/confused-Techie/GoPage-Plugins",
-  "downloadLink": "https://github.com/confused-Techie/GoPage-Plugins/releases/download/LightThemeV0.1/LightThemeV0.1.zip",
-  "installed": false,
-  "config": false,
-  "mainDir": "/lightTheme/",
-  "main": "lightTheme.css",
-  "options": {
-    "explain": "",
-    "autofill": ""
-  },
-  "icon": {
-    "available": true,
-    "type": "image",
-    "src": "/assets/images/pen-tool.svg",
-    "style": "",
-    "symbol": ""
-  }
+"icon": {
+"available": true,
+"type": "raw",
+"src": "",
+"style": "GreenCircle",
+"symbol": "Checkmark"
 }
-
+},
+{
+"name": "faviconSwiper",
+"friendlyName": "Favicon Swiper",
+"version": "0.2",
+"description": "Retreive Favicons via known methods or Google APIs as a fallback.",
+"type": "item",
+"author": "confused-Techie",
+"license": "GPL-3.0",
+"infoLink": "https://github.com/confused-Techie/GoPage-Plugins",
+"downloadLink": "https://github.com/confused-Techie/GoPage-Plugins/releases/download/FaviconSwiperV0.2/FaviconSwiperV0.2.zip",
+"installed": false,
+"config": false,
+"mainDir": "/faviconSwiper/",
+"main": "main.js",
+"options": {
+"explain": "",
+"autofill": ""
+},
+"icon": {
+"available": true,
+"type": "image",
+"src": "/assets/images/globe.svg",
+"style": "",
+"symbol": ""
+}
+},
+{
+"name": "jellyfinApi",
+"friendlyName": "Jellyfin API",
+"version": "0.1",
+"description": "Get infromation about your Jellyfin Instance.",
+"type": "item",
+"author": "confused-Techie",
+"license": "GPL-3.0",
+"infoLink": "https://github.com/confused-Techie/GoPage-Plugins",
+"downloadLink": "https://github.com/confused-Techie/GoPage-Plugins/releases/download/JellyfinAPIV0.1/JellyfinAPIV0.1.zip",
+"installed": false,
+"config": true,
+"mainDir": "/jellyfinApi/",
+"main": "main.js",
+"options": {
+"explain": "temp",
+"autofill": "url=http://your-server:port;apiKey=yourKey;"
+},
+"icon": {
+"available": false,
+"type": "",
+"src": "",
+"style": "",
+"symbol": ""
+}
+},
+{
+"name": "exaggeratorTheme",
+"friendlyName": "Exaggerator Theme",
+"version": "0.1",
+"description": "Exaggerator Theme... Just Colourful.",
+"type": "theme",
+"author": "confused-Techie, 'Mrs. Fancy Pants'",
+"license": "GPL-3.0",
+"infoLink": "https://github.com/confused-Techie/GoPage-Plugins",
+"downloadLink": "https://github.com/confused-Techie/GoPage-Plugins/releases/download/ExaggeratorThemeV0.1/ExaggeratorThemeV0.1.zip",
+"installed": false,
+"config": false,
+"mainDir": "/exaggeratorTheme/",
+"main": "exaggeratorTheme.css",
+"options": {
+"explain": "",
+"autofill": ""
+},
+"icon": {
+"available": true,
+"type": "image",
+"src": "/assets/images/pen-tool.svg",
+"style": "",
+"symbol": ""
+}
+},
+{
+"name": "lightTheme",
+"friendlyName": "Light Theme",
+"version": "0.1",
+"description": "Simple Light Theme of those not loving the Dark Theme.",
+"type": "theme",
+"author": "confused-Techie",
+"license": "GPL-3.0",
+"infoLink": "https://github.com/confused-Techie/GoPage-Plugins",
+"downloadLink": "https://github.com/confused-Techie/GoPage-Plugins/releases/download/LightThemeV0.1/LightThemeV0.1.zip",
+"installed": false,
+"config": false,
+"mainDir": "/lightTheme/",
+"main": "lightTheme.css",
+"options": {
+"explain": "",
+"autofill": ""
+},
+"icon": {
+"available": true,
+"type": "image",
+"src": "/assets/images/pen-tool.svg",
+"style": "",
+"symbol": ""
+}
+}
 ]

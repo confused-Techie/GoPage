@@ -534,6 +534,95 @@ func InstallUniversal(src string) (string, error) {
   // This son of a bitch works, beautful
 }
 
+func UniversalAvailableUpdate() (string, error) {
+  fmt.Println("Checking for new Available Updates...")
+
+  // First we will download the current available plugin file from github
+  var createPath = viper.GetString("directories.plugin") + "availablePluginsTemp.json"
+  out, err := os.Create(createPath)
+  if err != nil {
+    return "", err
+  }
+
+  resp, err := http.Get("https://raw.githubusercontent.com/confused-Techie/GoPage/main/plugins/availablePlugins.json")
+  if err != nil {
+    return "", err
+  }
+
+  // check server response
+  if resp.StatusCode != http.StatusOK {
+    return "", fmt.Errorf("bad status: %s", resp.Status)
+  }
+
+  // write the body to file
+  _, err = io.Copy(out, resp.Body)
+  if err != nil {
+    return "", err
+  }
+
+  // Close the file handles
+  out.Close()
+  resp.Body.Close()
+
+  fmt.Println("Successfully Downloaded Available Plugin Data...")
+
+  // now the file should be successfully downlaoed and we need to compare against current data
+
+  availablePluginFile, err := os.OpenFile(viper.GetString("directories.plugin") + "availablePlugins.json", os.O_RDWR|os.O_APPEND, 0666)
+  if err != nil {
+    fmt.Println(err)
+    return "", err
+  }
+  availablePluginBytes, err := ioutil.ReadAll(availablePluginFile)
+  var availablePluginList UniversalPluginList
+  json.Unmarshal(availablePluginBytes, &availablePluginList.UniversalPluginItem)
+  if err != nil {
+    fmt.Println(err)
+    return "", err
+  }
+
+  // Then we need to grab the data from the newly downloaded available file
+
+  availablePluginTempFile, err := os.OpenFile(viper.GetString("directories.plugin") + "availablePluginsTemp.json", os.O_RDWR|os.O_APPEND, 0666)
+  if err != nil {
+    fmt.Println(err)
+    return "", err
+  }
+  availablePluginTempBytes, err := ioutil.ReadAll(availablePluginTempFile)
+  var availablePluginTempList UniversalPluginList
+  json.Unmarshal(availablePluginTempBytes, &availablePluginTempList.UniversalPluginItem)
+  if err != nil {
+    fmt.Println(err)
+    return "", err
+  }
+
+  fmt.Println("Successfully Read Data from current and new Available Plugins...")
+
+  newAvailablePluginList, err := json.MarshalIndent(&availablePluginTempList.UniversalPluginItem, "", "")
+  if err != nil {
+    fmt.Println(err)
+    return "", err
+  }
+
+  // now its time to write the new data into the existing file
+  ioutil.WriteFile(viper.GetString("directories.plugin") + "availablePlugins.json", newAvailablePluginList, 0666)
+
+  fmt.Println("Successfully Wrote new Avaialble Plugin Data to File...")
+
+  // But before files can be deleted we need to ensure we have no active handlers with them
+  availablePluginTempFile.Close()
+  // then we want to delete the temp file leftover
+  rmvTmp := os.Remove(viper.GetString("directories.plugin") + "availablePluginsTemp.json")
+  if rmvTmp != nil {
+    fmt.Println(rmvTmp)
+    return "", rmvTmp
+  }
+
+  fmt.Println("Successfully removed temporary files...")
+
+  return "Success", err
+}
+
 func Unzip(src string, dest string) ([]string, error) {
 
   var filenames []string

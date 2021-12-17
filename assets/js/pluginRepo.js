@@ -37,3 +37,16 @@ function uninstallPlugin(pluginName) {
       alert(err);
     });
 }
+
+function updatePlugin() {
+  fetch(`/plugins/update`)
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+      alert(data);
+    })
+    .catch(err => {
+      console.log(err);
+      alert(err);
+    });
+}

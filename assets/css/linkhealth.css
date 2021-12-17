@@ -1,0 +1,32 @@
+.link-health {
+  width: 80%;
+  text-align: center;
+  border-radius: 3px;
+  padding: 20px;
+  margin: auto;
+}
+
+.link-health-item-container {
+  width: 100%;
+
+  background-color: var(--card-back-drop-colour);
+  text-align: center;
+
+  border-radius: 3px;
+
+  margin-top: 10px;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  padding-top: 15px;
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.link-health-item .issue {
+  color: red;
+}
+
+.link-health-item .declare {
+  font-weight: bold;
+  color: black;
+}
