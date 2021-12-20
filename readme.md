@@ -53,6 +53,8 @@ http://SERVER-IP:PORT/pluginrepo
 
 Once here feel free to read through and explore the Plugins available and download them, which will then give you the ability to set them in the Plugin Fields of a New Link Item or while Editing a Link Item.
 
+## [Contribute](docs/contribute.md)
+
 ## Learning More
 
 ### [Exploring GoPage](docs/exploringGopage.md)
