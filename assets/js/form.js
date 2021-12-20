@@ -26,7 +26,9 @@ function initCategory() {
       .then(data => {
         var pluginListToInsert;
         data.forEach((element, index) => {
-          pluginListToInsert += `<option value='${element.name}'>`;
+          if (element.type == "item") {
+            pluginListToInsert += `<option value='${element.name}'>`;
+          }
         });
         document.getElementById('available-plugins').innerHTML = pluginListToInsert;
       });
