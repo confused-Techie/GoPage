@@ -33,6 +33,8 @@
   "i18n-headerNewItem": "New Item's Data",
   "i18n-labelFriendlyName": "Enter Friendly Name",
   "i18n-labelLink": "Enter Link",
-  "i18n-labelCategory": "Enter Category"
+  "i18n-labelCategory": "Enter Category",
+  "i18n-pluginRepoVersion": "Version",
+  "i18n-pluginRepoLicense": "License"
 
 }

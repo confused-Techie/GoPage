@@ -33,5 +33,7 @@
   "i18n-headerNewItem",
   "i18n-labelFriendlyName",
   "i18n-labelLink",
-  "i18n-labelCategory"
+  "i18n-labelCategory",
+  "i18n-pluginRepoVersion",
+  "i18n-pluginRepoLicense"
 ]

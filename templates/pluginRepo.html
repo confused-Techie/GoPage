@@ -49,7 +49,7 @@
             <a href="{{.InfoLink}}">{{.FriendlyName}}</a>
           </div>
           <div class="plugin-version">
-            Version: {{.Version}}
+            <span id="i18n-pluginRepoVersion">Version</span>: {{.Version}}
           </div>
           <div class="plugin-description">
             {{.Description}}
@@ -58,7 +58,7 @@
             &#64; {{.Author}}
           </div>
           <div class="plugin-license">
-            License:
+            <span id="i18n-pluginRepoLicense">License</span>:
             {{.License}}
           </div>
           <div class="plugin-action">
@@ -99,7 +99,7 @@
           <a href="{{.InfoLink}}">{{.FriendlyName}}</a>
         </div>
         <div class="plugin-version">
-          Version: {{.Version}}
+          <span id="i18n-pluginRepoVersion">Version</span>: {{.Version}}
         </div>
         <div class="plugin-description">
           {{.Description}}
@@ -108,7 +108,7 @@
           &#64; {{.Author}}
         </div>
         <div class="plugin-license">
-          License: {{.License}}
+          <span id="i18n-pluginRepoLicense">License</span>: {{.License}}
         </div>
         <div class="plugin-action">
           {{if .Installed}}
