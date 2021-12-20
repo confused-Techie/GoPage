@@ -293,8 +293,10 @@ type UniversalPluginList struct {
 }
 
 func UninstallUniversal(pluginName string) (string, error) {
+  var consoleData string;
   // We want to first remove the old files
   fmt.Println("Uninstalling Plugin: " + pluginName)
+  consoleData = consoleData + "Uninstalling Plugin: "+pluginName+"... \n"
 
   rmvPlg := os.RemoveAll(viper.GetString("directories.plugin") + pluginName)
   if rmvPlg != nil {
@@ -303,6 +305,7 @@ func UninstallUniversal(pluginName string) (string, error) {
   }
 
   fmt.Println("Successfully removed Plugin Data...")
+  consoleData = consoleData + "Successfully removed Plugin Data... \n"
 
   availablePluginFile, err := os.OpenFile(viper.GetString("directories.plugin") + "availablePlugins.json", os.O_RDWR|os.O_APPEND, 0666)
   if err != nil {
@@ -334,6 +337,7 @@ func UninstallUniversal(pluginName string) (string, error) {
   ioutil.WriteFile(viper.GetString("directories.plugin") + "availablePlugins.json", newAvailablePluginList, 0666)
 
   fmt.Println("Successfully Wrote Updated Available Plugin Data...")
+  consoleData = consoleData + "Successfully Wrote Updated Available Plugin Data... \n"
 
   // Next we want to modify the installedPlugin file
   installedPluginFile, err := os.OpenFile(viper.GetString("directories.plugin") + "installedPlugins.json", os.O_RDWR|os.O_APPEND, 0666)
@@ -368,14 +372,18 @@ func UninstallUniversal(pluginName string) (string, error) {
   ioutil.WriteFile(viper.GetString("directories.plugin") + "installedPlugins.json", newInstalledPluginList, 0666)
 
   fmt.Println("Successfully Wrote Updated Installed Plugin Data...")
+  consoleData = consoleData + "Successfully Wrote Updated Installed Plugin Data... \n"
+  consoleData = consoleData + "Success!"
 
-  return "Success", err
+  return consoleData, err
 }
 
 func InstallUniversal(src string) (string, error) {
+  var consoleData string;
   // Due to file limitations of Powershell, and the issue of building
   // Scripts per platform, lets see if we can use Go to handle the grunt work
   fmt.Println("Installed New Plugin from: " + src)
+  consoleData = consoleData + "Installed New Plugin from: " + src + "... \n"
 
   // The below here will download the file
   var createPath = viper.GetString("directories.plugin") + "pluginTemp.zip"
@@ -407,6 +415,7 @@ func InstallUniversal(src string) (string, error) {
   resp.Body.Close()
 
   fmt.Println("Successfully Downloaded Plugin Data...")
+  consoleData = consoleData + "Successfully Downloaded Plugin Data... \n"
 
   // Now the file should be successfully downloaded and we need to unpack in place
 
@@ -417,6 +426,7 @@ func InstallUniversal(src string) (string, error) {
   }
 
   fmt.Println("Unzipped:\n" + strings.Join(unpackFiles, "\n"))
+  consoleData = consoleData + "Unzipped:\n" + strings.Join(unpackFiles, "\n") + "... \n"
 
   // then we need to get the top level folder to be able and move it properly
   parentFiles, err := ioutil.ReadDir(viper.GetString("directories.plugin") + "pluginTemp")
@@ -435,6 +445,7 @@ func InstallUniversal(src string) (string, error) {
   }
 
   fmt.Println("Moved Unpacked Plugin to Plugin Folder...")
+  consoleData = consoleData + "Moved Unpacked Plugin to Plugin Folder... \n"
 
   // Next we want to cleanup previous files
   rmvPkg := os.Remove(viper.GetString("directories.plugin") + "pluginTemp.zip")
@@ -450,6 +461,7 @@ func InstallUniversal(src string) (string, error) {
   }
 
   fmt.Println("Successfully Preformed File Cleanup...")
+  consoleData = consoleData + "Successfully Preformed File Cleanup... \n"
   // Now the temp file and plugin archive should be deleted
   //return "Success!", nil
 
@@ -499,6 +511,7 @@ func InstallUniversal(src string) (string, error) {
   ioutil.WriteFile(viper.GetString("directories.plugin") + "availablePlugins.json", newAvailablePluginList, 0666)
 
   fmt.Println("Successfully Wrote Updated Available Plugin Data...")
+  consoleData = consoleData + "Successfully Wrote Updated Available Plugin Data... \n"
 
   // Now its time to update the installed data list
   installedPluginFile, err := os.OpenFile(viper.GetString("directories.plugin") + "installedPlugins.json", os.O_RDWR|os.O_APPEND, 0666)
@@ -528,14 +541,19 @@ func InstallUniversal(src string) (string, error) {
   ioutil.WriteFile(viper.GetString("directories.plugin") + "installedPlugins.json", newInstalledPluginList, 0666)
 
   fmt.Println("Successfully Wrote updated Installed Plugin Data...")
+  consoleData = consoleData + "Successfully Wrote updated Installed Plugin Data... \n"
+  consoleData = consoleData + "Success!"
 
-  return "Success", err
+  return consoleData, err
 
   // This son of a bitch works, beautful
 }
 
 func UniversalAvailableUpdate() (string, error) {
+  var consoleData string;
+
   fmt.Println("Checking for new Available Updates...")
+  consoleData = consoleData + "Checking for new Available Updates... \n"
 
   // First we will download the current available plugin file from github
   var createPath = viper.GetString("directories.plugin") + "availablePluginsTemp.json"
@@ -565,6 +583,7 @@ func UniversalAvailableUpdate() (string, error) {
   resp.Body.Close()
 
   fmt.Println("Successfully Downloaded Available Plugin Data...")
+  consoleData = consoleData + "Successfully Downloaded Available Plugin Data... \n"
 
   // now the file should be successfully downlaoed and we need to compare against current data
 
@@ -597,6 +616,7 @@ func UniversalAvailableUpdate() (string, error) {
   }
 
   fmt.Println("Successfully Read Data from current and new Available Plugins...")
+  consoleData = consoleData + "Successfully Read Data from current and new Avaialble Plugins..."
 
   newAvailablePluginList, err := json.MarshalIndent(&availablePluginTempList.UniversalPluginItem, "", "")
   if err != nil {
@@ -608,6 +628,7 @@ func UniversalAvailableUpdate() (string, error) {
   ioutil.WriteFile(viper.GetString("directories.plugin") + "availablePlugins.json", newAvailablePluginList, 0666)
 
   fmt.Println("Successfully Wrote new Avaialble Plugin Data to File...")
+  consoleData = consoleData + "Successfully Wrote new Available Plugin Data to File... \n"
 
   // But before files can be deleted we need to ensure we have no active handlers with them
   availablePluginTempFile.Close()
@@ -619,8 +640,11 @@ func UniversalAvailableUpdate() (string, error) {
   }
 
   fmt.Println("Successfully removed temporary files...")
+  consoleData = consoleData + "Successfully removed temporary files... \n"
 
-  return "Success", err
+  consoleData = consoleData + "Success!"
+
+  return consoleData, err
 }
 
 func Unzip(src string, dest string) ([]string, error) {

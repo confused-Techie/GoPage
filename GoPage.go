@@ -241,6 +241,11 @@ func apiPingHandler(w http.ResponseWriter, r *http.Request) {
   json.NewEncoder(w).Encode(resp)
 }
 
+func apiServerSettingsHandler(w http.ResponseWriter, r *http.Request) {
+  au := model.ServSettingGet()
+  json.NewEncoder(w).Encode(au)
+}
+
 func apiHostNameHandler(w http.ResponseWriter, r *http.Request) {
   resp, err := apiFunc.HostSettingGet()
   checkError(err)
@@ -266,7 +271,10 @@ func apiInstallPlugin(w http.ResponseWriter, r *http.Request) {
   source := keys[0]
 
   resp, err := apiFunc.InstallUniversal(source)
-  checkError(err)
+  if err != nil {
+    fmt.Println("From GoPage.go: Error: ", err)
+    json.NewEncoder(w).Encode(err)
+  }
   fmt.Println("from goPage.go", resp)
   json.NewEncoder(w).Encode(resp)
 }
@@ -280,15 +288,21 @@ func apiUninstallPlugin(w http.ResponseWriter, r *http.Request) {
   pluginName := keys[0]
 
   resp, err := apiFunc.UninstallUniversal(pluginName)
-  checkError(err)
+  if err != nil {
+    fmt.Println("From GoPage.go: Error: ", err)
+    json.NewEncoder(w).Encode(err)
+  }
   fmt.Println("from goPage.go", resp)
   json.NewEncoder(w).Encode(resp)
 }
 
 func apiUpdatePlugin(w http.ResponseWriter, r *http.Request) {
   resp, err := apiFunc.UniversalAvailableUpdate()
-  checkError(err)
-  fmt.Println("Form GoPage.go", resp)
+  if err != nil {
+    fmt.Println("From GoPage.go: Error:", err)
+    json.NewEncoder(w).Encode(err)
+  }
+  fmt.Println("From GoPage.go", resp)
   json.NewEncoder(w).Encode(resp)
 }
 
@@ -333,6 +347,7 @@ func main() {
 
   // For the proper filtering of items, and hopeful searching, here will be an api call for js to get all items as json
   http.HandleFunc("/api/items", apiItemsHandler)
+  http.HandleFunc("/api/serversettings", apiServerSettingsHandler)
   // Below will be API declarations used for plugins
   http.HandleFunc("/api/ping", apiPingHandler)
   http.HandleFunc("/api/hostname", apiHostNameHandler)

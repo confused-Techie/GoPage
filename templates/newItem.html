@@ -7,35 +7,35 @@
   <link rel="stylesheet" type="text/css" href="/assets/css/form.css">
 </head>
 <body onload="initCategory()">
-  <h2>New Item's Data</h2>
+  <h2><span id="i18n-headerNewItem">New Item's Data</span></h2>
   <div class="full_form">
     <form method="POST" action="itemadded">
-      <label>Enter Friendly Name</label><br>
+      <label><span id="i18n-labelFriendlyName">Enter Friendly Name</span></label><br>
       <input type="text" name="friendlyName" /><br><br>
-      <label>Enter Link</label><br>
+      <label><span id="i18n-labelLink">Enter Link</span></label><br>
       <input name="link" placeholder="https://www.my-favourite-site.com"/><br><br>
-      <label>Enter Category</label><br>
+      <label><span id="i18n-labelCategory">Enter Category</span></label><br>
       <input list="current-category" type="text" name="category" /><br><br>
 
-      <label>Choose your Left Plugin</label><br>
+      <label><span id="i18n-labelChooseLeftPlugin">Choose your Left Plugin</span></label><br>
       <input oninput="onDataListInput(this)" list="available-plugins" type="text" name="leftPlugin"/><br><br>
-      <label class="readonly_id" id="leftPluginLabel">Define any Options Needed for your Left Plugin.</label><br>
+      <label class="readonly_id" id="leftPluginLabel"><span id="i18n-labelOptionsLeftPlugin">Define any Options Needed for your Left Plugin.</span></label><br>
       <input class="readonly_id" readonly type="text" name="leftPluginOptions" id="leftPluginOptions"/><br><br>
       <div class="plugin-example readonly_id" id="left-plugin-example"> </div>
 
-      <label>Choose your Center Plugin</label><br>
+      <label><span id="i18n-labelChooseCenterPlugin">Choose your Center Plugin</span></label><br>
       <input oninput="onDataListInput(this)" list="available-plugins" type="text" name="centerPlugin" /><br><br>
-      <label class="readonly_id" id="centerPluginLabel">Define any Options Needed for your Center Plugin.</label><br>
+      <label class="readonly_id" id="centerPluginLabel"><span id="i18n-labelOptionsCenterPlugin">Define any Options Needed for your Center Plugin.</span></label><br>
       <input class="readonly_id" readonly type="text" name="centerPluginOptions" id="centerPluginOptions" /><br><br>
       <div class="plugin-example" id="center-plugin-example"> </div>
 
-      <label>Choose your Right Plugin</label><br>
+      <label><span id="i18n-labelChooseRightPlugin">Choose your Right Plugin</span></label><br>
       <input oninput="onDataListInput(this)" list="available-plugins" type="text" name="rightPlugin" /><br><br>
-      <label class="readonly_id" id="rightPluginLabel">Define any Options Needed for the Right Plugin.</label><br>
+      <label class="readonly_id" id="rightPluginLabel"><span id="i18n-labelOptionsRightPlugin">Define any Options Needed for the Right Plugin.</span></label><br>
       <input class="readonly_id" readonly type="text" name="rightPluginOptions" id="rightPluginOptions" /><br><br>
       <div class="plugin-example" id="right-plugin-example"> </div>
 
-      <button id="goBack" class="goBack" type="button">Go Back</button>
+      <button id="goBack" class="goBack" type="button"><span id="i18n-buttonGoBack">Go Back</span></button>
       <input type="submit" value="Submit">
 
       <datalist id="current-category">
@@ -48,6 +48,8 @@
     </form>
   </div>
   <script src="/assets/js/form.js"></script>
+  <script src="/assets/js/langHandler.js"></script>
+  <script src="/assets/js/universal.js"></script>
   <script src="/assets/js/pluginNonHomeLoad.js"></script>
   <script type="text/javascript" src="/plugins/installedPlugins.json"></script>
 </body>

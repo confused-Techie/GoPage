@@ -17,7 +17,7 @@
 
   <div class="container">
     <div id="btnContainer">
-      <button class="btn active" onclick="filterSelection('all')">Show All</button>
+      <button class="btn active" onclick="filterSelection('all')"><span id="i18n-ShowAllCategorySelector">Show All</span></button>
     </div>
 
     <div class="itemContainer">
@@ -72,15 +72,15 @@
 
   <div class="new-button-container">
     <form action="/new">
-      <button type="submit">Add New Item</button>
+      <button type="submit"><span id="i18n-AddNewItem">Add New Item</span></button>
     </form>
   </div>
 
   <div id="deleteModal" class="modal">
     <div class="modal-content">
-      <h3>Are you Sure you want to Delete this Item?</h3>
-      <button id="delete-modal" class="delete">Confirm</button>
-      <button id="notDelete-modal" class="notDelete">Nevermind</button>
+      <h3><span id="i18n-modalDeleteConfirmationMessage">Are you Sure you want to Delete this Item?</span></h3>
+      <button id="delete-modal" class="delete"><span id="i18n-modalDeleteConfirm">Confirm</span></button>
+      <button id="notDelete-modal" class="notDelete"><span id="i18n-modalDeleteNevermind">Nevermind</span></button>
     </div>
   </div>
 
@@ -92,11 +92,17 @@
 
   <footer>
     <img src="/assets/images/github-white.svg">
-    <p><a href="https://github.com/confused-Techie/GoPage">Source Code</a></p>
+    <p><a href="https://github.com/confused-Techie/GoPage">
+      <span id="i18n-footerSourceCode">Source Code</span></a></p>
     <img src="/assets/images/git-branch-white.svg">
-    <p><a href="https://github.com/confused-Techie/GoPage">Contribute</a></p>
+    <p><a href="https://github.com/confused-Techie/GoPage">
+      <span id="i18n-footerContribute">Contribute</span></a></p>
+    <img src="/assets/images/feather-white.svg">
+    <p><a href="https://feathericons.com">
+      <span id="i18n-footerThanksFeather">Thanks Feather Icons</span></a></p>
   </footer>
   <script type="module" src="/assets/js/pluginLoad.js"></script>
+  <script src="/assets/js/langHandler.js"></script>
   <script src="/assets/js/home.js"></script>
   <script src="/assets/js/pluginhandler.js"></script>
   <script src="/assets/js/universal.js"></script>

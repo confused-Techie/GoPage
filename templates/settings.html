@@ -13,29 +13,29 @@
   </div>
 
   <div class="settings-container">
-    <div class="seperator"><h2>Summary</h2></div>
+    <div class="seperator"><h2><span id="i18n-headerSummary">Summary</span></h2></div>
 
     <div class="settingsContainerSummary">
       <div class="server-settings">
-        <p>Server Name: {{.Name}}</p>
-        <p>Server Version: {{.Version}}</p>
-        <p>GoPage Author: {{.Author}}</p>
+        <p><span id="i18n-serverSummaryServerName">Server Name</span>: {{.Name}}</p>
+        <p><span id="i18n-serverSummaryServerVersion">Server Version</span>: {{.Version}}</p>
+        <p><span id="i18n-serverSummaryGoPageAuthor">GoPage Author</span>: {{.Author}}</p>
       </div>
       <div id="host-settings" class="host-settings">
-        <p>Test</p>
+
       </div>
     </div>
 
-    <div class="seperator"><h2>Tools</h2></div>
+    <div class="seperator"><h2><span id="i18n-headerTools">Tools</span></h2></div>
 
     <div class="settingsShortcuts">
       <div class="shortcut-list-item-container">
         <div class="shortcut-list-item">
           <div class="shortcut-list-title">
-            Plugin Repo
+            <span id="i18n-toolNamePluginRepo">Plugin Repo</span>
           </div>
           <div class="shortcut-list-description">
-            <p>A Place to get new Plugins.</p>
+            <p><span id="i18n-toolDescriptionPluginRepo">A Place to get new Plugins.</span></p>
           </div>
           <a href="/pluginrepo">
           <div class="shortcut-list-launch">
@@ -48,10 +48,10 @@
       <div class="shortcut-list-item-container">
         <div class="shortcut-list-item">
           <div class="shortcut-list-title">
-            Link Health
+            <span id="i18n-toolNameLinkHealth">Link Health</span>
           </div>
           <div class="shortcut-list-description">
-            <p>A Place to check the health and any Duplicates of Items</p>
+            <p><span id="i18n-toolDescriptionLinkHealth">A Place to check the health and any Duplicates of Items</span></p>
           </div>
           <a href="/linkhealth">
           <div class="shortcut-list-launch">
@@ -68,11 +68,14 @@
   </div>
   <footer>
     <img src="/assets/images/github-white.svg">
-    <p><a href="https://github.com/confused-Techie/GoPage">Source Code</a></p>
+    <p><a href="https://github.com/confused-Techie/GoPage"><span id="i18n-footerSourceCode">Source Code</span></a></p>
     <img src="/assets/images/git-branch-white.svg">
-    <p><a href="https://github.com/confused-Techie/GoPage">Contribute</a></p>
+    <p><a href="https://github.com/confused-Techie/GoPage"><span id="i18n-footerContribute">Contribute</span></a></p>
+    <img src="/assets/images/feather-white.svg">
+    <p><a href="https://feathericons.com"><span id="i18n-footerThanksFeather">Thanks Feather Icons</span></a></p>
   </footer>
   <script src="/assets/js/universal.js"></script>
+  <script src="/assets/js/langHandler.js"></script>
   <script src="/assets/js/pluginNonHomeLoad.js"></script>
   <script src="/assets/js/settings.js"></script>
 </body>

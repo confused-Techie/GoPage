@@ -1,8 +1,3 @@
-
-window.addEventListener('DOMContentLoaded', (event) => {
-  console.log('DOM fully loaded and parsed');
-});
-
 //setInterval(loadTimeStamp, 1000);
 
 function onPageLoad() {

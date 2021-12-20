@@ -26,15 +26,4 @@ function initHostSummary() {
           htmlToReplace.innerHTML = htmlToInsert;
         });
     });
-
-  //fetch(`/api/hostname`)
-  //  .then(response => response.json())
-  //  .then(data => {
-  //    console.log(data);
-  //    systemHostName = data;
-  //  });
-
-    // once all items are fetched we can then modify the page
-  //  var htmlToInsert = `<p>System Host Name: ${systemHostName}</p><p>System Operating System: ${systemHostOS}</p>`;
-  //  htmlToReplace.innerHTML = htmlToInsert;
 }

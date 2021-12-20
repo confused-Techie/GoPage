@@ -66,6 +66,7 @@ type ServSetting struct {
   Name string `json:"name"`
   Version string `json:"version"`
   Author string `json:"author"`
+  Language string `json:"lang"`
 }
 
 func ServSettingGet() (au *ServSetting) {

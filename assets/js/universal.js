@@ -4,8 +4,11 @@ loadTimeStamp();
 updaterTimeStamp();
 
 function loadTimeStamp() {
-  const dateToDisplay = new Date();
-  document.getElementById("timeStamp").innerHTML = `<h2>${dateToDisplay.toLocaleTimeString()} ${dateToDisplay.toLocaleDateString()}</h2>`;
+  if (document.getElementById("timeStamp") != null) {
+    const dateToDisplay = new Date();
+    document.getElementById("timeStamp").innerHTML = `<h2>${dateToDisplay.toLocaleTimeString()} ${dateToDisplay.toLocaleDateString()}</h2>`;
+  }
+
 }
 
 function updaterTimeStamp() {
@@ -14,3 +17,12 @@ function updaterTimeStamp() {
   // This first function should update the time shown every second.
   setInterval(loadTimeStamp, 1000);
 }
+
+window.addEventListener('DOMContentLoaded', (event) => {
+  console.log('DOM fully loaded and parsed');
+  langHandler.DetermineLang()
+    .then(res => {
+      // once this returns, we can start a lookup of the strings
+      langHandler.InsertLang();
+    });
+});

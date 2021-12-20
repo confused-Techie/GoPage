@@ -17,11 +17,11 @@
 
   <div class="updatePluginButtonContainer">
     <div class="updatePluginButton">
-      <button onclick="updatePlugin()">Update Available Plugins</button>
+      <button onclick="updatePlugin()"><span id="i18n-buttonUpdateAvailablePlugins">Update Available Plugins</span></button>
     </div>
   </div>
 
-  <div class="seperator"> <h2>Installed</h2></div>
+  <div class="seperator"> <h2><span id="i18n-headerInstalled">Installed</span></h2></div>
 
   <div class="plugins-list">
     {{range .Installed.PluginItem}}
@@ -71,7 +71,7 @@
     {{end}}
   </div>
 
-  <div class="seperator"> <h2>Available</h2></div>
+  <div class="seperator"> <h2><span id="i18n-headerAvaialble">Available</span></h2></div>
 
   <div class="plugins-list">
     {{range .Available.AvailablePluginItem}}
@@ -126,13 +126,22 @@
     {{end}}
   </div>
 
+  <div id="dynamicModal" class="modal">
+    <div class="modal-content">
+
+    </div>
+  </div>
+
   <footer>
     <img src="/assets/images/github-white.svg">
-    <p><a href="https://github.com/confused-Techie/GoPage">Source Code</a></p>
+    <p><a href="https://github.com/confused-Techie/GoPage"><span id="i18n-footerSourceCode">Source Code</span></a></p>
     <img src="/assets/images/git-branch-white.svg">
-    <p><a href="https://github.com/confused-Techie/GoPage">Contribute</a></p>
+    <p><a href="https://github.com/confused-Techie/GoPage"><span id="i18n-footerContribute">Contribute</span></a></p>
+    <img src="/assets/images/feather-white.svg">
+    <p><a href="https://feathericons.com"><span id="i18n-footerThanksFeather">Thanks Feather Icons</span></a></p>
   </footer>
   <script src="/assets/js/universal.js"></script>
+  <script src="/assets/js/langHandler.js"></script>
   <script src="/assets/js/pluginRepo.js"></script>
   <script src="/assets/js/pluginNonHomeLoad.js"></script>
 </body>
