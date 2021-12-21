@@ -43,3 +43,7 @@ Further information on availability and functionality of JavaScript API's can be
 ### API Endpoints
 
 Further information on the availability and functionality of the GoPage Backend Server API Endpoints can be found [here](pluginDevDocs/apiendpoints.md).
+
+### Data Attributes
+
+Further information on availability and functionality of Element's Data Attributes can be found [here](pluginDevDocs/dataattributes.md)
