@@ -1,0 +1,10 @@
+# Ignore documentation for Github
+docs/
+# Since this is for docker we can also ignore any installer Items
+installer/
+# We can also discard and ignore any Git specific Items, since no git history should be maintained from the docker instance
+readme.md
+.gitignore
+.gitattributes
+# Also since for now at least the scripts folder only contains a script for Windows Installation we will ignore that.
+scripts/

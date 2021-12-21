@@ -14,7 +14,7 @@ RUN go get github.com/spf13/viper
 RUN go install .
 
 # move the data file  from clean files to the root
-COPY /cleanFiles/list.json /list.json
+COPY /cleanFiles/list.json /app/list.json
 
 # Build the application
 RUN go build -o /gopage
