@@ -89,6 +89,7 @@ func updateHandler(w http.ResponseWriter, r *http.Request) {
   defer file.Close()
 
   b, err := ioutil.ReadAll(file)
+  checkError(err)
   var allItms model.AllItems
   err = json.Unmarshal(b, &allItms.Items)
   checkError(err)
@@ -123,10 +124,12 @@ func deleteHandler(w http.ResponseWriter, r *http.Request) {
 
   // open file with items
   file, err := os.OpenFile(viper.GetString("directories.data"), os.O_RDWR|os.O_APPEND, 0666)
+  checkError(err)
   defer file.Close()
 
   // read file and unmarshall json to []items
   b, err := ioutil.ReadAll(file)
+  checkError(err)
   var alItms model.AllItems
   err = json.Unmarshal(b, &alItms.Items)
   checkError(err)
@@ -189,6 +192,7 @@ func newHandler(w http.ResponseWriter, r *http.Request) {
 
     //read file and unmarshall json file to slice of users
     b, err := ioutil.ReadAll(file)
+    checkError(err)
     var alItms model.AllItems
     err = json.Unmarshal(b, &alItms.Items)
     checkError(err)
@@ -219,6 +223,7 @@ func apiItemsHandler(w http.ResponseWriter, r *http.Request) {
   file.Close()
 
   b, err := ioutil.ReadAll(file)
+  checkError(err)
   var alItms model.AllItems
   err = json.Unmarshal(b, &alItms.Items)
   checkError(err)

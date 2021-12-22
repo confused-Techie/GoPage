@@ -616,7 +616,7 @@ func UniversalAvailableUpdate() (string, error) {
   }
 
   fmt.Println("Successfully Read Data from current and new Available Plugins...")
-  consoleData = consoleData + "Successfully Read Data from current and new Avaialble Plugins..."
+  consoleData = consoleData + "Successfully Read Data from current and new Available Plugins..."
 
   newAvailablePluginList, err := json.MarshalIndent(&availablePluginTempList.UniversalPluginItem, "", "")
   if err != nil {
@@ -627,7 +627,7 @@ func UniversalAvailableUpdate() (string, error) {
   // now its time to write the new data into the existing file
   ioutil.WriteFile(viper.GetString("directories.plugin") + "availablePlugins.json", newAvailablePluginList, 0666)
 
-  fmt.Println("Successfully Wrote new Avaialble Plugin Data to File...")
+  fmt.Println("Successfully Wrote new Available Plugin Data to File...")
   consoleData = consoleData + "Successfully Wrote new Available Plugin Data to File... \n"
 
   // But before files can be deleted we need to ensure we have no active handlers with them
