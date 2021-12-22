@@ -26,7 +26,6 @@ function uninstallPlugin(pluginName) {
     .then(res => res.json())
     .then(data => {
       console.log(data);
-      //alert(data);
       if (data.includes("Success!")) {
         modalResults(data, "Success!");
       } else {
@@ -44,7 +43,6 @@ function updatePlugin() {
     .then(res => res.json())
     .then(data => {
       console.log(data);
-      //alert(data);
       // Check the status by looking for final success message, and provide status
       if (data.includes("Success!")) {
         modalResults(data, "Success!");

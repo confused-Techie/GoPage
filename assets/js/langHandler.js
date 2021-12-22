@@ -1,10 +1,6 @@
 // This will be the namespace to handle returning of strings of language data to
 // build the pages and support multiple languages.
 
-//determineLang();
-
-//insertLang();
-
 var currentLang = "en";
 
 var langHandler = {
@@ -15,7 +11,6 @@ var langHandler = {
     // will then default to english
 
     var resourceName = `strings.${currentLang}.json`;
-    //console.log(`Resource Name: ${resourceName}`);
 
     fetch(`/assets/lang/${resourceName}`)
       .then(response => response.json())

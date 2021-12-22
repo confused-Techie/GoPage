@@ -130,25 +130,29 @@
 }
 },
 {
-  "name": "piholeAPI",
-  "friendlyName": "Pihole API",
-  "version": "0.1",
-  "description": "Get information from your Pihole Instance.",
-  "type": "item",
-  "author": "confused-Techie",
-  "license": "GPL-3.0",
-  "infoLink": "https://github.com/confused-Techie/GoPage-Plugins",
-  "downloadLink": "https://github.com/confused-Techie/GoPage-Plugins/releases/download/PiholeAPIV0.1/PiholeAPIV0.1.zip",
-  "installed": false,
-  "config": false,
-  "mainDir": "/piholeAPI/",
-  "main": "main.js",
-  "options": {
-    "explain": "",
-    "autofill": ""
-  },
-  "icon": {
-    "available": false
-  }
+"name": "piholeAPI",
+"friendlyName": "Pihole API",
+"version": "0.1",
+"description": "Get information from your Pihole Instance.",
+"type": "item",
+"author": "confused-Techie",
+"license": "GPL-3.0",
+"infoLink": "https://github.com/confused-Techie/GoPage-Plugins",
+"downloadLink": "https://github.com/confused-Techie/GoPage-Plugins/releases/download/PiholeAPIV0.1/PiholeAPIV0.1.zip",
+"installed": false,
+"config": false,
+"mainDir": "/piholeAPI/",
+"main": "main.js",
+"options": {
+"explain": "",
+"autofill": ""
+},
+"icon": {
+"available": false,
+"type": "",
+"src": "",
+"style": "",
+"symbol": ""
+}
 }
 ]

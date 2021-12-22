@@ -4,27 +4,23 @@ function initCategory() {
     .then(response => response.json())
     .then(data => {
       var categoryListToInsert;
+      var categoryListToCheck = [];
       data.forEach((element, index) => {
-        categoryListToInsert += `<option value='${element.category}'>`;
+        if (!categoryListToCheck.includes(element.category)) {
+          categoryListToInsert += `<option value='${element.category}'>`;
+          categoryListToCheck.push(element.category);
+        }
+        //categoryListToInsert += `<option value='${element.category}'>`;
       });
       document.getElementById('current-category').innerHTML = categoryListToInsert;
     });
-
-
-    // Handle the installed plugins showing up
-    //var plugins = JSON.parse(installedPlugins);
-    //var pluginListToInsert;
-    //plugins.forEach((element, index) => {
-    //  pluginListToInsert += `<option value='${element.name}'>`;
-    //});
-    //document.getElementById('available-plugins').innerHTML = pluginListToInsert;
-
 
     // Handle the installed plugins showing up, via API
     fetch('/plugins/installedPlugins.json')
       .then(response => response.json())
       .then(data => {
         var pluginListToInsert;
+
         data.forEach((element, index) => {
           if (element.type == "item") {
             pluginListToInsert += `<option value='${element.name}'>`;
@@ -97,7 +93,7 @@ function onDataListInput(ele) {
               var eleToChangeExplain = document.getElementById('left-plugin-example');
               eleToChangeExplain.innerHTML = element.options.explain;
 
-              var eleToChangeAutofill = document.getElementById('rightPluginOptions');
+              var eleToChangeAutofill = document.getElementById('leftPluginOptions');
               eleToChangeAutofill.classList.remove('readonly_id');
               eleToChangeAutofill.removeAttribute('readonly');
               eleToChangeAutofill.value = element.options.autofill;

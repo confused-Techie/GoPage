@@ -22,6 +22,11 @@ function initHostSummary() {
           systemHostName = nameData;
 
           // once all items are fetched we can then modify the page
+          langHandler.DetermineLang()
+            .then(res => {
+              console.log(`Settings.js: ${res}`);
+            });
+          // To translate generated text here, we will need to use langHandler.ProvideString() with the identifier. 
           var htmlToInsert = `<p>System Host Name: ${systemHostName}</p><p>System Operating System: ${systemHostOS}</p>`;
           htmlToReplace.innerHTML = htmlToInsert;
         });

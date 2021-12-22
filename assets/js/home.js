@@ -1,4 +1,3 @@
-//setInterval(loadTimeStamp, 1000);
 
 function onPageLoad() {
   console.log('onPageLoad Fired..');
@@ -126,18 +125,3 @@ function modalDelete(id) {
     }
   }
 }
-
-//var modal = document.getElementById("deleteModal");
-
-//var modalOpenBtn = document.getElementById("tempModal");
-
-//modalOpenBtn.onclick = function() {
-//  modal.style.display = "block";
-//}
-
-// when the user clicks anywhere outside of the modal, close it
-//window.onclick = function(event) {
-//  if (event.target == modal) {
-//    modal.style.display = "none";
-//  }
-//}
