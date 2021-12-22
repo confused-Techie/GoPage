@@ -12,23 +12,30 @@ function initHostSummary() {
   fetch(`/api/hostos`)
     .then(response => response.json())
     .then(data => {
-      console.log(data);
       systemHostOS = data;
 
       fetch(`/api/hostname`)
         .then(nameResponse => nameResponse.json())
         .then(nameData => {
-          console.log(nameData);
           systemHostName = nameData;
 
           // once all items are fetched we can then modify the page
-          langHandler.DetermineLang()
-            .then(res => {
-              console.log(`Settings.js: ${res}`);
-            });
-          // To translate generated text here, we will need to use langHandler.ProvideString() with the identifier. 
-          var htmlToInsert = `<p>System Host Name: ${systemHostName}</p><p>System Operating System: ${systemHostOS}</p>`;
-          htmlToReplace.innerHTML = htmlToInsert;
+
+          // to properly have translations for generated text
+        var hostNameString = "";
+        var hostOperatingSystem = "";
+        langHandler.ProvideStringRaw('i18n-generatedSettingsHostName')
+          .then(resHostString => {
+            hostNameString = resHostString;
+
+            langHandler.ProvideStringRaw('i18n-generatedSettingsOperatingSystem')
+              .then(resOSString => {
+                hostOperatingSystem = resOSString;
+
+                var htmlToInsert = `<p>${hostNameString}: ${systemHostName}</p><p>${hostOperatingSystem}: ${systemHostOS}</p>`;
+                htmlToReplace.innerHTML = htmlToInsert;
+              });
+          });
         });
     });
 }

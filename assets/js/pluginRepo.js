@@ -61,14 +61,22 @@ function modalResults(content, status) {
 
   // before being visible we want to build the content within the page,
   // and register any onclick handlers after inserting into the DOM
-  var insertHTML = `<div class="modal-content"> <h3>${status}</h3> <p>${content}</p> <button id="clearModal" class="clearModal">Okay</button> </div>`;
-  modal.innerHTML = insertHTML;
+  // also we need to gather translations for the button text
+  var buttonText = "";
+  langHandler.ProvideStringRaw('i18n-generatedRepoButtonOkay')
+    .then(resString => {
 
-  var clearModal = document.getElementById("clearModal");
-  clearModal.onclick = function() {
-    modal.style.display = "none";
-  }
+      buttonText = resString;
 
-  // allow it to be visible
-  modal.style.display = "block";
+      var insertHTML = `<div class="modal-content"> <h3>${status}</h3> <p>${content}</p> <button id="clearModal" class="clearModal">${buttonText}</button> </div>`;
+      modal.innerHTML = insertHTML;
+
+      var clearModal = document.getElementById("clearModal");
+      clearModal.onclick = function() {
+        modal.style.display = "none";
+      }
+
+      // allow it to be visible
+      modal.style.display = "block";
+    });
 }

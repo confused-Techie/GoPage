@@ -36,20 +36,48 @@ function onPageLoad() {
 
       // now time to add this data to the page
       var htmlToInsert = "";
-      matchList.forEach((element, index) => {
-        var htmlStart = `<div class="link-health-item-container"> <div class="link-health-item">`;
-        var htmlEnd = `</div> </div>`;
-        htmlToInsert += htmlStart;
-        htmlToInsert += `<p><span class="declare">Match Type:</span> ${element.type}: <span class="declare">Matched Item:</span> ${element.matched}: <span class="declare">Link Items:</span> ${element.friendly[0]} & ${element.friendly[1]}</p>`;
-        htmlToInsert += htmlEnd;
-      });
 
-      // once this is all created, we can attach it into the dom.
-      document.getElementById("link-health").innerHTML = htmlToInsert;
+      var matchTypeString = "";
+      var matchItemString = "";
+      var matchLinkItemString = "";
+
+      langHandler.ProvideStringRaw('i18n-generatedLHMatchType')
+        .then(matchTypeRes => {
+          matchTypeString = matchTypeRes;
+
+          langHandler.ProvideStringRaw('i18n-generatedLHMatchedItem')
+            .then(matchItemRes => {
+              matchItemString = matchItemRes;
+
+              langHandler.ProvideStringRaw('i18n-generatedLHLinkItem')
+                .then(linkItemRes => {
+                  matchLinkItemString = linkItemRes;
+
+                  matchList.forEach((element, index) => {
+                    var htmlStart = `<div class="link-health-item-container"> <div class="link-health-item">`;
+                    var htmlEnd = `</div> </div>`;
+                    htmlToInsert += htmlStart;
+                    htmlToInsert += `<p><span class="declare">${matchTypeString}:</span> ${element.type}: <span class="declare">${matchItemString}:</span> ${element.matched}: <span class="declare">${matchLinkItemString}:</span> ${element.friendly[0]} & ${element.friendly[1]}</p>`;
+                    htmlToInsert += htmlEnd;
+                  });
+
+                  // once this is all created, we can attach it into the dom.
+                  document.getElementById("link-health").innerHTML = htmlToInsert;
+                });
+            });
+        });
+
     });
 }
 
 function getHostname(url) {
   // use URL constructor and return hostname
   return new URL(url).hostname;
+}
+
+function getTranslatedStrings(id) {
+  langHandler.ProvideStringRaw(id)
+    .then(res => {
+      return res;
+    });
 }

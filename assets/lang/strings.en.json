@@ -35,6 +35,12 @@
   "i18n-labelLink": "Enter Link",
   "i18n-labelCategory": "Enter Category",
   "i18n-pluginRepoVersion": "Version",
-  "i18n-pluginRepoLicense": "License"
+  "i18n-pluginRepoLicense": "License",
+  "i18n-generatedSettingsHostName": "Server Host Name",
+  "i18n-generatedSettingsOperatingSystem": "Server Operating System",
+  "i18n-generatedRepoButtonOkay": "Okay",
+  "i18n-generatedLHMatchType": "Match Type",
+  "i18n-generatedLHMatchedItem": "Matched Item",
+  "i18n-generatedLHLinkItem": "Link Items"
 
 }

@@ -34,6 +34,33 @@ var langHandler = {
         }
       });
   },
+  ProvideStringRaw: function ProvideString(id) {
+    // This will be used for providing strings of generated content, where its not possible to then change the string wtihin the DOM
+    return new Promise(function (resolve, reject) {
+      var resourceName = `strings.${currentLang}.json`;
+
+      fetch(`/assets/lang/${resourceName}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data[id]) {
+            resolve(data[id]);
+          } else {
+            console.log(`Translation for this item does not exist: ${id}; within: /assets/lang/${resourceName}`);
+            // if the translation doesn't exist, default to english translation
+            fetch(`/assets/lang/strings.en.json`)
+              .then(res => res.json())
+              .then(defaultData => {
+                if (defaultData[id]) {
+                  resolve(defaultData[id]);
+                } else {
+                  console.log(`Default Translation for this item does not exist: ${id}; within: /assets/lang/strings.en.json`);
+                  reject("Translations coudln't be found!");
+                }
+              });
+          }
+        });
+    });
+  },
   DetermineLang: function DetermineLang() {
     return new Promise(function (resolve, reject) {
       // this will try to reduce the amount of calls to the server to only need to do it
