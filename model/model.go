@@ -8,6 +8,7 @@ import (
 	"os"
 )
 
+// Item is struct for an individual Data Item
 type Item struct {
 	Id                  int    `json:"id"`
 	FriendlyName        string `json:"friendlyName"`
@@ -21,6 +22,7 @@ type Item struct {
 	RightPluginOptions  string `json:"right-plugin-options"`
 }
 
+// AllItems is a struct for a slice/array of Data Items
 type AllItems struct {
 	Items []*Item
 }
@@ -31,6 +33,7 @@ func checkError(err error) {
 	}
 }
 
+// Home will return all Data Items to allow templating on GoPage HomePage
 func Home() (au *AllItems) {
 	file, err := os.OpenFile(viper.GetString("directories.data"), os.O_RDWR|os.O_APPEND, 0666)
 	checkError(err)
@@ -41,6 +44,7 @@ func Home() (au *AllItems) {
 	return &alItms
 }
 
+// Singleton will return a single requested Data Item to allow editing of a single Data Item within a template
 func Singleton(i int) (au **Item) {
 	// here we can use viper to find the data directory
 	file, err := os.OpenFile(viper.GetString("directories.data"), os.O_RDWR|os.O_APPEND, 0666)
@@ -61,6 +65,7 @@ func Singleton(i int) (au **Item) {
 
 // Below will be model data for settings and pluginRepo
 
+// ServSetting is a struct to contain the Server Settings or serverSettings.json data
 type ServSetting struct {
 	Name     string `json:"name"`
 	Version  string `json:"version"`
@@ -68,6 +73,7 @@ type ServSetting struct {
 	Language string `json:"lang"`
 }
 
+// ServSettingGet returns the item of Server Settings to allow templating
 func ServSettingGet() (au *ServSetting) {
 	file, err := os.OpenFile(viper.GetString("directories.setting")+"/serverSettings.json", os.O_RDWR|os.O_APPEND, 0666)
 	checkError(err)

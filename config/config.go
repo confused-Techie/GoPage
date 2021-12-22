@@ -8,15 +8,18 @@ import (
 	"runtime"
 )
 
+// Config is a struct to contain the full config.yml file with multiple sections
 type Config struct {
 	Server      ServerConfigurations
 	Directories DirectoriesConfigurations
 }
 
+// ServerConfigurations struct contains the options within the yaml specific to the server
 type ServerConfigurations struct {
 	Port int
 }
 
+// DirectoriesConfigurations struct contains the options within the yaml specific to the location of other data
 type DirectoriesConfigurations struct {
 	StaticAssets string
 	Templates    string
@@ -25,6 +28,7 @@ type DirectoriesConfigurations struct {
 	Script       string
 }
 
+// LoadConfig is needed for viper to load the config file
 func LoadConfig(path string) (config Config, err error) {
 	// set the path to look for the configuration file
 	// this will be provided when calling the func
@@ -44,6 +48,7 @@ func LoadConfig(path string) (config Config, err error) {
 	return
 }
 
+// DetermineEnv helps to determine the location of the config file based on platform or flags during running of GoPage
 func DetermineEnv() string {
 	devEnv := flag.Bool("dev", false, "a bool")
 	dockerEnv := flag.Bool("docker", false, "a bool")
@@ -60,7 +65,9 @@ func DetermineEnv() string {
 	if runtime.GOOS == "windows" {
 		//return os.Getenv("HOMEDRIVE") + os.Getenv("HOMEPATH") + "/.gopage"
 		return os.Getenv("LOCALAPPDATA") + "/.gopage"
-	} else {
-		return "$HOME"
 	}
+	// Since this if block ends with a return statement, dropping the else and outdenting the block.
+	// once additional platforms are supported this will need to be modified,
+	return "$HOME"
+
 }
