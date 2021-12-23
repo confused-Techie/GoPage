@@ -2,6 +2,17 @@
 
 >A simple Website Shortcut Dashboard written in Go.
 
+<img src="https://img.shields.io/badge/Lighthouse%20Performance%20-100%25-success">
+<img src="https://img.shields.io/badge/Lighthouse%20Accessibility-100%25-success">
+<img src="https://img.shields.io/badge/Lighthouse%20Best%20Practices-100%25-success">
+<img src="https://img.shields.io/badge/Lighthouse%20SEO-82%25-yellow">
+<img src="https://img.shields.io/badge/Lighthouse%20PWA-0%25-inactive">
+
+[![Go Report Card](https://goreportcard.com/badge/github.com/confused-Techie/GoPage)](https://goreportcard.com/report/github.com/confused-Techie/GoPage)
+<img src="https://badgen.net/github/release/confused-Techie/GoPage">
+<img src="https://badgen.net/github/license/confused-Techie/GoPage">
+<img src="https://img.shields.io/github/last-commit/confused-Techie/GoPage">
+
 GoPage has been made with the goal of extreme simplicity and convenient extensibility. Where standalone it's a simplistic way to store and manage Links to pages giving them unique user-defined categories, with easy ability to edit them down the line. And if you mix in the existing plugins and extreme ease of creating new ones gives life to these Links to show you the data needed at a moments glance.
 
 ## Installation
