@@ -70,6 +70,10 @@ var langHandler = {
         .then(data => {
           if (currentLang != data.lang) {
             currentLang = data.lang;
+            // to allow screen readers to pronounce inner content correctly, we will also modify the HTML declared language when detecting the language is different
+            // than declared by default
+            document.documentElement.setAttribute("lang", currentLang);
+            
             console.log(`Set the Current Language global variable to ${currentLang}`);
             resolve('Set Current Langage');
           } else {

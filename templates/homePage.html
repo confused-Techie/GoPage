@@ -1,4 +1,6 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<meta name="description" content="GoPage - A simple Website Shortcut Dashboard written in Go">
 <head>
   <title>GoPage - Home</title>
   <link id="theme" rel="stylesheet" type="text/css" href="/assets/css/theme-dark.css">
@@ -8,7 +10,7 @@
 <body onload="onPageLoad()">
   <div class="heading">
     <div class="settingsIcon">
-      <a href="/settings"><img src="/assets/images/settings-white.svg"></a>
+      <a href="/settings"><img src="/assets/images/settings-white.svg" alt="White Gear Icon indicating traditional Settings Icon"></a>
     </div>
     <div class="titleCard"><h1>GoPage</h1></div>
     <div class="timeStamp" id="timeStamp"> </div>
@@ -56,12 +58,12 @@
 
         <div class="editItem">
           <a href="/edit/{{.Id}}">
-            <img src="/assets/images/edit.svg">
+            <img src="/assets/images/edit.svg" alt="Black Pencil Pointing Towards box outline indicating traditional Edit Icon">
           </a>
         </div>
         <div class="deleteItem">
           <a href="PleaseEnableJavascript.html" onclick="modalDelete( {{.Id}} );return false;">
-            <img src="/assets/images/trash-2.svg">
+            <img src="/assets/images/trash-2.svg" alt="Black Outline of Trashcan indicating traditional Delete Icon">
           </a>
         </div>
         </div>
@@ -91,13 +93,13 @@
   </div>
 
   <footer>
-    <img src="/assets/images/github-white.svg">
+    <img src="/assets/images/github-white.svg" alt="Github's Octocat Icon">
     <p><a href="https://github.com/confused-Techie/GoPage">
       <span id="i18n-footerSourceCode">Source Code</span></a></p>
-    <img src="/assets/images/git-branch-white.svg">
+    <img src="/assets/images/git-branch-white.svg" alt="Github's New Code Branch Icon">
     <p><a href="https://github.com/confused-Techie/GoPage/blob/main/docs/contribute.md">
       <span id="i18n-footerContribute">Contribute</span></a></p>
-    <img src="/assets/images/feather-white.svg">
+    <img src="/assets/images/feather-white.svg" alt="Feather Icon Project Logo">
     <p><a href="https://feathericons.com">
       <span id="i18n-footerThanksFeather">Thanks Feather Icons</span></a></p>
   </footer>
@@ -106,6 +108,5 @@
   <script src="/assets/js/home.js"></script>
   <script src="/assets/js/pluginhandler.js"></script>
   <script src="/assets/js/universal.js"></script>
-  <!--<script src="/plugins/statusCheck/main.js"></script>-->
 </body>
 </html>

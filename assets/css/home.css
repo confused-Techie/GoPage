@@ -128,6 +128,7 @@ As to be honest I've hated CSS for years. */
   grid-row: 2;
 
   margin-top: 5px;
+  padding-bottom: 20px;
 }
 
 .plugin-right {
