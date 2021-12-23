@@ -34,7 +34,7 @@ var langHandler = {
         }
       });
   },
-  ProvideStringRaw: function ProvideString(id) {
+  ProvideStringRaw: function ProvideStringRaw(id) {
     // This will be used for providing strings of generated content, where its not possible to then change the string wtihin the DOM
     return new Promise(function (resolve, reject) {
       var resourceName = `strings.${currentLang}.json`;
