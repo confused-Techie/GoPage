@@ -1,0 +1,148 @@
+.uploadImageContainer {
+  text-align: center;
+}
+
+.uploadImageContainer button {
+  background-color: var(--create-action-back-drop-colour);
+  color: var(--create-action-text-colour);
+  border: noe;
+}
+
+input[type=submit] {
+  display: none;
+}
+.file-upload-submit {
+  background-color: var(--create-action-back-drop-colour);
+  color: var(--create-action-text-colour);
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 15px;
+}
+
+input[type=file]::file-selector-button {
+  /* Since we want to use our custom styling here we can hide the element, and style the label only */
+  /* Or we can use the pseudo-element introduced in CSS Pseudo-Elements Module Level 4 */
+  background-color: var(--create-action-back-drop-colour);
+  color: var(--create-action-text-colour);
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.unsetImageContainer {
+  text-align: center;
+}
+
+.unset-image {
+  background-color: var(--create-action-back-drop-colour);
+  color: var(--create-action-text-colour);
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.seperator {
+  margin-top: 15px;
+  border-bottom: var(--settings-seperator-border-bottom);
+}
+
+.user-image-upload {
+  background-color: var(--create-action-back-drop-colour);
+  color: var(--create-action-text-colour);
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.existingImages {
+  text-align: center;
+  width: 80%;
+}
+
+/* Now for the elements to make this more responsive. */
+.image-row {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 4px;
+}
+
+/* Create four equal columns that sits next to each other */
+.image-column {
+  flex: 25%;
+  max-width: 25%;
+  padding: 0 4px;
+}
+
+.image-column img {
+  margin-top: 8px;
+  vertical-align: middle;
+  width: 100%;
+}
+
+/* Responseive layout - makes a two column-layout instead of four columns */
+@media screen and (max-width: 800px) {
+  .image-column {
+    flex: 50%;
+    max-width: 50%;
+  }
+}
+
+/* Responsiev layout - makes a two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .image-column {
+    flex: 100%;
+    max-width: 100%;
+  }
+}
+
+/* Snackbar based CSS */
+/* Keeping this seperate because it may become standard and moved to universal */
+
+.snackbar {
+  visibility: hidden; /* Hidden by default. */
+  min-width: 250px; /* Set default minimum width */
+  margin-left: -125px; /* Divide value of min-width by 2 */
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed; /* Sit on top of the screen */
+  z-index: 1;
+  left: 50%;
+  bottom: 30px;
+}
+
+.snackbar.show {
+  visibility: visible;
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+  However, delay the fade out process for 2.5 seconds */
+  -webkit-animation: snack-fadein 0.5s, snack-fadeout 0.5s 2.5s;
+  animation: snack-fadein 0.5s, snack-fadeout 0.5s 2.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes snack-fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes snack-fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes snack-fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 30px; opacity: 0;}
+}
+
+@keyframes snack-fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 30px; opacity: 0;}
+}

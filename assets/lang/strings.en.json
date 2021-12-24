@@ -27,6 +27,8 @@
   "i18n-toolDescriptionPluginRepo": "A Place to get new Plugins",
   "i18n-toolNameLinkHealth": "Link Health",
   "i18n-toolDescriptionLinkHealth": "A Place to check the health and any Duplicates of Items",
+  "i18n-toolNameBackgroundImage": "Background Image",
+  "i18n-toolDescriptionBackgroundImage": "Tool to upload new Background Images and change the current one.",
   "i18n-serverSummaryServerName": "Server Name",
   "i18n-serverSummaryServerVersion": "Server Version",
   "i18n-serverSummaryGoPageAuthor": "GoPage Author",
@@ -42,6 +44,8 @@
   "i18n-generatedLHMatchType": "Match Type",
   "i18n-generatedLHMatchedItem": "Matched Item",
   "i18n-generatedLHLinkItem": "Link Items",
+  "i18n-generatedUploadSuccessSnackbar": "Successfully set '{0}' as background image. (You may need to refresh...)",
+  "i18n-generatedRemoveImageSuccess": "Unset the Background Image. (You may need to refresh...)",
   "i18n-edgeCaseTextEnableJS": "Please enable JavaScript on your Browser for GoPage to function as expected."
 
 }

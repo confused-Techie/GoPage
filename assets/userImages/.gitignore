@@ -1,0 +1,4 @@
+# Ignore my background images for testing to not worry about licenses or attributions
+*
+*/
+!.gitignore

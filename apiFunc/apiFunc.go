@@ -21,6 +21,7 @@ var client = http.Client{
 	Timeout: 2 * time.Second,
 }
 
+// Ping mimics the command line utility ping while just returning the HTTP Status Code and nothing else
 func Ping(domain string) (int, error) {
 	req, err := http.NewRequest("HEAD", domain, nil)
 	if err != nil {
@@ -34,12 +35,18 @@ func Ping(domain string) (int, error) {
 	return resp.StatusCode, nil
 }
 
+// HostSettingGet uses the os package to return the system's hostname
 func HostSettingGet() (string, error) {
 	return os.Hostname()
 }
 
+// HostOSGet returns basic information about the host system operating system and/or architecture
 func HostOSGet() string {
-	return os.Getenv("OS")
+	// Since this originally would only return a value on a windows based system
+	if (runtime.GOOS == "windows") {
+		return os.Getenv("OS")
+	}
+	return runtime.GOOS + "/" + runtime.GOARCH
 }
 
 // This will be dedicated to the plugin store
@@ -158,35 +165,11 @@ func GetPluginData() (au *PluginData) {
 }
 
 func CmdTest(src string) string {
-	// get 'go' executable path
-	//goExecutable, _ := exec.LookPath( "go" )
-	// go version command
-	//cmdGoVer := &exec.Cmd {
-	//  Path: goExecutable,
-	//  Args: []string{ goExecutable, "version" },
-	//  Stdout: os.Stdout,
-	//  Stderr: os.Stdout,
-	//}
-
-	// see command represented by 'cmdGoVer'
-	//fmt.Println( cmdGoVer.String() )
-	// run the command
-	//if err := cmdGoVer.Run(); err != nil {
-	//  fmt.Println("Error:", err);
-	//}
 
 	fmt.Println(os.Getenv("OS"))
 	fmt.Println(runtime.GOOS)
 	fmt.Println(src)
-	// construct go version command
-	//cmd := exec.Command( "go", "version" )
 
-	// run command and wait on output
-	//if otuput, err := cmd.Output(); err != nil {
-	//  fmt.Println("Error:", err)
-	//} else {
-	//  fmt.Printf("Otuput: %s\n", otuput)
-	//}
 
 	if runtime.GOOS == "windows" {
 
@@ -387,14 +370,12 @@ func InstallUniversal(src string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	//defer out.Close()
 
 	// Get the data
 	resp, err := http.Get(src)
 	if err != nil {
 		return "", err
 	}
-	//defer resp.Body.Close()
 
 	// Check server response
 	if resp.StatusCode != http.StatusOK {
@@ -406,7 +387,6 @@ func InstallUniversal(src string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	//return "Success", nil
 	out.Close()
 	resp.Body.Close()
 
@@ -459,7 +439,6 @@ func InstallUniversal(src string) (string, error) {
 	fmt.Println("Successfully Preformed File Cleanup...")
 	consoleData = consoleData + "Successfully Preformed File Cleanup... \n"
 	// Now the temp file and plugin archive should be deleted
-	//return "Success!", nil
 
 	availablePluginFile, err := os.OpenFile(viper.GetString("directories.plugin")+"availablePlugins.json", os.O_RDWR|os.O_APPEND, 0666)
 	if err != nil {

@@ -6,6 +6,7 @@ import (
 	"github.com/spf13/viper"
 	"io/ioutil"
 	"os"
+	"net/http"
 )
 
 // Item is struct for an individual Data Item
@@ -82,4 +83,43 @@ func ServSettingGet() (au *ServSetting) {
 	json.Unmarshal(b, &srvStting)
 	checkError(err)
 	return &srvStting
+}
+
+// UserSetting struct is made to contain the JSON of User settings
+type UserSetting struct {
+	CustomBackground usrStgBck `json:"customBackground"`
+}
+
+type usrStgBck struct {
+	Set bool `json:"set"`
+	Src string `json:"src"`
+	Repeat string `json:"repeat"`
+	Size string `json:"size"`
+}
+
+// UserSettingGet is to access and return the user settings json
+func UserSettingGet() (au *UserSetting) {
+	file, err := os.OpenFile(viper.GetString("directories.setting")+"/userSettings.json", os.O_RDWR|os.O_APPEND, 0666)
+	checkError(err)
+	b, err := ioutil.ReadAll(file)
+	var usrStting UserSetting
+	json.Unmarshal(b, &usrStting)
+	checkError(err)
+	return &usrStting
+}
+
+// UserSettingSet is used to write new user settings to disk
+func UserSettingSet(rw http.ResponseWriter, req *http.Request) {
+	body, err := ioutil.ReadAll(req.Body)
+	checkError(err)
+	fmt.Println(string(body))
+	var upldUsr UserSetting
+	err = json.Unmarshal(body, &upldUsr)
+	checkError(err)
+	fmt.Println(upldUsr)
+	// now after confirming the data can be unmarshalled into the struct, and logging it, we can write it
+	newUserSetting, err := json.MarshalIndent(&upldUsr, "", "")
+	checkError(err)
+	ioutil.WriteFile(viper.GetString("directories.setting")+"/userSettings.json", newUserSetting, 0666);
+
 }

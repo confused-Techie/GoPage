@@ -8,6 +8,7 @@ body {
   margin-left: 0;
   margin-right: 0;
   /* remove user-agent margins to allow element to fill to edge of page */
+  background-image = "none"
 }
 
 a {

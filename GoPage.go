@@ -6,6 +6,7 @@ import (
 	apiFunc "github.com/confused-Techie/GoPage/apiFunc"
 	config "github.com/confused-Techie/GoPage/config"
 	model "github.com/confused-Techie/GoPage/model"
+	handler "github.com/confused-Techie/GoPage/handler"
 	"github.com/spf13/viper"
 	"html/template"
 	"io/ioutil"
@@ -39,6 +40,11 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 
 func linkHealthHandler(w http.ResponseWriter, r *http.Request) {
 	p := viper.GetString("directories.templates") + "/linkhealth.html"
+	http.ServeFile(w, r, p)
+}
+
+func UploadPageHandler(w http.ResponseWriter, r *http.Request) {
+	p := viper.GetString("directories.templates") + "/uploadImage.html"
 	http.ServeFile(w, r, p)
 }
 
@@ -250,6 +256,11 @@ func apiServerSettingsHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(au)
 }
 
+func apiUserSettingsHandler(w http.ResponseWriter, r *http.Request) {
+	au := model.UserSettingGet()
+	json.NewEncoder(w).Encode(au)
+}
+
 func apiHostNameHandler(w http.ResponseWriter, r *http.Request) {
 	resp, err := apiFunc.HostSettingGet()
 	checkError(err)
@@ -310,6 +321,22 @@ func apiUpdatePlugin(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(resp)
 }
 
+func userImagesHandler(w http.ResponseWriter, r *http.Request) {
+	files, err := ioutil.ReadDir(viper.GetString("directories.staticAssets") + "userImages/")
+	if err != nil {
+		log.Fatal(err)
+	}
+	var itemList string
+	for _, file := range files {
+		fmt.Println(file.Name())
+		if file.Name() != ".gitignore" {
+			itemList = itemList + file.Name() + ","
+		}
+
+	}
+	json.NewEncoder(w).Encode(itemList)
+}
+
 func main() {
 	// Here we can add all viper configuration file/env file setup
 	// this will grab the proper config location, home of windows or linux, or if dev flag used the local dir
@@ -336,6 +363,10 @@ func main() {
 	http.HandleFunc("/edit/", editHandler)
 	http.HandleFunc("/new/", newHandler)
 
+	http.HandleFunc("/upload", handler.UploadHandler)
+	http.HandleFunc("/uploadpage", UploadPageHandler)
+	http.HandleFunc("/userimages", userImagesHandler)
+
 	// now to allow static file serving for css and js assets
 	fs := http.FileServer(http.Dir(viper.GetString("directories.staticAssets")))
 	http.Handle("/assets/", http.StripPrefix("/assets/", fs))
@@ -352,6 +383,8 @@ func main() {
 	// For the proper filtering of items, and hopeful searching, here will be an api call for js to get all items as json
 	http.HandleFunc("/api/items", apiItemsHandler)
 	http.HandleFunc("/api/serversettings", apiServerSettingsHandler)
+	http.HandleFunc("/api/usersettings", apiUserSettingsHandler)
+	http.HandleFunc("/api/usersettingswrite", model.UserSettingSet)
 	// Below will be API declarations used for plugins
 	http.HandleFunc("/api/ping", apiPingHandler)
 	http.HandleFunc("/api/hostname", apiHostNameHandler)

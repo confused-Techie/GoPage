@@ -73,7 +73,7 @@ var langHandler = {
             // to allow screen readers to pronounce inner content correctly, we will also modify the HTML declared language when detecting the language is different
             // than declared by default
             document.documentElement.setAttribute("lang", currentLang);
-            
+
             console.log(`Set the Current Language global variable to ${currentLang}`);
             resolve('Set Current Langage');
           } else {
@@ -95,5 +95,37 @@ var langHandler = {
           }
         }
       });
+  },
+  UnicornComposite: function UnicornComposite() {
+    // this is my implementation of Composite Formatting from C#
+    // This is at its core based on the Stack Overflow Implmentation found and reworked by Gabriel Nahmias
+    // Which was again then reworked by myself to work as a standalone method
+    // https://stackoverflow.com/a/18234317/12707685
+    // ---------------------------------------------
+    // This will accept a composite formatted string for ease of translations,
+    // First Argument MUST be the string to work on,
+    // all other arguments afterwards can be keys, with not enough or to many causing zero errors
+    // EX.
+    // UnicornComposite("How is this for a {0}, I hope it {1}", "Test", "Works"); - How is this for a Test, I hope it Works.
+    
+    var str = arguments[0];
+    // the first argument should be the string to work on; everything after is repalce keys
+    if (arguments.length > 1) {
+      var t = typeof arguments[1];
+      var key;
+      var args = ("string" === t || "number" === t) ?
+        Array.prototype.slice.call(arguments)
+        : arguments[1];
+      // since the conditional ternary operator to define args will liekly include the inital string
+      // if array we want to remove it if array
+      if (Array.isArray(args)) {
+        var tmp = args.shift();
+      }
+
+      for (key in args) {
+        str = str.replace(new RegExp("\\{" + key + "\\}", "gi"), args[key]);
+      }
+    }
+    return str;
   }
 }
