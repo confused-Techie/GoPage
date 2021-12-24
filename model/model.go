@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"github.com/spf13/viper"
 	"io/ioutil"
-	"os"
 	"net/http"
+	"os"
 )
 
 // Item is struct for an individual Data Item
@@ -91,10 +91,10 @@ type UserSetting struct {
 }
 
 type usrStgBck struct {
-	Set bool `json:"set"`
-	Src string `json:"src"`
+	Set    bool   `json:"set"`
+	Src    string `json:"src"`
 	Repeat string `json:"repeat"`
-	Size string `json:"size"`
+	Size   string `json:"size"`
 }
 
 // UserSettingGet is to access and return the user settings json
@@ -120,6 +120,6 @@ func UserSettingSet(rw http.ResponseWriter, req *http.Request) {
 	// now after confirming the data can be unmarshalled into the struct, and logging it, we can write it
 	newUserSetting, err := json.MarshalIndent(&upldUsr, "", "")
 	checkError(err)
-	ioutil.WriteFile(viper.GetString("directories.setting")+"/userSettings.json", newUserSetting, 0666);
+	ioutil.WriteFile(viper.GetString("directories.setting")+"/userSettings.json", newUserSetting, 0666)
 
 }

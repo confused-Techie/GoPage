@@ -43,7 +43,7 @@ func HostSettingGet() (string, error) {
 // HostOSGet returns basic information about the host system operating system and/or architecture
 func HostOSGet() string {
 	// Since this originally would only return a value on a windows based system
-	if (runtime.GOOS == "windows") {
+	if runtime.GOOS == "windows" {
 		return os.Getenv("OS")
 	}
 	return runtime.GOOS + "/" + runtime.GOARCH
@@ -169,7 +169,6 @@ func CmdTest(src string) string {
 	fmt.Println(os.Getenv("OS"))
 	fmt.Println(runtime.GOOS)
 	fmt.Println(src)
-
 
 	if runtime.GOOS == "windows" {
 
