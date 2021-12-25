@@ -1,5 +1,7 @@
 # Start from a Debian image with the latest version of Go installed
 # and a workspace (GOPATH) configured at /go
+
+# Attempting to combine multiple RUN directives to reduce the amount of layers built
 FROM golang
 
 # Specify the default destination for all other commands
@@ -10,14 +12,14 @@ ADD . ./
 
 # Build the gopage command inside the container
 # And any dependencies
-RUN go get github.com/spf13/viper
-RUN go install .
+RUN go get github.com/spf13/viper && go install . && go build -o /gopage
+# RUN go install .
 
 # move the data file  from clean files to the root
 COPY /cleanFiles/list.json /app/list.json
 
 # Build the application
-RUN go build -o /gopage
+#RUN go build -o /gopage
 
 # Run the gopage command by default when the container starts
 #ENTRYPOINT /go/bin/gopage

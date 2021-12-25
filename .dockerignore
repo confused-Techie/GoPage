@@ -1,5 +1,7 @@
 # Ignore documentation for Github
 docs/
+# Ignore my personal documentation
+DEV-docs/
 # Since this is for docker we can also ignore any installer Items
 installer/
 # We can also discard and ignore any Git specific Items, since no git history should be maintained from the docker instance
@@ -12,7 +14,7 @@ LICENSE
 # Also since for now at least the scripts folder only contains a script for Windows Installation we will ignore that.
 scripts/
 # We also want to ignore any images i've uploaded for testing
-assets/userImages/
+assets/userImages/**
 # Ignore files specific to Docker, that aren't needed in the final build
 Dockerfile
 .dockerignore
