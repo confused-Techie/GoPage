@@ -1,0 +1,190 @@
+{
+  "homePage": {
+    "local-name": "9:33:21",
+    "performance": {
+      "score": 100,
+      "first-contentful-paint": "0.3s",
+      "speed-index": "0.4s",
+      "largest-contentful-paint": "0.6s",
+      "time-to-interactive": "0.3s",
+      "total-blocking-time": "0ms",
+      "cumulative-layout-shift": "0.01",
+      "audits": {
+        "passed": 32,
+        "diagnostics": [
+          "Image elements do not have explicit width and height",
+          "does not have a <meta name='viewport'> tag with width or iital scale",
+          "serve static assets with an effecient cache policy",
+          "avoid chainign scritical requests - 8 chains found ",
+          "keep request counts low and transfer sizes small - 37 requesst * 182 KiB",
+          "largest contetnful paint element - 1 element found",
+          "avoid large layout shifts - 5 elements found"
+        ]
+      }
+    },
+    "accessibility": {
+      "score": 100,
+      "audits": {
+        "passed": 10,
+        "na": 34
+      }
+    },
+    "best-practices": {
+      "score": 100,
+      "audits": {
+        "passed": 16,
+        "na": 2
+      }
+    },
+    "seo": {
+      "score": 82,
+      "audits": {
+        "passed": 9,
+        "na": 3,
+        "diagnostics": [
+          "does not have a <meta name='viewport'> tag with width or inital-scale",
+          "robots.txt is not valid"
+        ]
+      }
+    },
+    "pwa": {
+      "score": 0,
+
+    }
+  },
+
+  "settings": {
+    "name": "9:41:58",
+    "performance": {
+      "score": 100,
+      "audits": {
+        "passed": 32
+      }
+    },
+    "accessibility": {
+      "score": 68,
+      "audits": {
+        "passed": 7,
+        "na": 35,
+        "diagnostics": [
+          "image elements do not have alt attribute",
+          "links do not have a discernible name"
+        ]
+      }
+    },
+    "best-practices": {
+      "score": 100,
+      "audits": {
+        "passed": 16,
+        "na": 2
+      }
+    },
+    "seo": {
+      "score": 64,
+      "audits": {
+        "passed": 7,
+        "na": 3,
+        "diagnostics": [
+          "does not have a <meta name=viewport> tag with width or initial-scale",
+          "doecument does not have a meta description",
+          "image elements do not have [alt] attributes",
+          "robots.ext is not valid"
+        ]
+      }
+    },
+    "pwa": {
+      "score": 0
+    }
+  },
+
+  "plugin-repo": {
+    "name": "10:33:05",
+    "performance": {
+      "score": 100
+    },
+    "accessibility": {
+      "score": 80,
+      "audits": {
+        "passed": 9,
+        "diagnostics": [
+          "image elements do not have alt attributes"
+        ]
+      }
+    },
+    "best-practices": {
+      "score": 100
+    },
+    "seo": {
+      "score": 64
+    }
+  },
+
+  "linkHealth": {
+    "name": "10:36:15",
+    "performance": {
+      "score": 100
+    },
+    "accessibility": {
+      "score": 100
+    },
+    "best-practices": {
+      "score": 100
+    },
+    "seo": {
+      "score": 73
+    }
+  },
+
+  "uploadImage": {
+    "name": "10:37:36",
+    "performance": {
+      "score": 79,
+      "first-contentful-paint": "0.3s",
+      "speed-index": "0.3s",
+      "largest-contentful-paint": "3.9s",
+      "time-to-interactive": "0.5s",
+      "total-blocking-time": "70ms",
+      "cumulative-layout-shfit": "0.003",
+      "audits": {
+        "passed": 28,
+        "details": [
+          "properly size images: 2.64s",
+          "serve images in next-gen formats: 1.16s",
+          "serve static assets with an efficient cache policy: 22 resources found",
+          "image elements do not have explicit width and height",
+          "does not have a meta name viewport tag with width or initial-scale",
+          "avoid enormous network paylods - total size was 3,638KiB",
+          "avoid chaining critical requests - 7 chains found",
+          "keep requests counts low and transfer sizes small - 34 requests * 3,624 KiB",
+          "largest contentful paint element - 1 element found",
+          "avoid large layout shifts - 5 element found",
+          "avoid long main-thread tasks - 3 long tasks found"
+        ]
+      }
+    },
+    "accessibility": {
+      "score": 67,
+      "audits": {
+        "passed": 9,
+        "na": 33,
+        "details": [
+          "image elements do not have alt attributes",
+          "form elements do not have associated labels"
+        ]
+      }
+    },
+    "best-practices": {
+      "score": 93,
+      "audits": {
+        "passed": 15,
+        "na": 2,
+        "details": [
+          "serves images with low resolution"
+        ]
+      }
+    },
+    "seo": {
+      "score": 64
+    }
+  }
+}

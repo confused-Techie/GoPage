@@ -52,6 +52,18 @@ a {
   grid-row: 1;
 }
 
+/* Specific to styling of text across pages */
+.text-style-issue {
+  color: var(--text-style-issue-colour);
+}
+
+.text-style-declare {
+  color: var(--text-style-declare-colour);
+  font-weight: bold;
+  font-style: oblique;
+  text-decoration: underline;
+}
+
 hr.heading {
   border: var(--heading-hr-border);
 }

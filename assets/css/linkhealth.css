@@ -21,12 +21,3 @@
   padding-right: 5px;
   padding-left: 5px;
 }
-
-.link-health-item .issue {
-  color: red;
-}
-
-.link-health-item .declare {
-  font-weight: bold;
-  color: black;
-}
