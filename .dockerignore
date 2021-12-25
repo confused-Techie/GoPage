@@ -6,5 +6,19 @@ installer/
 readme.md
 .gitignore
 .gitattributes
+.github
+.git
+LICENSE
 # Also since for now at least the scripts folder only contains a script for Windows Installation we will ignore that.
 scripts/
+# We also want to ignore any images i've uploaded for testing
+assets/userImages/
+# Ignore files specific to Docker, that aren't needed in the final build
+Dockerfile
+.dockerignore
+# We can of course ignore the reporting items
+reporting/
+# Of course ignore any final builds here
+*.exe
+# ignore original list.json
+list.json

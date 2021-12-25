@@ -328,7 +328,6 @@ func userImagesHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	var itemList string
 	for _, file := range files {
-		fmt.Println(file.Name())
 		if file.Name() != ".gitignore" {
 			itemList = itemList + file.Name() + ","
 		}
