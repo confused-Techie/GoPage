@@ -23,13 +23,28 @@ function installPlugin(pluginUrl, pluginName) {
 
 function uninstallPlugin(pluginName) {
   fetch(`/plugins/uninstall?pluginName=${pluginName}`)
-    .then(res => res.json())
+    .then(res => {
+      // since this may return error data not properly formated as a string, we need to have a backup to move to text
+      try {
+        JSON.parse(res);
+      } catch(err) {
+        console.log(err);
+        return res.text();
+      }
+      return res.json()
+    })
     .then(data => {
       console.log(data);
       if (data.includes("Success!")) {
         modalResults(data, "Success!");
       } else {
-        modalResults(data, "Failure");
+        // the most common err is that the file is being used. but the return data is not valid json
+        if (data.includes("Err") && data.includes("32")) {
+          var tmpData = "Golang Error 32: The process cannot access the file because it is being used by another process.";
+          modalResults(tmpData, "Failure");
+        } else {
+          modalResults(data, "Failure");
+        }
       }
     })
     .catch(err => {

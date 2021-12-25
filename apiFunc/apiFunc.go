@@ -128,6 +128,7 @@ func GetInstalledPluginsList() (au *InstalledPlugins) {
 	b, err := ioutil.ReadAll(file)
 	var instList InstallList
 	json.Unmarshal(b, &instList.InstallItem)
+	file.Close()
 	checkError(err)
 	//return &instList
 
@@ -142,6 +143,7 @@ func GetInstalledPluginsList() (au *InstalledPlugins) {
 		b, err := ioutil.ReadAll(file2)
 		var plgItm PluginItem
 		json.Unmarshal(b, &plgItm)
+		file2.Close()
 		checkError(err)
 		//fmt.Println(&plgItm)
 		plugDataList.AddItemToList(plgItm)

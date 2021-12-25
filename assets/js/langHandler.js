@@ -13,14 +13,14 @@ var langHandler = {
     var resourceName = `strings.${currentLang}.json`;
 
     fetch(`/assets/lang/${resourceName}`)
-      .then(response => response.json())
-      .then(data => {
-        // now we can see if the id exists in this lang
-        if (data[id]) {
-          element.textContent = data[id];
+      .then(response => {
+        if (response.ok) {
+          return [response.json(), response.status];
         } else {
-          console.log(`Translation for this item does not exist: ${id}`);
-          // if the translation doesn't exist, default to english translation.
+          // this is triggered by a 404 response or anything but 200
+          // intended to catch a case where the language file does not exist.
+          console.log(`Language file seemed to fail with: ${response.status}`);
+          console.log(`Providing default language strings...`);
           fetch(`/assets/lang/strings.en.json`)
             .then(res => res.json())
             .then(defaultData => {
@@ -28,9 +28,35 @@ var langHandler = {
                 element.textContent = defaultData[id];
               } else {
                 console.log(`Default Translation for this item does not exist: ${id}`);
-                element.textContent = "Translations couldn't be found!";
+                element.textContent = "Translations coudln't be found!";
               }
             });
+          return [response, response.status];
+        }
+      })
+      .then(passThru => {
+        // now we can see if the id exists in this lang
+        var data = passThru[0];
+        var status = passThru[1];
+        if (status == 200) {
+          if (data[id]) {
+            element.textContent = data[id];
+          } else {
+            console.log(`Translation for this item does not exist: ${id}`);
+            // if the translation doesn't exist, default to english translation.
+            fetch(`/assets/lang/strings.en.json`)
+              .then(res => res.json())
+              .then(defaultData => {
+                if (defaultData[id]) {
+                  element.textContent = defaultData[id];
+                } else {
+                  console.log(`Default Translation for this item does not exist: ${id}`);
+                  element.textContent = "Translations couldn't be found!";
+                }
+              });
+          }
+        } else {
+          console.log(`Status: ${status} should be handled by initial then...`);
         }
       });
   },
@@ -40,13 +66,36 @@ var langHandler = {
       var resourceName = `strings.${currentLang}.json`;
 
       fetch(`/assets/lang/${resourceName}`)
-        .then(response => response.json())
-        .then(data => {
-          if (data[id]) {
-            resolve(data[id]);
+        .then(response => {
+          if (response.ok) {
+            return [response.json(), response.status];
           } else {
-            console.log(`Translation for this item does not exist: ${id}; within: /assets/lang/${resourceName}`);
-            // if the translation doesn't exist, default to english translation
+            return [response, response.status];
+          }
+        })
+        .then(passThru => {
+          var data = passThru[0];
+          var status = passThru[1];
+          if (status == 200) {
+            if (data[id]) {
+              resolve(data[id]);
+            } else {
+              console.log(`Translation for this item does not exist: ${id}; within: /assets/lang/${resourceName}`);
+              // if the translation doesn't exist, default to english translation
+              fetch(`/assets/lang/strings.en.json`)
+                .then(res => res.json())
+                .then(defaultData => {
+                  if (defaultData[id]) {
+                    resolve(defaultData[id]);
+                  } else {
+                    console.log(`Default Translation for this item does not exist: ${id}; within: /assets/lang/strings.en.json`);
+                    reject("Translations coudln't be found!");
+                  }
+                });
+            }
+          } else {
+            console.log(`Response for declared language string: ${status}`);
+            console.log(`Moving to default strings.`);
             fetch(`/assets/lang/strings.en.json`)
               .then(res => res.json())
               .then(defaultData => {
@@ -54,7 +103,7 @@ var langHandler = {
                   resolve(defaultData[id]);
                 } else {
                   console.log(`Default Translation for this item does not exist: ${id}; within: /assets/lang/strings.en.json`);
-                  reject("Translations coudln't be found!");
+                  reject("Translations couldn't be found!");
                 }
               });
           }
@@ -107,7 +156,7 @@ var langHandler = {
     // all other arguments afterwards can be keys, with not enough or to many causing zero errors
     // EX.
     // UnicornComposite("How is this for a {0}, I hope it {1}", "Test", "Works"); - How is this for a Test, I hope it Works.
-    
+
     var str = arguments[0];
     // the first argument should be the string to work on; everything after is repalce keys
     if (arguments.length > 1) {

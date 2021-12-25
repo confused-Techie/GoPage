@@ -183,7 +183,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\home.js
 
 D:\Personal Documents\GitHub Repositories\GoPage\assets\js\langHandler.js
 
-  Physical LOC: 128
+  Physical LOC: 177
   Logical LOC: 25
   Mean parameter count: 1
   Cyclomatic complexity: 5
@@ -193,7 +193,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\langHandler.js
 
   Function: ProvideString
     Line No.: 7
-    Physical LOC: 30
+    Physical LOC: 56
     Logical LOC: 2
     Parameter count: 2
     Cyclomatic complexity: 1
@@ -203,8 +203,8 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\langHandler.js
     Halstead effort: 98.90166004500014
 
   Function: ProvideStringRaw
-    Line No.: 37
-    Physical LOC: 27
+    Line No.: 63
+    Physical LOC: 50
     Logical LOC: 1
     Parameter count: 1
     Cyclomatic complexity: 1
@@ -214,8 +214,8 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\langHandler.js
     Halstead effort: 23.264662506490403
 
   Function: <anonymous>
-    Line No.: 39
-    Physical LOC: 24
+    Line No.: 65
+    Physical LOC: 47
     Logical LOC: 2
     Parameter count: 2
     Cyclomatic complexity: 1
@@ -225,7 +225,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\langHandler.js
     Halstead effort: 98.90166004500014
 
   Function: DetermineLang
-    Line No.: 64
+    Line No.: 113
     Physical LOC: 22
     Logical LOC: 1
     Parameter count: 0
@@ -236,7 +236,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\langHandler.js
     Halstead effort: 17.414460711655217
 
   Function: <anonymous>
-    Line No.: 65
+    Line No.: 114
     Physical LOC: 20
     Logical LOC: 1
     Parameter count: 2
@@ -247,7 +247,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\langHandler.js
     Halstead effort: 37.05708497116037
 
   Function: InsertLang
-    Line No.: 86
+    Line No.: 135
     Physical LOC: 13
     Logical LOC: 1
     Parameter count: 0
@@ -258,7 +258,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\langHandler.js
     Halstead effort: 27.863137138648344
 
   Function: UnicornComposite
-    Line No.: 99
+    Line No.: 148
     Physical LOC: 32
     Logical LOC: 10
     Parameter count: 0
@@ -355,7 +355,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\pluginNonHomeLoad.js
 
 D:\Personal Documents\GitHub Repositories\GoPage\assets\js\pluginRepo.js
 
-  Physical LOC: 79
+  Physical LOC: 94
   Logical LOC: 11
   Mean parameter count: 1.25
   Cyclomatic complexity: 1
@@ -376,7 +376,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\pluginRepo.js
 
   Function: uninstallPlugin
     Line No.: 24
-    Physical LOC: 16
+    Physical LOC: 31
     Logical LOC: 1
     Parameter count: 1
     Cyclomatic complexity: 1
@@ -386,7 +386,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\pluginRepo.js
     Halstead effort: 38.77443751081734
 
   Function: updatePlugin
-    Line No.: 41
+    Line No.: 56
     Physical LOC: 17
     Logical LOC: 1
     Parameter count: 0
@@ -397,7 +397,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\pluginRepo.js
     Halstead effort: 34.05494539168131
 
   Function: modalResults
-    Line No.: 59
+    Line No.: 74
     Physical LOC: 24
     Logical LOC: 3
     Parameter count: 2
