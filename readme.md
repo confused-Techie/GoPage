@@ -25,16 +25,16 @@ The installation for Docker should be universal for Linux, and Windows, taking o
 * And run it using whatever Port you prefer, giving a name if you'd like.
 
 ````(bash)
-docker pull ghcr.io/confused-techie/gopage:0.1
+docker pull ghcr.io/confused-techie/gopage:0.3
 
-docker run -p 7070:8080 --name GoPageServer ghcr.io/confused-techie/gopage:0.1
+docker run -p 7070:8080 --name GoPageServer ghcr.io/confused-techie/gopage:0.3
 ````
 
 * Please keep in mind the **7070** shown here can be whatever port you want the Docker Container Exposed on. Whereas **8080** is the default port the GoPage Server will listen to within the container.
 
 ### Windows
 
-If you'd just like to give this a quick go or aren't a fan of Docker you can install the Windows Only Application in the releases Section. [V0.1 Available Here](https://github.com/confused-Techie/GoPage/releases/tag/beta)
+If you'd just like to give this a quick go or aren't a fan of Docker you can install the Windows Only Application in the releases Section. [V0.3 Available Here](https://github.com/confused-Techie/GoPage/releases/tag/v0.3)
 
 * Simply download the installer and run it, walking through the options it shows. Keep in mind the resulting application must be running in order for you to be able to connect to the GoPage Dashboard.
 
@@ -63,6 +63,17 @@ http://SERVER-IP:PORT/pluginrepo
 ````
 
 Once here feel free to read through and explore the Plugins available and download them, which will then give you the ability to set them in the Plugin Fields of a New Link Item or while Editing a Link Item.
+
+## Plugins Available by Default
+
+Many Plugins have already been created for GoPage and are available by default after installation.
+
+* Status Check: Simple way to see if the address is currently reachable.
+* Favicon Swiper: Retrieve Favicons via known methods or Google API's as a fallback.
+* Jellyfin API: Get information about your Jellyfin Instance.
+* Pihole API: Get information from your Pihole Instance.
+* Light Theme: Simple Light Theme for those not loving the Dark Theme.
+* Exaggerator Theme: Exaggerator Theme... Just Colourful.
 
 ## [Contribute](docs/contribute.md)
 
