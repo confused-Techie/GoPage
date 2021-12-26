@@ -369,7 +369,7 @@ func main() {
 	// now to allow static file serving for css and js assets
 	fs := http.FileServer(http.Dir(viper.GetString("directories.staticAssets")))
 	http.Handle("/assets/", http.StripPrefix("/assets/", fs))
-
+	
 	// allow static file serving from the plugins folder
 	plugin := http.FileServer(http.Dir(viper.GetString("directories.plugin")))
 	http.Handle("/plugins/", http.StripPrefix("/plugins/", plugin))

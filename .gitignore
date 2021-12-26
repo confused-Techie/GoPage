@@ -7,3 +7,5 @@ list.json
 DEV-docs
 # Ignore any build left by go build .
 *.exe
+# Ignore binaries built for windows
+binaries

@@ -6,12 +6,11 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{4322BAAB-9BD4-47F4-8F3C-471B1951D1F8}
 AppName=GoPage
-AppVersion=0.1
-;AppVerName=GoPage 0.1
+AppVersion=0.3
 AppPublisher=LHBasics
 AppPublisherURL=https://www.lhbasics.com/
-AppSupportURL=https://www.lhbasics.com/
-AppUpdatesURL=https://www.lhbasics.com/
+AppSupportURL=https://github.com/confused-Techie/GoPage
+AppUpdatesURL=https://github.com/confused-Techie/GoPage
 DefaultDirName={localappdata}\.gopage
 DisableDirPage=yes
 DisableProgramGroupPage=yes
@@ -30,29 +29,50 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "C:\Users\antho\go\bin\GoPage.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Personal Documents\Github Repositories\GoPage\binaries\GoPage-v0.3.exe"; DestDir: "{app}"; DestName: "GoPage.exe"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
-Source: "D:\Personal Documents\Github Repositories\GoPage\templates\editPage.html"; DestDir: "{app}\templates"; Flags: ignoreversion
-Source: "D:\Personal Documents\Github Repositories\GoPage\templates\error.html"; DestDir: "{app}\templates"; Flags: ignoreversion
-Source: "D:\Personal Documents\Github Repositories\GoPage\templates\homePage.html"; DestDir: "{app}\templates"; Flags: ignoreversion
-Source: "D:\Personal Documents\Github Repositories\GoPage\templates\newItem.html"; DestDir: "{app}\templates"; Flags: ignoreversion
-; The above is for all template items 
-Source: "D:\Personal Documents\Github Repositories\GoPage\assets\css\form.css"; DestDir: "{app}\assets\css"; Flags: ignoreversion
-Source: "D:\Personal Documents\Github Repositories\GoPage\assets\css\home.css"; DestDir: "{app}\assets\css"; Flags: ignoreversion
-; The above is for CSS items 
-Source: "D:\Personal Documents\Github Repositories\GoPage\assets\js\form.js"; DestDir: "{app}\assets\js"; Flags: ignoreversion
-Source: "D:\Personal Documents\Github Repositories\GoPage\assets\js\home.js"; DestDir: "{app}\assets\js"; Flags: ignoreversion 
-; The above is for JS items
-Source: "D:\Personal Documents\Github Repositories\GoPage\assets\images\edit.svg"; DestDir: "{app}\assets\images"; Flags: ignoreversion
-Source: "D:\Personal Documents\Github Repositories\GoPage\assets\images\git-branch-white.svg"; DestDir: "{app}\assets\images"; Flags: ignoreversion
-Source: "D:\Personal Documents\Github Repositories\GoPage\assets\images\github.svg"; DestDir: "{app}\assets\images"; Flags: ignoreversion
-Source: "D:\Personal Documents\Github Repositories\GoPage\assets\images\github-white.svg"; DestDir: "{app}\assets\images"; Flags: ignoreversion
-Source: "D:\Personal Documents\Github Repositories\GoPage\assets\images\trash-2.svg"; DestDir: "{app}\assets\images"; Flags: ignoreversion
-; The above is for image items
+; Below we will instead specify directories instead of individual files 
+Source: "D:\Personal Documents\Github Repositories\GoPage\templates\*"; DestDir: "{app}\templates"; Flags: ignoreversion
+Source: "D:\Personal Documents\Github Repositories\GoPage\plugins\*"; DestDir: "{app}\plugins"; Flags: ignoreversion
+Source: "D:\Personal Documents\Github Repositories\GoPage\cleanFiles\*"; DestDir: "{app}\cleanFiles"; Flags: ignoreversion
+Source: "D:\Personal Documents\Github Repositories\GoPage\settings\*"; DestDir: "{app}\settings"; Flags: ignoreversion
+Source: "D:\Personal Documents\Github Repositories\GoPage\assets\css\*"; DestDir: "{app}\assets\css"; Flags: ignoreversion
+Source: "D:\Personal Documents\Github Repositories\GoPage\assets\images\*"; DestDir: "{app}\assets\images"; Flags: ignoreversion
+Source: "D:\Personal Documents\Github Repositories\GoPage\assets\js\*"; DestDir: "{app}\assets\js"; Flags: ignoreversion
+Source: "D:\Personal Documents\Github Repositories\GoPage\assets\lang\*"; DestDir: "{app}\assets\lang"; Flags: ignoreversion
+; The different asset dirs are specified seperately to ensure moving userImages as a directory leaves it empty
+; Then the next to lines transfer configuration data to the app dir
 Source: "D:\Personal Documents\Github Repositories\GoPage\cleanFiles\config.yml"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Personal Documents\Github Repositories\GoPage\cleanFiles\list.json"; DestDir: "{app}"; Flags: ignoreversion 
-; The above is for config file && data file
+Source: "D:\Personal Documents\Github Repositories\GoPage\cleanFiles\list.json"; DestDir: "{app}"; Flags: ignoreversion
+; Finally we transfer the windows init script properly to edit the configuration file
 Source: "D:\Personal Documents\Github Repositories\GoPage\scripts\windowsInit.ps1"; DestDir: "{app}"; Flags: ignoreversion 
+
+;Source: "D:\Personal Documents\Github Repositories\GoPage\templates\editPage.html"; DestDir: "{app}\templates"; Flags: ignoreversion
+;Source: "D:\Personal Documents\Github Repositories\GoPage\templates\error.html"; DestDir: "{app}\templates"; Flags: ignoreversion
+;Source: "D:\Personal Documents\Github Repositories\GoPage\templates\homePage.html"; DestDir: "{app}\templates"; Flags: ignoreversion
+;Source: "D:\Personal Documents\Github Repositories\GoPage\templates\newItem.html"; DestDir: "{app}\templates"; Flags: ignoreversion
+; The above is for all template items 
+;Source: "D:\Personal Documents\Github Repositories\GoPage\assets\css\form.css"; DestDir: "{app}\assets\css"; Flags: ignoreversion
+;Source: "D:\Personal Documents\Github Repositories\GoPage\assets\css\home.css"; DestDir: "{app}\assets\css"; Flags: ignoreversion
+; The above is for CSS items 
+;Source: "D:\Personal Documents\Github Repositories\GoPage\assets\js\form.js"; DestDir: "{app}\assets\js"; Flags: ignoreversion
+;Source: "D:\Personal Documents\Github Repositories\GoPage\assets\js\home.js"; DestDir: "{app}\assets\js"; Flags: ignoreversion 
+; The above is for JS items
+;Source: "D:\Personal Documents\Github Repositories\GoPage\assets\images\edit.svg"; DestDir: "{app}\assets\images"; Flags: ignoreversion
+;Source: "D:\Personal Documents\Github Repositories\GoPage\assets\images\git-branch-white.svg"; DestDir: "{app}\assets\images"; Flags: ignoreversion
+;Source: "D:\Personal Documents\Github Repositories\GoPage\assets\images\github.svg"; DestDir: "{app}\assets\images"; Flags: ignoreversion
+;Source: "D:\Personal Documents\Github Repositories\GoPage\assets\images\github-white.svg"; DestDir: "{app}\assets\images"; Flags: ignoreversion
+;Source: "D:\Personal Documents\Github Repositories\GoPage\assets\images\trash-2.svg"; DestDir: "{app}\assets\images"; Flags: ignoreversion
+; The above is for image items
+;Source: "D:\Personal Documents\Github Repositories\GoPage\cleanFiles\config.yml"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "D:\Personal Documents\Github Repositories\GoPage\cleanFiles\list.json"; DestDir: "{app}"; Flags: ignoreversion 
+; The above is for config file && data file
+;Source: "D:\Personal Documents\Github Repositories\GoPage\scripts\windowsInit.ps1"; DestDir: "{app}"; Flags: ignoreversion
+
+
+[Dirs]
+; To create the empty userImages Dir 
+Name: "{app}\assets\userImages" 
 
 [Icons]
 Name: "{autoprograms}\GoPage"; Filename: "{app}\GoPage.exe"
@@ -60,5 +80,5 @@ Name: "{autodesktop}\GoPage"; Filename: "{app}\GoPage.exe"; Tasks: desktopicon
 
 [Run]
 Filename: "powershell.exe"; Parameters: "-ExecutionPolicy Bypass -File ""{app}\windowsInit.ps1"""; StatusMsg: "Config Setup"; WorkingDir: {app}; Flags: runhidden;
-;Filename: "{app}\windowsInit.ps1"; Parameters: "-ExecutionPolicy Bypass"; Description: "Config Setup"; StatusMsg: "Config Setup"; WorkingDir: {app}; Flags: runhidden
+
 Filename: "{app}\GoPage.exe"; Description: "{cm:LaunchProgram,GoPage}"; Flags: nowait postinstall skipifsilent

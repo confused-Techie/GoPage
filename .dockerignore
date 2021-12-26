@@ -24,3 +24,5 @@ reporting/
 *.exe
 # ignore original list.json
 list.json
+# ignore the binaries built for windows
+binaries/
