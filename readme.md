@@ -15,6 +15,9 @@
 
 GoPage has been made with the goal of extreme simplicity and convenient extensibility. Where standalone it's a simplistic way to store and manage Links to pages giving them unique user-defined categories, with easy ability to edit them down the line. And if you mix in the existing plugins and extreme ease of creating new ones gives life to these Links to show you the data needed at a moments glance.
 
+![Example of GoPage HomePage](/docs/assets/homepage-utilized.png)
+> An Image of GoPage with Plugins: Favicon Swiper, Status Check, Jellyfin API, Pihole API installed. With Custom Background set to [Lake - Desktop Background Wallpaper](https://www.flickr.com/photos/83646108@N00/3613708379) by [(matt)](https://www.flickr.com/photos/83646108@N00) licensed under [CC BY-ND 2.0](https://creativecommons.org/licenses/by-nd/2.0/?ref=openverse&atype=rich)
+
 ## Installation
 
 ### Docker
