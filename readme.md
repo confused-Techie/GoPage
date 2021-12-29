@@ -28,16 +28,16 @@ The installation for Docker should be universal for Linux, and Windows, taking o
 * And run it using whatever Port you prefer, giving a name if you'd like.
 
 ````(bash)
-docker pull ghcr.io/confused-techie/gopage:0.3
+docker pull ghcr.io/confused-techie/gopage:0.3.1
 
-docker run -p 7070:8080 --name GoPageServer ghcr.io/confused-techie/gopage:0.3
+docker run -p 7070:8080 --name GoPageServer ghcr.io/confused-techie/gopage:0.3.1
 ````
 
 * Please keep in mind the **7070** shown here can be whatever port you want the Docker Container Exposed on. Whereas **8080** is the default port the GoPage Server will listen to within the container.
 
 ### Windows
 
-If you'd just like to give this a quick go or aren't a fan of Docker you can install the Windows Only Application in the releases Section. [V0.3 Available Here](https://github.com/confused-Techie/GoPage/releases/tag/v0.3)
+If you'd just like to give this a quick go or aren't a fan of Docker you can install the Windows Only Application in the releases Section. [V0.3.1 Available Here](https://github.com/confused-Techie/GoPage/releases/tag/v0.3.1)
 
 * Simply download the installer and run it, walking through the options it shows. Keep in mind the resulting application must be running in order for you to be able to connect to the GoPage Dashboard.
 
