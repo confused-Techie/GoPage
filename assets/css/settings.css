@@ -58,7 +58,7 @@
   grid-row: 1;
   margin-right: auto;
   margin-left: auto;
-  font-size: 2vw;
+  font-size: 2em;
   align-self: center;
 }
 
@@ -67,7 +67,7 @@
   grid-row: 1;
   margin-right: auto;
   margin-left: auto;
-  font-size: 1.5vw;
+  font-size: 1.5em;
   align-self: center;
 }
 

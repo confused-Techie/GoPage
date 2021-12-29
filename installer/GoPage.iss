@@ -6,7 +6,7 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{4322BAAB-9BD4-47F4-8F3C-471B1951D1F8}
 AppName=GoPage
-AppVersion=0.3
+AppVersion=0.3.1
 AppPublisher=LHBasics
 AppPublisherURL=https://www.lhbasics.com/
 AppSupportURL=https://github.com/confused-Techie/GoPage
@@ -29,7 +29,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "D:\Personal Documents\Github Repositories\GoPage\binaries\GoPage-v0.3.exe"; DestDir: "{app}"; DestName: "GoPage.exe"; Flags: ignoreversion
+Source: "D:\Personal Documents\Github Repositories\GoPage\binaries\GoPage-v0.3.1.exe"; DestDir: "{app}"; DestName: "GoPage.exe"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 ; Below we will instead specify directories instead of individual files 
 Source: "D:\Personal Documents\Github Repositories\GoPage\templates\*"; DestDir: "{app}\templates"; Flags: ignoreversion

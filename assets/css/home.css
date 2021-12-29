@@ -108,7 +108,8 @@ As to be honest I've hated CSS for years. */
 
 .itemName {
   /* Targets the Friendly Name of the Item */
-  font-size: 1.5vw; /* Font size based on viewport width */
+  /*font-size: 1.5vw; /* Font size based on viewport width */
+  font-size: 1.4em;
 
   margin-bottom: 5px; /* spacing outside the border of the text */
   grid-column: 2;

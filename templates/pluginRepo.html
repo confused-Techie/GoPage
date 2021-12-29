@@ -31,7 +31,7 @@
           <div class="plugin-icon">
             {{if .Icon.Available}}
               {{if eq .Icon.Type "image"}}
-                <img src="{{.Icon.Source}}">
+                <img src="{{.Icon.Source}}" alt="Icon specified by Plugin Creator to represent their Plugin">
               {{end}}
               {{if eq .Icon.Type "raw"}}
                 {{if eq .Icon.Style "GreenCircle"}}
@@ -64,7 +64,7 @@
           </div>
           <div class="plugin-action">
             <div class="plugin-uninstall" onclick="uninstallPlugin({{.Name}})">
-              <img src="/assets/images/minus-circle.svg">
+              <img src="/assets/images/minus-circle.svg" alt="Minus Sign Icon Indicating Button to Uninstall Plugin">
             </div>
           </div>
         </div>
@@ -81,7 +81,7 @@
         <div class="plugin-icon">
           {{if .Icon.Available}}
             {{if eq .Icon.Type "image"}}
-              <img src="{{.Icon.Source}}">
+              <img src="{{.Icon.Source}}" alt="Icon specified by Plugin Creator to represent their Plugin">
             {{end}}
             {{if eq .Icon.Type "raw"}}
               {{if eq .Icon.Style "GreenCircle"}}
@@ -114,11 +114,11 @@
         <div class="plugin-action">
           {{if .Installed}}
           <div class="plugin-uninstall" onclick="uninstallPlugin({{.Name}})">
-            <img src="/assets/images/minus-circle.svg">
+            <img src="/assets/images/minus-circle.svg" alt="Minus Sign Icon Indicating Button to Uninstall Plugin">
           </div>
           {{else}}
           <div class="plugin-install" onclick="installPlugin({{.DownloadLink}}, {{.Name}})">
-            <img src="/assets/images/download.svg">
+            <img src="/assets/images/download.svg" alt="Arrow Pointing Down Icon Indicating Button to Install Plugin">
           </div>
           {{end}}
         </div>

@@ -63,7 +63,7 @@
 }
 
 .plugin-title {
-  font-size: 2vw;
+  font-size: 2em;
   margin-bottom: 5px;
   grid-column: 2;
   grid-row: 1;
@@ -80,7 +80,7 @@
 }
 
 .plugin-description {
-  font-size: 1.5vw;
+  font-size: 1.5em;
   grid-column: 3;
   grid-row: 1/3;
 

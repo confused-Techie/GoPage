@@ -82,8 +82,9 @@ function modalResults(content, status) {
     .then(resString => {
 
       buttonText = resString;
+      var formattedContent = formatModalContent(content);
 
-      var insertHTML = `<div class="modal-content"> <h3>${status}</h3> <p>${content}</p> <button id="clearModal" class="clearModal">${buttonText}</button> </div>`;
+      var insertHTML = `<div class="modal-content"> <h3>${status}</h3> <p>${formattedContent}</p> <button id="clearModal" class="clearModal">${buttonText}</button> </div>`;
       modal.innerHTML = insertHTML;
 
       var clearModal = document.getElementById("clearModal");
@@ -94,4 +95,19 @@ function modalResults(content, status) {
       // allow it to be visible
       modal.style.display = "block";
     });
+}
+
+function formatModalContent(text) {
+  var splitText = text.split("...");
+  var newText = "";
+  for (let i = 0; i < splitText.length; i++) {
+    if (splitText[i].includes("\\n")) {
+      // Using \\ here to escape the newline character 
+      var tmpString = splitText[i].replace("\\n", "");
+      newText += tmpString + "<br>";
+    } else {
+      newText += splitText[i] + "<br>";
+    }
+  }
+  return newText;
 }

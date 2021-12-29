@@ -14,100 +14,131 @@ var langHandler = {
 
     fetch(`/assets/lang/${resourceName}`)
       .then(response => {
-        if (response.ok) {
-          return [response.json(), response.status];
-        } else {
-          // this is triggered by a 404 response or anything but 200
-          // intended to catch a case where the language file does not exist.
-          console.log(`Language file seemed to fail with: ${response.status}`);
-          console.log(`Providing default language strings...`);
-          fetch(`/assets/lang/strings.en.json`)
-            .then(res => res.json())
-            .then(defaultData => {
-              if (defaultData[id]) {
-                element.textContent = defaultData[id];
-              } else {
-                console.log(`Default Translation for this item does not exist: ${id}`);
-                element.textContent = "Translations coudln't be found!";
-              }
-            });
-          return [response, response.status];
-        }
-      })
-      .then(passThru => {
-        // now we can see if the id exists in this lang
-        var data = passThru[0];
-        var status = passThru[1];
-        if (status == 200) {
-          if (data[id]) {
-            element.textContent = data[id];
+        response.json().then(res => {
+          // stringing in this way, allows us to work with the JSON formatted response without having to build in another wait for the promise to resolve
+          // like the previous implementation
+          if (response.ok) {
+            if (res[id]) {
+              element.textContent = res[id];
+            } else {
+              console.log(`Translation for this item does not exist: ${id}`);
+              fetch(`/assets/lang/strings.en.json`)
+                .then(defaultRes => defaultRes.json())
+                .then(defaultData => {
+                  if (defaultData[id]) {
+                    element.textContent = defaultData[id];
+                  } else {
+                    console.log(`Default Translation for this item does not exist: ${id}`);
+                    element.textContent = "Translations Missing!";
+                  }
+                });
+            }
           } else {
-            console.log(`Translation for this item does not exist: ${id}`);
-            // if the translation doesn't exist, default to english translation.
+            console.log(`Language file seemed to fail with: ${response.status}`);
+            console.log(`Providing default language strings...`);
             fetch(`/assets/lang/strings.en.json`)
-              .then(res => res.json())
+              .then(defaultRes => defaultRes.json())
               .then(defaultData => {
                 if (defaultData[id]) {
                   element.textContent = defaultData[id];
                 } else {
                   console.log(`Default Translation for this item does not exist: ${id}`);
-                  element.textContent = "Translations couldn't be found!";
+                  element.textContent = "Translations missing!";
                 }
               });
           }
-        } else {
-          console.log(`Status: ${status} should be handled by initial then...`);
-        }
+        });
       });
   },
   ProvideStringRaw: function ProvideStringRaw(id) {
     // This will be used for providing strings of generated content, where its not possible to then change the string wtihin the DOM
     return new Promise(function (resolve, reject) {
+
       var resourceName = `strings.${currentLang}.json`;
 
       fetch(`/assets/lang/${resourceName}`)
         .then(response => {
-          if (response.ok) {
-            return [response.json(), response.status];
-          } else {
-            return [response, response.status];
-          }
-        })
-        .then(passThru => {
-          var data = passThru[0];
-          var status = passThru[1];
-          if (status == 200) {
-            if (data[id]) {
-              resolve(data[id]);
+          response.json().then(res => {
+            if (response.ok) {
+              if (res[id]) {
+                resolve(res[id]);
+              } else {
+                console.log(`Translation for this item does not exist: ${id}`);
+                fetch(`/assets/lang/strings.en.json`)
+                  .then(defaultRes => defaultRes.json())
+                  .then(defaultData => {
+                    if (defaultData[id]) {
+                      resolve(defaultData[id]);
+                    } else {
+                      console.log(`Default Translation for this item does not exist: ${id}`);
+                      reject("Translations Missing!");
+                    }
+                  });
+              }
             } else {
-              console.log(`Translation for this item does not exist: ${id}; within: /assets/lang/${resourceName}`);
-              // if the translation doesn't exist, default to english translation
+              // requested language file isn't available
+              console.log(`Language file seemed to fail with: ${response.status}`);
+              console.log('Providing default langauge stirngs...');
               fetch(`/assets/lang/strings.en.json`)
-                .then(res => res.json())
+                .then(defaultRes => defaultRes.json())
                 .then(defaultData => {
                   if (defaultData[id]) {
                     resolve(defaultData[id]);
                   } else {
-                    console.log(`Default Translation for this item does not exist: ${id}; within: /assets/lang/strings.en.json`);
-                    reject("Translations coudln't be found!");
+                    console.log(`Default Translation for this item does not exist: ${id}`);
+                    reject("Translations Missing!");
                   }
                 });
             }
-          } else {
-            console.log(`Response for declared language string: ${status}`);
-            console.log(`Moving to default strings.`);
-            fetch(`/assets/lang/strings.en.json`)
-              .then(res => res.json())
-              .then(defaultData => {
-                if (defaultData[id]) {
-                  resolve(defaultData[id]);
-                } else {
-                  console.log(`Default Translation for this item does not exist: ${id}; within: /assets/lang/strings.en.json`);
-                  reject("Translations couldn't be found!");
-                }
-              });
-          }
+          });
         });
+
+
+      //var resourceName = `strings.${currentLang}.json`;
+
+      //fetch(`/assets/lang/${resourceName}`)
+      //  .then(response => {
+      //    if (response.ok) {
+      //      return [response.json(), response.status];
+      //    } else {
+      //      return [response, response.status];
+      //    }
+      //  })
+      //  .then(passThru => {
+      //    var data = passThru[0];
+      //    var status = passThru[1];
+      //    if (status == 200) {
+      //      if (data[id]) {
+      //        resolve(data[id]);
+      //      } else {
+      //        console.log(`Translation for this item does not exist: ${id}; within: /assets/lang/${resourceName}`);
+              // if the translation doesn't exist, default to english translation
+        //      fetch(`/assets/lang/strings.en.json`)
+        //        .then(res => res.json())
+        //        .then(defaultData => {
+        //          if (defaultData[id]) {
+        //            resolve(defaultData[id]);
+        //          } else {
+        //            console.log(`Default Translation for this item does not exist: ${id}; within: /assets/lang/strings.en.json`);
+        //            reject("Translations coudln't be found!");
+        //          }
+        //        });
+        //    }
+        //  } else {
+        //    console.log(`Response for declared language string: ${status}`);
+        //    console.log(`Moving to default strings.`);
+        //    fetch(`/assets/lang/strings.en.json`)
+        //      .then(res => res.json())
+        //      .then(defaultData => {
+        //        if (defaultData[id]) {
+        //          resolve(defaultData[id]);
+        //        } else {
+        //          console.log(`Default Translation for this item does not exist: ${id}; within: /assets/lang/strings.en.json`);
+        //          reject("Translations couldn't be found!");
+        //        }
+        //      });
+        //  }
+        //});
     });
   },
   DetermineLang: function DetermineLang() {
