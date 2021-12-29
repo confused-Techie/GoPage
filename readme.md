@@ -9,6 +9,7 @@
 [![Lighthouse PWA](https://img.shields.io/badge/Lighthouse%20PWA-0%25-inactive)](#)
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/confused-Techie/GoPage)](https://goreportcard.com/report/github.com/confused-Techie/GoPage)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/aaadbe13d42448a6b4a942be881544c3)](https://www.codacy.com/gh/confused-Techie/GoPage/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=confused-Techie/GoPage&amp;utm_campaign=Badge_Grade)
 <img src="https://badgen.net/github/release/confused-Techie/GoPage">
 <img src="https://badgen.net/github/license/confused-Techie/GoPage">
 <img src="https://img.shields.io/github/last-commit/confused-Techie/GoPage">
