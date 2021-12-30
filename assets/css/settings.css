@@ -19,8 +19,9 @@
   margin-top: 10px;
   margin-bottom: 10px;
 
-  padding: 15px 5px 20px 5px;
   /* Performance Parsing */
+  padding: 15px 5px 20px 5px;
+
   /*
   padding-bottom: 20px;
   padding-top: 15px;
@@ -47,10 +48,16 @@
   border-radius: 3px;
   margin-top: 10px;
   margin-bottom: 10px;
+
+  /* Performance Parsing */
+
+  padding: 15px 5px 20px 5px;
+  /*
   padding-bottom: 20px;
   padding-top: 15px;
   padding-right: 5px;
   padding-left: 5px;
+  */
 }
 
 .shortcut-list-item {

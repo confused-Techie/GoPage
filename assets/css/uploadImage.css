@@ -11,6 +11,7 @@
 input[type=submit] {
   display: none;
 }
+
 .file-upload-submit {
   background-color: var(--create-action-back-drop-colour);
   color: var(--create-action-text-colour);
@@ -24,6 +25,7 @@ input[type=submit] {
 input[type=file]::file-selector-button {
   /* Since we want to use our custom styling here we can hide the element, and style the label only */
   /* Or we can use the pseudo-element introduced in CSS Pseudo-Elements Module Level 4 */
+
   background-color: var(--create-action-back-drop-colour);
   color: var(--create-action-text-colour);
   border: none;
@@ -128,21 +130,21 @@ input[type=file]::file-selector-button {
 
 /* Animations to fade the snackbar in and out */
 @-webkit-keyframes snack-fadein {
-  from {bottom: 0; opacity: 0;}
-  to {bottom: 30px; opacity: 1;}
+  from { bottom: 0; opacity: 0; }
+  to { bottom: 30px; opacity: 1; }
 }
 
 @keyframes snack-fadein {
-  from {bottom: 0; opacity: 0;}
-  to {bottom: 30px; opacity: 1;}
+  from { bottom: 0; opacity: 0; }
+  to { bottom: 30px; opacity: 1; }
 }
 
 @-webkit-keyframes snack-fadeout {
-  from {bottom: 30px; opacity: 1;}
-  to {bottom: 30px; opacity: 0;}
+  from { bottom: 30px; opacity: 1; }
+  to { bottom: 30px; opacity: 0; }
 }
 
 @keyframes snack-fadeout {
-  from {bottom: 30px; opacity: 1;}
-  to {bottom: 30px; opacity: 0;}
+  from { bottom: 30px; opacity: 1; }
+  to { bottom: 30px; opacity: 0; }
 }

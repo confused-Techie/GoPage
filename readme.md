@@ -17,7 +17,7 @@
 GoPage has been made with the goal of extreme simplicity and convenient extensibility. Where standalone it's a simplistic way to store and manage Links to pages giving them unique user-defined categories, with easy ability to edit them down the line. And if you mix in the existing plugins and extreme ease of creating new ones gives life to these Links to show you the data needed at a moments glance.
 
 ![Example of GoPage HomePage](/docs/assets/homepage-utilized.png)
-> An Image of GoPage with Plugins: Favicon Swiper, Status Check, Jellyfin API, Pihole API installed. With Custom Background set to [Lake - Desktop Background Wallpaper](https://www.flickr.com/photos/83646108@N00/3613708379) by [(matt)](https://www.flickr.com/photos/83646108@N00) licensed under [CC BY-ND 2.0](https://creativecommons.org/licenses/by-nd/2.0/?ref=openverse&atype=rich)
+>An Image of GoPage with Plugins: Favicon Swiper, Status Check, Jellyfin API, Pihole API installed. With Custom Background set to [Lake - Desktop Background Wallpaper](https://www.flickr.com/photos/83646108@N00/3613708379) by [(matt)](https://www.flickr.com/photos/83646108@N00) licensed under [CC BY-ND 2.0](https://creativecommons.org/licenses/by-nd/2.0/?ref=openverse&atype=rich)
 
 ## Installation
 
@@ -25,8 +25,8 @@ GoPage has been made with the goal of extreme simplicity and convenient extensib
 
 The installation for Docker should be universal for Linux, and Windows, taking only a few commands.
 
-* First just download the Container
-* And run it using whatever Port you prefer, giving a name if you'd like.
+*  First just download the Container
+*  And run it using whatever Port you prefer, giving a name if you'd like.
 
 ````(bash)
 docker pull ghcr.io/confused-techie/gopage:0.3.1
@@ -34,19 +34,19 @@ docker pull ghcr.io/confused-techie/gopage:0.3.1
 docker run -p 7070:8080 --name GoPageServer ghcr.io/confused-techie/gopage:0.3.1
 ````
 
-* Please keep in mind the **7070** shown here can be whatever port you want the Docker Container Exposed on. Whereas **8080** is the default port the GoPage Server will listen to within the container.
+*  Please keep in mind the **7070** shown here can be whatever port you want the Docker Container Exposed on. Whereas **8080** is the default port the GoPage Server will listen to within the container.
 
 ### Windows
 
 If you'd just like to give this a quick go or aren't a fan of Docker you can install the Windows Only Application in the releases Section. [V0.3.1 Available Here](https://github.com/confused-Techie/GoPage/releases/tag/v0.3.1)
 
-* Simply download the installer and run it, walking through the options it shows. Keep in mind the resulting application must be running in order for you to be able to connect to the GoPage Dashboard.
+*  Simply download the installer and run it, walking through the options it shows. Keep in mind the resulting application must be running in order for you to be able to connect to the GoPage Dashboard.
 
 ## First Time Configuration
 
 Once you've installed GoPage Dashboard you will be able to navigate to it like so
 
-````
+````(bash)
 http://SERVER-IP:PORT/
 ````
 

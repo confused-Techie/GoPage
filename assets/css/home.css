@@ -16,6 +16,7 @@ As to be honest I've hated CSS for years. */
 #btnContainer {
   /* Targets the ID btnContainer; Otherwise the top most row of buttons
   to select different item categories */
+
   overflow: hidden;
   background-color: var(--category-selector-back-drop-colour);
   color: var(--category-selector-text-colour);
@@ -23,17 +24,15 @@ As to be honest I've hated CSS for years. */
 
 #btnContainer button {
   /* Targets the individual buttons within this category selector */
+
   background-color: var(--category-selector-button-back-drop);
   color: var(--category-selector-button-text);
-
   border: none;
   outline: none;
   cursor: pointer;
-
   float: left;
   padding: 14px 16px;
   transition: 0.3s;
-
 }
 
 #btnContainer button:hover {
@@ -56,19 +55,14 @@ As to be honest I've hated CSS for years. */
   /* Targets the container for EACH Item listed */
   background-color: var(--card-back-drop-colour);
   text-align: center;
-
   border-radius: 3px;
   animation-name: fadeEffect;
   animation-duration: 0.5s;
-
   max-width: 50%;
-
   min-width: 30%;
   min-height: 10%; /* Set the min height and width, allowing them to grow, depnding on internal divs */
-
   display: none; /* Ensures item is not visible, until changed by js when showing the item */
   vertical-align: top; /* Aligns the top of the element and its descendants with the top of the entire line */
-
   margin-right: 5px; /* spacing outside the element, to give item lisitngs space between each other */
   margin-top: 5px;
 
@@ -76,41 +70,33 @@ As to be honest I've hated CSS for years. */
 
   position: relative; /* assigning this relative allows child elements positioned absolute to respect is boundries. */
 
-  /* Below is the work to instead use grid layout */
-  /*display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-column-gap: 5px;
-  grid-auto-rows: minmax(auto, auto);*/
 }
 
-@keyFrames fadeEffect {
-  from {opacity: 0;}
-  to {opacity: 1;}
+@keyframes fadeEffect {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .item {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-column-gap: 5px;
-  /*grid-auto-rows: minmax(auto, auto);*/
   grid-row-gap: 5px;
-
-  /*position: relative;*/
 }
 
 .show {
   /* Targets the show class attached to an Item Container via JS
   for which Items are currently visible */
-  /*display: inline-block;*/
   /* While previously inline-block, to show the items, it needs to be grid */
+
   display: inline-block;
 }
 
 .itemName {
   /* Targets the Friendly Name of the Item */
-  /*font-size: 1.5vw; /* Font size based on viewport width */
-  font-size: 1.4em;
+  /* font-size: 1.5vw; /* Font size based on viewport width */
 
+  font-size: 1.4em;
   margin-bottom: 5px; /* spacing outside the border of the text */
   grid-column: 2;
   grid-row: 1;
@@ -118,16 +104,15 @@ As to be honest I've hated CSS for years. */
 
 .plugin-left {
   /* The plugin Item of the Item */
+
   grid-column: 1;
   grid-row: 1;
-
   margin-top: 5px;
 }
 
 .plugin-center {
   grid-column: 2;
   grid-row: 2;
-
   margin-top: 5px;
   padding-bottom: 20px;
 }
@@ -135,15 +120,16 @@ As to be honest I've hated CSS for years. */
 .plugin-right {
   grid-column: 3;
   grid-row: 1;
-
   margin-top: 5px;
 }
 
 .editItem {
   /* editItem SVG element */
+
   bottom: 4px; /* Distance from edges of parent relatively placed div  */
   left: 4px;
   position: absolute;
+
   /* absolute: removes element from document flow, in this case positioning
   relative to the initial containing block. */
 
@@ -153,6 +139,7 @@ As to be honest I've hated CSS for years. */
 
 .deleteItem {
   /* deleteItem SVG element */
+
   bottom: 4px;
   right: 2px;
   position: absolute;
@@ -188,15 +175,16 @@ As to be honest I've hated CSS for years. */
   height: 100%;
   overflow: auto; /* enable scroll if needed */
   background-color: inherit;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-content {
   /* The internal content of the modal */
+
   background-color: var(--modal-back-drop-colour);
   margin: 15% auto; /* 15% from the top and centered */
   padding: 20px;
-  border: 1px solid #000000;
+  border: 1px solid #000;
   width: 40%;
   border-radius: 5px;
   text-align: center;
@@ -204,6 +192,7 @@ As to be honest I've hated CSS for years. */
 
 .modal-content .delete {
   /* The Model internal content confirming to delete button */
+
   background-color: var(--confirm-action-back-drop-colour);
   color: var(--confirm-action-text-colour);
   border: none;
@@ -215,6 +204,7 @@ As to be honest I've hated CSS for years. */
 
 .modal-content .notDelete {
   /* The Modal Internal content deciding not to delete */
+
   background-color: var(--undo-action-back-drop-colour);
   color: var(--undo-action-text-colour);
   border: none;

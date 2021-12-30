@@ -17,8 +17,9 @@
   margin-top: 10px;
   margin-bottom: 20px;
 
-  padding: 15px 5px 20px 5px;
   /* Padding with performance parsing in mind */
+  padding: 15px 5px 20px 5px;
+
   /*
   padding-bottom: 20px;
   padding-top: 15px;
