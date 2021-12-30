@@ -13,36 +13,36 @@ var langHandler = {
     var resourceName = `strings.${currentLang}.json`;
 
     fetch(`/assets/lang/${resourceName}`)
-      .then(response => {
-        response.json().then(res => {
+      .then((response) => {
+        response.json().then((res) => {
           // stringing in this way, allows us to work with the JSON formatted response without having to build in another wait for the promise to resolve
           // like the previous implementation
           if (response.ok) {
             if (res[id]) {
               element.textContent = res[id];
             } else {
-              console.log(`Translation for this item does not exist: ${id}`);
-              fetch(`/assets/lang/strings.en.json`)
-                .then(defaultRes => defaultRes.json())
-                .then(defaultData => {
+              //console.log(`Translation for this item does not exist: ${id}`);
+              fetch("/assets/lang/strings.en.json")
+                .then((defaultRes) => defaultRes.json())
+                .then((defaultData) => {
                   if (defaultData[id]) {
                     element.textContent = defaultData[id];
                   } else {
-                    console.log(`Default Translation for this item does not exist: ${id}`);
+                    //console.log(`Default Translation for this item does not exist: ${id}`);
                     element.textContent = "Translations Missing!";
                   }
                 });
             }
           } else {
-            console.log(`Language file seemed to fail with: ${response.status}`);
-            console.log(`Providing default language strings...`);
-            fetch(`/assets/lang/strings.en.json`)
-              .then(defaultRes => defaultRes.json())
-              .then(defaultData => {
+            //console.log(`Language file seemed to fail with: ${response.status}`);
+            //console.log(`Providing default language strings...`);
+            fetch("/assets/lang/strings.en.json")
+              .then((defaultRes) => defaultRes.json())
+              .then((defaultData) => {
                 if (defaultData[id]) {
                   element.textContent = defaultData[id];
                 } else {
-                  console.log(`Default Translation for this item does not exist: ${id}`);
+                  //console.log(`Default Translation for this item does not exist: ${id}`);
                   element.textContent = "Translations missing!";
                 }
               });
@@ -57,117 +57,74 @@ var langHandler = {
       var resourceName = `strings.${currentLang}.json`;
 
       fetch(`/assets/lang/${resourceName}`)
-        .then(response => {
-          response.json().then(res => {
+        .then((response) => {
+          response.json().then((res) => {
             if (response.ok) {
               if (res[id]) {
                 resolve(res[id]);
               } else {
-                console.log(`Translation for this item does not exist: ${id}`);
+                //console.log(`Translation for this item does not exist: ${id}`);
                 fetch(`/assets/lang/strings.en.json`)
-                  .then(defaultRes => defaultRes.json())
-                  .then(defaultData => {
+                  .then((defaultRes) => defaultRes.json())
+                  .then((defaultData) => {
                     if (defaultData[id]) {
                       resolve(defaultData[id]);
                     } else {
-                      console.log(`Default Translation for this item does not exist: ${id}`);
+                      //console.log(`Default Translation for this item does not exist: ${id}`);
                       reject("Translations Missing!");
                     }
                   });
               }
             } else {
               // requested language file isn't available
-              console.log(`Language file seemed to fail with: ${response.status}`);
-              console.log('Providing default langauge stirngs...');
-              fetch(`/assets/lang/strings.en.json`)
-                .then(defaultRes => defaultRes.json())
-                .then(defaultData => {
+              //console.log(`Language file seemed to fail with: ${response.status}`);
+              //console.log('Providing default langauge stirngs...');
+              fetch("/assets/lang/strings.en.json")
+                .then((defaultRes) => defaultRes.json())
+                .then((defaultData) => {
                   if (defaultData[id]) {
                     resolve(defaultData[id]);
                   } else {
-                    console.log(`Default Translation for this item does not exist: ${id}`);
+                    //console.log(`Default Translation for this item does not exist: ${id}`);
                     reject("Translations Missing!");
                   }
                 });
             }
           });
         });
-
-
-      //var resourceName = `strings.${currentLang}.json`;
-
-      //fetch(`/assets/lang/${resourceName}`)
-      //  .then(response => {
-      //    if (response.ok) {
-      //      return [response.json(), response.status];
-      //    } else {
-      //      return [response, response.status];
-      //    }
-      //  })
-      //  .then(passThru => {
-      //    var data = passThru[0];
-      //    var status = passThru[1];
-      //    if (status == 200) {
-      //      if (data[id]) {
-      //        resolve(data[id]);
-      //      } else {
-      //        console.log(`Translation for this item does not exist: ${id}; within: /assets/lang/${resourceName}`);
-              // if the translation doesn't exist, default to english translation
-        //      fetch(`/assets/lang/strings.en.json`)
-        //        .then(res => res.json())
-        //        .then(defaultData => {
-        //          if (defaultData[id]) {
-        //            resolve(defaultData[id]);
-        //          } else {
-        //            console.log(`Default Translation for this item does not exist: ${id}; within: /assets/lang/strings.en.json`);
-        //            reject("Translations coudln't be found!");
-        //          }
-        //        });
-        //    }
-        //  } else {
-        //    console.log(`Response for declared language string: ${status}`);
-        //    console.log(`Moving to default strings.`);
-        //    fetch(`/assets/lang/strings.en.json`)
-        //      .then(res => res.json())
-        //      .then(defaultData => {
-        //        if (defaultData[id]) {
-        //          resolve(defaultData[id]);
-        //        } else {
-        //          console.log(`Default Translation for this item does not exist: ${id}; within: /assets/lang/strings.en.json`);
-        //          reject("Translations couldn't be found!");
-        //        }
-        //      });
-        //  }
-        //});
     });
   },
   DetermineLang: function DetermineLang() {
     return new Promise(function (resolve, reject) {
       // this will try to reduce the amount of calls to the server to only need to do it
       // once per page load
-      fetch('/api/serversettings')
-        .then(response => response.json())
-        .then(data => {
-          if (currentLang != data.lang) {
-            currentLang = data.lang;
-            // to allow screen readers to pronounce inner content correctly, we will also modify the HTML declared language when detecting the language is different
-            // than declared by default
-            document.documentElement.setAttribute("lang", currentLang);
+      try {
+        fetch("/api/serversettings")
+          .then((response) => response.json())
+          .then((data) => {
+            if (currentLang != data.lang) {
+              currentLang = data.lang;
+              // to allow screen readers to pronounce inner content correctly, we will also modify the HTML declared language when detecting the language is different
+              // than declared by default
+              document.documentElement.setAttribute("lang", currentLang);
 
-            console.log(`Set the Current Language global variable to ${currentLang}`);
-            resolve('Set Current Langage');
-          } else {
-            console.log(`Current Language unchanged from ${currentLang}`);
-            resolve('Language Unchanged');
-          }
-        });
+              //console.log(`Set the Current Language global variable to ${currentLang}`);
+              resolve("Set Current Langage");
+            } else {
+              //console.log(`Current Language unchanged from ${currentLang}`);
+              resolve("Language Unchanged");
+            }
+          });
+      } catch(err) {
+        reject(err);
+      }
     });
   },
   InsertLang: function InsertLang() {
     // this will be in charge of looking up each element to find its translation
     fetch('/assets/lang/strings.json')
-      .then(response => response.json())
-      .then(strings => {
+      .then((response) => response.json())
+      .then((strings) => {
         for (var i=0; i < strings.length; i++) {
           var curEle = document.getElementById(strings[i]);
           if (curEle != null) {

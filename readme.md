@@ -52,9 +52,9 @@ http://SERVER-IP:PORT/
 
 Once there you can get started by adding new Links by hitting 'Add New Item' and filling in the details on the next page.
 
-* Friendly Name: Will be the name shown to you when you look at this Link.
-* Link: Of Course is the actual Link to navigate to.
-* Category: Is if you so choose a Category you can create for this link, to later on help you find it again. This section will suggest any previously created categories but can always be something new.
+*  Friendly Name: Will be the name shown to you when you look at this Link.
+*  Link: Of Course is the actual Link to navigate to.
+*  Category: Is if you so choose a Category you can create for this link, to later on help you find it again. This section will suggest any previously created categories but can always be something new.
 
 If you haven't installed any plugins at this point you can ignore the different Plugin Sections and hit 'Submit'
 
@@ -72,12 +72,12 @@ Once here feel free to read through and explore the Plugins available and downlo
 
 Many Plugins have already been created for GoPage and are available by default after installation.
 
-* Status Check: Simple way to see if the address is currently reachable.
-* Favicon Swiper: Retrieve Favicons via known methods or Google API's as a fallback.
-* Jellyfin API: Get information about your Jellyfin Instance.
-* Pihole API: Get information from your Pihole Instance.
-* Light Theme: Simple Light Theme for those not loving the Dark Theme.
-* Exaggerator Theme: Exaggerator Theme... Just Colourful.
+*  Status Check: Simple way to see if the address is currently reachable.
+*  Favicon Swiper: Retrieve Favicons via known methods or Google API's as a fallback.
+*  Jellyfin API: Get information about your Jellyfin Instance.
+*  Pihole API: Get information from your Pihole Instance.
+*  Light Theme: Simple Light Theme for those not loving the Dark Theme.
+*  Exaggerator Theme: Exaggerator Theme... Just Colourful.
 
 ## [Contribute](docs/contribute.md)
 

@@ -52,6 +52,7 @@
   /* Performance Parsing */
 
   padding: 15px 5px 20px 5px;
+
   /*
   padding-bottom: 20px;
   padding-top: 15px;
@@ -86,13 +87,11 @@
 .shortcut-list-launch {
   grid-column: 3;
   grid-row: 1;
-
   background-color: var(--create-action-back-drop-colour);
   border: none;
   border-radius: 4px;
   cursor: pointer;
   padding: 10px;
   margin: 10px;
-
   align-self: center;
 }
