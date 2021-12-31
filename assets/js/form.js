@@ -1,6 +1,6 @@
 // Below is a list of functions called from elsewhere for eslint. If they are changed this should be updated.
 
-/*global initCategory, onDataListInput*/
+/*global initCategory(), onDataListInput()*/
 function initCategory() {
   // first we need the list of all categories form the api
   fetch('/api/items')
@@ -24,7 +24,7 @@ function initCategory() {
       .then(data => {
         var pluginListToInsert;
 
-        data.forEach((element, index) => {
+        data.forEach((element) => {
           if (element.type == "item") {
             pluginListToInsert += `<option value='${element.name}'>`;
           }
