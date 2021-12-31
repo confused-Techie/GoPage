@@ -1,5 +1,7 @@
 {
-  "root": false,
+  "extends": [
+    "eslint:recommended"
+  ],
   "globals": {
     "langHandler": "readonly"
   }
