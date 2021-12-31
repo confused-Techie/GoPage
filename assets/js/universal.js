@@ -19,10 +19,10 @@ function updaterTimeStamp() {
   setInterval(loadTimeStamp, 1000);
 }
 
-window.addEventListener('DOMContentLoaded', (event) => {
-  console.log('DOM fully loaded and parsed');
+window.addEventListener("DOMContentLoaded", (event) => {
+  //console.log("DOM fully loaded and parsed");
   langHandler.DetermineLang()
-    .then(res => {
+    .then((res) => {
       // once this returns, we can start a lookup of the strings
       langHandler.InsertLang();
     });
@@ -30,9 +30,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
 function checkCustomBackgroundImage() {
   // This will be used to see if a background image is set, and load it if it is
-  fetch('/api/usersettings')
-    .then(res => res.json())
-    .then(data => {
+  fetch("/api/usersettings")
+    .then((res) => res.json())
+    .then((data) => {
       if (data.customBackground.set) {
         //var locString = `/assets/userImages/test.jpg`;
         var locString = `/assets/userImages/${data.customBackground.src}`;
@@ -47,7 +47,7 @@ function checkCustomBackgroundImage() {
           // Valid Values: auto, length, percentage, cover, contain, initial, inherit :: https://www.w3schools.com/jsref/prop_style_backgroundsize.asp
           document.body.style.backgroundSize = data.customBackground.size;
         } catch(err) {
-          console.log(err);
+          //console.log(err);
         }
       } // else image is not set
     });

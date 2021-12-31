@@ -1,19 +1,10 @@
 body {
   /* Styles applied to the entire body */
-  background-color: var(--back-drop-colour);
-  /*background-color: #1a1a1a;*/
-  color: var(--body-text-colour);
-  /* Colour of the text */
 
-  /* Modify margin with performance parsing in mind */
+  background-color: var(--back-drop-colour);
+  color: var(--body-text-colour);
   margin: 0 0 50px 0;
 
-  /*
-  margin-top: 0;
-  margin-left: 0;
-  margin-right: 0;
-  margin-bottom: 50px;
-  */
   /* remove user-agent margins to allow element to fill to edge of page */
   background-image: none;
 }

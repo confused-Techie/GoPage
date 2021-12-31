@@ -24,6 +24,7 @@ input[type=submit] {
 
 input[type=file]::file-selector-button {
   /* Since we want to use our custom styling here we can hide the element, and style the label only */
+
   /* Or we can use the pseudo-element introduced in CSS Pseudo-Elements Module Level 4 */
 
   background-color: var(--create-action-back-drop-colour);
@@ -103,6 +104,7 @@ input[type=file]::file-selector-button {
 }
 
 /* Snackbar based CSS */
+
 /* Keeping this seperate because it may become standard and moved to universal */
 
 .snackbar {
@@ -122,29 +124,55 @@ input[type=file]::file-selector-button {
 
 .snackbar.show {
   visibility: visible;
+
   /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
   However, delay the fade out process for 2.5 seconds */
+
   -webkit-animation: snack-fadein 0.5s, snack-fadeout 0.5s 2.5s;
   animation: snack-fadein 0.5s, snack-fadeout 0.5s 2.5s;
 }
 
 /* Animations to fade the snackbar in and out */
 @-webkit-keyframes snack-fadein {
-  from { bottom: 0; opacity: 0; }
-  to { bottom: 30px; opacity: 1; }
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
 }
 
 @keyframes snack-fadein {
-  from { bottom: 0; opacity: 0; }
-  to { bottom: 30px; opacity: 1; }
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
 }
 
 @-webkit-keyframes snack-fadeout {
-  from { bottom: 30px; opacity: 1; }
-  to { bottom: 30px; opacity: 0; }
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 30px;
+    opacity: 0;
+  }
 }
 
 @keyframes snack-fadeout {
-  from { bottom: 30px; opacity: 1; }
-  to { bottom: 30px; opacity: 0; }
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 30px;
+    opacity: 0;
+  }
 }

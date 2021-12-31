@@ -65,11 +65,7 @@ As to be honest I've hated CSS for years. */
   vertical-align: top; /* Aligns the top of the element and its descendants with the top of the entire line */
   margin-right: 5px; /* spacing outside the element, to give item lisitngs space between each other */
   margin-top: 5px;
-
-  /*padding: 10px; /* Space between content and its borders WITHIN the div */
-
   position: relative; /* assigning this relative allows child elements positioned absolute to respect is boundries. */
-
 }
 
 @keyframes fadeEffect {
@@ -87,6 +83,7 @@ As to be honest I've hated CSS for years. */
 .show {
   /* Targets the show class attached to an Item Container via JS
   for which Items are currently visible */
+
   /* While previously inline-block, to show the items, it needs to be grid */
 
   display: inline-block;
@@ -94,6 +91,7 @@ As to be honest I've hated CSS for years. */
 
 .itemName {
   /* Targets the Friendly Name of the Item */
+
   /* font-size: 1.5vw; /* Font size based on viewport width */
 
   font-size: 1.4em;
@@ -151,6 +149,7 @@ As to be honest I've hated CSS for years. */
 
 .new-button-container {
   /* The New Item Button container for the form */
+  
   text-align: center;
 }
 

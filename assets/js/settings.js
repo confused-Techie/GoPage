@@ -9,14 +9,14 @@ function initHostSummary() {
   var systemHostName;
   var systemHostOS;
 
-  fetch(`/api/hostos`)
-    .then(response => response.json())
-    .then(data => {
+  fetch("/api/hostos")
+    .then((response) => response.json())
+    .then((data) => {
       systemHostOS = data;
 
-      fetch(`/api/hostname`)
-        .then(nameResponse => nameResponse.json())
-        .then(nameData => {
+      fetch("/api/hostname")
+        .then((nameResponse) => nameResponse.json())
+        .then((nameData) => {
           systemHostName = nameData;
 
           // once all items are fetched we can then modify the page
@@ -24,12 +24,12 @@ function initHostSummary() {
           // to properly have translations for generated text
         var hostNameString = "";
         var hostOperatingSystem = "";
-        langHandler.ProvideStringRaw('i18n-generatedSettingsHostName')
-          .then(resHostString => {
+        langHandler.ProvideStringRaw("i18n-generatedSettingsHostName")
+          .then((resHostString) => {
             hostNameString = resHostString;
 
-            langHandler.ProvideStringRaw('i18n-generatedSettingsOperatingSystem')
-              .then(resOSString => {
+            langHandler.ProvideStringRaw("i18n-generatedSettingsOperatingSystem")
+              .then((resOSString) => {
                 hostOperatingSystem = resOSString;
 
                 var htmlToInsert = `<p>${hostNameString}: ${systemHostName}</p><p>${hostOperatingSystem}: ${systemHostOS}</p>`;
