@@ -1,6 +1,6 @@
 
 function onPageLoad() {
-  console.log('onPageLoad Fired..');
+  //console.log("onPageLoad Fired..");
   // first in the onload we can use the built in api call to get all json objects, to then create the other filter buttons
 
   updaterFunc();
@@ -113,11 +113,11 @@ function modalDelete(id) {
 
   modalDeleteBtn.onclick = function() {
     window.location.href = `/delete/${id}`;
-  }
+  };
 
   modalNotDeleteBtn.onclick = function() {
     modal.style.display = "none";
-  }
+  };
 
   window.onclick = function(event) {
     if (event.target == modal) {

@@ -5,26 +5,26 @@ var pluginAPI = {
   },
 
   CreateConfigMenu: function CreateConfigMenu(configData) {
-    console.log('Plugin API CreateConfigMenu Created...');
+    //console.log("Plugin API CreateConfigMenu Created...");
 
     var configDataParse = JSON.parse(configData);
     var modalElement = document.getElementById("configModal");
     // allow it to be visible.
     modalElement.style.display = "block";
 
-    htmlToInsert = '';
-    htmlToInsert += '<div class="modal-content">';
+    var htmlToInsert = "";
+    htmlToInsert += "<div class='modal-content'>";
     htmlToInsert += `<h3>${configDataParse.title}</h3>`;
 
-    configDataParse.options.forEach((element, index) => {
+    configDataParse.options.forEach((element) => {
       htmlToInsert += `<label>${element.text}</label>`;
       htmlToInsert += `<input id="${element.id}" type="${element.inputType}" value="${element.currentValue}"><br><br>`;
     });
 
     // then to add the buttons
-    htmlToInsert += `<button id="save-modal" class="save">Save</button>`;
-    htmlToInsert += `<button id="notSave-modal" class="notSave">Nevermind</button>`;
-    htmlToInsert += '</div>';
+    htmlToInsert += "<button id='save-modal' class='save'>Save</button>";
+    htmlToInsert += "<button id='notSave-modal' class='notSave'>Nevermind</button>";
+    htmlToInsert += "</div>";
 
     modalElement.innerHTML = htmlToInsert;
 
@@ -34,7 +34,7 @@ var pluginAPI = {
 
     modalNotSave.onclick = function() {
       modalElement.style.display = "none";
-    }
+    };
 
     modalSave.onclick = function() {
       // now to take the data values from the form
@@ -70,12 +70,12 @@ var pluginAPI = {
     // Then to add these keys with their declaration to the object
     var obj = {};
     for (let i = 0; i < keyValue.length; i++) {
-      var keyOrValue = keyValue[i].split('=');
-      if (keyOrValue[0] != '') {
+      var keyOrValue = keyValue[i].split("=");
+      if (keyOrValue[0] != "") {
         obj[keyOrValue[0]] = keyOrValue[1];
       }
     }
     return obj;
   },
 
-}
+};

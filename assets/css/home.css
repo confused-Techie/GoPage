@@ -141,6 +141,7 @@ As to be honest I've hated CSS for years. */
   bottom: 4px;
   right: 2px;
   position: absolute;
+
   /* the same as editItem */
 
   grid-column: 3;
@@ -149,7 +150,7 @@ As to be honest I've hated CSS for years. */
 
 .new-button-container {
   /* The New Item Button container for the form */
-  
+
   text-align: center;
 }
 

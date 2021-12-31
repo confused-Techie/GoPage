@@ -31,7 +31,7 @@ function uninstallPlugin(pluginName) {
         //console.log(err);
         return res.text();
       }
-      return res.json()
+      return res.json();
     })
     .then((data) => {
       //console.log(data);
