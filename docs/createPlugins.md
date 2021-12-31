@@ -10,17 +10,17 @@ In time hopefully there will be a full guide on creating a new plugin below. But
 
 The two major components of any GoPage Plugin will be the `package.json` and the file designated as `main` likely being a `Javascript` file.
 
-* Package.json
+  * Package.json
 
   The Package file like many other repos will contain declarative and functional information for your plugin. Ranging from the License and Version, to the available Options, and Entrypoint.
 
   The bare minimuim of a functional Package File will contain the following:
 
-  * mainDir: This is the parent folder for your plugin, which is strongly recommended to be identical to your name value of your plugin.
+     * mainDir: This is the parent folder for your plugin, which is strongly recommended to be identical to your name value of your plugin.
 
-  * main: This is the file that will be loaded by GoPage for your plugin to function. The type of file this should be pointing to will depend on what type of Plugin it is. But generally will be a  `Javascript` file.
+     * main: This is the file that will be loaded by GoPage for your plugin to function. The type of file this should be pointing to will depend on what type of Plugin it is. But generally will be a  `Javascript` file.
 
-  * type: The declaration of what type of Plugin yours is.
+     * type: The declaration of what type of Plugin yours is.
 
 Within your Main file of the Plugin there are Data Attributes attached to the Link Item Element attached to your plugin that can be queried to retrieve data needed for your Plugin, like Options and the URL of the Link Item.
 

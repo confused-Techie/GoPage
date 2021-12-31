@@ -25,8 +25,8 @@ GoPage has been made with the goal of extreme simplicity and convenient extensib
 
 The installation for Docker should be universal for Linux, and Windows, taking only a few commands.
 
-*  First just download the Container
-*  And run it using whatever Port you prefer, giving a name if you'd like.
+  * First just download the Container
+  * And run it using whatever Port you prefer, giving a name if you'd like.
 
 ````(bash)
 docker pull ghcr.io/confused-techie/gopage:0.3.1
@@ -34,13 +34,13 @@ docker pull ghcr.io/confused-techie/gopage:0.3.1
 docker run -p 7070:8080 --name GoPageServer ghcr.io/confused-techie/gopage:0.3.1
 ````
 
-*  Please keep in mind the **7070** shown here can be whatever port you want the Docker Container Exposed on. Whereas **8080** is the default port the GoPage Server will listen to within the container.
+  * Please keep in mind the **7070** shown here can be whatever port you want the Docker Container Exposed on. Whereas **8080** is the default port the GoPage Server will listen to within the container.
 
 ### Windows
 
 If you'd just like to give this a quick go or aren't a fan of Docker you can install the Windows Only Application in the releases Section. [V0.3.1 Available Here](https://github.com/confused-Techie/GoPage/releases/tag/v0.3.1)
 
-*  Simply download the installer and run it, walking through the options it shows. Keep in mind the resulting application must be running in order for you to be able to connect to the GoPage Dashboard.
+  * Simply download the installer and run it, walking through the options it shows. Keep in mind the resulting application must be running in order for you to be able to connect to the GoPage Dashboard.
 
 ## First Time Configuration
 
@@ -52,9 +52,9 @@ http://SERVER-IP:PORT/
 
 Once there you can get started by adding new Links by hitting 'Add New Item' and filling in the details on the next page.
 
-*  Friendly Name: Will be the name shown to you when you look at this Link.
-*  Link: Of Course is the actual Link to navigate to.
-*  Category: Is if you so choose a Category you can create for this link, to later on help you find it again. This section will suggest any previously created categories but can always be something new.
+  * Friendly Name: Will be the name shown to you when you look at this Link.
+  * Link: Of Course is the actual Link to navigate to.
+  * Category: Is if you so choose a Category you can create for this link, to later on help you find it again. This section will suggest any previously created categories but can always be something new.
 
 If you haven't installed any plugins at this point you can ignore the different Plugin Sections and hit 'Submit'
 
@@ -72,12 +72,12 @@ Once here feel free to read through and explore the Plugins available and downlo
 
 Many Plugins have already been created for GoPage and are available by default after installation.
 
-*  Status Check: Simple way to see if the address is currently reachable.
-*  Favicon Swiper: Retrieve Favicons via known methods or Google API's as a fallback.
-*  Jellyfin API: Get information about your Jellyfin Instance.
-*  Pihole API: Get information from your Pihole Instance.
-*  Light Theme: Simple Light Theme for those not loving the Dark Theme.
-*  Exaggerator Theme: Exaggerator Theme... Just Colourful.
+  * Status Check: Simple way to see if the address is currently reachable.
+  * Favicon Swiper: Retrieve Favicons via known methods or Google API's as a fallback.
+  * Jellyfin API: Get information about your Jellyfin Instance.
+  * Pihole API: Get information from your Pihole Instance.
+  * Light Theme: Simple Light Theme for those not loving the Dark Theme.
+  * Exaggerator Theme: Exaggerator Theme... Just Colourful.
 
 ## [Contribute](docs/contribute.md)
 

@@ -2,12 +2,12 @@
 // Here we can respond to the install, and uninstall requests of plugins
 
 function installPlugin(pluginUrl, pluginName) {
-  console.log(`INSTALL CALLED: ${pluginName}`)
+  //console.log(`INSTALL CALLED: ${pluginName}`);
 
   fetch(`/plugins/install?source=${pluginUrl}`)
-    .then(res => res.json())
-    .then(data => {
-      console.log(data);
+    .then((res) => res.json())
+    .then((data) => {
+      //console.log(data);
       //alert(data);
       if (data.includes("Success!")) {
         modalResults(data, "Success!");
@@ -15,7 +15,7 @@ function installPlugin(pluginUrl, pluginName) {
         modalResults(data, "Failure");
       }
     })
-    .catch(err => {
+    .catch((err) => {
       console.log(err);
       modalResults(err, "Failure");
     });
@@ -23,18 +23,18 @@ function installPlugin(pluginUrl, pluginName) {
 
 function uninstallPlugin(pluginName) {
   fetch(`/plugins/uninstall?pluginName=${pluginName}`)
-    .then(res => {
+    .then((res) => {
       // since this may return error data not properly formated as a string, we need to have a backup to move to text
       try {
         JSON.parse(res);
       } catch(err) {
-        console.log(err);
+        //console.log(err);
         return res.text();
       }
       return res.json()
     })
-    .then(data => {
-      console.log(data);
+    .then((data) => {
+      //console.log(data);
       if (data.includes("Success!")) {
         modalResults(data, "Success!");
       } else {
@@ -47,17 +47,17 @@ function uninstallPlugin(pluginName) {
         }
       }
     })
-    .catch(err => {
-      console.log(err);
+    .catch((err) => {
+      //console.log(err);
       modalResults(err, "Failure");
     });
 }
 
 function updatePlugin() {
-  fetch(`/plugins/update`)
-    .then(res => res.json())
-    .then(data => {
-      console.log(data);
+  fetch("/plugins/update")
+    .then((res) => res.json())
+    .then((data) => {
+      //console.log(data);
       // Check the status by looking for final success message, and provide status
       if (data.includes("Success!")) {
         modalResults(data, "Success!");
@@ -65,8 +65,8 @@ function updatePlugin() {
         modalResults(data, "Failure");
       }
     })
-    .catch(err => {
-      console.log(err);
+    .catch((err) => {
+      //console.log(err);
       modalResults(err, "Failure");
     });
 }
@@ -78,8 +78,8 @@ function modalResults(content, status) {
   // and register any onclick handlers after inserting into the DOM
   // also we need to gather translations for the button text
   var buttonText = "";
-  langHandler.ProvideStringRaw('i18n-generatedRepoButtonOkay')
-    .then(resString => {
+  langHandler.ProvideStringRaw("i18n-generatedRepoButtonOkay")
+    .then((resString) => {
 
       buttonText = resString;
       var formattedContent = formatModalContent(content);
@@ -90,7 +90,7 @@ function modalResults(content, status) {
       var clearModal = document.getElementById("clearModal");
       clearModal.onclick = function() {
         modal.style.display = "none";
-      }
+      };
 
       // allow it to be visible
       modal.style.display = "block";
@@ -102,7 +102,7 @@ function formatModalContent(text) {
   var newText = "";
   for (let i = 0; i < splitText.length; i++) {
     if (splitText[i].includes("\\n")) {
-      // Using \\ here to escape the newline character 
+      // Using \\ here to escape the newline character
       var tmpString = splitText[i].replace("\\n", "");
       newText += tmpString + "<br>";
     } else {

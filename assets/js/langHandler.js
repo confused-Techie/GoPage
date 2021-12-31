@@ -64,7 +64,7 @@ var langHandler = {
                 resolve(res[id]);
               } else {
                 //console.log(`Translation for this item does not exist: ${id}`);
-                fetch(`/assets/lang/strings.en.json`)
+                fetch("/assets/lang/strings.en.json")
                   .then((defaultRes) => defaultRes.json())
                   .then((defaultData) => {
                     if (defaultData[id]) {
@@ -122,7 +122,7 @@ var langHandler = {
   },
   InsertLang: function InsertLang() {
     // this will be in charge of looking up each element to find its translation
-    fetch('/assets/lang/strings.json')
+    fetch("/assets/lang/strings.json")
       .then((response) => response.json())
       .then((strings) => {
         for (var i=0; i < strings.length; i++) {
@@ -165,4 +165,4 @@ var langHandler = {
     }
     return str;
   }
-}
+};

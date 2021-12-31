@@ -2,9 +2,9 @@ loadAvailableImages();
 
 function loadAvailableImages() {
   // first we want to grab the list of all images in the userImages dir
-  fetch(`/userimages`)
-    .then(res => res.json())
-    .then(data => {
+  fetch("/userimages")
+    .then((res) => res.json())
+    .then((data) => {
       // Since this data is very roughly encoded we need to parse it accordingly
       // each value is the filename, split by ,
       var imageList = data.split(",");
@@ -21,7 +21,7 @@ function loadAvailableImages() {
             insertHTML += `<img src="${imgSrc}" onclick="setImage('${imageList[i]}');">`;
           };
 
-          console.log(`I: ${i}; i%8: ${i % 8}; i%4: ${i%4}`);
+          //console.log(`I: ${i}; i%8: ${i % 8}; i%4: ${i%4}`);
 
           // we need to account for the first image-column entry
           // the below will break up the images' column every four images by checking the modulus or remainder
@@ -51,9 +51,9 @@ function loadAvailableImages() {
 }
 
 function setImage(name) {
-  fetch(`/api/usersettings`)
-    .then(res => res.json())
-    .then(data => {
+  fetch("/api/usersettings")
+    .then((res) => res.json())
+    .then((data) => {
       // with the originally config we want to modify this to use the image selected
       data.customBackground.set = true;
       data.customBackground.src = name;
@@ -65,15 +65,15 @@ function setImage(name) {
       var raw = JSON.stringify(data);
 
       var requestOptions = {
-        method: 'POST',
+        method: "POST",
         headers: newHeaders,
         body: raw,
-        redirect: 'follow'
+        redirect: "follow"
       };
 
       fetch("/api/usersettingswrite", requestOptions)
-        .then(response => response.text())
-        .then(result => {
+        .then((response) => response.text())
+        .then((result) => {
           // since we know this is an empty return, as long as we get a response we should be fine
           // one that isn't an error that is
           if (result == "") {
@@ -82,7 +82,7 @@ function setImage(name) {
 
             // we want to grab the translation for this item
             langHandler.ProvideStringRaw("i18n-generatedUploadSuccessSnackbar")
-              .then(resString => {
+              .then((resString) => {
                 // But we know this string is a composite string, so we use the langHandler Composite handler to insert the name
                 snack.innerText = langHandler.UnicornComposite(resString, name);
                 snack.className += " show";
@@ -95,9 +95,9 @@ function setImage(name) {
 }
 
 function unsetImage() {
-  fetch(`/api/usersettings`)
-    .then(res => res.json())
-    .then(data => {
+  fetch("/api/usersettings")
+    .then((res) => res.json())
+    .then((data) => {
       // with the originally config we want to modify this to set it to fase
       data.customBackground.set = false;
 
@@ -108,15 +108,15 @@ function unsetImage() {
       var raw = JSON.stringify(data);
 
       var requestOptions = {
-        method: 'POST',
+        method: "POST",
         headers: newHeaders,
         body: raw,
-        redirect: 'follow'
+        redirect: "follow"
       };
 
       fetch("/api/usersettingswrite", requestOptions)
-        .then(response => response.text())
-        .then(result => {
+        .then((response) => response.text())
+        .then((result) => {
           // since we know this is an empty return, as long as we get a response we should be fine
           // one that isn't an error that is
           if (result == "") {
@@ -125,7 +125,7 @@ function unsetImage() {
 
             // we want to grab the translation for this item
             langHandler.ProvideStringRaw("i18n-generatedRemoveImageSuccess")
-              .then(resString => {
+              .then((resString) => {
                 // But we know this string is a composite string, so we use the langHandler Composite handler to insert the name
                 snack.innerText = resString;
                 snack.className += " show";

@@ -5,12 +5,12 @@ function onPageLoad() {
 
   updaterFunc();
 
-  fetch('/api/items')
-    .then(response => response.json())
-    .then(data => {
+  fetch("/api/items")
+    .then((response) => response.json())
+    .then((data) => {
       var assignedBtns = [];
       // then to loop through all the data
-      data.forEach((element, index) => {
+      data.forEach((element) => {
         // now we want to add this item as a button
         // while ensuring we don't add the same button twice
 
@@ -19,8 +19,8 @@ function onPageLoad() {
           btn.innerHTML = `${element.category}`;
           btn.onclick = function() {
             filterSelection(`${element.category}`);
-          }
-          btn.className = 'btn';
+          };
+          btn.className = "btn";
 
           // since the normal method to detect the active button isn't working on these generated ones, we can add it manually
           btn.addEventListener("click", generatedEventListener, false);
@@ -40,11 +40,11 @@ function onPageLoad() {
 function filterSelection(c) {
   var filterDivElement = document.getElementsByClassName("filterDiv");
 
-  if (c == "all")  c = "";
+  if (c == "all") { c = ""; }
 
   for (let i = 0; i < filterDivElement.length; i++) {
     removeClass(filterDivElement[i], "show");
-    if (filterDivElement[i].className.indexOf(c) > -1) addClass(filterDivElement[i], "show");
+    if (filterDivElement[i].className.indexOf(c) > -1) { addClass(filterDivElement[i], "show"); }
   }
 }
 
