@@ -1,11 +1,14 @@
+// Below is a list of functions called from elsewhere for eslint. If they are changed this should be updated.
+
+/*global initCategory, onDataListInput*/
 function initCategory() {
   // first we need the list of all categories form the api
   fetch('/api/items')
-    .then(response => response.json())
-    .then(data => {
+    .then((response) => response.json())
+    .then((data) => {
       var categoryListToInsert;
       var categoryListToCheck = [];
-      data.forEach((element, index) => {
+      data.forEach((element) => {
         if (!categoryListToCheck.includes(element.category)) {
           categoryListToInsert += `<option value='${element.category}'>`;
           categoryListToCheck.push(element.category);
@@ -33,29 +36,29 @@ function initCategory() {
   // we want to make the config options available
   if (document.querySelectorAll('[name="leftPlugin"]')[0].value != '') {
 
-    var toChangeView = document.getElementById('leftPluginLabel');
-    toChangeView.classList.remove('readonly_id');
-    var toChangeAutofill = document.getElementById('leftPluginOptions');
-    toChangeAutofill.classList.remove('readonly_id');
-    toChangeAutofill.removeAttribute('readonly');
+    var toChangeViewLeft = document.getElementById('leftPluginLabel');
+    toChangeViewLeft.classList.remove('readonly_id');
+    var toChangeAutofillLeft = document.getElementById('leftPluginOptions');
+    toChangeAutofillLeft.classList.remove('readonly_id');
+    toChangeAutofillLeft.removeAttribute('readonly');
 
   }
   if (document.querySelectorAll('[name="centerPlugin"]')[0].value != '') {
 
-    var toChangeView = document.getElementById('centerPluginLabel');
-    toChangeView.classList.remove('readonly_id');
-    var toChangeAutofill = document.getElementById('centerPluginOptions');
-    toChangeAutofill.classList.remove('readonly_id');
-    toChangeAutofill.removeAttribute('readonly');
+    var toChangeViewCenter = document.getElementById('centerPluginLabel');
+    toChangeViewCenter.classList.remove('readonly_id');
+    var toChangeAutofillCenter = document.getElementById('centerPluginOptions');
+    toChangeAutofillCenter.classList.remove('readonly_id');
+    toChangeAutofillCenter.removeAttribute('readonly');
 
   }
   if (document.querySelectorAll('[name="rightPlugin"]')[0].value != '') {
 
-    var toChangeView = document.getElementById('rightPluginLabel');
-    toChangeView.classList.remove('readonly_id');
-    var toChangeAutofill = document.getElementById('rightPluginOptions');
-    toChangeAutofill.classList.remove('readonly_id');
-    toChangeAutofill.removeAttribute('readonly');
+    var toChangeViewRight = document.getElementById('rightPluginLabel');
+    toChangeViewRight.classList.remove('readonly_id');
+    var toChangeAutofillRight = document.getElementById('rightPluginOptions');
+    toChangeAutofillRight.classList.remove('readonly_id');
+    toChangeAutofillRight.removeAttribute('readonly');
   }
 }
 
@@ -80,49 +83,49 @@ function onDataListInput(ele) {
   fetch('/plugins/installedPlugins.json')
     .then(response => response.json())
     .then(data => {
-      data.forEach((element, index) => {
+      data.forEach((element) => {
         if (ele.value == element.name) {
           // now we know which element contains the rest of the details for whatever installed plugin was selected
 
           if (element.config) {
             if (ele.getAttribute('name') == 'leftPlugin') {
 
-              var eleToChangeView = document.getElementById('leftPluginLabel');
-              eleToChangeView.classList.remove('readonly_id');
+              var eleToChangeViewLeft = document.getElementById('leftPluginLabel');
+              eleToChangeViewLeft.classList.remove('readonly_id');
 
-              var eleToChangeExplain = document.getElementById('left-plugin-example');
-              eleToChangeExplain.innerHTML = element.options.explain;
+              var eleToChangeExplainLeft = document.getElementById('left-plugin-example');
+              eleToChangeExplainLeft.innerHTML = element.options.explain;
 
-              var eleToChangeAutofill = document.getElementById('leftPluginOptions');
-              eleToChangeAutofill.classList.remove('readonly_id');
-              eleToChangeAutofill.removeAttribute('readonly');
-              eleToChangeAutofill.value = element.options.autofill;
+              var eleToChangeAutofillLeft = document.getElementById('leftPluginOptions');
+              eleToChangeAutofillLeft.classList.remove('readonly_id');
+              eleToChangeAutofillLeft.removeAttribute('readonly');
+              eleToChangeAutofillLeft.value = element.options.autofill;
 
             } else if (ele.getAttribute('name') == 'centerPlugin') {
 
-              var eleToChangeView = document.getElementById('centerPluginLabel');
-              eleToChangeView.classList.remove('readonly_id');
+              var eleToChangeViewCenter = document.getElementById('centerPluginLabel');
+              eleToChangeViewCenter.classList.remove('readonly_id');
 
-              var eleToChangeExplain = document.getElementById('center-plugin-example');
-              eleToChangeExplain.innerHTML = element.options.explain;
+              var eleToChangeExplainCenter = document.getElementById('center-plugin-example');
+              eleToChangeExplainCenter.innerHTML = element.options.explain;
 
-              var eleToChangeAutofill = document.getElementById('centerPluginOptions');
-              eleToChangeAutofill.classList.remove('readonly_id');
-              eleToChangeAutofill.removeAttribute('readonly');
-              eleToChangeAutofill.value = element.options.autofill;
+              var eleToChangeAutofillCenter = document.getElementById('centerPluginOptions');
+              eleToChangeAutofillCenter.classList.remove('readonly_id');
+              eleToChangeAutofillCenter.removeAttribute('readonly');
+              eleToChangeAutofillCenter.value = element.options.autofill;
 
             } else if (ele.getAttribute('name') == 'rightPlugin') {
 
-              var eleToChangeView = document.getElementById('rightPluginLabel');
-              eleToChangeView.classList.remove('readonly_id');
+              var eleToChangeViewRight = document.getElementById('rightPluginLabel');
+              eleToChangeViewRight.classList.remove('readonly_id');
 
-              var eleToChangeExplain = document.getElementById('right-plugin-example');
-              eleToChangeExplain.innerHTML = element.options.explain;
+              var eleToChangeExplainRight = document.getElementById('right-plugin-example');
+              eleToChangeExplainRight.innerHTML = element.options.explain;
 
-              var eleToChangeAutofill = document.getElementById('rightPluginOptions');
-              eleToChangeAutofill.classList.remove('readonly_id');
-              eleToChangeAutofill.removeAttribute('readonly');
-              eleToChangeAutofill.value = element.options.autofill;
+              var eleToChangeAutofillRight = document.getElementById('rightPluginOptions');
+              eleToChangeAutofillRight.classList.remove('readonly_id');
+              eleToChangeAutofillRight.removeAttribute('readonly');
+              eleToChangeAutofillRight.value = element.options.autofill;
 
             } else {
               console.log(`Unknown Parent calling onDataListInput: ${ele.getAttribute('name')}`);

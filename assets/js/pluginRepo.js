@@ -1,6 +1,9 @@
 
 // Here we can respond to the install, and uninstall requests of plugins
 
+// Below is a list of functions called from elsewhere for eslint. If they are changed this should be updated.
+
+/*global installPlugin, updatePlugin, uninstallPlugin*/
 function installPlugin(pluginUrl, pluginName) {
   //console.log(`INSTALL CALLED: ${pluginName}`);
 

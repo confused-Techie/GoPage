@@ -9,7 +9,8 @@ function checkPlugins() {
           fetch(`/plugins${element.mainDir}package.json`)
             .then((packRes) => packRes.json())
             .then((packData) => {
-              if (packData.type == "item") {
+              // Adding check for page this is loaded on to reduce duplication of a seperate nonHomeLoad for plugins
+              if (packData.type == "item" && document.title == "GoPage - Home") {
                 var script = document.createElement("script");
                 script.src = `/plugins${packData.mainDir}${packData.main}`;
                 // Importing the JS as a module here, ensures that any functions or global variables are not in the global scope

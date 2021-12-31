@@ -1,4 +1,6 @@
+// Below is a list of functions called from elsewhere for eslint. If they are changed this should be updated.
 
+/*global onPageLoad, filterSelection, modalDelete*/
 function onPageLoad() {
   //console.log("onPageLoad Fired..");
   // first in the onload we can use the built in api call to get all json objects, to then create the other filter buttons

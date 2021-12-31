@@ -39,7 +39,7 @@ var pluginAPI = {
     modalSave.onclick = function() {
       // now to take the data values from the form
       var dataToReturn = [];
-      configDataParse.options.forEach((element, index) => {
+      configDataParse.options.forEach((element) => {
         var tempObjReturn = `{ "id": "${element.id}", "value": ${document.getElementById(element.id).value} }`;
         dataToReturn.push(tempObjReturn);
       });
@@ -54,11 +54,11 @@ var pluginAPI = {
     }
   },
 
-  ReturnConfig: function ReturnConfig(pluginName) {
+  ReturnConfig: function ReturnConfig() {
 
   },
 
-  SetConfig: function SetConfig(pluginName, data) {
+  SetConfig: function SetConfig() {
 
   },
   ParseConfig: function ParseConfig(rawConfig) {

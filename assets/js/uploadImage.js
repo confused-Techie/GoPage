@@ -1,5 +1,5 @@
-loadAvailableImages();
-
+// Functions called in other files for eslint
+/*global unsetImage, setImage*/
 function loadAvailableImages() {
   // first we want to grab the list of all images in the userImages dir
   fetch("/userimages")
@@ -136,3 +136,5 @@ function unsetImage() {
         });
     });
 }
+
+loadAvailableImages();

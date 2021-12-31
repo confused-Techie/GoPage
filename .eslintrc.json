@@ -12,6 +12,7 @@
     "sourceType": "script"
   },
   "globals": {
-    "langHandler": "readonly"
+    "langHandler": "readonly",
+    "pluginAPI": "readonly"
   }
 }
