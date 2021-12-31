@@ -1,0 +1,6 @@
+{
+  "root": false,
+  "globals": {
+    "langHandler": "readonly"
+  }
+}

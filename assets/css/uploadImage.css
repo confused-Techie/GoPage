@@ -174,7 +174,7 @@ input[type=file]::file-selector-button {
     bottom: 30px;
     opacity: 1;
   }
-  
+
   to {
     bottom: 30px;
     opacity: 0;
