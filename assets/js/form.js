@@ -1,6 +1,7 @@
 // Below is a list of functions called from elsewhere for eslint. If they are changed this should be updated.
 
-/*global initCategory(), onDataListInput()*/
+/*global initCategory, onDataListInput */
+/*eslint no-redeclare: ["error", { "builtinGlobals": false } ] */
 function initCategory() {
   // first we need the list of all categories form the api
   fetch('/api/items')

@@ -25,10 +25,10 @@ function loadAvailableImages() {
 
           // we need to account for the first image-column entry
           // the below will break up the images' column every four images by checking the modulus or remainder
-          if (i == 0) {
+          if (i === 0) {
             insertHTML += "<div class='image-column'>";
             insertImg();
-          } else if (i % 4 == 0) {
+          } else if (i % 4 === 0) {
             insertHTML += "</div>";
             insertHTML += "<div class='image-column'>";
             insertImg();

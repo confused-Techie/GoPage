@@ -2,7 +2,7 @@
 # and a workspace (GOPATH) configured at /go
 
 # Attempting to combine multiple RUN directives to reduce the amount of layers built
-FROM golang:latest
+FROM golang:1.17
 
 # Specify the default destination for all other commands
 WORKDIR /app

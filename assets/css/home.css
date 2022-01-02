@@ -62,7 +62,6 @@ As to be honest I've hated CSS for years. */
   min-width: 30%;
   min-height: 10%; /* Set the min height and width, allowing them to grow, depnding on internal divs */
   display: none; /* Ensures item is not visible, until changed by js when showing the item */
-  vertical-align: top; /* Aligns the top of the element and its descendants with the top of the entire line */
   margin-right: 5px; /* spacing outside the element, to give item lisitngs space between each other */
   margin-top: 5px;
   position: relative; /* assigning this relative allows child elements positioned absolute to respect is boundries. */

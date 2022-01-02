@@ -44,7 +44,6 @@ a {
 .timeStamp {
   background-color: inherit;
   color: inherit;
-  vertical-align: bottom;
   grid-column: 3;
   grid-row: 1;
 }
