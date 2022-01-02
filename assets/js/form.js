@@ -74,7 +74,7 @@ goBackBtn.onclick = function() {
   window.location.href = '/';
 }
 
-/*eslint-disable-next-line no-unused-vars: off */
+// eslint-disable-next-line no-unused-vars
 function onDataListInput(ele) {
 
   console.log(`Parent Name: ${ele.getAttribute('name')}; Parent Value: ${ele.value}`);
