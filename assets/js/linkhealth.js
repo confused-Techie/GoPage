@@ -1,4 +1,8 @@
 
+window.onload = function() {
+  onPageLoad();
+};
+
 function onPageLoad() {
   // This will be called when the page first loads and we can begin our check.
   // The divs should be filled in with a loading bar initially
@@ -73,11 +77,4 @@ function onPageLoad() {
 function getHostname(url) {
   // use URL constructor and return hostname
   return new URL(url).hostname;
-}
-
-function getTranslatedStrings(id) {
-  langHandler.ProvideStringRaw(id)
-    .then((res) => {
-      return res;
-    });
 }

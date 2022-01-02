@@ -4,7 +4,7 @@
 var currentLang = "en";
 
 // Since a global variable is the langHandler that is defined here, we turn off checking of redeclared variables to avoid errors here
-/*eslint no-redeclare: off*/
+/*eslint-disable-next-line no-redeclare: off*/
 var langHandler = {
   ProvideString: function ProvideString(id, element) {
     // this will take an identifier

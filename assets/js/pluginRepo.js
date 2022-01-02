@@ -1,11 +1,8 @@
 
 // Here we can respond to the install, and uninstall requests of plugins
 
-// Below is a list of functions called from elsewhere for eslint. If they are changed this should be updated.
-
-/*global installPlugin, updatePlugin, uninstallPlugin*/
+/*eslint-disable-next-line no-unused-vars */
 function installPlugin(pluginUrl, pluginName) {
-  //console.log(`INSTALL CALLED: ${pluginName}`);
 
   fetch(`/plugins/install?source=${pluginUrl}`)
     .then((res) => res.json())
@@ -24,6 +21,7 @@ function installPlugin(pluginUrl, pluginName) {
     });
 }
 
+/*eslint-disable-next-line no-unused-vars */
 function uninstallPlugin(pluginName) {
   fetch(`/plugins/uninstall?pluginName=${pluginName}`)
     .then((res) => {
@@ -56,6 +54,7 @@ function uninstallPlugin(pluginName) {
     });
 }
 
+/*eslint-disable-next-line no-unused-vars */
 function updatePlugin() {
   fetch("/plugins/update")
     .then((res) => res.json())

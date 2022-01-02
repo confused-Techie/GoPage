@@ -1,7 +1,8 @@
-// Below is a list of functions called from elsewhere for eslint. If they are changed this should be updated.
 
-/*global initCategory, onDataListInput */
-/*eslint no-redeclare: ["error", { "builtinGlobals": false } ] */
+window.onload = function() {
+  initCategory();
+};
+
 function initCategory() {
   // first we need the list of all categories form the api
   fetch('/api/items')
@@ -73,10 +74,8 @@ goBackBtn.onclick = function() {
   window.location.href = '/';
 }
 
-
+/*eslint-disable-next-line no-unused-vars: off */
 function onDataListInput(ele) {
-  console.log('ondatalistinput called');
-  console.log(ele);
 
   console.log(`Parent Name: ${ele.getAttribute('name')}; Parent Value: ${ele.value}`);
   // ele.getAttribute('name') will provide us with the name of what called this

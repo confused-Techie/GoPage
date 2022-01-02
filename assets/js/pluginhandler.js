@@ -1,4 +1,7 @@
 // This will be the first venture into namespaces
+
+// Since a global variable is the pluginAPI that is defined here, we turn off checking of redeclared variables to avoid errors here
+/*eslint-disable-next-line no-redeclare: off*/
 var pluginAPI = {
   ReturnItems: function ReturnItems(pluginName) {
     return document.getElementsByClassName(pluginName);

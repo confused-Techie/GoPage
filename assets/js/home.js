@@ -1,6 +1,15 @@
-// Below is a list of functions called from elsewhere for eslint. If they are changed this should be updated.
 
-/*global onPageLoad, filterSelection, modalDelete*/
+window.onload = function() {
+  // This is being moved from HTML to JS to reduce global pollution, and other concerns, as well as remove ESLinter complaints
+
+  onPageLoad();
+};
+
+// ADD onclick Handlers
+document.getElementById("ShowAllCategorySelector").onclick = function() {
+  filterSelection('all');
+}
+
 function onPageLoad() {
   //console.log("onPageLoad Fired..");
   // first in the onload we can use the built in api call to get all json objects, to then create the other filter buttons
@@ -87,7 +96,7 @@ for (var i = 0; i < btns.length; i++) {
   });
 }
 
-function generatedEventListener(event) {
+function generatedEventListener() {
   var btnContainer = document.getElementById("btnContainer");
   var btns = btnContainer.getElementsByClassName("btn");
   for (var i = 0; i < btns.length; i++) {

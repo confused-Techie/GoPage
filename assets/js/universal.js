@@ -20,7 +20,6 @@ function updaterTimeStamp() {
 }
 
 window.addEventListener("DOMContentLoaded", (event) => {
-  //console.log("DOM fully loaded and parsed");
   langHandler.DetermineLang()
     .then(() => {
       // once this returns, we can start a lookup of the strings
