@@ -85,7 +85,8 @@ function addClass(element, name) {
   }
 }
 
-// Add active class to the current button
+// init adding class to currently active button
+//generatedEventListener();
 var btnContainer = document.getElementById("btnContainer");
 var btns = btnContainer.getElementsByClassName("btn");
 for (var i = 0; i < btns.length; i++) {
@@ -96,7 +97,7 @@ for (var i = 0; i < btns.length; i++) {
   });
 }
 
-function generatedEventListener() {
+function generatedEventListener(event) {
   var btnContainer = document.getElementById("btnContainer");
   var btns = btnContainer.getElementsByClassName("btn");
   for (var i = 0; i < btns.length; i++) {
