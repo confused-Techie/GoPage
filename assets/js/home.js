@@ -109,7 +109,7 @@ function generatedEventListener() {
 // Modal based JS
 
 // Previous links to delete in HTML: <div class="deleteItem"> <a href="/delete/{{.Id}}"> <img src="/assets/images/trash-2.svg"> </a> </div>
-
+/*eslint-disable-next-line no-unused-vars*/
 function modalDelete(id) {
   // this should be called when the delete button is hit
   var modal = document.getElementById("deleteModal");

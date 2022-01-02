@@ -1,5 +1,4 @@
-// Functions called in other files for eslint
-/*global unsetImage, setImage*/
+
 function loadAvailableImages() {
   // first we want to grab the list of all images in the userImages dir
   fetch("/userimages")
@@ -50,6 +49,7 @@ function loadAvailableImages() {
     });
 }
 
+/*eslint-disable-next-line no-unused-vars*/
 function setImage(name) {
   fetch("/api/usersettings")
     .then((res) => res.json())
@@ -94,6 +94,7 @@ function setImage(name) {
     });
 }
 
+/*eslint-disable-next-line no-unused-vars*/
 function unsetImage() {
   fetch("/api/usersettings")
     .then((res) => res.json())

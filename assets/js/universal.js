@@ -19,7 +19,7 @@ function updaterTimeStamp() {
   setInterval(loadTimeStamp, 1000);
 }
 
-window.addEventListener("DOMContentLoaded", (event) => {
+window.addEventListener("DOMContentLoaded", () => {
   langHandler.DetermineLang()
     .then(() => {
       // once this returns, we can start a lookup of the strings

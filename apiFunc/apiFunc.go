@@ -49,7 +49,10 @@ func HostOSGet() string {
 	return runtime.GOOS + "/" + runtime.GOARCH
 }
 
+// ------------------------------------------
 // This will be dedicated to the plugin store
+
+// PluginIcon is a child of AvailablePluginList & PluginItem
 type PluginIcon struct {
 	Available bool   `json:"available"`
 	Type      string `json:"type"`
@@ -58,6 +61,7 @@ type PluginIcon struct {
 	Symbol    string `json:"symbol"`
 }
 
+// AvailablePluginItem is used to hold that JSON values of each available plugin item in the json array availableplugins.json
 type AvailablePluginItem struct {
 	Name         string     `json:"name"`
 	FriendlyName string     `json:"friendlyName"`
@@ -72,10 +76,12 @@ type AvailablePluginItem struct {
 	Icon         PluginIcon `json:"icon"`
 }
 
+// AvailablePluginList is used to hold the full array from availableplugins.json
 type AvailablePluginList struct {
 	AvailablePluginItem []*AvailablePluginItem
 }
 
+// PluginItem is the same as AvailablePluginItem and really should be refractored to avoid its duplicity. Comes from a time when the files had differences
 type PluginItem struct {
 	Name         string     `json:"name"`
 	FriendlyName string     `json:"friendlyName"`
@@ -89,14 +95,17 @@ type PluginItem struct {
 	Icon         PluginIcon `json:"icon"`
 }
 
+// InstalledPlugins used to hold the JSON array of PluginItem's
 type InstalledPlugins struct {
 	PluginItem []PluginItem
 }
 
+// InstallItem is used to help return the API call of installed plugin names only
 type InstallItem struct {
 	Name string `json:"name"`
 }
 
+// InstallList holds an array of InstalledItems for the API call of installed plugin names
 type InstallList struct {
 	InstallItem []*InstallItem
 }
@@ -107,6 +116,7 @@ func checkError(err error) {
 	}
 }
 
+// AvailablePlugins provides a struct of all available plugins and their data for filling out the plugin repo page
 func AvailablePlugins() (au *AvailablePluginList) {
 	file, err := os.OpenFile(viper.GetString("directories.plugin")+"availablePlugins.json", os.O_RDWR|os.O_APPEND, 0666)
 	checkError(err)
@@ -122,6 +132,7 @@ func (list *InstalledPlugins) AddItemToList(item PluginItem) []PluginItem {
 	return list.PluginItem
 }
 
+// GetInstalledPluginsList is used for the API call of all installed plugins names
 func GetInstalledPluginsList() (au *InstalledPlugins) {
 	file, err := os.OpenFile(viper.GetString("directories.plugin")+"installedPlugins.json", os.O_RDWR|os.O_APPEND, 0666)
 	checkError(err)
@@ -154,11 +165,13 @@ func GetInstalledPluginsList() (au *InstalledPlugins) {
 }
 
 // This will combine the installed plugin data as well as the availabel plugin data, to return one item
+// PluginData is able to hold both all installed and available plugins for the plugin repo
 type PluginData struct {
 	Installed *InstalledPlugins
 	Available *AvailablePluginList
 }
 
+// GetPluginData is able to return the PluginData struct
 func GetPluginData() (au *PluginData) {
 	resp := GetInstalledPluginsList()
 	resp1 := AvailablePlugins()
@@ -166,6 +179,7 @@ func GetPluginData() (au *PluginData) {
 	return data
 }
 
+// CmdTest was testing of functionaltiy and should be pruned after testing
 func CmdTest(src string) string {
 
 	fmt.Println(os.Getenv("OS"))
@@ -192,6 +206,7 @@ func CmdTest(src string) string {
 	return "Shit"
 }
 
+// InstallCmd is a no longer utilized method of installing plugins using windows powershell scripts
 func InstallCmd(src string) (string, error) {
 	// Here we can call the scripts to install new commands.
 
@@ -214,6 +229,7 @@ func InstallCmd(src string) (string, error) {
 	return "Generic Error", nil
 }
 
+// UninstallCmd is a no longer utilized method of installing plugins using windows powershell scripts
 func UninstallCmd(name string) (string, error) {
 	// Here we can call the script to uninstall
 
@@ -235,11 +251,13 @@ func UninstallCmd(name string) (string, error) {
 	return "Generic Error", nil
 }
 
+// UniversalPluginOptions is a child of UniversalPluginItem the attempt at de-duplication of plugin Item models
 type UniversalPluginOptions struct {
 	Explain  string `json:"explain"`
 	Autofill string `json:"autofill"`
 }
 
+// UniversalPluginIcon is a child of UniversalPluginItem the attempt at de-duplication of plugin item models
 type UniversalPluginIcon struct {
 	Available bool   `json:"available"`
 	Type      string `json:"type"`
@@ -250,6 +268,7 @@ type UniversalPluginIcon struct {
 	Symbol string `json:"symbol"`
 }
 
+// UniversalPluginItem is the attempt at de-duplication of plugin item models
 type UniversalPluginItem struct {
 	Name         string                 `json:"name"`
 	FriendlyName string                 `json:"friendlyName"`
@@ -268,10 +287,12 @@ type UniversalPluginItem struct {
 	Icon         UniversalPluginIcon    `json:"icon"`
 }
 
+// UniversalPluginList holds the array of UniversalPluginItem 's as the attempt of de-duplication of plugin item models
 type UniversalPluginList struct {
 	UniversalPluginItem []*UniversalPluginItem
 }
 
+// UninstallUniversal uses Go functions and libraries to unisntall plugins rather than powershell scripts and is the currently used method
 func UninstallUniversal(pluginName string) (string, error) {
 	var consoleData string
 	// We want to first remove the old files
@@ -358,6 +379,7 @@ func UninstallUniversal(pluginName string) (string, error) {
 	return consoleData, err
 }
 
+// InstallUniversal is the currently used method to install plugins ditching windows powershell scripts of earlier versions
 func InstallUniversal(src string) (string, error) {
 	var consoleData string
 	// Due to file limitations of Powershell, and the issue of building
@@ -525,6 +547,7 @@ func InstallUniversal(src string) (string, error) {
 	// This son of a bitch works, beautful
 }
 
+// UniversalAvailableUpdate is the Go function reliant method to update available plugins directly from the Github repo without a feature update needed.
 func UniversalAvailableUpdate() (string, error) {
 	var consoleData string
 
@@ -623,6 +646,7 @@ func UniversalAvailableUpdate() (string, error) {
 	return consoleData, err
 }
 
+// Unzip is used during InstallUniversal to unpack the plugin zip files and install them 
 func Unzip(src string, dest string) ([]string, error) {
 
 	var filenames []string

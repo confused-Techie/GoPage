@@ -43,7 +43,7 @@ func linkHealthHandler(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, p)
 }
 
-func UploadPageHandler(w http.ResponseWriter, r *http.Request) {
+func uploadPageHandler(w http.ResponseWriter, r *http.Request) {
 	p := viper.GetString("directories.templates") + "/uploadImage.html"
 	http.ServeFile(w, r, p)
 }
@@ -363,13 +363,13 @@ func main() {
 	http.HandleFunc("/new/", newHandler)
 
 	http.HandleFunc("/upload", handler.UploadHandler)
-	http.HandleFunc("/uploadpage", UploadPageHandler)
+	http.HandleFunc("/uploadpage", uploadPageHandler)
 	http.HandleFunc("/userimages", userImagesHandler)
 
 	// now to allow static file serving for css and js assets
 	fs := http.FileServer(http.Dir(viper.GetString("directories.staticAssets")))
 	http.Handle("/assets/", http.StripPrefix("/assets/", fs))
-	
+
 	// allow static file serving from the plugins folder
 	plugin := http.FileServer(http.Dir(viper.GetString("directories.plugin")))
 	http.Handle("/plugins/", http.StripPrefix("/plugins/", plugin))
