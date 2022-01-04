@@ -85,6 +85,38 @@ func ServSettingGet() (au *ServSetting) {
 	return &srvStting
 }
 
+// ServSettingSetLang is made to modify the server settings language value only
+func ServSettingSetLang(newLang string) (string, error) {
+	origFile, err := os.OpenFile(viper.GetString("directories.setting")+"/serverSettings.json", os.O_RDWR|os.O_APPEND, 0666)
+	if err != nil {
+		fmt.Println(err)
+		return "", err
+	}
+	origBytes, err := ioutil.ReadAll(origFile)
+	var origSrvStting ServSetting
+	json.Unmarshal(origBytes, &origSrvStting)
+	if err != nil {
+		fmt.Println(err)
+		return "", err
+	}
+
+	// Then with the original file unpacked, we can modify the language variable and write it back to its file
+	if origSrvStting.Language != newLang {
+		origSrvStting.Language = newLang
+	} else {
+		return "No Change Needed to Server Language from: " + newLang, nil
+	}
+
+	newSrvStting, err := json.MarshalIndent(&origSrvStting, "", "")
+	if err != nil {
+		fmt.Println(err)
+		return "", err
+	}
+	ioutil.WriteFile(viper.GetString("directories.setting")+"/serverSettings.json", newSrvStting, 0666)
+
+	return "Successfully Changed Server Language to: " + newLang, nil
+}
+
 // UserSetting struct is made to contain the JSON of User settings
 type UserSetting struct {
 	CustomBackground usrStgBck `json:"customBackground"`

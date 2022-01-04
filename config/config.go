@@ -6,6 +6,8 @@ import (
 	"github.com/spf13/viper"
 	"os"
 	"runtime"
+	model "github.com/confused-Techie/GoPage/model"
+	modifySettings "github.com/confused-Techie/GoPage/modifySettings"
 )
 
 // Config is a struct to contain the full config.yml file with multiple sections
@@ -52,9 +54,11 @@ func LoadConfig(path string) (config Config, err error) {
 func DetermineEnv() string {
 	devEnv := flag.Bool("dev", false, "a bool")
 	dockerEnv := flag.Bool("docker", false, "a bool")
+	langEnv := flag.String("lang", "", "a string")
 	flag.Parse()
 
-	fmt.Println("App Data Test: \t" + os.Getenv("LOCALAPPDATA"))
+	modifySettings.SetLangEnv(*langEnv)
+
 	if *devEnv {
 		return "."
 	}

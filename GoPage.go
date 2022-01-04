@@ -7,6 +7,7 @@ import (
 	config "github.com/confused-Techie/GoPage/config"
 	handler "github.com/confused-Techie/GoPage/handler"
 	model "github.com/confused-Techie/GoPage/model"
+	modifySettings "github.com/confused-Techie/GoPage/modifySettings"
 	"github.com/spf13/viper"
 	"html/template"
 	"io/ioutil"
@@ -345,9 +346,18 @@ func main() {
 
 	// this will then try to grab the config data
 	config, err := config.LoadConfig(workEnv)
+	// config from config.go is accidentally redeclared here.
+	// TODO: Modify all further references to the config variable to a new variable here to config can be used to access the package
 	if err != nil {
 		log.Fatal("Cannot load Config: ", err)
 	}
+
+	// this is used to cause a startup check to the language specified
+	langEnv, err := modifySettings.DetermineLang()
+	if err != nil {
+		log.Fatal("Cannot Determine Server Language: ", err)
+	}
+	fmt.Println(langEnv)
 
 	// Reading variables using the model. This is for dev purposes
 	fmt.Println("Server Port: \t", config.Server.Port)
