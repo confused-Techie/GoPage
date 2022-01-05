@@ -15,6 +15,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"time"
 )
 
 func checkError(err error) {
@@ -337,6 +338,46 @@ func userImagesHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(itemList)
 }
 
+// Below no caching mechanism borrowed from elithrar stackoverflow
+// Or more percisley their repo: zenazn/goji
+var epoch = time.Unix(0, 0).Format(time.RFC1123)
+
+var noCacheHeaders = map[string]string{
+	"Expires": epoch,
+	"Cache-Control": "no-cache, private, max-age=0",
+	"Pragma": "no-cache",
+	"X-Accel-Expires": "0",
+}
+
+var etagHeaders = []string{
+	"ETag",
+	"If-Modified-Since",
+	"If-Match",
+	"If-None-Match",
+	"If-Range",
+	"If-Unmodified-Since",
+}
+
+func noCache(h http.Handler) http.Handler {
+	fn := func(w http.ResponseWriter, r *http.Request) {
+		// Delete any ETag headers that may have been set
+		for _, v := range etagHeaders {
+			if r.Header.Get(v) != "" {
+				r.Header.Del(v)
+			}
+		}
+
+		// Set our NoCahce Headers
+		for k, v := range noCacheHeaders {
+			w.Header().Set(k, v)
+		}
+
+		h.ServeHTTP(w, r)
+	}
+
+	return http.HandlerFunc(fn)
+}
+
 func main() {
 	// Here we can add all viper configuration file/env file setup
 	// this will grab the proper config location, home of windows or linux, or if dev flag used the local dir
@@ -382,7 +423,7 @@ func main() {
 
 	// allow static file serving from the plugins folder
 	plugin := http.FileServer(http.Dir(viper.GetString("directories.plugin")))
-	http.Handle("/plugins/", http.StripPrefix("/plugins/", plugin))
+	http.Handle("/plugins/", noCache(http.StripPrefix("/plugins/", plugin)))
 
 	// Here cna be defiend any static pages needed.
 	// Like the linkhealth page
