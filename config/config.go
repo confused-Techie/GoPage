@@ -2,10 +2,10 @@ package config
 
 import (
 	"flag"
+	modifySettings "github.com/confused-Techie/GoPage/modifySettings"
 	"github.com/spf13/viper"
 	"os"
 	"runtime"
-	modifySettings "github.com/confused-Techie/GoPage/modifySettings"
 )
 
 // Config is a struct to contain the full config.yml file with multiple sections

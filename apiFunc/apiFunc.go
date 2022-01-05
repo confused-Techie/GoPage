@@ -646,7 +646,7 @@ func UniversalAvailableUpdate() (string, error) {
 	return consoleData, err
 }
 
-// Unzip is used during InstallUniversal to unpack the plugin zip files and install them 
+// Unzip is used during InstallUniversal to unpack the plugin zip files and install them
 func Unzip(src string, dest string) ([]string, error) {
 
 	var filenames []string

@@ -1,12 +1,12 @@
 package handler
 
 import (
+	"encoding/json"
 	"fmt"
+	modifySettings "github.com/confused-Techie/GoPage/modifySettings"
 	"github.com/spf13/viper"
 	"io/ioutil"
 	"net/http"
-	modifySettings "github.com/confused-Techie/GoPage/modifySettings"
-	"encoding/json"
 )
 
 // UploadHandler is paired to http.HandleFunc("/upload", ) to handle the digestion of image uploads to GoPage

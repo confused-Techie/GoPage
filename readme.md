@@ -19,6 +19,20 @@ GoPage has been made with the goal of extreme simplicity and convenient extensib
 ![Example of GoPage HomePage](/docs/assets/homepage-utilized.png)
 >An Image of GoPage with Plugins: Favicon Swiper, Status Check, Jellyfin API, Pihole API installed. With Custom Background set to [Lake - Desktop Background Wallpaper](https://www.flickr.com/photos/83646108@N00/3613708379) by [(matt)](https://www.flickr.com/photos/83646108@N00) licensed under [CC BY-ND 2.0](https://creativecommons.org/licenses/by-nd/2.0/?ref=openverse&atype=rich)
 
+## Features
+
+* Full Theme Support from Installed Plugins
+* Custom Background Images
+* Plugin Repo Page:
+  * Ability to update Available Plugins
+  * Install/Uninstall Existing Plugins
+* Link Health Page:
+  * Alerts of Exact Duplicate Links
+  * Alerts of Hostname Duplicate Links
+* GoPage has full support for translations, but does need additional contributions to support more languages.
+  * English: 100%
+  * Spanish: 100%
+
 ## Installation
 
 ### Docker

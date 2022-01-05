@@ -343,9 +343,9 @@ func userImagesHandler(w http.ResponseWriter, r *http.Request) {
 var epoch = time.Unix(0, 0).Format(time.RFC1123)
 
 var noCacheHeaders = map[string]string{
-	"Expires": epoch,
-	"Cache-Control": "no-cache, private, max-age=0",
-	"Pragma": "no-cache",
+	"Expires":         epoch,
+	"Cache-Control":   "no-cache, private, max-age=0",
+	"Pragma":          "no-cache",
 	"X-Accel-Expires": "0",
 }
 
@@ -433,7 +433,7 @@ func main() {
 	// For the proper filtering of items, and hopeful searching, here will be an api call for js to get all items as json
 	http.HandleFunc("/api/items", apiItemsHandler)
 	http.HandleFunc("/api/serversettings", apiServerSettingsHandler)
-	http.HandleFunc("/api/changelang", handler.ChangeLang)	// /api/changelang?lang=en
+	http.HandleFunc("/api/changelang", handler.ChangeLang) // /api/changelang?lang=en
 	http.HandleFunc("/api/usersettings", apiUserSettingsHandler)
 	http.HandleFunc("/api/usersettingswrite", model.UserSettingSet)
 	// Below will be API declarations used for plugins
