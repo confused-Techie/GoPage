@@ -12,7 +12,7 @@ var commandLineString string
 func DetermineLang() (string, error) {
 
 	// Had to move DetermineLang to a new function since placing it with the DetermineConfig
-	// caused the model.ServSettingSetLang to try and read a non-existant config
+	// caused the model.ServSettingSetLang to try and read a non-existent config
 	if commandLineString != "" {
 		fmt.Println("Checking Declared Language against default.")
 		resp, err := model.ServSettingSetLang(commandLineString)

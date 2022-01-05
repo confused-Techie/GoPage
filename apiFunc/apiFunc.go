@@ -127,6 +127,7 @@ func AvailablePlugins() (au *AvailablePluginList) {
 	return &alPlg
 }
 
+// AddItemToList helps to build a list of Plugins by adding one to the existing list
 func (list *InstalledPlugins) AddItemToList(item PluginItem) []PluginItem {
 	list.PluginItem = append(list.PluginItem, item)
 	return list.PluginItem
@@ -164,8 +165,7 @@ func GetInstalledPluginsList() (au *InstalledPlugins) {
 	return &plugDataList
 }
 
-// This will combine the installed plugin data as well as the availabel plugin data, to return one item
-// PluginData is able to hold both all installed and available plugins for the plugin repo
+// PluginData is able to hold both all installed and available plugins for the plugin repo, as to be able and return a sinle item 
 type PluginData struct {
 	Installed *InstalledPlugins
 	Available *AvailablePluginList
@@ -292,7 +292,7 @@ type UniversalPluginList struct {
 	UniversalPluginItem []*UniversalPluginItem
 }
 
-// UninstallUniversal uses Go functions and libraries to unisntall plugins rather than powershell scripts and is the currently used method
+// UninstallUniversal uses Go functions and libraries to uninstall plugins rather than powershell scripts and is the currently used method
 func UninstallUniversal(pluginName string) (string, error) {
 	var consoleData string
 	// We want to first remove the old files

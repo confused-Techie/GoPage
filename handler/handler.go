@@ -62,8 +62,8 @@ func ChangeLang(w http.ResponseWriter, r *http.Request) {
 	resp, err := modifySettings.DetermineLang()
 
 	if err != nil {
-		fmt.Println("Error Occured when setting Lang: ", err)
-		json.NewEncoder(w).Encode("Error Occured when setting Lang")
+		fmt.Println("Error Occurred when setting Lang: ", err)
+		json.NewEncoder(w).Encode("Error Occurred when setting Lang")
 	}
 	json.NewEncoder(w).Encode(resp)
 }
