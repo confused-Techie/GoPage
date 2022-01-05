@@ -2,11 +2,9 @@ package config
 
 import (
 	"flag"
-	"fmt"
 	"github.com/spf13/viper"
 	"os"
 	"runtime"
-	model "github.com/confused-Techie/GoPage/model"
 	modifySettings "github.com/confused-Techie/GoPage/modifySettings"
 )
 
