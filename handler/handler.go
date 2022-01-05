@@ -5,6 +5,8 @@ import (
 	"github.com/spf13/viper"
 	"io/ioutil"
 	"net/http"
+	modifySettings "github.com/confused-Techie/GoPage/modifySettings"
+	"encoding/json"
 )
 
 // UploadHandler is paired to http.HandleFunc("/upload", ) to handle the digestion of image uploads to GoPage
@@ -45,4 +47,23 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 
 	// After successfully uploading the file, redirect to the home page
 	http.Redirect(w, r, "/uploadpage", 301)
+}
+
+// ChangeLang is an API Endpoint to modify the server language whenever needed.
+func ChangeLang(w http.ResponseWriter, r *http.Request) {
+	keys, ok := r.URL.Query()["lang"]
+	if !ok || len(keys[0]) < 1 {
+		fmt.Println("URL Param 'lang' is missing")
+		json.NewEncoder(w).Encode("URL Param 'lang' is missing")
+	}
+	newLang := keys[0]
+
+	modifySettings.SetLangEnv(newLang)
+	resp, err := modifySettings.DetermineLang()
+
+	if err != nil {
+		fmt.Println("Error Occured when setting Lang: ", err)
+		json.NewEncoder(w).Encode("Error Occured when setting Lang")
+	}
+	json.NewEncoder(w).Encode(resp)
 }

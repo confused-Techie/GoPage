@@ -392,6 +392,7 @@ func main() {
 	// For the proper filtering of items, and hopeful searching, here will be an api call for js to get all items as json
 	http.HandleFunc("/api/items", apiItemsHandler)
 	http.HandleFunc("/api/serversettings", apiServerSettingsHandler)
+	http.HandleFunc("/api/changelang", handler.ChangeLang)	// /api/changelang?lang=en
 	http.HandleFunc("/api/usersettings", apiUserSettingsHandler)
 	http.HandleFunc("/api/usersettingswrite", model.UserSettingSet)
 	// Below will be API declarations used for plugins
