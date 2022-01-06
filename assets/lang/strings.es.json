@@ -46,5 +46,12 @@
   "i18n-generatedLHLinkItem": "Vincular elementos",
   "i18n-generatedUploadSuccessSnackbar": "Se configuró correctamente '{0}' como imagen de fondo. (Puede que necesites actualizar...)",
   "i18n-generatedRemoveImageSuccess": "Desarmar la imagen de fondo. (Puede que necesites actualizar...)",
-  "i18n-edgeCaseTextEnableJS": "Habilite JavaScript en su navegador para que GoPage funcione como se espera."
+  "i18n-edgeCaseTextEnableJS": "Habilite JavaScript en su navegador para que GoPage funcione como se espera.",
+  "i18n-modalFirstTimeWelcome": "Bienvenido a GoPage, parece que es tu primera vez aquí. A continuación, se muestran algunas formas útiles de comenzar.",
+  "i18n-modalFirstTimeLink": "Crea tu primer artículo de enlace.",
+  "i18n-modalFirstTimePlugin": "Visite el repositorio de complementos para comenzar a instalar complementos",
+  "i18n-modalFirstTimeLang": "Cambiar el idioma que usa GoPage.",
+  "i18n-modalFirstTimeDocumentation": "Visite la documentación para obtener más ayuda.",
+  "i18n-modalFirstTimeLangSubmit": "Entregar",
+  "i18n-modalFirstTimeClose": "Cerrar la configuración inicial"
 }

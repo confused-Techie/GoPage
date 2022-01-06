@@ -46,6 +46,13 @@
   "i18n-generatedLHLinkItem": "Link Items",
   "i18n-generatedUploadSuccessSnackbar": "Successfully set '{0}' as background image. (You may need to refresh...)",
   "i18n-generatedRemoveImageSuccess": "Unset the Background Image. (You may need to refresh...)",
-  "i18n-edgeCaseTextEnableJS": "Please enable JavaScript on your Browser for GoPage to function as expected."
+  "i18n-edgeCaseTextEnableJS": "Please enable JavaScript on your Browser for GoPage to function as expected.",
+  "i18n-modalFirstTimeWelcome": "Welcome to GoPage, looks like it's your first time here. Here are some helpful ways to get started.",
+  "i18n-modalFirstTimeLink": "Create your first Link Item.",
+  "i18n-modalFirstTimePlugin": "Visit the Plugin Repo to start installing Plugins",
+  "i18n-modalFirstTimeLang": "Change the Language GoPage uses.",
+  "i18n-modalFirstTimeDocumentation": "Visit the documentation for further assistance",
+  "i18n-modalFirstTimeLangSubmit": "Submit",
+  "i18n-modalFirstTimeClose": "Close First Time Setup"
 
 }

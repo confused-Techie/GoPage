@@ -38,5 +38,12 @@
   "i18n-labelCategory",
   "i18n-pluginRepoVersion",
   "i18n-pluginRepoLicense",
-  "i18n-edgeCaseTextEnableJS"
+  "i18n-edgeCaseTextEnableJS",
+  "i18n-modalFirstTimeWelcome",
+  "i18n-modalFirstTimeLink",
+  "i18n-modalFirstTimePlugin",
+  "i18n-modalFirstTimeLang",
+  "i18n-modalFirstTimeDocumentation",
+  "i18n-modalFirstTimeLangSubmit",
+  "i18n-modalFirstTimeClose"
 ]
