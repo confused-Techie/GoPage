@@ -3,6 +3,8 @@ window.onload = function() {
   // This is being moved from HTML to JS to reduce global pollution, and other concerns, as well as remove ESLinter complaints
 
   onPageLoad();
+
+  firstTimeSetup();
 };
 
 // ADD onclick Handlers
@@ -105,6 +107,45 @@ function generatedEventListener(event) {
     current[0].className = current[0].className.replace(" active", "");
     this.className += " active";
   }
+}
+
+function firstTimeSetup() {
+  // this will check for any saved items, and if there are none, will display a helpful modal of options to get started.
+  fetch("/api/items")
+    .then((res) => res.json())
+    .then(response => {
+      if (response.length == 0) {
+        var modal = document.getElementById("firstTimeModal");
+        modal.style.display = "block";
+
+        // once visible we want to register an onclick handler with the now visible close button
+        var modalClose = document.getElementById("closeFirstTimeModal");
+
+        // and another onclick handler for the submit language
+        var modalChangeLang = document.getElementById("firstTimeModalLangSubmit");
+
+        modalClose.onclick = function() {
+          modal.style.display = "none";
+        };
+
+        modalChangeLang.onclick = function() {
+          var modalChosenLang = document.getElementById("changeLang");
+          var chosenLang = modalChosenLang.value;
+          fetch(`/api/changelang?lang=${chosenLang}`)
+            .then((res) => res.json())
+            .then(response => {
+              console.log(response);
+
+              // once it has been queried push the data into the homepage snackbar
+              var snack = document.getElementById("homePageSnackbar");
+              snack.innerText = response;
+              snack.className += " show";
+
+              setTimeout(function(){ snack.className = snack.className.replace("show", ""); }, 3000);
+            });
+        };
+      } 
+    });
 }
 
 // Modal based JS

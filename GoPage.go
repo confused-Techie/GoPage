@@ -388,7 +388,7 @@ func main() {
 	// this will then try to grab the config data
 	config, err := config.LoadConfig(workEnv)
 	// config from config.go is accidentally redeclared here.
-	// TODO: Modify all further references to the config variable to a new variable here to config can be used to access the package
+	// TODO: Modify all further references to the config variable to a new variable here so config can be used to access the package
 	if err != nil {
 		log.Fatal("Cannot load Config: ", err)
 	}

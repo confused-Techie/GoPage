@@ -232,3 +232,144 @@ As to be honest I've hated CSS for years. */
   cursor: pointer;
   margin: 5px;
 }
+
+.modal-content .firstTimeModalContent {
+  width: 100%;
+  text-align: center;
+  border-radius: 3px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 15px 5px 20px 5px;
+}
+
+.firstTimeModalContent .firstTimeModalItem {
+  display: grid;
+  grid-template-columns: 1fr 25%;
+}
+
+.firstTimeModalItem .FirstTimeModalItemText {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.firstTimeModalItem .firstTimeModalItemButton {
+  grid-column: 2;
+  grid-row: 1;
+  background-color: var(--create-action-back-drop-colour);
+  color: var(--create-action-text-colour);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 10px;
+  margin: 5px;
+  align-self: bottom;
+}
+
+.firstTimeModalItem .firstTimeModalItemLang {
+  grid-template-columns: 50% 50%;
+  display: grid;
+}
+
+.firstTimeModalLangChoice {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.firstTimeModalLangSubmit {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.firstTimeModalLangChoice select {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  margin: 5px;
+  color: var(--create-action-text-colour);
+  background-color: var(--create-action-back-drop-colour);
+}
+
+.modal-content .closeFirstTimeModal {
+  background-color: var(--undo-action-back-drop-colour);
+  color: var(--undo-action-text-colour);
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 5px;
+}
+
+/* Snackbar based CSS */
+
+/* For reasoning of items check uploadImage.css */
+
+.snackbar {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 30px;
+}
+
+.snackbar.show {
+  visibility: visible;
+
+  -webkit-animation: snack-fadein 0.5s, snack-fadeout 0.5s 2.5s;
+  animation: snack-fadein 0.5s, snack-fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes snack-fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes snack-fadein {
+  from {
+    bottom: 0;
+    opacity: 1;
+  }
+
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes snack-fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+
+  to {
+    bottom: 30px;
+    opacity: 0;
+  }
+}
+
+@keyframes snack-fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+
+  to {
+    bottom: 30px;
+    opacity: 0;
+  }
+}

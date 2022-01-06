@@ -92,6 +92,68 @@
     </div>
   </div>
 
+  <div id="firstTimeModal" class="modal">
+    <div class="modal-content">
+      <h2>Welcome to GoPage, looks like it's your first time here. Here are some helpful ways to get started.</h2>
+      <div class="firstTimeModalContent">
+        <div class="firstTimeModalItem">
+          <div class="firstTimeModalItemText">
+            <h3>Create your first Link Item.</h3>
+          </div>
+          <a href="/new"><button class="firstTimeModalItemButton">
+            <img src="/assets/images/external-link.svg" alt="External Link Icon to Open New Link Item">
+          </button></a>
+        </div>
+        <hr class="heading">
+
+        <div class="firstTimeModalItem">
+          <div class="firstTimeModalItemText">
+            <h3>Visit the Plugin Repo to start installing Plugins</h3>
+          </div>
+          <a href="/pluginrepo"><button class="firstTimeModalItemButton">
+            <img src="/assets/images/external-link.svg" alt="External Link Icon to Open Plugin Repo">
+          </button></a>
+        </div>
+        <hr class="heading">
+
+        <div class="firstTimeModalItem">
+          <div class="firstTimeModalItemText">
+            <h3>Change the Language GoPage uses.</h3>
+          </div>
+          <div class="firstTimeModalItemLang">
+            <div class="firstTimeModalLangChoice">
+              <select name="changeLang" id="changeLang">
+                <option value="en">English</option>
+                <option value="es">Spanish</option>
+              </select>
+            </div>
+            <div class="firstTimeModalLangSubmit">
+              <button class="firstTimeModalItemButton" id="firstTimeModalLangSubmit">
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+        <hr class="heading">
+
+        <div class="firstTimeModalItem">
+          <div class="firstTimeModalItemText">
+            <h3>Visit the documentation for further assistance</h3>
+          </div>
+          <a href="https://github.com/confused-Techie/GoPage/blob/main/readme.md"><button class="firstTimeModalItemButton">
+            <img src="/assets/images/external-link.svg" alt="External Link Icon to Open GoPage Github documentation">
+          </button></a>
+        </div>
+
+      </div>
+
+      <button id="closeFirstTimeModal" class="closeFirstTimeModal">Close First Time Setup</button>
+
+    </div>
+  </div>
+
+  <div id="homePageSnackbar" class="snackbar"> </div>
+
   <footer>
     <img src="/assets/images/github-white.svg" alt="Github's Octocat Icon">
     <p><a href="https://github.com/confused-Techie/GoPage">
