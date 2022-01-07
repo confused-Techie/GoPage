@@ -8,8 +8,13 @@
 </head>
 <body>
   <div class="heading">
-    <div class="settingsIcon">
+    <div class="settingsIcon dropdown">
       <a href="/settings"><img src="/assets/images/settings-white.svg" alt="White Gear Icon indicating traditional Settings Icon"></a>
+      <div class="settingsIcon dropdown-content">
+        <img src="/assets/images/corner-right-down-white.svg" alt="White Arrow Down Icon indicating additional options for Settings">
+        <a href="/linkhealth"><p class="dropdown-content-item"><span id="i18n-toolNameLinkHealth">Link Health</span></p></a>
+        <a href="/uploadpage"><p class="dropdown-content-item"><span id="i18n-toolNameBackgroundImage">Background Image</span></p></a>
+      </div>
     </div>
     <div class="titleCard"><a href="/"><h1>GoPage</h1></a></div>
     <div class="timeStamp" id="timeStamp"> </div>

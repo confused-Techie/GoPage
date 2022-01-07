@@ -97,6 +97,41 @@ footer p {
 /* ---------------------- */
 /* Universal Stylings for pages */
 
+.reveal-on-hover {
+  opacity: 0;
+}
+
+.reveal-on-hover:hover {
+  opacity: 1;
+}
+
+.dropdown {
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  background-color: var(--card-back-drop-colour);
+  padding: 5px;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+.dropdown-content-item {
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.dropdown-content-item:hover {
+  background-color: var(--category-selector-button-hover-bc);
+}
+
+.dropdown:hover .dropdown-content {
+  display: inline;
+}
+
 .hover-shadow-radial {
   display: inline-block;
   vertical-align: middle;
