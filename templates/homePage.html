@@ -25,7 +25,7 @@
     <div class="itemContainer">
       {{range .Items}}
       <div class="filterDiv {{.Category}}">
-        <div class="item">
+        <div class="item hover-shadow-radial">
         <a href="{{.Link}}">
           <div class="itemName">{{.FriendlyName}}</div>
         </a>
@@ -74,7 +74,7 @@
 
   <div class="new-button-container">
     <form action="/new">
-      <button type="submit"><span id="i18n-AddNewItem">Add New Item</span></button>
+      <button class="hover-shadow-radial" type="submit"><span id="i18n-AddNewItem">Add New Item</span></button>
     </form>
   </div>
 
