@@ -165,7 +165,7 @@ func GetInstalledPluginsList() (au *InstalledPlugins) {
 	return &plugDataList
 }
 
-// PluginData is able to hold both all installed and available plugins for the plugin repo, as to be able and return a sinle item 
+// PluginData is able to hold both all installed and available plugins for the plugin repo, as to be able and return a sinle item
 type PluginData struct {
 	Installed *InstalledPlugins
 	Available *AvailablePluginList
