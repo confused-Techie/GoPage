@@ -109,9 +109,12 @@
   </div>
 
   <div class="new-button-container">
-    <form action="/new">
+    <!--<form action="/new">
       <button class="hover-shadow-radial grow-shadow-hover" type="submit"><span id="i18n-AddNewItem">Add New Item</span></button>
-    </form>
+    </form>-->
+    <a href="PleaseEnableJavascript.html" onclick="newItemModal(); return false;">
+      <button class="hover-shadow-radial grow-shadow-hover"><span id="i18n-AddNewItem">Add New Item</span></button>
+    </a>
   </div>
 
   <div id="deleteModal" class="modal">
@@ -122,9 +125,44 @@
     </div>
   </div>
 
-  <div id="configModal" class="modal">
+  <div id="newItemModal" class="modal">
     <div class="modal-content">
+      <h2><span id="i18n-headerNewItem">New Item's Data</span></h2>
+      <form method="POST" action="new/itemadded">
+        <label><span id="i18n-labelFriendlyName">Enter Friendly Name</span></label><br>
+        <input class="form-input" type="test" name="friendlyName" autocomplete="off" /><br><br>
 
+        <label><span id="i18n-labelLink">Enter Link</span></label><br>
+        <input class="form-input" type="test" name="link" placeholder="https://www.my-favourite-site.com" autocomplete="off" /><br><br>
+
+        <label><span id="i18n-labelCategory">Enter Category</span></label><br>
+        <input class="form-input" list="new-current-category" type="text" name="category" autocomplete="off" /><br><br>
+
+        <label><span id="i18n-labelChooseLeftPlugin">Choose your Left Plugin</span></label><br>
+        <input class="form-input" oninput="onDataListInput(this)" list="new-available-plugins" type="text" autocomplete="off" name="leftPlugin"/><br><br>
+        <label class="readonly_id" id="leftPluginLabel"><span id="i18n-labelOptionsLeftPlugin">Define any Options Needed for your Left Plugin.</span></label><br>
+        <input class="readonly_id form-input" readonly type="text" name="leftPluginOptions" id="leftPluginOptions"/><br><br>
+        <div class="plugin-example" id="left-plugin-example"> </div>
+
+        <label><span id="i18n-labelChooseCenterPlugin">Choose your Center Plugin</span></label><br>
+        <input class="form-input" oninput="onDataListInput(this)" list="new-available-plugins" type="text" autocomplete="off" name="centerPlugin" /><br><br>
+        <label class="readonly_id" id="centerPluginLabel"><span id="i18n-labelOptionsCenterPlugin">Define any Options Needed for your Center Plugin.</span></label><br>
+        <input class="readonly_id form-input" readonly type="text" name="centerPluginOptions" id="centerPluginOptions" /><br><br>
+        <div class="plugin-example" id="center-plugin-example"> </div>
+
+        <label><span id="18n-labelChooseRightPlugin">Choose your Right Plugin</span></label><br>
+        <input class="form-input" oninput="onDataListInput(this)" list="new-available-plugins" type="text" autocomplete="off" name="rightPlugin" /><br><br>
+        <label class="readonly_id" id="rightPluginLabel"><span id="i18n-labelOptionsRightPlugin">Define any Options Needed for the Right Plugin.</span></label><br>
+        <input class="readonly_id form-input" readonly type="text" name="rightPluginOptions" id="rightPluginOptions" /><br><br>
+        <div class="plugin-example" id="right-plugin-example"> </div>
+
+        <button id="new-form-goBack" class="simple-button btn-undo grow-shadow-hover" type="button"><span id="i18n-buttonGoBack">Go Back</span></button>
+        <input type="submit" value="Submit" class="simple-button btn-create grow-shadow-hover">
+
+        <datalist id="new-current-category"> </datalist>
+        <datalist id="new-available-plugins"> </datalist>
+
+      </form>
     </div>
   </div>
 

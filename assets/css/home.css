@@ -242,6 +242,28 @@ As to be honest I've hated CSS for years. */
   padding: 10px; /* space around content WITHIN DIV */
 }
 
+/* ============ */
+/* CSS for form elements carried over from new/edit items */
+
+.form-input {
+  background-color: var(--form-back-drop-colour);
+  color: var(--form-text-colour);
+  width: 50%;
+  box-sizing: border-box;
+  padding: 10px 2px;
+  margin: 2px 0;
+  border-radius: 4px;
+}
+
+.readonly_id {
+  display: none;
+}
+
+.plugin-example {
+  margin-bottom: 15px;
+  color: var(--form-example-colour);
+}
+
 .modal {
   /* The container of the modal */
   display: none; /* Hidden by default */

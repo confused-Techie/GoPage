@@ -410,6 +410,7 @@ func main() {
 
 	http.HandleFunc("/update/", updateHandler)
 	http.HandleFunc("/delete/", deleteHandler)
+	http.HandleFunc("/api/deletelink/", handler.DeleteLinkItem)
 	http.HandleFunc("/edit/", editHandler)
 	http.HandleFunc("/new/", newHandler)
 

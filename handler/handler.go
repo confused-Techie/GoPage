@@ -4,9 +4,12 @@ import (
 	"encoding/json"
 	"fmt"
 	modifySettings "github.com/confused-Techie/GoPage/modifySettings"
+	model "github.com/confused-Techie/GoPage/model"
 	"github.com/spf13/viper"
 	"io/ioutil"
 	"net/http"
+	"os"
+	"strconv"
 )
 
 // UploadHandler is paired to http.HandleFunc("/upload", ) to handle the digestion of image uploads to GoPage
@@ -66,4 +69,47 @@ func ChangeLang(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode("Error Occurred when setting Lang")
 	}
 	json.NewEncoder(w).Encode(resp)
+}
+
+// DeleteLinkItem is an API Handler alternative to the post handler of deleting Link Items
+func DeleteLinkItem(w http.ResponseWriter, r *http.Request) {
+	id := r.URL.Path[len("/api/deletelink/"):]
+	i, err := strconv.Atoi(id)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(2)
+	}
+
+	// open file with items
+	file, err := os.OpenFile(viper.GetString("directories.data"), os.O_RDWR|os.O_APPEND, 0666)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(2)
+	}
+	defer file.Close()
+
+	// read file and unmarshall json to []items
+	b, err := ioutil.ReadAll(file)
+	if err != nil {
+		fmt.Println(err)
+	}
+	var alItms model.AllItems
+	err = json.Unmarshal(b, &alItms.Items)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	for u, itm := range alItms.Items {
+		if itm.Id == i {
+			alItms.Items = append(alItms.Items[:u], alItms.Items[u+1:]...)
+		}
+	}
+
+	newItemBytes, err := json.MarshalIndent(&alItms.Items, "", " ")
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	ioutil.WriteFile(viper.GetString("directories.data"), newItemBytes, 0666)
+	json.NewEncoder(w).Encode("Success")
 }

@@ -5,6 +5,9 @@ window.onload = function() {
   onPageLoad();
 
   firstTimeSetup();
+
+  // Then functions to fill out data of the forms
+  addFormCategory();
 };
 
 // ADD onclick Handlers
@@ -149,6 +152,93 @@ function firstTimeSetup() {
     });
 }
 
+// Form Based JS
+
+function addFormCategory() {
+  // first we need the list of all categories from the api
+  fetch("/api/items")
+    .then((response) => response.json())
+    .then((data) => {
+      var categoryListToInsert;
+      var categoryListToCheck = [];
+      data.forEach((element) => {
+        if (!categoryListToCheck.includes(element.category)) {
+          categoryListToInsert += `<option value='${element.category}'>`;
+          categoryListToCheck.push(element.category);
+        }
+      });
+      document.getElementById('new-current-category').innerHTML = categoryListToInsert;
+    });
+
+    // Handle the installed plugins datalist, via API
+    fetch("/plugins/installedPlugins.json")
+      .then((response) => response.json())
+      .then((data) => {
+        var pluginListToInsert;
+
+        data.forEach((element) => {
+          if (element.type == "item") {
+            pluginListToInsert += `<option value='${element.name}'>`;
+          }
+        });
+        document.getElementById('new-available-plugins').innerHTML = pluginListToInsert;
+      });
+}
+
+/*eslint disable-next-line no-unused-vars*/
+function onDataListInput(ele) {
+  fetch("/plugins/installedPlugins.json")
+    .then((response) => response.json())
+    .then((data) => {
+      data.forEach((element) => {
+        if (ele.value == element.name) {
+          if (element.config) {
+            if (ele.getAttribute('name') == 'leftPlugin') {
+              var eleToChangeViewLeft = document.getElementById('leftPluginLabel');
+              eleToChangeViewLeft.classList.remove('readonly_id');
+
+              var eleToChangeExplainLeft = document.getElementById('left-plugin-example');
+              eleToChangeExplainLeft.innerHTML = element.options.explain;
+
+              var eleToChangeAutofillLeft = document.getElementById('leftPluginOptions');
+              eleToChangeAutofillLeft.classList.remove('readonly_id');
+              eleToChangeAutofillLeft.removeAttribute('readonly');
+              eleToChangeAutofillLeft.value = element.options.autofill;
+            } else if (ele.getAttribute('name') == 'centerPlugin') {
+
+              var eleToChangeViewCenter = document.getElementById('centerPluginLabel');
+              eleToChangeViewCenter.classList.remove('readonly_id');
+
+              var eleToChangeExplainCenter = document.getElementById('center-plugin-example');
+              eleToChangeExplainCenter.innerHTML = element.options.explain;
+
+              var eleToChangeAutofillCenter = document.getElementById('centerPluginOptions');
+              eleToChangeAutofillCenter.classList.remove('readonly_id');
+              eleToChangeAutofillCenter.removeAttribute('readonly');
+              eleToChangeAutofillCenter.value = element.options.autofill;
+              
+            } else if (ele.getAttribute('name') == 'rightPlugin') {
+
+              var eleToChangeViewRight = document.getElementById('rightPluginLabel');
+              eleToChangeViewRight.classList.remove('readonly_id');
+
+              var eleToChangeExplainRight = document.getElementById('right-plugin-example');
+              eleToChangeExplainRight.innerHTML = element.options.explain;
+
+              var eleToChangeAutofillRight = document.getElementById('rightPluginOptions');
+              eleToChangeAutofillRight.classList.remove('readonly_id');
+              eleToChangeAutofillRight.removeAttribute('readonly');
+              eleToChangeAutofillRight.value = element.options.autofill;
+
+            } else {
+              console.log(`Unknown Parent calling onDataListInput: ${ele.GetAttribute('name')}`);
+            }
+          } // else there is no configuration available
+        }
+      });
+    });
+}
+
 // Modal based JS
 
 // Previous links to delete in HTML: <div class="deleteItem"> <a href="/delete/{{.Id}}"> <img src="/assets/images/trash-2.svg"> </a> </div>
@@ -166,7 +256,29 @@ function modalDelete(id) {
   var modalDeleteBtn = document.getElementById("delete-modal");
 
   modalDeleteBtn.onclick = function() {
-    window.location.href = `/delete/${id}`;
+    //window.location.href = `/delete/${id}`;
+    // Instead of changing the window location to the delete post handler,
+    // we will use the new api to delete this item
+
+    fetch(`/api/deletelink/${id}`)
+      .then((res) => res.json())
+      .then(response => {
+        if (response == "Success") {
+          modal.style.display = "none";
+
+          var snack = document.getElementById("homePageSnackbar");
+          snack.innerText = "Successfully Deleted Link Item. Reloading Page...";
+          snack.className += " show";
+          setTimeout(function(){ snack.className = snack.className.replace("show", ""); location.reload(); }, 3000);
+        } else {
+          // an error occured during deletion
+        }
+      })
+
+    //var snack = document.getElementById("homePageSnackbar");
+    //snack.innerText = "Successfully Deleted Link Item";
+    //snack.className += " show";
+    //setTimeout(function(){ snack.className = snack.className.replace("show", ""); }, 3000);
   };
 
   modalNotDeleteBtn.onclick = function() {
@@ -177,5 +289,18 @@ function modalDelete(id) {
     if (event.target == modal) {
       modal.style.display = "none";
     }
+  }
+}
+
+/*eslint-disable-next-line no-unused-vars*/
+function newItemModal() {
+  var modal = document.getElementById("newItemModal");
+  modal.style.display = "block";
+
+  // once visible we want to register an onclick ahndler with the now visible buttons
+  var modalNotNewBtn = document.getElementById("new-form-goBack");
+
+  modalNotNewBtn.onclick = function() {
+    modal.style.display = "none";
   }
 }

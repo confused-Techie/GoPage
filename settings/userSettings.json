@@ -1,6 +1,6 @@
 {
 "customBackground": {
-"set": false,
+"set": true,
 "src": "test.jpg",
 "repeat": "no-repeat",
 "size": "cover"
