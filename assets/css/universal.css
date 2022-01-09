@@ -264,7 +264,7 @@ footer p {
 }
 
 /* ================== */
-/* */
+/* card styling */
 
 .bubble-card-daily {
   border-radius: 30px;
@@ -282,4 +282,53 @@ footer p {
   min-height: 10%;
   margin-right: 5px;
   margin-top: 5px;
+}
+
+/* ================== */
+/*  snackbar */
+
+.snackbar {
+  visibility: hidden; /* Hidden by default */
+  min-width: 250px; /* Set default minimum width */
+  margin-left: -125px; /* Divide value of min-width by 2 */
+  background-color: #333; /* TODO: Remove hardcoded color */
+  color: #fff; /* TODO: Remove hardcoded colour */
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed; /* Sit on top of the screen */
+  z-index: 1;
+  left: 50%;
+  bottom: 30px;
+}
+
+.snackbar.show {
+  visibility: visible;
+
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+  However, delay the fade out process for 2.5 seconds */
+
+  -webkit-animation: snack-fadein 0.5s, snack-fadeout 0.5s 2.5s;
+  animation: snack-fadein 0.5s, snack-fadeout 0.5s 2.5s;
+}
+
+/* animations to fade the snackbar in and out */
+@-webkit-keyframes snack-fadein {
+  from { bottom: 0; opacity: 0;}
+  to { bottom: 30px; opacity: 0;}
+}
+
+@keyframes snack-fadein {
+  from { bottom: 0; opacity: 1;}
+  to { bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes snack-fadeout {
+  from { bottom: 30px; opacity: 1;}
+  to { bottom: 30px; opacity: 0;}
+}
+
+@keyframes snack-fadeout {
+  from { bottom: 30px; opacity: 1;}
+  to { bottom: 30px; opacity: 0;}
 }
