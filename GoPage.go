@@ -33,36 +33,9 @@ func checkFormValue(w http.ResponseWriter, r *http.Request, forms ...string) (re
 	return true, ""
 }
 
-func homeHandler(w http.ResponseWriter, r *http.Request) {
-	au := model.Home()
-	t, err := template.ParseFiles(viper.GetString("directories.templates") + "/homePage.html")
-	checkError(err)
-	t.Execute(w, au)
-}
-
-func linkHealthHandler(w http.ResponseWriter, r *http.Request) {
-	p := viper.GetString("directories.templates") + "/linkhealth.html"
-	http.ServeFile(w, r, p)
-}
-
 func uploadPageHandler(w http.ResponseWriter, r *http.Request) {
 	p := viper.GetString("directories.templates") + "/uploadImage.html"
 	http.ServeFile(w, r, p)
-}
-
-func settingsHandler(w http.ResponseWriter, r *http.Request) {
-	au := model.ServSettingGet()
-	t, err := template.ParseFiles(viper.GetString("directories.templates") + "/settings.html")
-	checkError(err)
-	t.Execute(w, au)
-}
-
-func pluginRepoHandler(w http.ResponseWriter, r *http.Request) {
-	//resp := apiFunc.GetInstalledPluginsList()
-	resp := apiFunc.GetPluginData()
-	t, err := template.ParseFiles(viper.GetString("directories.templates") + "/pluginRepo.html")
-	checkError(err)
-	t.Execute(w, resp)
 }
 
 func updateHandler(w http.ResponseWriter, r *http.Request) {
@@ -403,10 +376,12 @@ func main() {
 	// Reading variables using the model. This is for dev purposes
 	fmt.Println("Server Port: \t", config.Server.Port)
 
-	http.HandleFunc("/", homeHandler)
-	http.HandleFunc("/settings", settingsHandler)
-	http.HandleFunc("/pluginrepo", pluginRepoHandler)
-	http.HandleFunc("/linkhealth", linkHealthHandler)
+	// Basic Page Handles: For the standard user pages
+
+	http.HandleFunc("/", handler.HomePageHandler)
+	http.HandleFunc("/settings", handler.SettingsPageHandler)
+	http.HandleFunc("/pluginrepo", handler.PluginRepoPageHandler)
+	http.HandleFunc("/linkhealth", handler.LinkHealthPageHandler)
 
 	http.HandleFunc("/update/", updateHandler)
 	http.HandleFunc("/delete/", deleteHandler)
@@ -425,11 +400,6 @@ func main() {
 	// allow static file serving from the plugins folder
 	plugin := http.FileServer(http.Dir(viper.GetString("directories.plugin")))
 	http.Handle("/plugins/", noCache(http.StripPrefix("/plugins/", plugin)))
-
-	// Here cna be defiend any static pages needed.
-	// Like the linkhealth page
-	//linkHealth := http.FileServer(http.Dir(viper.GetString("directories.templates") + "/linkhealth.html"))
-	//http.Handle("/linkhealth", http.StripPrefix(viper.GetString("directories.templates"), linkHealth))
 
 	// For the proper filtering of items, and hopeful searching, here will be an api call for js to get all items as json
 	http.HandleFunc("/api/items", apiItemsHandler)

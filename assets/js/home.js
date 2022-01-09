@@ -16,10 +16,7 @@ document.getElementById("ShowAllCategorySelector").onclick = function() {
 }
 
 function onPageLoad() {
-  //console.log("onPageLoad Fired..");
   // first in the onload we can use the built in api call to get all json objects, to then create the other filter buttons
-
-  updaterFunc();
 
   fetch("/api/items")
     .then((response) => response.json())
@@ -63,11 +60,6 @@ function filterSelection(c) {
     removeClass(filterDivElement[i], "show");
     if (filterDivElement[i].className.indexOf(c) > -1) { addClass(filterDivElement[i], "show"); }
   }
-}
-
-function updaterFunc() {
-  // This function is purely for making any updates as needed.
-
 }
 
 function removeClass(element, name) {
@@ -336,7 +328,7 @@ function editItemModal(oldId, oldLink, oldName, oldCategory, oldLeftPlugin, oldL
   var modal = document.getElementById("editItemModal");
   modal.style.display = "block";
 
-  // once visible we want to register an onclick ahndler with the now visible buttons
+  // once visible we want to register an onclick handler with the now visible buttons
   var modalNotEditBtn = document.getElementById("edit-form-goBack");
 
   modalNotEditBtn.onclick = function() {

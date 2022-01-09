@@ -5,12 +5,48 @@ import (
 	"fmt"
 	modifySettings "github.com/confused-Techie/GoPage/modifySettings"
 	model "github.com/confused-Techie/GoPage/model"
+	errorHandler "github.com/confused-Techie/GoPage/errorHandler"
+	apiFunc "github.com/confused-Techie/GoPage/apiFunc"
 	"github.com/spf13/viper"
 	"io/ioutil"
 	"net/http"
 	"os"
 	"strconv"
+	"html/template"
 )
+
+
+// Here Will be attempted to include standard Page handlers
+
+//HomePageHandler returns Template: homePage.html w/ Model: Home
+func HomePageHandler(w http.ResponseWriter, r *http.Request) {
+	au := model.Home()
+	t, err := template.ParseFiles(viper.GetString("directories.templates") + "/homePage.html")
+	errorHandler.PageLoadError(w, err)
+	t.Execute(w, au)
+}
+
+// SettingsPageHandler returns Template: settings.html w/ Model: ServSettingGet
+func SettingsPageHandler(w http.ResponseWriter, r *http.Request) {
+	au := model.ServSettingGet()
+	t, err := template.ParseFiles(viper.GetString("directories.templates") + "/settings.html")
+	errorHandler.PageLoadError(w, err)
+	t.Execute(w, au)
+}
+
+// PluginRepoHandler returns Template: pluginRepo.html w/ Data: apiFunc.GetPluginData
+func PluginRepoPageHandler(w http.ResponseWriter, r *http.Request) {
+	resp := apiFunc.GetPluginData()
+	t, err := template.ParseFiles(viper.GetString("directories.templates") + "/pluginRepo.html")
+	errorHandler.PageLoadError(w, err)
+	t.Execute(w, resp)
+}
+
+// LinkHealthPageHandler returns basic page data w/ no template. Page: linkhealth.html
+func LinkHealthPageHandler(w http.ResponseWriter, r *http.Request) {
+	p := viper.GetString("directories.templates") + "/linkhealth.html"
+	http.ServeFile(w, r, p)
+}
 
 // UploadHandler is paired to http.HandleFunc("/upload", ) to handle the digestion of image uploads to GoPage
 func UploadHandler(w http.ResponseWriter, r *http.Request) {
