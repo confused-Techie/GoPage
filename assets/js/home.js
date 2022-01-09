@@ -168,6 +168,7 @@ function addFormCategory() {
         }
       });
       document.getElementById('new-current-category').innerHTML = categoryListToInsert;
+      document.getElementById('edit-current-category').innerHTML = categoryListToInsert;
     });
 
     // Handle the installed plugins datalist, via API
@@ -182,11 +183,12 @@ function addFormCategory() {
           }
         });
         document.getElementById('new-available-plugins').innerHTML = pluginListToInsert;
+        document.getElementById('edit-available-plugins').innerHTML = pluginListToInsert;
       });
 }
 
 /*eslint disable-next-line no-unused-vars*/
-function onDataListInput(ele) {
+function dataListInput(ele, caller) {
   fetch("/plugins/installedPlugins.json")
     .then((response) => response.json())
     .then((data) => {
@@ -194,49 +196,53 @@ function onDataListInput(ele) {
         if (ele.value == element.name) {
           if (element.config) {
             if (ele.getAttribute('name') == 'leftPlugin') {
-              var eleToChangeViewLeft = document.getElementById('leftPluginLabel');
-              eleToChangeViewLeft.classList.remove('readonly_id');
-
-              var eleToChangeExplainLeft = document.getElementById('left-plugin-example');
-              eleToChangeExplainLeft.innerHTML = element.options.explain;
-
-              var eleToChangeAutofillLeft = document.getElementById('leftPluginOptions');
-              eleToChangeAutofillLeft.classList.remove('readonly_id');
-              eleToChangeAutofillLeft.removeAttribute('readonly');
-              eleToChangeAutofillLeft.value = element.options.autofill;
+              if (caller == "new") {
+                dataListInputCaller('leftPluginLabel', 'left-plugin-example', 'leftPluginOptions', element.options.explain, element.options.autofill);
+              } else if (caller == "edit") {
+                dataListInputCaller('edit-leftPluginLabel', 'edit-left-plugin-example', 'edit-leftPluginOptions', element.options.explain, element.options.autofill);
+              }
             } else if (ele.getAttribute('name') == 'centerPlugin') {
-
-              var eleToChangeViewCenter = document.getElementById('centerPluginLabel');
-              eleToChangeViewCenter.classList.remove('readonly_id');
-
-              var eleToChangeExplainCenter = document.getElementById('center-plugin-example');
-              eleToChangeExplainCenter.innerHTML = element.options.explain;
-
-              var eleToChangeAutofillCenter = document.getElementById('centerPluginOptions');
-              eleToChangeAutofillCenter.classList.remove('readonly_id');
-              eleToChangeAutofillCenter.removeAttribute('readonly');
-              eleToChangeAutofillCenter.value = element.options.autofill;
-              
+              if (caller == "new") {
+                dataListInputCaller('centerPluginLabel', 'center-plugin-example', 'centerPluginOptions', element.options.explain, element.options.autofill);
+              } else if (caller == "edit") {
+                dataListInputCaller('edit-centerPluginLabel', 'edit-center-plugin-example', 'edit-centerPluginOptions', element.options.explain, element.options.autofill);
+              }
             } else if (ele.getAttribute('name') == 'rightPlugin') {
-
-              var eleToChangeViewRight = document.getElementById('rightPluginLabel');
-              eleToChangeViewRight.classList.remove('readonly_id');
-
-              var eleToChangeExplainRight = document.getElementById('right-plugin-example');
-              eleToChangeExplainRight.innerHTML = element.options.explain;
-
-              var eleToChangeAutofillRight = document.getElementById('rightPluginOptions');
-              eleToChangeAutofillRight.classList.remove('readonly_id');
-              eleToChangeAutofillRight.removeAttribute('readonly');
-              eleToChangeAutofillRight.value = element.options.autofill;
-
+              if (caller == "new") {
+                dataListInputCaller('rightPluginLabel', 'right-plugin-example', 'rightPluginOptions', element.options.explain, element.options.autofill);
+              } else if (caller == "edit") {
+                dataListInputCaller('edit-rightPluginLabel', 'edit-right-plugin-example', 'edit-rightPluginOptions', element.options.explain, element.options.autofill);
+              }
             } else {
-              console.log(`Unknown Parent calling onDataListInput: ${ele.GetAttribute('name')}`);
+              console.log(`Unknown Parent calling dataListInput: ${ele.getAttribute('name')}`);
             }
-          } // else there is no configuration available
+          } // else there is no configuration to this item
         }
       });
     });
+}
+
+function dataListInputCaller(view, explain, autofill, explainData, autofillData) {
+  dataListInputChangeView(view);
+  dataListInputChangeExplain(explain, explainData);
+  dataListInputChangeAutofill(autofill, autofillData);
+}
+
+function dataListInputChangeView(eleName) {
+  var ele = document.getElementById(eleName);
+  ele.classList.remove('readonly_id');
+}
+
+function dataListInputChangeExplain(eleName, explain) {
+  var ele = document.getElementById(eleName);
+  ele.innerHTML = explain;
+}
+
+function dataListInputChangeAutofill(eleName, autofill) {
+  var ele = document.getElementById(eleName);
+  ele.classList.remove('readonly_id');
+  ele.removeAttribute('readonly');
+  ele.value = autofill;
 }
 
 // Modal based JS
@@ -301,6 +307,44 @@ function newItemModal() {
   var modalNotNewBtn = document.getElementById("new-form-goBack");
 
   modalNotNewBtn.onclick = function() {
+    modal.style.display = "none";
+  }
+}
+
+/*eslint-disable-next-line no-unused-vars*/
+function editItemModal(oldId, oldLink, oldName, oldCategory, oldLeftPlugin, oldLeftPluginOptions, oldCenterPlugin, oldCenterPluginOptions, oldRightPlugin, oldRightPluginOptions) {
+  // before making this item visible, we will fill in all the old details
+  document.getElementById("edit-id").value = oldId;
+  document.getElementById("edit-link").value = oldLink;
+  document.getElementById("edit-category").value = oldCategory;
+  document.getElementById("edit-friendlyName").value = oldName;
+
+  document.getElementById("edit-leftPlugin").value = oldLeftPlugin;
+  if (typeof oldLeftPluginOptions != null && typeof oldLeftPluginOptions != undefined && oldLeftPluginOptions != "") {
+    console.log(typeof oldLeftPluginOptions)
+    dataListInputChangeView('edit-leftPluginLabel');
+    dataListInputChangeAutofill('edit-leftPluginOptions', oldLeftPluginOptions);
+  }
+
+  document.getElementById("edit-centerPlugin").value = oldCenterPlugin;
+  if (typeof oldCenterPluginOptions != null && typeof oldCenterPluginOptions != undefined && oldCenterPluginOptions != "") {
+    dataListInputChangeView('edit-centerPluginLabel');
+    dataListInputChangeAutofill('edit-centerPluginOptions', oldCenterPluginOptions);
+  }
+
+  document.getElementById("edit-rightPlugin").value = oldRightPlugin;
+  if (typeof oldRightPluginOptions != null && typeof oldRightPluginOptions != undefined && oldRightPluginOptions != "") {
+    dataListInputChangeView('edit-rightPluginLabel');
+    dataListInputChangeAutofill('edit-rightPluginOptions', oldRightPluginOptions);
+  }
+
+  var modal = document.getElementById("editItemModal");
+  modal.style.display = "block";
+
+  // once visible we want to register an onclick ahndler with the now visible buttons
+  var modalNotEditBtn = document.getElementById("edit-form-goBack");
+
+  modalNotEditBtn.onclick = function() {
     modal.style.display = "none";
   }
 }
