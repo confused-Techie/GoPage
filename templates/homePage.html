@@ -20,6 +20,18 @@
     </div>
     <div class="titleCard"><h1>GoPage</h1></div>
     <div class="timeStamp" id="timeStamp"> </div>
+
+    <div class="headerPluginLeft">
+      <div class="add-plugin">
+        <img class="add-plugin-btn grow-shadow-hover" src="/assets/images/plus-circle-white.svg">
+      </div>
+    </div>
+    <div class="headerPluginRight">
+      <div class="add-plugin">
+        <img class="add-plugin-btn grow-shadow-hover" src="/assets/images/plus-circle-white.svg">
+      </div>
+    </div>
+
     <hr class="heading">
   </div>
 
@@ -30,10 +42,10 @@
 
     <div class="itemContainer">
       {{range .Items}}
-      <div class="filterDiv {{.Category}}">
+      <div class="filterDiv bubble-card-daily {{.Category}}">
         <div class="item hover-shadow-radial">
         <a href="{{.Link}}">
-          <div class="itemName">{{.FriendlyName}}</div>
+          <div class="itemName grow-shadow-hover">{{.FriendlyName}}</div>
         </a>
         {{if .LeftPlugin}}
 
@@ -64,23 +76,41 @@
 
         <div class="editItem">
           <a href="/edit/{{.Id}}">
-            <img src="/assets/images/edit.svg" alt="Black Pencil Pointing Towards box outline indicating traditional Edit Icon">
+            <!--<img src="/assets/images/edit.svg" alt="Black Pencil Pointing Towards box outline indicating traditional Edit Icon">-->
           </a>
         </div>
         <div class="deleteItem">
           <a href="PleaseEnableJavascript.html" onclick="modalDelete( {{.Id}} );return false;">
-            <img src="/assets/images/trash-2.svg" alt="Black Outline of Trashcan indicating traditional Delete Icon">
+            <!--<img src="/assets/images/trash-2.svg" alt="Black Outline of Trashcan indicating traditional Delete Icon">-->
           </a>
         </div>
+
+        <div class="optionsItem">
+          <img src="/assets/images/more-vertical.svg">
+          <div class="optionsContent">
+            <div class="optionsContent-Edit">
+              <a href="/edit/{{.Id}}">
+                Edit
+              </a>
+            </div>
+            <div class="optionsContent-Delete">
+              <a href="PleaseEnableJavascript.html" onclick="modalDelete( {{.Id }} );return false;">
+                Delete
+              </a>
+            </div>
+          </div>
+        </div>
+
         </div>
       </div>
+
       {{end}}
     </div>
   </div>
 
   <div class="new-button-container">
     <form action="/new">
-      <button class="hover-shadow-radial" type="submit"><span id="i18n-AddNewItem">Add New Item</span></button>
+      <button class="hover-shadow-radial grow-shadow-hover" type="submit"><span id="i18n-AddNewItem">Add New Item</span></button>
     </form>
   </div>
 

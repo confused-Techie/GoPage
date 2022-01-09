@@ -20,6 +20,7 @@ As to be honest I've hated CSS for years. */
   overflow: hidden;
   background-color: var(--category-selector-back-drop-colour);
   color: var(--category-selector-text-colour);
+  border-radius: 10px;
 }
 
 #btnContainer button {
@@ -51,20 +52,31 @@ As to be honest I've hated CSS for years. */
   padding-right: 10px; /* These give space for item listings from the top and sides of the category selector */
 }
 
-.filterDiv {
+.filterDivOLD {
   /* Targets the container for EACH Item listed */
   background-color: var(--card-back-drop-colour);
   text-align: center;
-  border-radius: 3px;
+  /*border-radius: 3px;*/
+  border-radius: 50px;
   animation-name: fadeEffect;
   animation-duration: 0.5s;
-  max-width: 50%;
-  min-width: 30%;
+  max-width: 30%;
+  min-width: 15%;
   min-height: 10%; /* Set the min height and width, allowing them to grow, depnding on internal divs */
   display: none; /* Ensures item is not visible, until changed by js when showing the item */
   margin-right: 5px; /* spacing outside the element, to give item lisitngs space between each other */
   margin-top: 5px;
   position: relative; /* assigning this relative allows child elements positioned absolute to respect is boundries. */
+  opacity: 1;
+}
+
+.filterDiv {
+  background-color: var(--card-back-drop-colour);
+  text-align: center;
+  animation-name: fadeEffect;
+  animation-duration: 0.5s;
+  display: none;
+  position: relative;
 }
 
 @keyframes fadeEffect {
@@ -124,7 +136,7 @@ As to be honest I've hated CSS for years. */
   /* editItem SVG element */
 
   bottom: 4px; /* Distance from edges of parent relatively placed div  */
-  left: 4px;
+  left: 15px;
   position: absolute;
 
   /* absolute: removes element from document flow, in this case positioning
@@ -138,7 +150,7 @@ As to be honest I've hated CSS for years. */
   /* deleteItem SVG element */
 
   bottom: 4px;
-  right: 2px;
+  right: 15px;
   position: absolute;
 
   /* the same as editItem */
@@ -146,6 +158,73 @@ As to be honest I've hated CSS for years. */
   grid-column: 3;
   grid-row: 2;
 }
+
+.optionsItem {
+  grid-column: 2;
+  grid-row: 1;
+  position: absolute;
+  right: 10px;
+  top: 30%;
+  opacity: 0;
+-webkit-transition: opacity 0.5s ease-out;
+}
+
+.optionsContent {
+  position: absolute;
+  display: none;
+  z-index: 0;
+  left: -60px;
+  /*bottom: -100%;*/
+  top: -110%;
+  display: block;
+  opacity: 0;
+  -webkit-transition: opacity 0.5s ease-out;
+}
+
+.optionsContent-Edit {
+  background-color: var(--confirm-action-back-drop-colour);
+  color: var(--confirm-action-text-colour);
+  margin: 10px;
+  border-radius: 10px;
+  padding: 5px;
+  cursor: pointer;
+  box-shadow: -5px 5px 2px black;
+  -webkit-transition: box-shadow 0.3s ease-out;
+}
+
+.optionsContent-Edit:hover {
+  box-shadow: -10px 8px 3px black;
+  -webkit-transition: box-shadow 0.5s ease-in;
+}
+
+.optionsContent-Delete {
+  background-color: var(--destroy-action-back-drop-colour);
+  color: var(--destroy-action-text-colour);
+  margin: 10px;
+  border-radius: 10px;
+  padding: 5px;
+  cursor: pointer;
+  box-shadow: -5px 5px 2px black;
+  -webkit-transition: box-shadow 0.3s ease-out;
+}
+
+.optionsContent-Delete:hover {
+  box-shadow: -10px 8px 3px black;
+  -webkit-transition: box-shadow 0.5s ease-in;
+}
+
+.filterDiv:hover .optionsItem {
+  opacity: 1;
+}
+
+
+.optionsItem:hover .optionsContent {
+  /*display: block;*/
+  opacity: 1;
+  transition: opacity 0.5s ease-in;
+  -webkit-transition: opacity 0.5s ease-in;
+}
+
 
 .new-button-container {
   /* The New Item Button container for the form */

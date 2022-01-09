@@ -48,6 +48,7 @@ function onPageLoad() {
 
     // this provides a default
     filterSelection("all");
+
 }
 
 function filterSelection(c) {
@@ -144,7 +145,7 @@ function firstTimeSetup() {
               setTimeout(function(){ snack.className = snack.className.replace("show", ""); }, 3000);
             });
         };
-      } 
+      }
     });
 }
 

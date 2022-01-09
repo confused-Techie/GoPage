@@ -28,7 +28,7 @@ a:active {
   color: var(--heading-text-colour);
   text-align: center;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(5, 1fr);
 }
 
 .settingsIcon {
@@ -46,15 +46,54 @@ a:active {
 .titleCard {
   background-color: inherit;
   color: inherit;
-  grid-column: 2;
+  grid-column: 3;
   grid-row: 1;
 }
 
 .timeStamp {
   background-color: inherit;
   color: inherit;
-  grid-column: 3;
+  grid-column: 5;
   grid-row: 1;
+}
+
+.headerPluginLeft {
+  grid-column: 2;
+  grid-row: 1;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+
+.headerPluginLeft .add-plugin {
+  opacity: 0;
+  -webkit-transition: opacity 0.5s ease-out;
+  cursor: pointer;
+}
+
+
+
+.headerPluginLeft:hover .add-plugin {
+  opacity: 1;
+  -webkit-transition: opacity 0.5s ease-in;
+}
+
+.headerPluginRight {
+  grid-column: 4;
+  grid-row: 1;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.headerPluginRight .add-plugin {
+  opacity: 0;
+  -webkit-transition: opacity 0.5s ease-out;
+  cursor: pointer;
+}
+
+.headerPluginRight:hover .add-plugin {
+  opacity: 1;
+  -webkit-transition: opacity 0.5s ease-in;
 }
 
 /* Specific to styling of text across pages */
@@ -97,6 +136,28 @@ footer p {
 /* ---------------------- */
 /* Universal Stylings for pages */
 
+/* ================== */
+/*    grow-shadow-hover */
+
+.grow-shadow-hover {
+  -webkit-transform: perspective(1px) translate(0);
+  transofmr: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: box-shadow, transform;
+  transition-property: box-shadow, transform;
+}
+
+.grow-shadow-hover:hover, .grow-shadow-hover:focus, .grow-shadow-hover:active {
+  box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);
+  -webkit-transform: scale(1.2);
+  transform: scale(1.2);
+}
+
+/* ==================== */
+/*  reveal-on-hover */
+
 .reveal-on-hover {
   opacity: 0;
 }
@@ -104,6 +165,9 @@ footer p {
 .reveal-on-hover:hover {
   opacity: 1;
 }
+
+/* ================ */
+/*  dropdown / dropdown-content / dropdown-content-item */
 
 .dropdown {
 }
@@ -113,14 +177,15 @@ footer p {
   position: absolute;
   z-index: 1;
   background-color: var(--card-back-drop-colour);
-  padding: 5px;
+  padding: 2px;
+  margin: 2px;
   border: 2px solid black;
   border-radius: 10px;
 }
 
 .dropdown-content-item {
   cursor: pointer;
-  padding: 10px;
+  padding: 3px;
   border-radius: 4px;
 }
 
@@ -132,6 +197,9 @@ footer p {
   display: inline;
 }
 
+/* ===================== */
+/*  hover-shadow-radial */
+
 .hover-shadow-radial {
   display: inline-block;
   vertical-align: middle;
@@ -140,12 +208,13 @@ footer p {
   box-shadow: 0 0 1px rgba(0, 0, 0, 0);
   position: relative;
 }
+
 .hover-shadow-radial:before, .hover-shadow-radial:after {
   pointer-events: none;
   position: absolute;
   content: '';
   left: 0;
-  width: 100%;
+  width: 90%;
   box-sizing: border-box;
   background-repeat: no-repeat;
   height: 10px;
@@ -155,16 +224,40 @@ footer p {
   -webkit-transition-property: opacity;
   transition-property: opacity;
 }
+
 .hover-shadow-radial:before {
   bottom: 100%;
-  background: -webkit-radial-gradient(50% 150%, ellipse, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 80%);
-  background: radial-gradient(ellipse at 50% 150%, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 80%);
+  background: -webkit-radial-gradient(50% 150%, ellipse, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 60%);
+  background: radial-gradient(ellipse at 50% 150%, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 60%);
 }
+
 .hover-shadow-radial:after {
   top: 100%;
-  background: -webkit-radial-gradient(50% -50%, ellipse, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 80%);
-  background: radial-gradient(ellipse at 50% -50%, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 80%);
+  background: -webkit-radial-gradient(50% -50%, ellipse, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 60%);
+  background: radial-gradient(ellipse at 50% -50%, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 60%);
 }
+
 .hover-shadow-radial:hover:before, .hover-shadow-radial:focus:before, .hover-shadow-radial:active:before, .hover-shadow-radial:hover:after, .hover-shadow-radial:focus:after, .hover-shadow-radial:active:after {
   opacity: 1;
+}
+
+/* ================== */
+/* */
+
+.bubble-card-daily {
+  border-radius: 30px;
+  max-width: 30%;
+  min-width: 15%;
+  min-height: 10%;
+  margin-right: 5px;
+  margin-top: 5px;
+}
+
+.boxy-card-daily {
+  border-radius: 3px;
+  max-width: 50%;
+  min-width: 30%;
+  min-height: 10%;
+  margin-right: 5px;
+  margin-top: 5px;
 }
