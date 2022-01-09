@@ -86,7 +86,7 @@ function modalResults(content, status) {
       buttonText = resString;
       var formattedContent = formatModalContent(content);
 
-      var insertHTML = `<div class="modal-content"> <h3>${status}</h3> <p>${formattedContent}</p> <button id="clearModal" class="clearModal">${buttonText}</button> </div>`;
+      var insertHTML = `<div class="modal-content"> <h3>${status}</h3> <p>${formattedContent}</p> <button id="clearModal" class="simple-button btn-confirm">${buttonText}</button> </div>`;
       modal.innerHTML = insertHTML;
 
       var clearModal = document.getElementById("clearModal");

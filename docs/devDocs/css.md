@@ -34,6 +34,16 @@ But has since expanded to include as many unique design elements as possible, to
     - --undo-action-back-drop-colour
     - --undo-action-text-colour
 
+* btn-confirm
+  Colors an item according to themes
+    - --confirm-action-back-drop-color
+    - --confirm-action-text-colour
+
+* btn-destory
+  Colors an item according to themes
+    - --destory-action-back-drop-colour
+    - --destory-action-text-colour
+    
 * grow-shadow-hover
   Causes the element to scale to 1.2 with a shadow beneath it
 
@@ -62,4 +72,12 @@ But has since expanded to include as many unique design elements as possible, to
 * snackbar
   Used to style the snackbar on screen, once it is enabled, as in `show` is added to its class
   It will take .5 seconds to fade in, stay on screen for 2.5 seconds, then take another .5 seconds to disappear
-  - Used only for simple text 
+  - Used only for simple text
+
+* bar-list
+  Container of bar-list-bars, basic styling of card bars across the screen.
+    - width: 80%
+
+* bar-list-bars
+  Used for the standard styling of card bars across the screen, used in Plugin Repo and Link Health
+    - width: 100%

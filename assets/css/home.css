@@ -282,7 +282,7 @@ As to be honest I've hated CSS for years. */
   /* The internal content of the modal */
 
   background-color: var(--modal-back-drop-colour);
-  margin: 15% auto; /* 15% from the top and centered */
+  margin: 5% auto; /* 5% from the top and centered :: this was changed form 15% as to avoid a scroll bar appearing during edit item modals */
   padding: 20px;
   border: 1px solid #000;
   width: 40%;

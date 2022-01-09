@@ -158,6 +158,16 @@ footer p {
   color: var(--undo-action-text-colour);
 }
 
+.btn-confirm {
+  background-color: var(--confirm-action-back-drop-colour);
+  color: var(--confirm-action-text-colour);
+}
+
+.btn-destroy {
+  background-color: var(--destroy-action-back-drop-colour);
+  color: var(--destroy-action-text-colour);
+}
+
 /* ================== */
 /*    grow-shadow-hover */
 
@@ -282,6 +292,27 @@ footer p {
   min-height: 10%;
   margin-right: 5px;
   margin-top: 5px;
+}
+
+/* ================== */
+/* bar-list bar-list-bars */
+
+.bar-list {
+  width: 80%;
+  text-align: center;
+  border-radius: 3px;
+  padding: 20px;
+  margin: auto;
+}
+
+.bar-list-bars {
+  width: 100%;
+  background-color: var(--card-back-drop-colour);
+  text-align: center;
+  border-radius: 3px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 15px 5px 20px 5px;
 }
 
 /* ================== */
