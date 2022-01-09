@@ -279,12 +279,7 @@ function modalDelete(id) {
         } else {
           // an error occured during deletion
         }
-      })
-
-    //var snack = document.getElementById("homePageSnackbar");
-    //snack.innerText = "Successfully Deleted Link Item";
-    //snack.className += " show";
-    //setTimeout(function(){ snack.className = snack.className.replace("show", ""); }, 3000);
+      });
   };
 
   modalNotDeleteBtn.onclick = function() {

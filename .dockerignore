@@ -26,3 +26,5 @@ reporting/
 list.json
 # ignore the binaries built for windows
 binaries/
+# ignore the depreciated folder of whole files that are rendered obsolete
+depreciated/
