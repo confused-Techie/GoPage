@@ -12,16 +12,6 @@ input[type=submit] {
   display: none;
 }
 
-.file-upload-submit {
-  background-color: var(--create-action-back-drop-colour);
-  color: var(--create-action-text-colour);
-  border: none;
-  padding: 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-left: 15px;
-}
-
 input[type=file]::file-selector-button {
   /* Since we want to use our custom styling here we can hide the element, and style the label only */
 
@@ -37,15 +27,6 @@ input[type=file]::file-selector-button {
 
 .unsetImageContainer {
   text-align: center;
-}
-
-.unset-image {
-  background-color: var(--create-action-back-drop-colour);
-  color: var(--create-action-text-colour);
-  border: none;
-  padding: 10px;
-  border-radius: 4px;
-  cursor: pointer;
 }
 
 .seperator {
@@ -87,7 +68,7 @@ input[type=file]::file-selector-button {
   width: 100%;
 }
 
-/* Responseive layout - makes a two column-layout instead of four columns */
+/* Responsive layout - makes a two column-layout instead of four columns */
 @media screen and (max-width: 800px) {
   .image-column {
     flex: 50%;
@@ -95,7 +76,7 @@ input[type=file]::file-selector-button {
   }
 }
 
-/* Responsiev layout - makes a two columns stack on top of each other instead of next to each other */
+/* Responsive layout - makes a two columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 600px) {
   .image-column {
     flex: 100%;

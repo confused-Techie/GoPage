@@ -1,10 +1,3 @@
-.settings-container {
-  width: 80%;
-  text-align: center;
-  border-radius: 3px;
-  padding: 20px;
-  margin: auto;
-}
 
 .seperator {
   text-align: center;
@@ -12,23 +5,6 @@
 }
 
 .settingsContainerSummary {
-  width: 100%;
-  background-color: var(--card-back-drop-colour);
-  text-align: center;
-  border-radius: 3px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-
-  /* Performance Parsing */
-  padding: 15px 5px 20px 5px;
-
-  /*
-  padding-bottom: 20px;
-  padding-top: 15px;
-  padding-right: 5px;
-  padding-left: 5px;
-  */
-
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
@@ -39,26 +15,6 @@
 
 .host-settings {
   grid-column: 2;
-}
-
-.shortcut-list-item-container {
-  width: 100%;
-  background-color: var(--card-back-drop-colour);
-  text-align: center;
-  border-radius: 3px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-
-  /* Performance Parsing */
-
-  padding: 15px 5px 20px 5px;
-
-  /*
-  padding-bottom: 20px;
-  padding-top: 15px;
-  padding-right: 5px;
-  padding-left: 5px;
-  */
 }
 
 .shortcut-list-item {

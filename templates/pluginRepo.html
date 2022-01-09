@@ -29,9 +29,9 @@
 
   <div class="seperator"> <h2><span id="i18n-headerInstalled">Installed</span></h2></div>
 
-  <div class="plugins-list bar-list">
+  <div class="bar-list">
     {{range .Installed.PluginItem}}
-      <div class="plugin-item-container bar-list-bars">
+      <div class="bar-list-bars">
         <div class="plugin-item">
           <div class="plugin-icon">
             {{if .Icon.Available}}
@@ -68,7 +68,7 @@
             {{.License}}
           </div>
           <div class="plugin-action">
-            <div class="plugin-uninstall btn-destroy simple-button" onclick="uninstallPlugin({{.Name}})">
+            <div class="btn-destroy simple-button" onclick="uninstallPlugin({{.Name}})">
               <img src="/assets/images/minus-circle.svg" alt="Minus Sign Icon Indicating Button to Uninstall Plugin">
             </div>
           </div>
@@ -79,9 +79,9 @@
 
   <div class="seperator"> <h2><span id="i18n-headerAvaialble">Available</span></h2></div>
 
-  <div class="plugins-list bar-list">
+  <div class="bar-list">
     {{range .Available.AvailablePluginItem}}
-    <div class="plugin-item-container bar-list-bars">
+    <div class="bar-list-bars">
       <div class="plugin-item">
         <div class="plugin-icon">
           {{if .Icon.Available}}
@@ -118,11 +118,11 @@
         </div>
         <div class="plugin-action">
           {{if .Installed}}
-          <div class="plugin-uninstall btn-destroy simple-button" onclick="uninstallPlugin({{.Name}})">
+          <div class="btn-destroy simple-button" onclick="uninstallPlugin({{.Name}})">
             <img src="/assets/images/minus-circle.svg" alt="Minus Sign Icon Indicating Button to Uninstall Plugin">
           </div>
           {{else}}
-          <div class="plugin-install btn-create simple-button" onclick="installPlugin({{.DownloadLink}}, {{.Name}})">
+          <div class="btn-create simple-button" onclick="installPlugin({{.DownloadLink}}, {{.Name}})">
             <img src="/assets/images/download.svg" alt="Arrow Pointing Down Icon Indicating Button to Install Plugin">
           </div>
           {{end}}

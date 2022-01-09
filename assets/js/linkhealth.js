@@ -58,7 +58,7 @@ function onPageLoad() {
                   matchLinkItemString = linkItemRes;
 
                   matchList.forEach((element) => {
-                    var htmlStart = `<div class="link-health-item-container bar-list-bars"> <div class="link-health-item">`;
+                    var htmlStart = `<div class="bar-list-bars"> <div>`;
                     var htmlEnd = "</div> </div>";
                     htmlToInsert += htmlStart;
                     htmlToInsert += `<p><span class="text-style-declare">${matchTypeString}:</span> ${element.type}: <span class="text-style-declare">${matchItemString}:</span> ${element.matched}: <span class="text-style-declare">${matchLinkItemString}:</span> ${element.friendly[0]} & ${element.friendly[1]}</p>`;
