@@ -3,18 +3,17 @@ package handler
 import (
 	"encoding/json"
 	"fmt"
-	modifySettings "github.com/confused-Techie/GoPage/modifySettings"
-	model "github.com/confused-Techie/GoPage/model"
-	errorHandler "github.com/confused-Techie/GoPage/errorHandler"
 	apiFunc "github.com/confused-Techie/GoPage/apiFunc"
+	errorHandler "github.com/confused-Techie/GoPage/errorHandler"
+	model "github.com/confused-Techie/GoPage/model"
+	modifySettings "github.com/confused-Techie/GoPage/modifySettings"
 	"github.com/spf13/viper"
+	"html/template"
 	"io/ioutil"
 	"net/http"
 	"os"
 	"strconv"
-	"html/template"
 )
-
 
 // Here Will be attempted to include standard Page handlers
 
@@ -125,7 +124,6 @@ func UserSettingSet(rw http.ResponseWriter, req *http.Request) {
 	ioutil.WriteFile(viper.GetString("directories.setting")+"/userSettings.json", newUserSetting, 0666)
 	json.NewEncoder(rw).Encode("Success")
 }
-
 
 // ---------------- Link Item Handlers
 

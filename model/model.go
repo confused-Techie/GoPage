@@ -28,17 +28,17 @@ type AllItems struct {
 }
 
 type ItemPluginsV2 struct {
-	Name string `json:"name"`
-	Options string `json:"options"`
+	Name     string `json:"name"`
+	Options  string `json:"options"`
 	Location string `json:"location"`
 }
 
 type ItemV2 struct {
-	ID int `json:"id"`
-	FriendlyName string `json:"friendlyName"`
-	Link string `json:"link"`
-	Category string `json:"category"`
-	Plugins []*ItemPluginsV2 `json:"plugins"`
+	ID           int              `json:"id"`
+	FriendlyName string           `json:"friendlyName"`
+	Link         string           `json:"link"`
+	Category     string           `json:"category"`
+	Plugins      []*ItemPluginsV2 `json:"plugins"`
 }
 
 type AllItemsV2 struct {
