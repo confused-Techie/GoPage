@@ -180,35 +180,51 @@ function addFormCategory() {
 }
 
 /*eslint disable-next-line no-unused-vars*/
-function dataListInput(ele, caller) {
+function dataListInputV2(ele, caller) {
   fetch("/plugins/installedPlugins.json")
-    .then((response) => response.json())
+    .then((res) => res.json())
     .then((data) => {
       data.forEach((element) => {
         if (ele.value == element.name) {
           if (element.config) {
-            if (ele.getAttribute('name') == 'leftPlugin') {
+            if (ele.getAttribute('name') == 'plugin-name1' || ele.getAttribute('name') == 'edit-plugin-name1') {
               if (caller == "new") {
-                dataListInputCaller('leftPluginLabel', 'left-plugin-example', 'leftPluginOptions', element.options.explain, element.options.autofill);
+                dataListInputCaller('plugin-label1', 'plugin-example1', 'plugin-options1', element.options.explain, element.options.autofill);
               } else if (caller == "edit") {
-                dataListInputCaller('edit-leftPluginLabel', 'edit-left-plugin-example', 'edit-leftPluginOptions', element.options.explain, element.options.autofill);
+                dataListInputCaller('edit-plugin-label1', 'edit-plugin-example1', 'edit-plugin-options1', element.options.explain, element.options.autofill);
               }
-            } else if (ele.getAttribute('name') == 'centerPlugin') {
+            } else if (ele.getAttribute('name') == 'plugin-name2' || ele.getAttribute('name') == 'edit-plugin-name2') {
               if (caller == "new") {
-                dataListInputCaller('centerPluginLabel', 'center-plugin-example', 'centerPluginOptions', element.options.explain, element.options.autofill);
+                dataListInputCaller('plugin-label2', 'plugin-example2', 'plugin-options2', element.options.explain, element.options.autofill);
               } else if (caller == "edit") {
-                dataListInputCaller('edit-centerPluginLabel', 'edit-center-plugin-example', 'edit-centerPluginOptions', element.options.explain, element.options.autofill);
+                dataListInputCaller('edit-plugin-label2', 'edit-plugin-example2', 'edit-plugin-options2', element.options.explain, element.options.autofill);
               }
-            } else if (ele.getAttribute('name') == 'rightPlugin') {
+            } else if (ele.getAttribute('name') == 'plugin-name3' || ele.getAttribute('name') == 'edit-plugin-name3') {
               if (caller == "new") {
-                dataListInputCaller('rightPluginLabel', 'right-plugin-example', 'rightPluginOptions', element.options.explain, element.options.autofill);
+                dataListInputCaller('plugin-label3', 'plugin-example3', 'plugin-options3', element.options.explain, element.options.autofill);
               } else if (caller == "edit") {
-                dataListInputCaller('edit-rightPluginLabel', 'edit-right-plugin-example', 'edit-rightPluginOptions', element.options.explain, element.options.autofill);
+                dataListInputCaller('edit-plugin-label3', 'edit-plugin-example3', 'edit-plugin-options3', element.options.explain, element.options.autofill);
               }
-            } else {
-              console.log(`Unknown Parent calling dataListInput: ${ele.getAttribute('name')}`);
-            }
-          } // else there is no configuration to this item
+            } else if (ele.getAttribute('name') == 'plugin-name4' || ele.getAttribute('name') == 'edit-plugin-name4') {
+              if (caller == "new") {
+                dataListInputCaller('plugin-label4', 'plugin-example4', 'plugin-options4', element.options.explain, element.options.autofill);
+              } else if (caller == "edit") {
+                dataListInputCaller('edit-plugin-label4', 'edit-plugin-example4', 'edit-plugin-options4', element.options.explain, element.options.autofill);
+              }
+            } else if (ele.getAttribute('name') == 'plugin-name5' || ele.getAttribute('name') == 'edit-plugin-name5') {
+              if (caller == "new") {
+                dataListInputCaller('plugin-label5', 'plugin-example5', 'plugin-options5', element.options.explain, element.options.autofill);
+              } else if (caller == "edit") {
+                dataListInputCaller('edit-plugin-label5', 'edit-plugin-example5', 'edit-plugin-options5', element.options.explain, element.options.autofill);
+              }
+            } else if (ele.getAttribute('name') == 'plugin-name6' || ele.getAttribute('name') == 'edit-plugin-name6') {
+              if (caller == "new") {
+                dataListInputCaller('plugin-label6', 'plugin-example6', 'plugin-options6', element.options.explain, element.options.autofill);
+              } else if (caller == "edit") {
+                dataListInputCaller('edit-plugin-label6', 'edit-plugin-example6', 'edit-plugin-options6', element.options.explain, element.options.autofill);
+              }
+            }// 7
+          }
         }
       });
     });
@@ -292,46 +308,175 @@ function newItemModal() {
 
   // once visible we want to register an onclick ahndler with the now visible buttons
   var modalNotNewBtn = document.getElementById("new-form-goBack");
+  var modalSubmit = document.getElementById("new-form-submit");
 
   modalNotNewBtn.onclick = function() {
     modal.style.display = "none";
-  }
+  };
+
+  modalSubmit.onclick = function() {
+    // Here we will want to handle all validation features in the future
+    // such as ensuring that no plugin location is chosen twice and so on.
+    // TODO:: Error Handling for the data submitted
+
+    var form = document.getElementById("new-item-form");
+
+    // and we will take the form data turning it into an object
+    var rawObj = {
+      friendlyName: form.friendlyName.value,
+      link: form.link.value,
+      category: form.category.value,
+      plugins: []
+    };
+
+    // now to build the plugin portion of the object
+
+    // while only 6 options exist this is 7 to account for starting at 1
+    for (var i = 1; i < 7; i++) {
+      var elements = document.getElementsByName(`plugin-name${i}`);
+      var tmpObj = { name: "", options: "", location: "" };
+      if (elements.length == 1) {
+        if (elements[0].value) {
+          // this would indicate its a truthy value and we can add it
+          tmpObj.name = elements[0].value;
+          tmpObj.options = document.getElementById(`plugin-options${i}`).value;
+          tmpObj.location = document.getElementById(`plugin-loc${i}`).value;
+          rawObj.plugins.push(tmpObj);
+        }
+      } else {
+        console.log('Something unexpected happened reading your data.');
+      }
+    }
+
+    // now with the object built we can post it to the api endpoint
+    var newHeaders = new Headers();
+    newHeaders.append("Content-Type", "application/json");
+
+    var rawJSON = JSON.stringify(rawObj);
+
+    var requestOptions = {
+      method: "POST",
+      headers: newHeaders,
+      body: rawJSON,
+      redirect: "follow"
+    };
+
+    fetch("/api/new/", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        if (result == "Success") {
+          //console.log("Successfully Saved new Item.");
+          modal.style.display = "none";
+
+          // TODO:: Probably a good idea to go ahead and move the snackbar functions to a new universal JS class
+          var snackbar = document.getElementById("homePageSnackbar");
+          snackbar.innerText = "Successfully Added New Link Item. Refreshing...";
+          snackbar.className += " show";
+
+          setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); location.reload(); }, 3000);
+        } else {
+          // error occured sending data
+          console.log(`Error: ${result}`);
+        }
+      })
+  };
 }
 
+
+
 /*eslint-disable-next-line no-unused-vars*/
-function editItemModal(oldId, oldLink, oldName, oldCategory, oldLeftPlugin, oldLeftPluginOptions, oldCenterPlugin, oldCenterPluginOptions, oldRightPlugin, oldRightPluginOptions) {
-  // before making this item visible, we will fill in all the old details
+function editItemModalV2(oldId, oldFriendlyName, oldLink, oldCategory, oldPlugins) {
+  // We first want to fill in all the values from the existing item
+
   document.getElementById("edit-id").value = oldId;
+  document.getElementById("edit-friendlyName").value = oldFriendlyName;
   document.getElementById("edit-link").value = oldLink;
   document.getElementById("edit-category").value = oldCategory;
-  document.getElementById("edit-friendlyName").value = oldName;
 
-  document.getElementById("edit-leftPlugin").value = oldLeftPlugin;
-  if (typeof oldLeftPluginOptions != null && typeof oldLeftPluginOptions != undefined && oldLeftPluginOptions != "") {
-    console.log(typeof oldLeftPluginOptions)
-    dataListInputChangeView('edit-leftPluginLabel');
-    dataListInputChangeAutofill('edit-leftPluginOptions', oldLeftPluginOptions);
-  }
-
-  document.getElementById("edit-centerPlugin").value = oldCenterPlugin;
-  if (typeof oldCenterPluginOptions != null && typeof oldCenterPluginOptions != undefined && oldCenterPluginOptions != "") {
-    dataListInputChangeView('edit-centerPluginLabel');
-    dataListInputChangeAutofill('edit-centerPluginOptions', oldCenterPluginOptions);
-  }
-
-  document.getElementById("edit-rightPlugin").value = oldRightPlugin;
-  if (typeof oldRightPluginOptions != null && typeof oldRightPluginOptions != undefined && oldRightPluginOptions != "") {
-    dataListInputChangeView('edit-rightPluginLabel');
-    dataListInputChangeAutofill('edit-rightPluginOptions', oldRightPluginOptions);
+  for (var i = 0; i < oldPlugins.length; i++) {
+    document.getElementById(`edit-plugin-name${i+1}`).value = oldPlugins[i].name;
+    document.getElementById(`edit-plugin-loc${i+1}`).value = oldPlugins[i].location;
+    if (typeof oldPlugins[i].options != null && typeof oldPlugins[i].options != undefined && typeof oldPlugins[i].options != "") {
+      // we want to assign the values and make them visible
+      dataListInputChangeView(`edit-plugin-label${i+1}`);
+      dataListInputChangeAutofill(`edit-plugin-options${i+1}`, oldPlugins[i].options);
+    }
   }
 
   var modal = document.getElementById("editItemModal");
   modal.style.display = "block";
 
-  // once visible we want to register an onclick handler with the now visible buttons
+  // then to attach handlers to the buttons
   var modalNotEditBtn = document.getElementById("edit-form-goBack");
+  var modalSubmit = document.getElementById("edit-form-submit");
 
   modalNotEditBtn.onclick = function() {
     modal.style.display = "none";
+  };
+
+  modalSubmit.onclick = function() {
+    // TODO:: Here we will want to add validation
+
+    var form = document.getElementById("edit-item-form");
+
+    // and we will take the form data turning ti into an object
+    // parsing int here since if passed as string go will fail to unmarshal into json properly
+    var rawObj = {
+      id: parseInt(form.id.value),
+      friendlyName: form.friendlyName.value,
+      link: form.link.value,
+      category: form.category.value,
+      plugins: []
+    };
+
+    // now to build teh plugin portion of the object
+
+    //while only 6 options exist this is 7 to account for starting at 1
+    for (var i = 1; i < 7; i++) {
+      var elements = document.getElementsByName(`edit-plugin-name${i}`);
+      var tmpObj = { name: "", options: "", location: "" };
+      if (elements.length == 1) {
+        if (elements[0].value) {
+          // this would indicate its a truthy value and we can add it
+          tmpObj.name = elements[0].value;
+          tmpObj.options = document.getElementById(`edit-plugin-options${i}`).value;
+          tmpObj.location = document.getElementById(`edit-plugin-loc${i}`).value;
+          rawObj.plugins.push(tmpObj);
+        }
+      } else {
+        console.log("Something unexpected happend reading your data.");
+      }
+    }
+
+    // now with the object build we can post it to the api endpoint
+    var newHeaders = new Headers();
+    newHeaders.append("Content-Type", "application/json");
+
+    var rawJSON = JSON.stringify(rawObj);
+
+    var requestOptions = {
+      method: "POST",
+      headers: newHeaders,
+      body: rawJSON,
+      redirect: "follow"
+    };
+
+
+    fetch("/api/edit/", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        if (result == "Success") {
+          modal.style.display = "none";
+
+          // TODO:: probably a good idea to go ahead and move the snackbar functions to a new universal JS class
+          var snackbar = document.getElementById("homePageSnackbar");
+          snackbar.innerText = "Successfully Modified exisiting Link Item. Refreshing...";
+          snackbar.className += " show";
+
+          setTimeout(function() { snackbar.className = snackbar.className.replace("show", ""); location.reload(); }, 3000);
+        } else {
+          console.log(`Error: ${result}`);
+        }
+      });
   }
 }

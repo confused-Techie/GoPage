@@ -20,10 +20,13 @@ import (
 
 //HomePageHandler returns Template: homePage.html w/ Model: Home
 func HomePageHandler(w http.ResponseWriter, r *http.Request) {
-	au := model.Home()
+	//au := model.Home()
+	au := model.HomeV2()
 	t, err := template.ParseFiles(viper.GetString("directories.templates") + "/homePage.html")
+	fmt.Println(err)
 	errorHandler.PageLoadError(w, err)
-	t.Execute(w, au)
+	templateErr := t.Execute(w, au)
+	errorHandler.StandardError(templateErr)
 }
 
 // SettingsPageHandler returns Template: settings.html w/ Model: ServSettingGet
@@ -105,6 +108,119 @@ func ChangeLang(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode("Error Occurred when setting Lang")
 	}
 	json.NewEncoder(w).Encode(resp)
+}
+
+// ------------ User Settings Modifiers
+
+// UserSettingSet is user to write new user settings to disk
+func UserSettingSet(rw http.ResponseWriter, req *http.Request) {
+	body, err := ioutil.ReadAll(req.Body)
+	errorHandler.JSONLoadError(rw, err)
+	var upldUsr model.UserSetting
+	err = json.Unmarshal(body, &upldUsr)
+	errorHandler.JSONLoadError(rw, err)
+	// now after confirming the data can be unmarshalled into the struct, we can write it
+	newUserSetting, err := json.MarshalIndent(&upldUsr, "", "")
+	errorHandler.JSONLoadError(rw, err)
+	ioutil.WriteFile(viper.GetString("directories.setting")+"/userSettings.json", newUserSetting, 0666)
+	json.NewEncoder(rw).Encode("Success")
+}
+
+
+// ---------------- Link Item Handlers
+
+// AddLinkItem is a JSON Handler for adding Link Items as opposed to the original Form based method
+func AddLinkItem(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+		// here is were I would need to check for required form values
+		body, err := ioutil.ReadAll(r.Body)
+		errorHandler.JSONLoadError(w, err)
+		var newLinkItem model.ItemV2
+		// unmarshal the body json data into the model, so that we can work with the model later
+		err = json.Unmarshal(body, &newLinkItem)
+		errorHandler.JSONLoadError(w, err)
+		// Now after confirming the data cna be unmarshalled into the struct, we can marshal it properly
+		//newLinkItem, err := json.MarshalIndent(&newItem, "", "")
+		//errorHandler.JSONLoadError(w, err)
+
+		// now to grab the existing json file
+		file, err := os.OpenFile(viper.GetString("directories.data"), os.O_RDWR, 0644)
+		errorHandler.JSONLoadError(w, err)
+		defer file.Close()
+
+		// unmarshal the existing data
+		bytes, err := ioutil.ReadAll(file)
+		errorHandler.JSONLoadError(w, err)
+		var allItems model.AllItemsV2
+		err = json.Unmarshal(bytes, &allItems.Items)
+		errorHandler.JSONLoadError(w, err)
+
+		// then to generate an id(last id at the json file+1)
+		max := 0
+
+		for _, itm := range allItems.Items {
+			if itm.ID > max {
+				max = itm.ID
+			}
+		}
+		id := max + 1
+		newLinkItem.ID = id
+
+		// appending newLinkItem to slice of all Items and rewrite the json file
+		allItems.Items = append(allItems.Items, &newLinkItem)
+		newItemBytes, err := json.MarshalIndent(&allItems.Items, "", " ")
+		errorHandler.JSONLoadError(w, err)
+		ioutil.WriteFile(viper.GetString("directories.data"), newItemBytes, 0666)
+		// now with everything written, we can return the JSON data
+		json.NewEncoder(w).Encode("Success")
+
+	} else {
+		fmt.Println("Non-Post Request submitted to POST Only JSON AddLinkItem Handler.")
+		json.NewEncoder(w).Encode("Non-Post Request submitted to POST Only JSON AddLinkItem Handler.")
+	}
+}
+
+func EditLinkItem(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+		// here is where I could check for required form values, but hopefully this will be done in js
+		body, err := ioutil.ReadAll(r.Body)
+		errorHandler.JSONLoadError(w, err)
+		var updateItem model.ItemV2
+		// Unmarshal the body json data into the model, so that we can work with the model later
+		err = json.Unmarshal(body, &updateItem)
+		errorHandler.JSONLoadError(w, err)
+		// now grab the exisitng json file
+		file, err := os.OpenFile(viper.GetString("directories.data"), os.O_RDWR, 0644)
+		errorHandler.JSONLoadError(w, err)
+		defer file.Close()
+
+		// unmarshal the exisitng data
+		bytes, err := ioutil.ReadAll(file)
+		errorHandler.JSONLoadError(w, err)
+		var allItms model.AllItemsV2
+		err = json.Unmarshal(bytes, &allItms.Items)
+		errorHandler.JSONLoadError(w, err)
+
+		// now to loop through the existing data till we find the matching ID, then reassign the exisitng data in memory
+		for i, itm := range allItms.Items {
+			if itm.ID == updateItem.ID {
+				allItms.Items[i].FriendlyName = updateItem.FriendlyName
+				allItms.Items[i].Link = updateItem.Link
+				allItms.Items[i].Category = updateItem.Category
+				allItms.Items[i].Plugins = updateItem.Plugins
+			}
+		}
+
+		newItemBytes, err := json.MarshalIndent(&allItms.Items, "", " ")
+		errorHandler.JSONLoadError(w, err)
+		ioutil.WriteFile(viper.GetString("directories.data"), newItemBytes, 0666)
+		// now with everything written, we can return the JSON data
+		json.NewEncoder(w).Encode("Success")
+
+	} else {
+		fmt.Println("Non-Post Request submitted to POST Only JSON EditLinkItem Handler.")
+		json.NewEncoder(w).Encode("Non-Post Request submitted to POST Only JSON EditLinkItem Handler.")
+	}
 }
 
 // DeleteLinkItem is an API Handler alternative to the post handler of deleting Link Items

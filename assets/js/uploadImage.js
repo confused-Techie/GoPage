@@ -72,11 +72,11 @@ function setImage(name) {
       };
 
       fetch("/api/usersettingswrite", requestOptions)
-        .then((response) => response.text())
+        .then((response) => response.json())
         .then((result) => {
           // since we know this is an empty return, as long as we get a response we should be fine
           // one that isn't an error that is
-          if (result == "") {
+          if (result == "Success") {
             // then we want to add our text to the snackbar and enable it
             var snack = document.getElementById("uploadImageSnackbar");
 
@@ -89,6 +89,15 @@ function setImage(name) {
 
                 setTimeout(function(){ snack.className = snack.className.replace("show", ""); }, 3000);
               });
+          } else {
+            // this is likely returning an error
+            var snack = document.getElementById("uploadImageSnackbar");
+
+            snack.innerText = `Error: ${result}`;
+            snack.className += " error";
+            snack.className += " show";
+
+            setTimeout(function(){ snack.className = snack.className.replace("show", ""); }, 3000);
           }
         });
     });

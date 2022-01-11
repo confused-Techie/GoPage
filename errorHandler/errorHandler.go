@@ -7,7 +7,7 @@ import (
   "net/http"
 )
 
-// PageLoadError is for errors that occur loading whole pages. 
+// PageLoadError is for errors that occur loading whole pages.
 func PageLoadError(w http.ResponseWriter, err error) {
   if err != nil {
     fmt.Println(err)
@@ -18,4 +18,19 @@ func PageLoadError(w http.ResponseWriter, err error) {
     t.Execute(w, err)
     return
   }
+  return
+}
+
+func JSONLoadError(w http.ResponseWriter, err error) {
+  if err != nil {
+    fmt.Println(err)
+  }
+  return
+}
+
+func StandardError(err error) {
+  if err != nil {
+    fmt.Println(err)
+  }
+
 }

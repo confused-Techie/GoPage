@@ -383,11 +383,13 @@ func main() {
 	http.HandleFunc("/pluginrepo", handler.PluginRepoPageHandler)
 	http.HandleFunc("/linkhealth", handler.LinkHealthPageHandler)
 
-	http.HandleFunc("/update/", updateHandler)
+	//http.HandleFunc("/update/", updateHandler)	// this is under the old format
 	http.HandleFunc("/delete/", deleteHandler)
 	http.HandleFunc("/api/deletelink/", handler.DeleteLinkItem)
-	http.HandleFunc("/edit/", editHandler)
-	http.HandleFunc("/new/", newHandler)
+	//http.HandleFunc("/edit/", editHandler)	// this is under the old format
+	http.HandleFunc("/api/edit/", handler.EditLinkItem)
+	//http.HandleFunc("/new/", newHandler)	// This is on the old data format
+	http.HandleFunc("/api/new/", handler.AddLinkItem)
 
 	http.HandleFunc("/upload", handler.UploadHandler)
 	http.HandleFunc("/uploadpage", uploadPageHandler)
@@ -406,7 +408,8 @@ func main() {
 	http.HandleFunc("/api/serversettings", apiServerSettingsHandler)
 	http.HandleFunc("/api/changelang", handler.ChangeLang) // /api/changelang?lang=en
 	http.HandleFunc("/api/usersettings", apiUserSettingsHandler)
-	http.HandleFunc("/api/usersettingswrite", model.UserSettingSet)
+	//http.HandleFunc("/api/usersettingswrite", model.UserSettingSet)
+	http.HandleFunc("/api/usersettingswrite", handler.UserSettingSet)
 	// Below will be API declarations used for plugins
 	http.HandleFunc("/api/ping", apiPingHandler)
 	http.HandleFunc("/api/hostname", apiHostNameHandler)

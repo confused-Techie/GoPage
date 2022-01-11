@@ -343,6 +343,10 @@ footer p {
   animation: snack-fadein 0.5s, snack-fadeout 0.5s 2.5s;
 }
 
+.snackbar.error {
+  background-color: var(--error-action-back-drop-colour);
+}
+
 /* animations to fade the snackbar in and out */
 @-webkit-keyframes snack-fadein {
   from { bottom: 0; opacity: 0;}

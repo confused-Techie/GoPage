@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/spf13/viper"
 	"io/ioutil"
-	"net/http"
 	"os"
 )
 
@@ -28,6 +27,74 @@ type AllItems struct {
 	Items []*Item
 }
 
+type ItemPluginsV2 struct {
+	Name string `json:"name"`
+	Options string `json:"options"`
+	Location string `json:"location"`
+}
+
+type ItemV2 struct {
+	ID int `json:"id"`
+	FriendlyName string `json:"friendlyName"`
+	Link string `json:"link"`
+	Category string `json:"category"`
+	Plugins []*ItemPluginsV2 `json:"plugins"`
+}
+
+type AllItemsV2 struct {
+	Items []*ItemV2
+}
+
+func (i ItemV2) NoTopLeftPlugin() bool {
+	doesHave := true
+	for _, plg := range i.Plugins {
+		if plg.Location == "top-left" {
+			doesHave = false
+		}
+	}
+	return doesHave
+}
+
+func (i ItemV2) NoTopRightPlugin() bool {
+	doesHave := true
+	for _, plg := range i.Plugins {
+		if plg.Location == "top-right" {
+			doesHave = false
+		}
+	}
+	return doesHave
+}
+
+func (i ItemV2) NoCenterPlugin() bool {
+	doesHave := true
+	for _, plg := range i.Plugins {
+		if plg.Location == "center" {
+			doesHave = false
+		}
+	}
+	return doesHave
+}
+
+func (i ItemV2) NoBottomLeftPlugin() bool {
+	doesHave := true
+	for _, plg := range i.Plugins {
+		if plg.Location == "bottom-left" {
+			doesHave = false
+		}
+	}
+	return doesHave
+}
+
+func (i ItemV2) NoBottomRightPlugin() bool {
+	doesHave := true
+	for _, plg := range i.Plugins {
+		if plg.Location == "bottom-right" {
+			doesHave = false
+		}
+	}
+	return doesHave
+}
+
 func checkError(err error) {
 	if err != nil {
 		fmt.Println(err)
@@ -40,6 +107,16 @@ func Home() (au *AllItems) {
 	checkError(err)
 	b, err := ioutil.ReadAll(file)
 	var alItms AllItems
+	json.Unmarshal(b, &alItms.Items)
+	checkError(err)
+	return &alItms
+}
+
+func HomeV2() (au *AllItemsV2) {
+	file, err := os.OpenFile(viper.GetString("directories.data"), os.O_RDWR|os.O_APPEND, 0666)
+	checkError(err)
+	b, err := ioutil.ReadAll(file)
+	var alItms AllItemsV2
 	json.Unmarshal(b, &alItms.Items)
 	checkError(err)
 	return &alItms
@@ -138,20 +215,4 @@ func UserSettingGet() (au *UserSetting) {
 	json.Unmarshal(b, &usrStting)
 	checkError(err)
 	return &usrStting
-}
-
-// UserSettingSet is used to write new user settings to disk
-func UserSettingSet(rw http.ResponseWriter, req *http.Request) {
-	body, err := ioutil.ReadAll(req.Body)
-	checkError(err)
-	fmt.Println(string(body))
-	var upldUsr UserSetting
-	err = json.Unmarshal(body, &upldUsr)
-	checkError(err)
-	fmt.Println(upldUsr)
-	// now after confirming the data can be unmarshalled into the struct, and logging it, we can write it
-	newUserSetting, err := json.MarshalIndent(&upldUsr, "", "")
-	checkError(err)
-	ioutil.WriteFile(viper.GetString("directories.setting")+"/userSettings.json", newUserSetting, 0666)
-
 }

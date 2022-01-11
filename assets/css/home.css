@@ -111,7 +111,7 @@ As to be honest I've hated CSS for years. */
   grid-row: 1;
 }
 
-.plugin-left {
+.plugin-top-left {
   /* The plugin Item of the Item */
 
   grid-column: 1;
@@ -126,10 +126,24 @@ As to be honest I've hated CSS for years. */
   padding-bottom: 20px;
 }
 
-.plugin-right {
+.plugin-top-right {
   grid-column: 3;
   grid-row: 1;
   margin-top: 5px;
+}
+
+.plugin-bottom-left {
+  grid-column: 1;
+  grid-row: 2;
+  margin-top: 5px;
+  padding-bottom: 20px;
+}
+
+.plugin-bottom-right {
+  grid-column: 3;
+  grid-row: 2;
+  margin-top: 5px;
+  padding-bottom: 20px;
 }
 
 .editItem {
@@ -172,7 +186,6 @@ As to be honest I've hated CSS for years. */
 .optionsContent {
   position: absolute;
   display: none;
-  z-index: 0;
   left: -60px;
   /*bottom: -100%;*/
   top: -110%;
