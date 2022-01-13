@@ -15,7 +15,7 @@ import (
 	"strconv"
 )
 
-// Here Will be attempted to include standard Page handlers
+// ------------ Standard Page Handlers
 
 //HomePageHandler returns Template: homePage.html w/ Model: Home
 func HomePageHandler(w http.ResponseWriter, r *http.Request) {
@@ -36,7 +36,13 @@ func SettingsPageHandler(w http.ResponseWriter, r *http.Request) {
 	t.Execute(w, au)
 }
 
-// PluginRepoHandler returns Template: pluginRepo.html w/ Data: apiFunc.GetPluginData
+// UploadPageHandler is a very simple HTTP Serving File for the Upload Page
+func UploadPageHandler(w http.ResponseWriter, r *http.Request) {
+	p := viper.GetString("directories.templates") + "/uploadImage.html"
+	http.ServeFile(w, r, p)
+}
+
+// PluginRepoPageHandler returns Template: pluginRepo.html w/ Data: apiFunc.GetPluginData
 func PluginRepoPageHandler(w http.ResponseWriter, r *http.Request) {
 	resp := apiFunc.GetPluginData()
 	t, err := template.ParseFiles(viper.GetString("directories.templates") + "/pluginRepo.html")
@@ -90,6 +96,49 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/uploadpage", 301)
 }
 
+// ------------ User Settings Modifiers
+
+// UserSettingSet is user to write new user settings to disk
+func UserSettingSet(rw http.ResponseWriter, req *http.Request) {
+	body, err := ioutil.ReadAll(req.Body)
+	errorHandler.JSONLoadError(rw, err)
+	var upldUsr model.UserSetting
+	err = json.Unmarshal(body, &upldUsr)
+	errorHandler.JSONLoadError(rw, err)
+	// now after confirming the data can be unmarshalled into the struct, we can write it
+	newUserSetting, err := json.MarshalIndent(&upldUsr, "", "")
+	errorHandler.JSONLoadError(rw, err)
+	ioutil.WriteFile(viper.GetString("directories.setting")+"/userSettings.json", newUserSetting, 0666)
+	json.NewEncoder(rw).Encode("Success")
+}
+
+// APIUserSettingGet is an API Endpoint utilizing the UserSettingGet of the model class to return the users settings as json
+func APIUserSettingGet(w http.ResponseWriter, r *http.Request) {
+	au := model.UserSettingGet()
+	json.NewEncoder(w).Encode(au)
+}
+
+// UserImagesHandler returns a list of file names as json from the user Images folder
+func UserImagesHandler(w http.ResponseWriter, r *http.Request) {
+	files, err := ioutil.ReadDir(viper.GetString("directories.staticAssets") + "userImages/")
+	errorHandler.JSONLoadError(w, err)
+	var itemList string
+	for _, file := range files {
+		if file.Name() != ".gitignore" {
+			itemList = itemList + file.Name() + ","
+		}
+	}
+	json.NewEncoder(w).Encode(itemList)
+}
+
+// ---------------- Server Settings Modifiers
+
+// APIServerSettingsGet is an API Endpoint Utilizing ServSettingGet from the model package to return server settings as json
+func APIServerSettingsGet(w http.ResponseWriter, r *http.Request) {
+	au := model.ServSettingGet()
+	json.NewEncoder(w).Encode(au)
+}
+
 // ChangeLang is an API Endpoint to modify the server language whenever needed.
 func ChangeLang(w http.ResponseWriter, r *http.Request) {
 	keys, ok := r.URL.Query()["lang"]
@@ -107,22 +156,6 @@ func ChangeLang(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode("Error Occurred when setting Lang")
 	}
 	json.NewEncoder(w).Encode(resp)
-}
-
-// ------------ User Settings Modifiers
-
-// UserSettingSet is user to write new user settings to disk
-func UserSettingSet(rw http.ResponseWriter, req *http.Request) {
-	body, err := ioutil.ReadAll(req.Body)
-	errorHandler.JSONLoadError(rw, err)
-	var upldUsr model.UserSetting
-	err = json.Unmarshal(body, &upldUsr)
-	errorHandler.JSONLoadError(rw, err)
-	// now after confirming the data can be unmarshalled into the struct, we can write it
-	newUserSetting, err := json.MarshalIndent(&upldUsr, "", "")
-	errorHandler.JSONLoadError(rw, err)
-	ioutil.WriteFile(viper.GetString("directories.setting")+"/userSettings.json", newUserSetting, 0666)
-	json.NewEncoder(rw).Encode("Success")
 }
 
 // ---------------- Link Item Handlers
@@ -262,4 +295,130 @@ func DeleteLinkItem(w http.ResponseWriter, r *http.Request) {
 
 	ioutil.WriteFile(viper.GetString("directories.data"), newItemBytes, 0666)
 	json.NewEncoder(w).Encode("Success")
+}
+
+// DeleteHandler is an old carry-over to delete Items, this page could still work
+func DeleteHandler(w http.ResponseWriter, r *http.Request) {
+	// TODO: This is using the old struct for items and needs to be updated
+	id := r.URL.Path[len("/delete/"):]
+	i, err := strconv.Atoi(id)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(2)
+	}
+
+	// Open File with Items
+	file, err := os.OpenFile(viper.GetString("directories.data"), os.O_RDWR|os.O_APPEND, 0666)
+	errorHandler.StandardError(err)
+	defer file.Close()
+
+	// Read File and Unmarshall JSON to []Items
+	b, err := ioutil.ReadAll(file)
+	errorHandler.StandardError(err)
+	var alItms model.AllItems
+	err = json.Unmarshal(b, &alItms.Items)
+	errorHandler.StandardError(err)
+
+	for u, itm := range alItms.Items {
+		if itm.Id == i {
+			alItms.Items = append(alItms.Items[:u], alItms.Items[u+1:]...)
+		}
+	}
+
+	newItemBytes, err := json.MarshalIndent(&alItms.Items, "", " ")
+	errorHandler.StandardError(err)
+	ioutil.WriteFile(viper.GetString("directories.data"), newItemBytes, 0666)
+	http.Redirect(w, r, "/", 301)
+}
+
+// APIItemsHandler is an API Endpoint to return installed items. Old Struct Format may not actually be used
+func APIItemsHandler(w http.ResponseWriter, r *http.Request) {
+	// TODO: This seems to use old struct for link items
+	file, err := os.OpenFile(viper.GetString("directories.data"), os.O_RDWR, 0644)
+	errorHandler.StandardError(err)
+	defer file.Close()
+
+	b, err := ioutil.ReadAll(file)
+	errorHandler.StandardError(err)
+	var alItms model.AllItems
+	err = json.Unmarshal(b, &alItms.Items)
+	errorHandler.StandardError(err)
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(alItms.Items)
+}
+
+// ------------ Plugin Item Handlers
+
+// APIUpdatePlugin is an endpoint that updates the available plugins and returns json of the logs
+func APIUpdatePlugin(w http.ResponseWriter, r *http.Request) {
+	resp, err := apiFunc.UniversalAvailableUpdate()
+	errorHandler.JSONReturnError(w, err)
+	fmt.Println("From Update Plugin:", resp)
+	json.NewEncoder(w).Encode(resp)
+}
+
+// apiInstallPlugin an endpoint to install a specific plugin via URL Parameters, returning json of logs
+func APIInstallPlugin(w http.ResponseWriter, r *http.Request) {
+	keys, ok := r.URL.Query()["source"]
+	if !ok || len(keys[0]) < 1 {
+		fmt.Println("URL Param 'source' is missing")
+		return
+	}
+	source := keys[0]
+
+	resp, err := apiFunc.InstallUniversal(source)
+	errorHandler.JSONReturnError(w, err)
+	fmt.Println("From Install Plugin:", resp)
+	json.NewEncoder(w).Encode(resp)
+}
+
+// APIUninstallPlugin an endpoint to uninstall a specific plugin via URL Parameters, return json of logs
+func APIUninstallPlugin(w http.ResponseWriter, r *http.Request) {
+	keys, ok := r.URL.Query()["pluginName"]
+	if !ok || len(keys[0]) < 1 {
+		fmt.Println("URL Param 'pluginName' is missing")
+		return
+	}
+	pluginName := keys[0]
+
+	resp, err := apiFunc.UninstallUniversal(pluginName)
+	errorHandler.JSONReturnError(w, err)
+	fmt.Println("From Uninstall Plugin:", resp)
+	json.NewEncoder(w).Encode(resp)
+}
+
+// ------------ API Handlers
+
+// APIPingHandler is the API Endpoint for the Ping function for plugins
+func APIPingHandler(w http.ResponseWriter, r *http.Request) {
+	keys, ok := r.URL.Query()["url"]
+	if !ok || len(keys[0]) < 1 {
+		fmt.Println("Url Param 'url' is missing")
+		return
+	}
+	url := keys[0]
+	resp, err := apiFunc.Ping(url)
+	errorHandler.PageLoadError(w, err)
+	json.NewEncoder(w).Encode(resp)
+}
+
+// APIHostNameHandler exposes the HostName API Endpoint
+func APIHostNameHandler(w http.ResponseWriter, r *http.Request) {
+	resp, err := apiFunc.HostSettingGet()
+	errorHandler.PageLoadError(w, err)
+	json.NewEncoder(w).Encode(resp)
+}
+
+// APIHostOSHandler exposes the HostOS Api Endpoint
+func APIHostOSHandler(w http.ResponseWriter, r *http.Request) {
+	resp := apiFunc.HostOSGet()
+	json.NewEncoder(w).Encode(resp)
+}
+
+// APIInstalledPluginsHandler exposes the installed plugins endpoint
+func APIInstalledPluginsHandler(w http.ResponseWriter, r *http.Request) {
+	resp := apiFunc.GetInstalledPluginsList()
+	json.NewEncoder(w).Encode(resp)
 }
