@@ -20,6 +20,17 @@ function checkPlugins() {
                 var currentTheme = document.getElementById("theme");
                 var pluginTheme = `/plugins${packData.mainDir}${packData.main}`;
                 currentTheme.setAttribute("href", pluginTheme);
+              } else if (packData.type == "header") {
+                // if this is a header type, find out where, if at all its assigned, and attach its values.
+                fetch("/api/usersettings")
+                  .then((res) => res.json())
+                  .then((headerData) => {
+                    if (headerData.headerPlugins.right.name == packData.name) {
+                      headerPluginAssignment("headerPluginRight", packData.name, headerData.headerPlugins.right.options);
+                    } else if (headerData.headerPlugins.left.name == packData.name) {
+                      headerPluginAssignment("headerPluginLeft", packData.name, headerData.headerPlugins.left.options);
+                    }   // else the plugin is installed but unassigned and should not be called.
+                  });
               }
             });
           }
@@ -28,3 +39,11 @@ function checkPlugins() {
 }
 
 checkPlugins();
+
+function headerPluginAssignment(elementID, pluginName, pluginOptions) {
+  document.getElementById(elementID).setAttribute("data-pluginName", pluginName);
+  document.getElementById(elementID).className += ` ${pluginName}`;
+  if (pluginOptions) {
+    document.getElementById(elementID).setAttribute("data-pluginOptions", pluginOptions);
+  }
+}

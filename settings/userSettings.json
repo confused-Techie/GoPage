@@ -4,5 +4,15 @@
 "src": "test.jpg",
 "repeat": "no-repeat",
 "size": "cover"
+},
+"headerPlugins": {
+  "right": {
+    "name": "aqiCurrent",
+    "options": ""
+  },
+  "left": {
+    "name": "",
+    "options": ""
+  }
 }
 }

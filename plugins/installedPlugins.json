@@ -1,1 +1,25 @@
-[]
+[
+  {
+    "name": "aqiCurrent",
+    "friendlyName": "AQI Current",
+    "version": "0.1",
+    "description": "Get information from your Pihole Instance.",
+    "type": "header",
+    "author": "confused-Techie",
+    "license": "GPL-3.0",
+    "infoLink": "https://github.com/confused-Techie/GoPage-Plugins",
+    "downloadLink": "https://github.com/confused-Techie/GoPage-Plugins/releases/download/PiholeAPIV0.1/PiholeAPIV0.1.zip",
+    "installed": true,
+    "config": false,
+    "mainDir": "/aqiCurrent/",
+    "main": "main.js",
+    "options": {
+      "explain": "",
+      "autofill": ""
+    },
+    "icon": {
+      "available": false
+    }
+  }
+
+]
