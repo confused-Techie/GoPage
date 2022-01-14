@@ -36,7 +36,7 @@
           <div class="plugin-icon">
             {{if .Icon.Available}}
               {{if eq .Icon.Type "image"}}
-                <img src="{{.Icon.Source}}" alt="Icon specified by Plugin Creator to represent their Plugin">
+                <img src="{{.Icon.Source}}" alt="Icon specified by Plugin Creator to represent their Plugin" style="width: 10px;">
               {{end}}
               {{if eq .Icon.Type "raw"}}
                 {{if eq .Icon.Style "GreenCircle"}}
@@ -86,7 +86,7 @@
         <div class="plugin-icon">
           {{if .Icon.Available}}
             {{if eq .Icon.Type "image"}}
-              <img src="{{.Icon.Source}}" alt="Icon specified by Plugin Creator to represent their Plugin">
+              <img src="{{.Icon.Source}}" alt="Icon specified by Plugin Creator to represent their Plugin" style="max-width: 600%">
             {{end}}
             {{if eq .Icon.Type "raw"}}
               {{if eq .Icon.Style "GreenCircle"}}
