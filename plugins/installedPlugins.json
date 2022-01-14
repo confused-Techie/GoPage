@@ -3,7 +3,7 @@
     "name": "aqiCurrent",
     "friendlyName": "AQI Current",
     "version": "0.1",
-    "description": "Get information from your Pihole Instance.",
+    "description": "Get Air Quality Information at a glance. Via AirNow.gov",
     "type": "header",
     "author": "confused-Techie",
     "license": "GPL-3.0",
@@ -15,11 +15,10 @@
     "main": "main.js",
     "options": {
       "explain": "",
-      "autofill": ""
+      "autofill": "zipcode=XXX;apikey=XXX-XXX-XXX-XXXX;"
     },
     "icon": {
       "available": false
     }
   }
-
 ]

@@ -1,0 +1,18 @@
+{
+  "customBackground": {
+    "set": false,
+    "src": "",
+    "repeat": "no-repeat",
+    "size": "cover"
+  },
+  "headerPlugins": {
+    "right": {
+      "name": "",
+      "options": ""
+    },
+    "left": {
+      "name": "",
+      "options": ""
+    }
+  }
+}

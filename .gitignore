@@ -1,6 +1,6 @@
 # Ignore the output of installers
 installer/Output
-# Ignore my json file since it'll contain personal data
+# Ignore my json file since it'll contain personal data, now including userSettings.json
 list.json
 !cleanFiles/list.json
 # Ignore dev-docs
@@ -11,3 +11,4 @@ DEV-docs
 binaries
 # Ignore whole files that are obsolete
 depreciated
+settings/userSettings.json

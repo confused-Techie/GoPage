@@ -27,8 +27,10 @@ function checkPlugins() {
                   .then((headerData) => {
                     if (headerData.headerPlugins.right.name == packData.name) {
                       headerPluginAssignment("headerPluginRight", packData.name, headerData.headerPlugins.right.options);
+                      loadJS(packData.mainDir, packData.main);
                     } else if (headerData.headerPlugins.left.name == packData.name) {
                       headerPluginAssignment("headerPluginLeft", packData.name, headerData.headerPlugins.left.options);
+                      loadJS(packData.mainDir, packData.main);
                     }   // else the plugin is installed but unassigned and should not be called.
                   });
               }
@@ -44,6 +46,13 @@ function headerPluginAssignment(elementID, pluginName, pluginOptions) {
   document.getElementById(elementID).setAttribute("data-pluginName", pluginName);
   document.getElementById(elementID).className += ` ${pluginName}`;
   if (pluginOptions) {
-    document.getElementById(elementID).setAttribute("data-pluginOptions", pluginOptions);
+    document.getElementById(elementID).setAttribute("data-options", pluginOptions);
   }
+}
+
+function loadJS(dir, file) {
+  var script = document.createElement("script");
+  script.src = `/plugins${dir}${file}`;
+  script.type = "module";
+  document.body.appendChild(script);
 }
