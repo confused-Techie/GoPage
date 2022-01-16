@@ -20,6 +20,8 @@ RUN go get github.com/spf13/viper && go install . && go build -o /gopage
 
 # move the data file  from clean files to the root
 COPY /cleanFiles/list.json /app/list.json
+# Move the userSettings file from clean files to its proper location
+COPY /cleanFiles/userSettings.json /app/settings/userSettings.json
 
 # Build the application
 #RUN go build -o /gopage
@@ -31,5 +33,5 @@ COPY /cleanFiles/list.json /app/list.json
 EXPOSE 8080
 
 # This tells docker what command to execute when our image is used to start a container
-# This had to be changed to invoke a shell to allow variable replacmeent, specifying a language 
+# This had to be changed to invoke a shell to allow variable replacmeent, specifying a language
 CMD [ "sh", "-c", "/gopage -docker=true -lang=$LANG" ]

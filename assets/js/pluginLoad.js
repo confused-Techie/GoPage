@@ -28,7 +28,8 @@ function checkPlugins() {
                     if (headerData.headerPlugins.right.name == packData.name) {
                       headerPluginAssignment("headerPluginRight", packData.name, headerData.headerPlugins.right.options);
                       loadJS(packData.mainDir, packData.main);
-                    } else if (headerData.headerPlugins.left.name == packData.name) {
+                    }
+                    if (headerData.headerPlugins.left.name == packData.name) {
                       headerPluginAssignment("headerPluginLeft", packData.name, headerData.headerPlugins.left.options);
                       loadJS(packData.mainDir, packData.main);
                     }   // else the plugin is installed but unassigned and should not be called.

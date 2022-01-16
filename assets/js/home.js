@@ -133,14 +133,7 @@ function firstTimeSetup() {
           fetch(`/api/changelang?lang=${chosenLang}`)
             .then((res) => res.json())
             .then(response => {
-              console.log(response);
-
-              // once it has been queried push the data into the homepage snackbar
-              var snack = document.getElementById("homePageSnackbar");
-              snack.innerText = response;
-              snack.className += " show";
-
-              setTimeout(function(){ snack.className = snack.className.replace("show", ""); }, 3000);
+              universe.SnackbarCommon("homePageSnackbar", response);
             });
         };
       }
@@ -170,15 +163,18 @@ function addFormCategory() {
     fetch("/plugins/installedPlugins.json")
       .then((response) => response.json())
       .then((data) => {
-        var pluginListToInsert;
+        var pluginListToInsertITEM, pluginListToInsertHEADER;
 
         data.forEach((element) => {
           if (element.type == "item") {
-            pluginListToInsert += `<option value='${element.name}'>`;
+            pluginListToInsertITEM += `<option value='${element.name}'>`;
+          } else if (element.type == "header") {
+            pluginListToInsertHEADER += `<option value='${element.name}'>`;
           }
         });
-        document.getElementById('new-available-plugins').innerHTML = pluginListToInsert;
-        document.getElementById('edit-available-plugins').innerHTML = pluginListToInsert;
+        document.getElementById('new-available-plugins').innerHTML = pluginListToInsertITEM;
+        document.getElementById('edit-available-plugins').innerHTML = pluginListToInsertITEM;
+        document.getElementById('header-plugin-list').innerHTML = pluginListToInsertHEADER;
       });
 }
 
@@ -227,6 +223,22 @@ function dataListInputV2(ele, caller) {
                 dataListInputCaller('edit-plugin-label6', 'edit-plugin-example6', 'edit-plugin-options6', element.options.explain, element.options.autofill);
               }
             }// 7
+          }
+        }
+      });
+    });
+}
+
+/*eslint disable-next-lin no-unused-vars*/
+function dataListInputHeader(ele) {
+  fetch("/plugins/installedPlugins.json")
+    .then((res) => res.json())
+    .then((data) => {
+      data.forEach((element) => {
+        if (ele.value == element.name) {
+          if (element.config) {
+            // since the header modal only allows modifying a signle item at once, we don't need any checking of the element
+            dataListInputCaller('header-plugin-label', 'header-plugin-example', 'header-plugin-options', element.options.explain, element.options.autofill);
           }
         }
       });
@@ -283,12 +295,11 @@ function modalDelete(id) {
         if (response == "Success") {
           modal.style.display = "none";
 
-          var snack = document.getElementById("homePageSnackbar");
-          snack.innerText = "Successfully Deleted Link Item. Reloading Page...";
-          snack.className += " show";
-          setTimeout(function(){ snack.className = snack.className.replace("show", ""); location.reload(); }, 3000);
+          universe.SnackbarCommon("homePageSnackbar", "Successfully Deleted Link Item. Reloading Page...", universe.ReloadCallback());
+
         } else {
           // an error occured during deletion
+          universe.SnackbarError("homePageSnackbar", `Error: ${response}`);
         }
       });
   };
@@ -321,68 +332,119 @@ function newItemModal() {
     // Here we will want to handle all validation features in the future
     // such as ensuring that no plugin location is chosen twice and so on.
     // TODO:: Error Handling for the data submitted
-
     var form = document.getElementById("new-item-form");
 
-    // and we will take the form data turning it into an object
-    var rawObj = {
-      friendlyName: form.friendlyName.value,
-      link: form.link.value,
-      category: form.category.value,
-      plugins: []
+    validateLinkItemData(form)
+      .then((validateAnswer) => {
+        if (validateAnswer.valid) {
+          // and we will take the form data turning it into an object
+          var rawObj = {
+            friendlyName: form.friendlyName.value,
+            link: form.link.value,
+            category: form.category.value,
+            plugins: []
+          };
+
+          // now to build the plugin portion of the object
+
+          // while only 6 options exist this is 7 to account for starting at 1
+          for (var i = 1; i < 7; i++) {
+            var elements = document.getElementsByName(`plugin-name${i}`);
+            var tmpObj = { name: "", options: "", location: "" };
+            if (elements.length == 1) {
+              // since getElementsByName returns a list of items, but we only care about the one that exists we use 0 to point at that one
+              if (elements[0].value) {
+                // this would indicate its a truthy value and we can add it
+                tmpObj.name = elements[0].value;
+                tmpObj.options = document.getElementById(`plugin-options${i}`).value;
+                tmpObj.location = document.getElementById(`plugin-loc${i}`).value;
+                rawObj.plugins.push(tmpObj);
+              }
+            } else {
+              console.log('Something unexpected happened reading your data.');
+              universe.SnackbarError("homePageSnackbar", "Something unexpected happened reading your data.");
+            }
+          }
+
+          // now with the object built we can post it to the api endpoint
+          //var newHeaders = new Headers();
+          //newHeaders.append("Content-Type", "application/json");
+
+          var rawJSON = JSON.stringify(rawObj);
+
+          //var requestOptions = {
+          //  method: "POST",
+          //  headers: newHeaders,
+          //  body: rawJSON,
+          //  redirect: "follow"
+          //};
+          var requestOptions = universe.CreateJSONPOSTHeaders(rawJSON);
+
+          fetch("/api/new/", requestOptions)
+            .then((response) => response.json())
+            .then((result) => {
+              if (result == "Success") {
+                modal.style.display = "none";
+
+                universe.SnackbarCommon("homePageSnackbar", "Successfully Added New Link Item. Refreshing...", universe.ReloadCallback());
+
+              } else {
+                // error occured sending data
+                console.log(`Error: ${result}`);
+                universe.SnackbarError("homePageSnackbar", `Error: ${result}`);
+              }
+            });
+        } else {
+          // validate data fails
+          universe.SnackbarError("homePageSnackbar", validateAnswer.msg);
+        }
+      });
+
+  };
+}
+
+function validateLinkItemData(form) {
+  return new Promise(function (resolve, reject) {
+    // this will just check the required data to see if it is valid
+    const checkString = function(string) {
+      if (typeof string === 'string' && string.length > 1) {
+        return true;
+      } else {
+        return false;
+      }
     };
 
-    // now to build the plugin portion of the object
+    // The required alements of a form:
+    // FriendlyName
+    // Link
+    // Category
 
-    // while only 6 options exist this is 7 to account for starting at 1
-    for (var i = 1; i < 7; i++) {
-      var elements = document.getElementsByName(`plugin-name${i}`);
-      var tmpObj = { name: "", options: "", location: "" };
-      if (elements.length == 1) {
-        if (elements[0].value) {
-          // this would indicate its a truthy value and we can add it
-          tmpObj.name = elements[0].value;
-          tmpObj.options = document.getElementById(`plugin-options${i}`).value;
-          tmpObj.location = document.getElementById(`plugin-loc${i}`).value;
-          rawObj.plugins.push(tmpObj);
+    var tmpValidObject = { valid: false, msg: "" };
+
+    if (checkString(form.friendlyName.value)) {
+      if (checkString(form.link.value)) {
+        if (checkString(form.category.value)) {
+          tmpValidObject.valid = true;
+          resolve(tmpValidObject);
+        } else {
+          // bad category value
+          tmpValidObject.valid = false;
+          tmpValidObject.msg = "Bad Category Value Entered.";
+          resolve(tmpValidObject);
         }
       } else {
-        console.log('Something unexpected happened reading your data.');
+        // bad link value
+        tmpValidObject.valid = false;
+        tmpValidObject.msg = "Bad Link Value Entered.";
+        resolve(tmpValidObject);
       }
+    } else {
+      // bad friendly name
+      tmpValidObject.valid = false;
+      tmpValidObject.msg = "Bad Friendly Name Value Entered.";
+      resolve(tmpValidObject);
     }
-
-    // now with the object built we can post it to the api endpoint
-    var newHeaders = new Headers();
-    newHeaders.append("Content-Type", "application/json");
-
-    var rawJSON = JSON.stringify(rawObj);
-
-    var requestOptions = {
-      method: "POST",
-      headers: newHeaders,
-      body: rawJSON,
-      redirect: "follow"
-    };
-
-    fetch("/api/new/", requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        if (result == "Success") {
-          //console.log("Successfully Saved new Item.");
-          modal.style.display = "none";
-
-          // TODO:: Probably a good idea to go ahead and move the snackbar functions to a new universal JS class
-          var snackbar = document.getElementById("homePageSnackbar");
-          snackbar.innerText = "Successfully Added New Link Item. Refreshing...";
-          snackbar.className += " show";
-
-          setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); location.reload(); }, 3000);
-        } else {
-          // error occured sending data
-          console.log(`Error: ${result}`);
-        }
-      })
-  };
+  });
 }
 
 
@@ -418,67 +480,72 @@ function editItemModalV2(oldId, oldFriendlyName, oldLink, oldCategory, oldPlugin
   };
 
   modalSubmit.onclick = function() {
-    // TODO:: Here we will want to add validation
 
     var form = document.getElementById("edit-item-form");
 
-    // and we will take the form data turning ti into an object
-    // parsing int here since if passed as string go will fail to unmarshal into json properly
-    var rawObj = {
-      id: parseInt(form.id.value),
-      friendlyName: form.friendlyName.value,
-      link: form.link.value,
-      category: form.category.value,
-      plugins: []
-    };
+    validateLinkItemData(form)
+      .then((validData) => {
+        if (validData.valid) {
+          // and we will take the form data turning ti into an object
+          // parsing int here since if passed as string go will fail to unmarshal into json properly
+          var rawObj = {
+            id: parseInt(form.id.value),
+            friendlyName: form.friendlyName.value,
+            link: form.link.value,
+            category: form.category.value,
+            plugins: []
+          };
 
-    // now to build teh plugin portion of the object
+          // now to build teh plugin portion of the object
 
-    //while only 6 options exist this is 7 to account for starting at 1
-    for (var i = 1; i < 7; i++) {
-      var elements = document.getElementsByName(`edit-plugin-name${i}`);
-      var tmpObj = { name: "", options: "", location: "" };
-      if (elements.length == 1) {
-        if (elements[0].value) {
-          // this would indicate its a truthy value and we can add it
-          tmpObj.name = elements[0].value;
-          tmpObj.options = document.getElementById(`edit-plugin-options${i}`).value;
-          tmpObj.location = document.getElementById(`edit-plugin-loc${i}`).value;
-          rawObj.plugins.push(tmpObj);
-        }
-      } else {
-        console.log("Something unexpected happend reading your data.");
-      }
-    }
+          //while only 6 options exist this is 7 to account for starting at 1
+          for (var i = 1; i < 7; i++) {
+            var elements = document.getElementsByName(`edit-plugin-name${i}`);
+            var tmpObj = { name: "", options: "", location: "" };
+            if (elements.length == 1) {
+              if (elements[0].value) {
+                // this would indicate its a truthy value and we can add it
+                tmpObj.name = elements[0].value;
+                tmpObj.options = document.getElementById(`edit-plugin-options${i}`).value;
+                tmpObj.location = document.getElementById(`edit-plugin-loc${i}`).value;
+                rawObj.plugins.push(tmpObj);
+              }
+            } else {
+              console.log("Something unexpected happend reading your data.");
+            }
+          }
 
-    // now with the object build we can post it to the api endpoint
-    var newHeaders = new Headers();
-    newHeaders.append("Content-Type", "application/json");
+          // now with the object build we can post it to the api endpoint
+          //var newHeaders = new Headers();
+          //newHeaders.append("Content-Type", "application/json");
 
-    var rawJSON = JSON.stringify(rawObj);
+          var rawJSON = JSON.stringify(rawObj);
 
-    var requestOptions = {
-      method: "POST",
-      headers: newHeaders,
-      body: rawJSON,
-      redirect: "follow"
-    };
+          //var requestOptions = {
+          //  method: "POST",
+          //  headers: newHeaders,
+          //  body: rawJSON,
+          //  redirect: "follow"
+          //};
 
 
-    fetch("/api/edit/", requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        if (result == "Success") {
-          modal.style.display = "none";
+          fetch("/api/edit/", universe.CreateJSONPOSTHeaders(rawJSON))
+            .then((response) => response.json())
+            .then((result) => {
+              if (result == "Success") {
+                modal.style.display = "none";
 
-          // TODO:: probably a good idea to go ahead and move the snackbar functions to a new universal JS class
-          var snackbar = document.getElementById("homePageSnackbar");
-          snackbar.innerText = "Successfully Modified exisiting Link Item. Refreshing...";
-          snackbar.className += " show";
+                universe.SnackbarCommon("homePageSnackbar", "Successfully Modified existing Link Item. Refreshing...", universe.ReloadCallback());
 
-          setTimeout(function() { snackbar.className = snackbar.className.replace("show", ""); location.reload(); }, 3000);
+              } else {
+                console.log(`Error: ${result}`);
+                universe.SnackbarError("homePageSnackbar", `Error: ${result}`);
+              }
+            });
+
         } else {
-          console.log(`Error: ${result}`);
+          // data is not valid
+          universe.SnackbarError("homePageSnackbar", validData.msg);
         }
       });
   }
@@ -490,13 +557,83 @@ function headerPlugins() {
   var headerPluginLeft = document.getElementById("headerPluginLeft");
   var headerPluginRight = document.getElementById("headerPluginRight");
 
+  const changeHeaderSettings = function(side, pluginName, pluginOptions, modal) {
+    fetch("/api/usersettings")
+      .then((res) => res.json())
+      .then((data) => {
+        // now with the current user settings, we can modify what we need to
+        data.headerPlugins[side].name = pluginName;
+        data.headerPlugins[side].options = pluginOptions;
+
+        // then to post this data back to GoPage
+        var newHeaders = new Headers();
+        newHeaders.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify(data);
+
+        var requestOptions = {
+          method: "POST",
+          headers: newHeaders,
+          body: raw,
+          redirect: "follow"
+        };
+
+        fetch("/api/usersettingswrite", requestOptions)
+          .then((response) => response.json())
+          .then((result) => {
+            if (result == "Success") {
+              modal.style.display = "none";
+
+              universe.SnackbarCommon("homePageSnackbar", `Successfully set Header ${side} Plugin. Refreshing...`, universe.ReloadCallback());
+
+              //var snackbar = document.getElementById("homePageSnackbar");
+              //snackbar.innerText = `Successfully set Header ${side} Plugin. Refreshing...`;
+              //snackbar.className += " show";
+
+              //setTimeout(function() { snackbar.className = snackbar.className.replace("show", ""); location.reload(); }, 3000);
+            } else {
+              // error occured
+              console.log(result);
+              universe.SnackbarError("homePageSnackbar", `Error: ${result}`);
+            }
+          });
+      });
+  };
+
+  const handlePluginHeader = function(side) {
+    var modal = document.getElementById("headerPluginModal");
+    modal.style.display = "block";
+
+    var backBtn = document.getElementById("headerPlugin-goBack");
+    backBtn.onclick = function() {
+      modal.style.display = "none";
+    };
+
+    var submitBtn = document.getElementById('headerPlugin-submit');
+
+    submitBtn.onclick = function() {
+      changeHeaderSettings(side, document.getElementById('header-plugin-name').value, document.getElementById('header-plugin-options').value, modal);
+    };
+  };
+
 
   headerPluginLeft.onclick = function() {
+    handlePluginHeader('left');
+    //var modal = document.getElementById("headerPluginModal");
+    //modal.style.display = "block";
 
+    // register the back btn
+    //registerBackButton(modal);
+
+    //var submitBtn = document.getElementById('headerPlugin-submit');
+
+    //submitBtn.onclick = function() {
+    //  changeHeaderSettings('left', document.getElementById('header-plugin-name').value, document.getElementById('header-plugin-options').value, modal);
+    //};
   };
 
   headerPluginRight.onclick = function() {
-
+    handlePluginHeader('right');
   };
 
 }

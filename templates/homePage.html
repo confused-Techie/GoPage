@@ -128,6 +128,23 @@
     </div>
   </div>
 
+  <div id="headerPluginModal" class="modal">
+    <div class="modal-content">
+      <h2>Header Plugin</h2>
+      <form id="header-plugin-form">
+        <label><span id="i18n-labelChoosePlugin">Choose a Plugin</span></label><br>
+        <input oninput="dataListInputHeader(this)" class="form-input" list="header-plugin-list" type="text" autocomplete="off" name="header-plugin-name" id="header-plugin-name"/><br><br>
+        <label class="readonly_id" id="header-plugin-label"><span id="i18n-labelPluginOptioons">Define any Options Needed for your Plugin.</span></label><br>
+        <input class="readonly_id form-input" readonly type="text" name="header-plugin-options" id="header-plugin-options"/><br><br>
+        <div class="plugin-example" id="header-plugin-example"> </div>
+
+        <button id="headerPlugin-goBack" class="simple-button btn-undo grow-shadow-hover" type="button"><span id="i18n-buttonGoBack">Go Back</span></button>
+        <button id="headerPlugin-submit" class="simple-button btn-create grow-shadow-hover" type="button"><span id="118n-modalFirstTimeLangSubmit">Submit</span></button>
+        <datalist id="header-plugin-list"> </datalist>
+      </form>
+    </div>
+  </div>
+
   <div id="newItemModal" class="modal">
     <div class="modal-content">
       <h2><span id="i18n-headerNewItem">New Item's Data</span></h2>
@@ -141,58 +158,58 @@
         <label><span id="i18n-labelCategory">Enter Category</span></label><br>
         <input class="form-input" list="new-current-category" type="text" name="category" autocomplete="off" /><br><br>
 
-        <label>Choose a Plugin</label><br>
+        <label><span id="18n-labelChoosePlugin">Choose a Plugin</span></label><br>
         <input oninput="dataListInputV2(this, 'new')" class="form-input" list="new-available-plugins" type="text" autocomplete="off" name="plugin-name1" /><br><br>
-        <label>Choose a Location for your Plugin</label><br>
+        <label><span id="18n-labelChoosePluginLocation">Choose a Location for your Plugin</span></label><br>
         <input class="form-input" type="text" list="new-plugin-location-list" name="plugin-loc1" autocomplete="off" id="plugin-loc1"/><br><br>
-        <label class="readonly_id" id="plugin-label1">Define any Options Needed for your Plugin.</label><br>
+        <label class="readonly_id" id="plugin-label1"><span id="i18n-labelPluginOptions">Define any Options Needed for your Plugin.</span></label><br>
         <input class="readonly_id form-input" readonly type="text" name="plugin-options1" id="plugin-options1" /><br><br>
         <div class="plugin-example" id="plugin-example1"> </div>
 
-        <label>Choose a Plugin</label><br>
+        <label><span id="18n-labelChoosePlugin">Choose a Plugin</span></label><br>
         <input oninput="dataListInputV2(this, 'new')" class="form-input" list="new-available-plugins" type="text" autocomplete="off" name="plugin-name2" /><br><br>
-        <label>Choose a Location for your Plugin</label><br>
+        <label><span id="18n-labelChoosePluginLocation">Choose a Location for your Plugin</span></label><br>
         <input class="form-input" type="text" list="new-plugin-location-list" name="plugin-loc2" autocomplete="off" id="plugin-loc2"/><br><br>
-        <label class="readonly_id" id="plugin-label2">Define any Options Needed for your Plugin.</label><br>
+        <label class="readonly_id" id="plugin-label2"><span id="i18n-labelPluginOptions">Define any Options Needed for your Plugin.</span></label><br>
         <input class="readonly_id form-input" readonly type="text" name="plugin-options2" id="plugin-options2" /><br><br>
         <div class="plugin-example" id="plugin-example2"> </div>
 
-        <label>Choose a Plugin</label><br>
+        <label><span id="18n-labelChoosePlugin">Choose a Plugin</span></label><br>
         <input oninput="dataListInputV2(this, 'new')" class="form-input" list="new-available-plugins" type="text" autocomplete="off" name="plugin-name3" /><br><br>
-        <label>Choose a Location for your Plugin</label><br>
+        <label><span id="18n-labelChoosePluginLocation">Choose a Location for your Plugin</span></label><br>
         <input class="form-input" type="text" list="new-plugin-location-list" name="plugin-loc3" autocomplete="off" id="plugin-loc3"/><br><br>
-        <label class="readonly_id" id="plugin-label3">Define any Options Needed for your Plugin.</label><br>
+        <label class="readonly_id" id="plugin-label3"><span id="i18n-labelPluginOptions">Define any Options Needed for your Plugin.</span></label><br>
         <input class="readonly_id form-input" readonly type="text" name="plugin-options3" id="plugin-options3" /><br><br>
         <div class="plugin-example" id="plugin-example3"> </div>
 
-        <label>Choose a Plugin</label><br>
+        <label><span id="18n-labelChoosePlugin">Choose a Plugin</span></label><br>
         <input oninput="dataListInputV2(this, 'new')" class="form-input" list="new-available-plugins" type="text" autocomplete="off" name="plugin-name4" /><br><br>
-        <label>Choose a Location for your Plugin</label><br>
+        <label><span id="18n-labelChoosePluginLocation">Choose a Location for your Plugin</span></label><br>
         <input class="form-input" type="text" list="new-plugin-location-list" name="plugin-loc4" autocomplete="off" id="plugin-loc4"/><br><br>
-        <label class="readonly_id" id="plugin-label4">Define any Options Needed for your Plugin.</label><br>
+        <label class="readonly_id" id="plugin-label4"><span id="i18n-labelPluginOptions">Define any Options Needed for your Plugin.</span></label><br>
         <input class="readonly_id form-input" readonly type="text" name="plugin-options4" id="plugin-options4" /><br><br>
         <div class="plugin-example" id="plugin-example4"> </div>
 
-        <label>Choose a Plugin</label><br>
+        <label><span id="18n-labelChoosePlugin">Choose a Plugin</span></label><br>
         <input oninput="dataListInputV2(this, 'new')" class="form-input" list="new-available-plugins" type="text" autocomplete="off" name="plugin-name5" /><br><br>
-        <label>Choose a Location for your Plugin</label><br>
+        <label><span id="18n-labelChoosePluginLocation">Choose a Location for your Plugin</span></label><br>
         <input class="form-input" type="text" list="new-plugin-location-list" name="plugin-loc5" autocomplete="off" id="plugin-loc5"/><br><br>
-        <label class="readonly_id" id="plugin-label5">Define any Options Needed for your Plugin.</label><br>
+        <label class="readonly_id" id="plugin-label5"><span id="i18n-labelPluginOptions">Define any Options Needed for your Plugin.</span></label><br>
         <input class="readonly_id form-input" readonly type="text" name="plugin-options5" id="plugin-options5" /><br><br>
         <div class="plugin-example" id="plugin-example5"> </div>
 
-        <label>Choose a Plugin</label><br>
+        <label><span id="18n-labelChoosePlugin">Choose a Plugin</span></label><br>
         <input oninput="dataListInputV2(this, 'new')" class="form-input" list="new-available-plugins" type="text" autocomplete="off" name="plugin-name6" /><br><br>
-        <label>Choose a Location for your Plugin</label><br>
+        <label><span id="18n-labelChoosePluginLocation">Choose a Location for your Plugin</span></label><br>
         <input class="form-input" type="text" list="new-plugin-location-list" name="plugin-loc6" autocomplete="off" id="plugin-loc6"/><br><br>
-        <label class="readonly_id" id="plugin-label6">Define any Options Needed for your Plugin.</label><br>
+        <label class="readonly_id" id="plugin-label6"><span id="i18n-labelPluginOptions">Define any Options Needed for your Plugin.</span></label><br>
         <input class="readonly_id form-input" readonly type="text" name="plugin-options6" id="plugin-options6" /><br><br>
         <div class="plugin-example" id="plugin-example6"> </div>
 
         <!-- todo:: In the future I would like to create these elements as needed, rather than have the max amount available to edit at once -->
 
-        <button id="new-form-goBack" class="simple-button btn-undo grow-shadow-hover" type="button">Go Back</button>
-        <button id="new-form-submit" class="simple-button btn-create grow-shadow-hover" type="button">Submit</button>
+        <button id="new-form-goBack" class="simple-button btn-undo grow-shadow-hover" type="button"><span id="i18n-buttonGoBack">Go Back</span></button>
+        <button id="new-form-submit" class="simple-button btn-create grow-shadow-hover" type="button"><span id="118n-modalFirstTimeLangSubmit">Submit</span></button>
 
         <datalist id="new-current-category"> </datalist>
         <datalist id="new-available-plugins"> </datalist>
@@ -226,58 +243,58 @@
         <label class="readonly_id">Enter the same ID:</label>
         <input type="text" name="id" readonly class="readonly_id form-input" id="edit-id"/><br><br>
 
-        <label>Choose a Plugin</label><br>
+        <label><span id="18n-labelChoosePlugin">Choose a Plugin</span></label><br>
         <input oninput="dataListInputV2(this, 'edit')" class="form-input" list="edit-available-plugins" type="text" autocomplete="off" name="edit-plugin-name1" id="edit-plugin-name1"/><br><br>
-        <label>Choose a Location for your Plugin</label><br>
+        <label><span id="18n-labelChoosePluginLocation">Choose a Location for your Plugin</span></label><br>
         <input class="form-input" type="text" list="edit-plugin-location-list" name="edit-plugin-loc1" autocomplete="off" id="edit-plugin-loc1"/><br><br>
-        <label class="readonly_id" id="edit-plugin-label1">Define any Options Needed for your Plugin.</label><br>
+        <label class="readonly_id" id="edit-plugin-label1"><span id="i18n-labelPluginOptions">Define any Options Needed for your Plugin.</span></label><br>
         <input class="readonly_id form-input" readonly type="text" name="edit-plugin-options1" id="edit-plugin-options1" /><br><br>
         <div class="plugin-example" id="edit-plugin-example1"> </div>
 
-        <label>Choose a Plugin</label><br>
+        <label><span id="18n-labelChoosePlugin">Choose a Plugin</span></label><br>
         <input oninput="dataListInputV2(this, 'edit')" class="form-input" list="edit-available-plugins" type="text" autocomplete="off" name="edit-plugin-name2" id="edit-plugin-name2"/><br><br>
-        <label>Choose a Location for your Plugin</label><br>
+        <label><span id="18n-labelChoosePluginLocation">Choose a Location for your Plugin</span></label><br>
         <input class="form-input" type="text" list="edit-plugin-location-list" name="edit-plugin-loc2" autocomplete="off" id="edit-plugin-loc2"/><br><br>
-        <label class="readonly_id" id="edit-plugin-label2">Define any Options Needed for your Plugin.</label><br>
+        <label class="readonly_id" id="edit-plugin-label2"><span id="i18n-labelPluginOptions">Define any Options Needed for your Plugin.</span></label><br>
         <input class="readonly_id form-input" readonly type="text" name="edit-plugin-options2" id="edit-plugin-options2" /><br><br>
         <div class="plugin-example" id="edit-plugin-example2"> </div>
 
-        <label>Choose a Plugin</label><br>
+        <label><span id="18n-labelChoosePlugin">Choose a Plugin</span></label><br>
         <input oninput="dataListInputV2(this, 'edit')" class="form-input" list="edit-available-plugins" type="text" autocomplete="off" name="edit-plugin-name3" id="edit-plugin-name3"/><br><br>
-        <label>Choose a Location for your Plugin</label><br>
+        <label><span id="18n-labelChoosePluginLocation">Choose a Location for your Plugin</span></label><br>
         <input class="form-input" type="text" list="edit-plugin-location-list" name="edit-plugin-loc3" autocomplete="off" id="edit-plugin-loc3"/><br><br>
-        <label class="readonly_id" id="edit-plugin-label3">Define any Options Needed for your Plugin.</label><br>
+        <label class="readonly_id" id="edit-plugin-label3"><span id="i18n-labelPluginOptions">Define any Options Needed for your Plugin.</span></label><br>
         <input class="readonly_id form-input" readonly type="text" name="edit-plugin-options3" id="edit-plugin-options3" /><br><br>
         <div class="plugin-example" id="edit-plugin-example3"> </div>
 
-        <label>Choose a Plugin</label><br>
+        <label><span id="18n-labelChoosePlugin">Choose a Plugin</span></label><br>
         <input oninput="dataListInputV2(this, 'edit')" class="form-input" list="edit-available-plugins" type="text" autocomplete="off" name="edit-plugin-name4" id="edit-plugin-name4"/><br><br>
-        <label>Choose a Location for your Plugin</label><br>
+        <label><span id="18n-labelChoosePluginLocation">Choose a Location for your Plugin</span></label><br>
         <input class="form-input" type="text" list="edit-plugin-location-list" name="edit-plugin-loc4" autocomplete="off" id="edit-plugin-loc4"/><br><br>
-        <label class="readonly_id" id="edit-plugin-label4">Define any Options Needed for your Plugin.</label><br>
+        <label class="readonly_id" id="edit-plugin-label4"><span id="i18n-labelPluginOptions">Define any Options Needed for your Plugin.</span></label><br>
         <input class="readonly_id form-input" readonly type="text" name="edit-plugin-options4" id="edit-plugin-options4" /><br><br>
         <div class="plugin-example" id="edit-plugin-example4"> </div>
 
-        <label>Choose a Plugin</label><br>
+        <label><span id="18n-labelChoosePlugin">Choose a Plugin</span></label><br>
         <input oninput="dataListInputV2(this, 'edit')" class="form-input" list="edit-available-plugins" type="text" autocomplete="off" name="edit-plugin-name5" id="edit-plugin-name5"/><br><br>
-        <label>Choose a Location for your Plugin</label><br>
+        <label><span id="18n-labelChoosePluginLocation">Choose a Location for your Plugin</span></label><br>
         <input class="form-input" type="text" list="edit-plugin-location-list" name="edit-plugin-loc5" autocomplete="off" id="edit-plugin-loc5"/><br><br>
-        <label class="readonly_id" id="edit-plugin-label5">Define any Options Needed for your Plugin.</label><br>
+        <label class="readonly_id" id="edit-plugin-label5"><span id="i18n-labelPluginOptions">Define any Options Needed for your Plugin.</span></label><br>
         <input class="readonly_id form-input" readonly type="text" name="edit-plugin-options5" id="edit-plugin-options5" /><br><br>
         <div class="plugin-example" id="edit-plugin-example5"> </div>
 
-        <label>Choose a Plugin</label><br>
+        <label><span id="18n-labelChoosePlugin">Choose a Plugin</span></label><br>
         <input oninput="dataListInputV2(this, 'edit')" class="form-input" list="edit-available-plugins" type="text" autocomplete="off" name="edit-plugin-name6" id="edit-plugin-name6"/><br><br>
-        <label>Choose a Location for your Plugin</label><br>
+        <label><span id="18n-labelChoosePluginLocation">Choose a Location for your Plugin</span></label><br>
         <input class="form-input" type="text" list="edit-plugin-location-list" name="edit-plugin-loc6" autocomplete="off" id="edit-plugin-loc6"/><br><br>
-        <label class="readonly_id" id="edit-plugin-label6">Define any Options Needed for your Plugin.</label><br>
+        <label class="readonly_id" id="edit-plugin-label6"><span id="i18n-labelPluginOptions">Define any Options Needed for your Plugin.</span></label><br>
         <input class="readonly_id form-input" readonly type="text" name="edit-plugin-options6" id="edit-plugin-options6" /><br><br>
         <div class="plugin-example" id="edit-plugin-example6"> </div>
 
         <!-- todo:: In the future I would like to create these elements as needed, rather than have the max amount available to edit at once -->
 
-        <button id="edit-form-goBack" class="simple-button btn-undo grow-shadow-hover" type="button">Go Back</button>
-        <button id="edit-form-submit" class="simple-button btn-create grow-shadow-hover" type="button">Submit</button>
+        <button id="edit-form-goBack" class="simple-button btn-undo grow-shadow-hover" type="button"><span id="i18n-buttonGoBack">Go Back</span></button>
+        <button id="edit-form-submit" class="simple-button btn-create grow-shadow-hover" type="button"><span id="i18n-modalFirstTimeLangSubmit">Submit</span></button>
 
         <datalist id="edit-current-category"> </datalist>
         <datalist id="edit-available-plugins"> </datalist>
@@ -367,6 +384,7 @@
       <span id="i18n-footerThanksFeather">Thanks Feather Icons</span></a></p>
   </footer>
   <script type="module" src="/assets/js/pluginLoad.js"></script>
+  <script src="/assets/js/universe.js"></script>
   <script src="/assets/js/langHandler.js"></script>
   <script src="/assets/js/home.js"></script>
   <script src="/assets/js/pluginhandler.js"></script>
