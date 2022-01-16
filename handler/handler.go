@@ -211,6 +211,7 @@ func AddLinkItem(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// EditLinkItem is an API Handler for modifying Link Items with V2 models
 func EditLinkItem(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		// here is where I could check for required form values, but hopefully this will be done in js
@@ -359,7 +360,7 @@ func APIUpdatePlugin(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(resp)
 }
 
-// apiInstallPlugin an endpoint to install a specific plugin via URL Parameters, returning json of logs
+// APIInstallPlugin an endpoint to install a specific plugin via URL Parameters, returning json of logs
 func APIInstallPlugin(w http.ResponseWriter, r *http.Request) {
 	keys, ok := r.URL.Query()["source"]
 	if !ok || len(keys[0]) < 1 {

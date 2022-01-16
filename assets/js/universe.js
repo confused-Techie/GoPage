@@ -30,7 +30,7 @@ var universe = {
   },
   SnackbarError: function(id, textToShow, callback) {
     // A simple way to invoke SnackbarCommon while assigning the error class to the snackbar
-    this.SnackbarCommon(id, textToShow, callback, "error");
+    this.SnackbarCommon(id, textToShow, callback, " error");
   },
   ReloadCallback: function() {
     // Since passing the standard location.reload() doesn't work within the callback as it losses the this scope

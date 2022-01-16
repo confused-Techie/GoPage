@@ -13,6 +13,7 @@
   },
   "globals": {
     "langHandler": "readonly",
-    "pluginAPI": "readonly"
+    "pluginAPI": "readonly",
+    "universe": "readonly"
   }
 }

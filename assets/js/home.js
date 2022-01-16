@@ -113,7 +113,7 @@ function firstTimeSetup() {
   fetch("/api/items")
     .then((res) => res.json())
     .then(response => {
-      if (response.length == 0) {
+      if (response.length === 0) {
         var modal = document.getElementById("firstTimeModal");
         modal.style.display = "block";
 
@@ -351,7 +351,7 @@ function newItemModal() {
           for (var i = 1; i < 7; i++) {
             var elements = document.getElementsByName(`plugin-name${i}`);
             var tmpObj = { name: "", options: "", location: "" };
-            if (elements.length == 1) {
+            if (elements.length === 1) {
               // since getElementsByName returns a list of items, but we only care about the one that exists we use 0 to point at that one
               if (elements[0].value) {
                 // this would indicate its a truthy value and we can add it
@@ -458,13 +458,16 @@ function editItemModalV2(oldId, oldFriendlyName, oldLink, oldCategory, oldPlugin
   document.getElementById("edit-link").value = oldLink;
   document.getElementById("edit-category").value = oldCategory;
 
-  for (var i = 0; i < oldPlugins.length; i++) {
-    document.getElementById(`edit-plugin-name${i+1}`).value = oldPlugins[i].name;
-    document.getElementById(`edit-plugin-loc${i+1}`).value = oldPlugins[i].location;
-    if (typeof oldPlugins[i].options != null && typeof oldPlugins[i].options != undefined && typeof oldPlugins[i].options != "") {
-      // we want to assign the values and make them visible
-      dataListInputChangeView(`edit-plugin-label${i+1}`);
-      dataListInputChangeAutofill(`edit-plugin-options${i+1}`, oldPlugins[i].options);
+  // added check in case plugins aren't assigned at all, to avoid reading length of null item
+  if (oldPlugins) {
+    for (var i = 0; i < oldPlugins.length; i++) {
+      document.getElementById(`edit-plugin-name${i+1}`).value = oldPlugins[i].name;
+      document.getElementById(`edit-plugin-loc${i+1}`).value = oldPlugins[i].location;
+      if (typeof oldPlugins[i].options != null && typeof oldPlugins[i].options != undefined && typeof oldPlugins[i].options != "") {
+        // we want to assign the values and make them visible
+        dataListInputChangeView(`edit-plugin-label${i+1}`);
+        dataListInputChangeAutofill(`edit-plugin-options${i+1}`, oldPlugins[i].options);
+      }
     }
   }
 
@@ -566,19 +569,19 @@ function headerPlugins() {
         data.headerPlugins[side].options = pluginOptions;
 
         // then to post this data back to GoPage
-        var newHeaders = new Headers();
-        newHeaders.append("Content-Type", "application/json");
+        //var newHeaders = new Headers();
+        //newHeaders.append("Content-Type", "application/json");
 
         var raw = JSON.stringify(data);
 
-        var requestOptions = {
-          method: "POST",
-          headers: newHeaders,
-          body: raw,
-          redirect: "follow"
-        };
+        //var requestOptions = {
+        //  method: "POST",
+        //  headers: newHeaders,
+        //  body: raw,
+        //  redirect: "follow"
+        //};
 
-        fetch("/api/usersettingswrite", requestOptions)
+        fetch("/api/usersettingswrite", universe.CreateJSONPOSTHeaders(raw))
           .then((response) => response.json())
           .then((result) => {
             if (result == "Success") {
