@@ -8,31 +8,14 @@ import (
 	"os"
 )
 
-// Item is struct for an individual Data Item
-type Item struct {
-	Id                  int    `json:"id"`
-	FriendlyName        string `json:"friendlyName"`
-	Link                string `json:"link"`
-	Category            string `json:"category"`
-	LeftPlugin          string `json:"left-plugin"`
-	LeftPluginOptions   string `json:"left-plugin-options"`
-	CenterPlugin        string `json:"center-plugin"`
-	CenterPluginOptions string `json:"center-plugin-options"`
-	RightPlugin         string `json:"right-plugin"`
-	RightPluginOptions  string `json:"right-plugin-options"`
-}
-
-// AllItems is a struct for a slice/array of Data Items
-type AllItems struct {
-	Items []*Item
-}
-
+// ItemPluginsV2 a struct dependency of ItemV2, for JSON Plugin Models
 type ItemPluginsV2 struct {
 	Name     string `json:"name"`
 	Options  string `json:"options"`
 	Location string `json:"location"`
 }
 
+// ItemV2 a struct dependency of AllItemsV2 for JSON Item Models
 type ItemV2 struct {
 	ID           int              `json:"id"`
 	FriendlyName string           `json:"friendlyName"`
@@ -41,10 +24,12 @@ type ItemV2 struct {
 	Plugins      []*ItemPluginsV2 `json:"plugins"`
 }
 
+// AllItemsV2 a root struct of the array of JSON Item Models
 type AllItemsV2 struct {
 	Items []*ItemV2
 }
 
+// NoTopLeftPlugin a Method of the ItemV2 Struct to return a boolean if a plugin occupies the Top Left Space
 func (i ItemV2) NoTopLeftPlugin() bool {
 	doesHave := true
 	for _, plg := range i.Plugins {
@@ -55,6 +40,7 @@ func (i ItemV2) NoTopLeftPlugin() bool {
 	return doesHave
 }
 
+// NoTopRightPlugin a Method of the ItemV2 Struct to return a Boolean if a plugin occupies the Top Right Space
 func (i ItemV2) NoTopRightPlugin() bool {
 	doesHave := true
 	for _, plg := range i.Plugins {
@@ -65,6 +51,7 @@ func (i ItemV2) NoTopRightPlugin() bool {
 	return doesHave
 }
 
+// NoCenterPlugin a Method of the ItemV2 Struct to return a boolean if a plugin occupies the center space
 func (i ItemV2) NoCenterPlugin() bool {
 	doesHave := true
 	for _, plg := range i.Plugins {
@@ -75,6 +62,7 @@ func (i ItemV2) NoCenterPlugin() bool {
 	return doesHave
 }
 
+// NoBottomLeftPlugin a Method of the ItemV2 Struct to return a boolean if a plugin occupies the Bottom Left Space
 func (i ItemV2) NoBottomLeftPlugin() bool {
 	doesHave := true
 	for _, plg := range i.Plugins {
@@ -85,6 +73,7 @@ func (i ItemV2) NoBottomLeftPlugin() bool {
 	return doesHave
 }
 
+// NoBottomRightPlugin a Method of the ItemV2 Struct to return a boolean if a plugin occupies the Bottom Right Space
 func (i ItemV2) NoBottomRightPlugin() bool {
 	doesHave := true
 	for _, plg := range i.Plugins {
@@ -101,17 +90,7 @@ func checkError(err error) {
 	}
 }
 
-// Home will return all Data Items to allow templating on GoPage HomePage
-func Home() (au *AllItems) {
-	file, err := os.OpenFile(viper.GetString("directories.data"), os.O_RDWR|os.O_APPEND, 0666)
-	checkError(err)
-	b, err := ioutil.ReadAll(file)
-	var alItms AllItems
-	json.Unmarshal(b, &alItms.Items)
-	checkError(err)
-	return &alItms
-}
-
+// HomeV2 will return all Data Items to allow templating on GoPage HomePage
 func HomeV2() (au *AllItemsV2) {
 	file, err := os.OpenFile(viper.GetString("directories.data"), os.O_RDWR|os.O_APPEND, 0666)
 	checkError(err)
@@ -120,25 +99,6 @@ func HomeV2() (au *AllItemsV2) {
 	json.Unmarshal(b, &alItms.Items)
 	checkError(err)
 	return &alItms
-}
-
-// Singleton will return a single requested Data Item to allow editing of a single Data Item within a template
-func Singleton(i int) (au **Item) {
-	// here we can use viper to find the data directory
-	file, err := os.OpenFile(viper.GetString("directories.data"), os.O_RDWR|os.O_APPEND, 0666)
-	checkError(err)
-	b, err := ioutil.ReadAll(file)
-	var alItms AllItems
-	json.Unmarshal(b, &alItms.Items)
-	checkError(err)
-
-	for _, itm := range alItms.Items {
-		if itm.Id == i {
-			return &itm
-		}
-	}
-
-	return
 }
 
 // Below will be model data for settings and pluginRepo

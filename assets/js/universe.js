@@ -53,6 +53,16 @@ var universe = {
     };
 
     return requestOptions;
+  },
+  ShowModal: function(id) {
+    // Used for displaying a modal, based on the provided id.
+    var modal = document.getElementById(id);
+    modal.style.display = "block";
+  },
+  CloseModal: function(id) {
+    // Used to close a modal, based on the provided id
+    var modal = document.getElementById(id);
+    modal.style.display = "none";
   }
 
 };

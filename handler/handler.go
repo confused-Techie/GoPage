@@ -17,9 +17,8 @@ import (
 
 // ------------ Standard Page Handlers
 
-//HomePageHandler returns Template: homePage.html w/ Model: Home
+//HomePageHandler returns Template: homePage.html w/ Model: HomeV2
 func HomePageHandler(w http.ResponseWriter, r *http.Request) {
-	//au := model.Home()
 	au := model.HomeV2()
 	t, err := template.ParseFiles(viper.GetString("directories.templates") + "/homePage.html")
 	fmt.Println(err)
@@ -277,14 +276,14 @@ func DeleteLinkItem(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	var alItms model.AllItems
+	var alItms model.AllItemsV2
 	err = json.Unmarshal(b, &alItms.Items)
 	if err != nil {
 		fmt.Println(err)
 	}
 
 	for u, itm := range alItms.Items {
-		if itm.Id == i {
+		if itm.ID == i {
 			alItms.Items = append(alItms.Items[:u], alItms.Items[u+1:]...)
 		}
 	}
@@ -316,12 +315,12 @@ func DeleteHandler(w http.ResponseWriter, r *http.Request) {
 	// Read File and Unmarshall JSON to []Items
 	b, err := ioutil.ReadAll(file)
 	errorHandler.StandardError(err)
-	var alItms model.AllItems
+	var alItms model.AllItemsV2
 	err = json.Unmarshal(b, &alItms.Items)
 	errorHandler.StandardError(err)
 
 	for u, itm := range alItms.Items {
-		if itm.Id == i {
+		if itm.ID == i {
 			alItms.Items = append(alItms.Items[:u], alItms.Items[u+1:]...)
 		}
 	}
@@ -332,16 +331,15 @@ func DeleteHandler(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/", 301)
 }
 
-// APIItemsHandler is an API Endpoint to return installed items. Old Struct Format may not actually be used
+// APIItemsHandler is an API Endpoint to return installed items.
 func APIItemsHandler(w http.ResponseWriter, r *http.Request) {
-	// TODO: This seems to use old struct for link items
 	file, err := os.OpenFile(viper.GetString("directories.data"), os.O_RDWR, 0644)
 	errorHandler.StandardError(err)
 	defer file.Close()
 
 	b, err := ioutil.ReadAll(file)
 	errorHandler.StandardError(err)
-	var alItms model.AllItems
+	var alItms model.AllItemsV2
 	err = json.Unmarshal(b, &alItms.Items)
 	errorHandler.StandardError(err)
 

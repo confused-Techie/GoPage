@@ -94,8 +94,7 @@ function modalResults(content, status) {
         modal.style.display = "none";
       };
 
-      // allow it to be visible
-      modal.style.display = "block";
+      universe.ShowModal("dynamicModal");
     });
 }
 

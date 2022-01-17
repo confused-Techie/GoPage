@@ -114,8 +114,7 @@ function firstTimeSetup() {
     .then((res) => res.json())
     .then(response => {
       if (response.length === 0) {
-        var modal = document.getElementById("firstTimeModal");
-        modal.style.display = "block";
+        universe.ShowModal("firstTimeModal");
 
         // once visible we want to register an onclick handler with the now visible close button
         var modalClose = document.getElementById("closeFirstTimeModal");
@@ -124,7 +123,7 @@ function firstTimeSetup() {
         var modalChangeLang = document.getElementById("firstTimeModalLangSubmit");
 
         modalClose.onclick = function() {
-          modal.style.display = "none";
+          universe.CloseModal("firstTimeModal");
         };
 
         modalChangeLang.onclick = function() {
@@ -274,10 +273,7 @@ function dataListInputChangeAutofill(eleName, autofill) {
 /*eslint-disable-next-line no-unused-vars*/
 function modalDelete(id) {
   // this should be called when the delete button is hit
-  var modal = document.getElementById("deleteModal");
-
-  // allow it to be visible.
-  modal.style.display = "block";
+  universe.ShowModal("deleteModal");
 
   // Once visible we want to register an onclick handler with the now visible confirm delete button.
   var modalNotDeleteBtn = document.getElementById("notDelete-modal");
@@ -293,7 +289,7 @@ function modalDelete(id) {
       .then((res) => res.json())
       .then(response => {
         if (response == "Success") {
-          modal.style.display = "none";
+          universe.CloseModal("deleteModal");
 
           universe.SnackbarCommon("homePageSnackbar", "Successfully Deleted Link Item. Reloading Page...", universe.ReloadCallback());
 
@@ -305,33 +301,31 @@ function modalDelete(id) {
   };
 
   modalNotDeleteBtn.onclick = function() {
-    modal.style.display = "none";
+    universe.CloseModal("deleteModal");
   };
 
   window.onclick = function(event) {
     if (event.target == modal) {
-      modal.style.display = "none";
+      universe.CloseModal("deleteModal");
     }
   }
 }
 
 /*eslint-disable-next-line no-unused-vars*/
 function newItemModal() {
-  var modal = document.getElementById("newItemModal");
-  modal.style.display = "block";
+  universe.ShowModal("newItemModal");
 
   // once visible we want to register an onclick ahndler with the now visible buttons
   var modalNotNewBtn = document.getElementById("new-form-goBack");
   var modalSubmit = document.getElementById("new-form-submit");
 
   modalNotNewBtn.onclick = function() {
-    modal.style.display = "none";
+    universe.CloseModal("newItemModal");
   };
 
   modalSubmit.onclick = function() {
     // Here we will want to handle all validation features in the future
     // such as ensuring that no plugin location is chosen twice and so on.
-    // TODO:: Error Handling for the data submitted
     var form = document.getElementById("new-item-form");
 
     validateLinkItemData(form)
@@ -367,24 +361,15 @@ function newItemModal() {
           }
 
           // now with the object built we can post it to the api endpoint
-          //var newHeaders = new Headers();
-          //newHeaders.append("Content-Type", "application/json");
-
           var rawJSON = JSON.stringify(rawObj);
 
-          //var requestOptions = {
-          //  method: "POST",
-          //  headers: newHeaders,
-          //  body: rawJSON,
-          //  redirect: "follow"
-          //};
           var requestOptions = universe.CreateJSONPOSTHeaders(rawJSON);
 
           fetch("/api/new/", requestOptions)
             .then((response) => response.json())
             .then((result) => {
               if (result == "Success") {
-                modal.style.display = "none";
+                universe.CloseModal("newItemModal");
 
                 universe.SnackbarCommon("homePageSnackbar", "Successfully Added New Link Item. Refreshing...", universe.ReloadCallback());
 
@@ -404,6 +389,7 @@ function newItemModal() {
 }
 
 function validateLinkItemData(form) {
+  // TODO:: Validate the use of Plugin Locations
   return new Promise(function (resolve, reject) {
     // this will just check the required data to see if it is valid
     const checkString = function(string) {
@@ -421,28 +407,27 @@ function validateLinkItemData(form) {
 
     var tmpValidObject = { valid: false, msg: "" };
 
+    const buildValidObj = function(bool, string) {
+      tmpValidObject.valid = bool;
+      tmpValidObject.msg = string;
+      return tmpValidObject;
+    };
+
     if (checkString(form.friendlyName.value)) {
       if (checkString(form.link.value)) {
         if (checkString(form.category.value)) {
-          tmpValidObject.valid = true;
-          resolve(tmpValidObject);
+          resolve(buildValidObj(true, ""));
         } else {
           // bad category value
-          tmpValidObject.valid = false;
-          tmpValidObject.msg = "Bad Category Value Entered.";
-          resolve(tmpValidObject);
+          resolve(buildValidObj(false, "Bad Category Value Entered."));
         }
       } else {
         // bad link value
-        tmpValidObject.valid = false;
-        tmpValidObject.msg = "Bad Link Value Entered.";
-        resolve(tmpValidObject);
+        resolve(buildValidObj(false, "Bad Link Value Entered."));
       }
     } else {
       // bad friendly name
-      tmpValidObject.valid = false;
-      tmpValidObject.msg = "Bad Friendly Name Value Entered.";
-      resolve(tmpValidObject);
+      resolve(buildValidObj(false, "Bad Friendly Name Value Entered."));
     }
   });
 }
@@ -471,15 +456,14 @@ function editItemModalV2(oldId, oldFriendlyName, oldLink, oldCategory, oldPlugin
     }
   }
 
-  var modal = document.getElementById("editItemModal");
-  modal.style.display = "block";
+  universe.ShowModal("editItemModal");
 
   // then to attach handlers to the buttons
   var modalNotEditBtn = document.getElementById("edit-form-goBack");
   var modalSubmit = document.getElementById("edit-form-submit");
 
   modalNotEditBtn.onclick = function() {
-    modal.style.display = "none";
+    universe.CloseModal("editItemModal");
   };
 
   modalSubmit.onclick = function() {
@@ -519,24 +503,14 @@ function editItemModalV2(oldId, oldFriendlyName, oldLink, oldCategory, oldPlugin
           }
 
           // now with the object build we can post it to the api endpoint
-          //var newHeaders = new Headers();
-          //newHeaders.append("Content-Type", "application/json");
 
           var rawJSON = JSON.stringify(rawObj);
-
-          //var requestOptions = {
-          //  method: "POST",
-          //  headers: newHeaders,
-          //  body: rawJSON,
-          //  redirect: "follow"
-          //};
-
 
           fetch("/api/edit/", universe.CreateJSONPOSTHeaders(rawJSON))
             .then((response) => response.json())
             .then((result) => {
               if (result == "Success") {
-                modal.style.display = "none";
+                universe.CloseModal("editItemModal");
 
                 universe.SnackbarCommon("homePageSnackbar", "Successfully Modified existing Link Item. Refreshing...", universe.ReloadCallback());
 
@@ -569,31 +543,17 @@ function headerPlugins() {
         data.headerPlugins[side].options = pluginOptions;
 
         // then to post this data back to GoPage
-        //var newHeaders = new Headers();
-        //newHeaders.append("Content-Type", "application/json");
 
         var raw = JSON.stringify(data);
-
-        //var requestOptions = {
-        //  method: "POST",
-        //  headers: newHeaders,
-        //  body: raw,
-        //  redirect: "follow"
-        //};
 
         fetch("/api/usersettingswrite", universe.CreateJSONPOSTHeaders(raw))
           .then((response) => response.json())
           .then((result) => {
             if (result == "Success") {
-              modal.style.display = "none";
+              universe.CloseModal("headerPluginModal");
 
               universe.SnackbarCommon("homePageSnackbar", `Successfully set Header ${side} Plugin. Refreshing...`, universe.ReloadCallback());
 
-              //var snackbar = document.getElementById("homePageSnackbar");
-              //snackbar.innerText = `Successfully set Header ${side} Plugin. Refreshing...`;
-              //snackbar.className += " show";
-
-              //setTimeout(function() { snackbar.className = snackbar.className.replace("show", ""); location.reload(); }, 3000);
             } else {
               // error occured
               console.log(result);
@@ -604,12 +564,11 @@ function headerPlugins() {
   };
 
   const handlePluginHeader = function(side) {
-    var modal = document.getElementById("headerPluginModal");
-    modal.style.display = "block";
+    universe.ShowModal("headerPluginModal");
 
     var backBtn = document.getElementById("headerPlugin-goBack");
     backBtn.onclick = function() {
-      modal.style.display = "none";
+      universe.CloseModal("headerPluginModal");
     };
 
     var submitBtn = document.getElementById('headerPlugin-submit');
@@ -622,17 +581,6 @@ function headerPlugins() {
 
   headerPluginLeft.onclick = function() {
     handlePluginHeader('left');
-    //var modal = document.getElementById("headerPluginModal");
-    //modal.style.display = "block";
-
-    // register the back btn
-    //registerBackButton(modal);
-
-    //var submitBtn = document.getElementById('headerPlugin-submit');
-
-    //submitBtn.onclick = function() {
-    //  changeHeaderSettings('left', document.getElementById('header-plugin-name').value, document.getElementById('header-plugin-options').value, modal);
-    //};
   };
 
   headerPluginRight.onclick = function() {
