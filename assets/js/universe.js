@@ -2,7 +2,7 @@
 // Aimed at reducing complexity, and duplicity
 
 // Since a global variable within eslint is defined here, we turn off the redeclare warning
-/*eslint-disable-next-line no-redeclare*/
+/*eslint-disable-next-line no-redeclare, no-unused-vars*/
 var universe = {
   SnackbarCommon: function(id, textToShow, callback, extraClass) {
     // EXAMPLE:: universe.SnackbarCommon("homePageSnackbar", "Success", universe.ReloadCallback())
@@ -63,6 +63,24 @@ var universe = {
     // Used to close a modal, based on the provided id
     var modal = document.getElementById(id);
     modal.style.display = "none";
+  },
+  WriteUserSettings: function(requestOptions, successCallback, errorCallback) {
+    fetch("/api/usersettingswrite", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        if (result == "Success") {
+          successCallback();
+        } else {
+          // error occured
+          errorCallback(result);
+        }
+      });
+  },
+  GenericErrorHandler: function(snackbar, msg) {
+    // For a generic error we want to do two things.
+    // Log the error to console, and then create the snackbar.
+    console.log(msg);
+    universe.SnackbarError(snackbar, `Error: ${msg}`);
   }
 
 };

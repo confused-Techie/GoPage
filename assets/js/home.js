@@ -489,7 +489,7 @@ function editItemModalV2(oldId, oldFriendlyName, oldLink, oldCategory, oldPlugin
           for (var i = 1; i < 7; i++) {
             var elements = document.getElementsByName(`edit-plugin-name${i}`);
             var tmpObj = { name: "", options: "", location: "" };
-            if (elements.length == 1) {
+            if (elements.length === 1) {
               if (elements[0].value) {
                 // this would indicate its a truthy value and we can add it
                 tmpObj.name = elements[0].value;

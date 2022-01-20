@@ -53,27 +53,22 @@ function setImage(name) {
       data.customBackground.set = true;
       data.customBackground.src = name;
 
-      // then to post this data back to GoPage
-      var raw = JSON.stringify(data);
+      const successHandler = function() {
+        langHandler.ProvideStringRaw("i18n-generatedUploadSuccessSnackbar")
+          .then((resString) => {
+            // We know this string is a composite string, so we use the langHandler Composite handler to insert the name
+            universe.SnackbarCommon("uploadImageSnackbar", langHandler.UnicornComposite(resString, name));
+          });
+      };
 
-      fetch("/api/usersettingswrite", universe.CreateJSONPOSTHeaders(raw))
-        .then((response) => response.json())
-        .then((result) => {
-          // since we know this is an empty return, as long as we get a response we should be fine
-          // one that isn't an error that is
-          if (result == "Success") {
-            // then we want to add our text to the snackbar and enable it
-            // we want to grab the translation for this item
-            langHandler.ProvideStringRaw("i18n-generatedUploadSuccessSnackbar")
-              .then((resString) => {
-                // But we know this string is a composite string, so we use the langHandler Composite handler to insert the name
-                universe.SnackbarCommon("uploadImageSnackbar", langHandler.UnicornComposite(resString, name));
-              });
-          } else {
-            // this is likely returning an error
-            universe.SnackbarError("uploadImageSnackbar", `Error: ${result}`);
-          }
-        });
+      universe.WriteUserSettings(universe.CreateJSONPOSTHeaders(JSON.stringify(data)), successHandler,
+          function(err) { universe.GenericErrorHandler("uploadImageSnackbar", err); });
+      // The above is attempted to be simplified to the greatest extent.
+      // WriteUserSettings(requestOptions, successCallback, errorCallback)
+      // requestOptions: CreateJSONPOSTHeaders with the stringified Data.
+      // successCallback: The defined const successHandler. Which must be defined to contain logic of Composite String Method
+      // errorCallback: An inline function taking the err passed, and then passing that to the GenericErrorHandler with the proper snackbar id
+
     });
 }
 
@@ -86,25 +81,17 @@ function unsetImage() {
       data.customBackground.set = false;
 
       // then to post this data back to GoPage
-      var raw = JSON.stringify(data);
 
-      fetch("/api/usersettingswrite", universe.CreateJSONPOSTHeaders(raw))
-        .then((response) => response.text())
-        .then((result) => {
-          // since we know this is an empty return, as long as we get a response we should be fine
-          // one that isn't an error that is
-          if (result == "") {
-            // then we want to add our text to the snackbar and enable it
-            // we want to grab the translation for this item
-            langHandler.ProvideStringRaw("i18n-generatedRemoveImageSuccess")
-              .then((resString) => {
-                // But we know this string is a composite string, so we use the langHandler Composite handler to insert the name
-                universe.SnackbarCommon("uploadImageSnackbar", resString);
-              });
-          } else {
-            universe.SnackbarError("uploadImageSnackbar", `Error: ${result}`);
-          }
-        });
+      const successHandler = function() {
+        langHandler.ProvideStringRaw("i18n-generatedRemoveImageSuccess")
+          .then((resString) => {
+            universe.SnackbarCommon("uploadImageSnackbar", resString);
+          });
+      };
+
+      universe.WriteUserSettings(universe.CreateJSONPOSTHeaders(JSON.stringify(data)), successHandler,
+          function(err) { universe.GenericErorrHandler("uploadImageSnackbar", err); });
+
     });
 }
 

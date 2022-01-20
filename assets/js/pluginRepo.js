@@ -4,73 +4,56 @@
 /*eslint-disable-next-line no-unused-vars */
 function installPlugin(pluginUrl, pluginName) {
 
-  fetch(`/plugins/install?source=${pluginUrl}`)
-    .then((res) => res.json())
-    .then((data) => {
-      //console.log(data);
-      //alert(data);
-      if (data.includes("Success!")) {
-        modalResults(data, "Success!");
-      } else {
-        modalResults(data, "Failure");
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-      modalResults(err, "Failure");
-    });
+  pluginFetchWrapper(`/plugins/install?source=${pluginUrl}`);
 }
 
 /*eslint-disable-next-line no-unused-vars */
 function uninstallPlugin(pluginName) {
-  fetch(`/plugins/uninstall?pluginName=${pluginName}`)
+  pluginFetchWrapper(`/plugins/uninstall?pluginName=${pluginName}`);
+}
+
+/*eslint-disable-next-line no-unused-vars */
+function updatePlugin() {
+  pluginFetchWrapper("/plugins/update");
+}
+
+function pluginFetchWrapper(target) {
+  // This will attempt to combine the logic implemented within each fetch request into a single function
+
+  fetch(target)
     .then((res) => {
       // since this may return error data not properly formated as a string, we need to have a backup to move to text
       try {
         JSON.parse(res);
+        return res.json();
       } catch(err) {
-        //console.log(err);
         return res.text();
       }
       return res.json();
     })
     .then((data) => {
-      //console.log(data);
       if (data.includes("Success!")) {
         modalResults(data, "Success!");
       } else {
-        // the most common err is that the file is being used. but the return data is not valid json
+        // error occured.
+        // We can add error checking here to make it more human readable.
         if (data.includes("Err") && data.includes("32")) {
           var tmpData = "Golang Error 32: The process cannot access the file because it is being used by another process.";
+          console.log(data);
+          console.log(tmpData);
           modalResults(tmpData, "Failure");
         } else {
+          console.log(data);
           modalResults(data, "Failure");
         }
       }
-    })
-    .catch((err) => {
-      //console.log(err);
-      modalResults(err, "Failure");
-    });
-}
 
-/*eslint-disable-next-line no-unused-vars */
-function updatePlugin() {
-  fetch("/plugins/update")
-    .then((res) => res.json())
-    .then((data) => {
-      //console.log(data);
-      // Check the status by looking for final success message, and provide status
-      if (data.includes("Success!")) {
-        modalResults(data, "Success!");
-      } else {
-        modalResults(data, "Failure");
-      }
     })
     .catch((err) => {
-      //console.log(err);
+      console.log(err);
       modalResults(err, "Failure");
     });
+
 }
 
 function modalResults(content, status) {
