@@ -529,7 +529,6 @@ function editItemModalV2(oldId, oldFriendlyName, oldLink, oldCategory, oldPlugin
 }
 
 function headerPlugins() {
-  // first assign onclick handlers
 
   var headerPluginLeft = document.getElementById("headerPluginLeft");
   var headerPluginRight = document.getElementById("headerPluginRight");

@@ -3,7 +3,6 @@
 
 /*eslint-disable-next-line no-unused-vars */
 function installPlugin(pluginUrl, pluginName) {
-
   pluginFetchWrapper(`/plugins/install?source=${pluginUrl}`);
 }
 
@@ -29,7 +28,6 @@ function pluginFetchWrapper(target) {
       } catch(err) {
         return res.text();
       }
-      return res.json();
     })
     .then((data) => {
       if (data.includes("Success!")) {

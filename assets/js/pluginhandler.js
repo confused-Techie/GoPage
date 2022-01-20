@@ -1,5 +1,3 @@
-// This will be the first venture into namespaces
-
 // Since a global variable is the pluginAPI that is defined here, we turn off checking of redeclared variables to avoid errors here
 /*eslint-disable-next-line no-redeclare, no-unused-vars*/
 var pluginAPI = {
@@ -7,14 +5,6 @@ var pluginAPI = {
     return document.getElementsByClassName(pluginName);
   },
 
-  ReturnConfig: function ReturnConfig() {
-
-  },
-
-  SetConfig: function SetConfig() {
-
-  },
-  
   ParseConfig: function ParseConfig(rawConfig) {
     // Will parse the generic or otherwise Rev1 config or option data for plugins
     // option=value;
@@ -30,6 +20,6 @@ var pluginAPI = {
       }
     }
     return obj;
-  },
+  }
 
 };
