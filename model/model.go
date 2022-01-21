@@ -156,8 +156,8 @@ func ServSettingSetLang(newLang string) (string, error) {
 
 // UserSetting struct is made to contain the JSON of User settings
 type UserSetting struct {
-	CustomBackground usrStgBck `json:"customBackground"`
-	HeaderPlugins usrStgHdrPlg `json:"headerPlugins"`
+	CustomBackground usrStgBck    `json:"customBackground"`
+	HeaderPlugins    usrStgHdrPlg `json:"headerPlugins"`
 }
 
 type usrStgBck struct {
@@ -169,14 +169,13 @@ type usrStgBck struct {
 
 type usrStgHdrPlg struct {
 	Right usrStgHdrPlgInner `json:"right"`
-	Left usrStgHdrPlgInner `json:"left"`
+	Left  usrStgHdrPlgInner `json:"left"`
 }
 
 type usrStgHdrPlgInner struct {
-	Name string `json:"name"`
+	Name    string `json:"name"`
 	Options string `json:"options"`
 }
-
 
 // UserSettingGet is to access and return the user settings json
 func UserSettingGet() (au *UserSetting) {
