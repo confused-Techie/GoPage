@@ -125,6 +125,7 @@ func main() {
 
 	// Below will be API declarations used for plugins
 	http.HandleFunc("/api/ping", handler.APIPingHandler)
+	http.HandleFunc("/api/ping/nossl", handler.APIPingNoSSLHandler)
 	http.HandleFunc("/api/hostname", handler.APIHostNameHandler)
 	http.HandleFunc("/api/hostos", handler.APIHostOSHandler)
 	http.HandleFunc("/api/getinstalledplugins", handler.APIInstalledPluginsHandler)

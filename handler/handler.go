@@ -399,7 +399,26 @@ func APIPingHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	url := keys[0]
 	resp, err := apiFunc.Ping(url)
-	errorHandler.PageLoadError(w, err)
+	//errorHandler.JSONReturnError(w, err)
+	// Error checking added here to ensure an int is always returned on this endpoint, but logging of error still occurs.
+	if err != nil {
+		fmt.Println(err)
+	}
+	json.NewEncoder(w).Encode(resp)
+}
+
+func APIPingNoSSLHandler(w http.ResponseWriter, r *http.Request) {
+	keys, ok := r.URL.Query()["url"]
+	if !ok || len(keys[0]) < 1 {
+		fmt.Println("URL Param 'url' is missing")
+		return
+	}
+	url := keys[0]
+	resp, err := apiFunc.PingNoSSL(url)
+	//errorHandler.JSONReturnError(w, err)
+	if err != nil {
+		fmt.Println(err)
+	}
 	json.NewEncoder(w).Encode(resp)
 }
 

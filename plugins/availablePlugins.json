@@ -15,7 +15,7 @@
 "main": "main.js",
 "options": {
 "explain": "An array of accepted Status Codes. List of all Acceptible Status Codes within the brackets.",
-"autofill": "statusCodes=[200];"
+"autofill": "statusCodes=[200];disableSecurity=false;"
 },
 "icon": {
 "available": true,

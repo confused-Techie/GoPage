@@ -15,6 +15,7 @@ import (
 	"archive/zip"
 	"path/filepath"
 	"strings"
+	"crypto/tls"
 )
 
 var client = http.Client{
@@ -33,6 +34,20 @@ func Ping(domain string) (int, error) {
 	}
 	resp.Body.Close()
 	return resp.StatusCode, nil
+}
+
+func PingNoSSL(domain string) (int, error) {
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	client := &http.Client{Transport: tr}
+	resp, err := client.Get(domain)
+	if err != nil {
+		return 0, err
+	}
+	resp.Body.Close()
+	return resp.StatusCode, nil
+
 }
 
 // HostSettingGet uses the os package to return the system's hostname
