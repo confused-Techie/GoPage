@@ -7,19 +7,8 @@
   <link rel="stylesheet" type="text/css" href="/assets/css/pluginRepo.css">
 </head>
 <body>
-  <div class="heading">
-    <div class="settingsIcon dropdown">
-      <a href="/settings"><img src="/assets/images/settings-white.svg" alt="White Gear Icon indicating traditional Settings Icon"></a>
-      <div class="settingsIcon dropdown-content">
-        <img src="/assets/images/corner-right-down-white.svg" alt="White Arrow Down Icon indicating additional options for Settings">
-        <a href="/linkhealth"><p class="dropdown-content-item"><span id="i18n-toolNameLinkHealth">Link Health</span></p></a>
-        <a href="/uploadpage"><p class="dropdown-content-item"><span id="i18n-toolNameBackgroundImage">Background Image</span></p></a>
-      </div>
-    </div>
-    <div class="titleCard"><a href="/"><h1>GoPage</h1></a></div>
-    <div class="timeStamp" id="timeStamp"> </div>
-    <hr class="heading">
-  </div>
+
+  {{template "heading" .}}
 
   <div class="updatePluginButtonContainer">
     <div class="updatePluginButton">
@@ -138,17 +127,8 @@
     </div>
   </div>
 
-  <footer>
-    <img src="/assets/images/github-white.svg" alt="Github's Octocat Icon">
-    <p><a href="https://github.com/confused-Techie/GoPage">
-      <span id="i18n-footerSourceCode">Source Code</span></a></p>
-    <img src="/assets/images/git-branch-white.svg" alt="Github's New Code Branch Icon">
-    <p><a href="https://github.com/confused-Techie/GoPage/blob/main/docs/contribute.md">
-      <span id="i18n-footerContribute">Contribute</span></a></p>
-    <img src="/assets/images/feather-white.svg" alt="Feather Icon Project Logo">
-    <p><a href="https://feathericons.com">
-      <span id="i18n-footerThanksFeather">Thanks Feather Icons</span></a></p>
-  </footer>
+  {{template "footer" .}}
+  
   <script src="/assets/js/universal.js"></script>
   <script src="/assets/js/langHandler.js"></script>
   <script src="/assets/js/pluginRepo.js"></script>

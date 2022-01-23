@@ -17,42 +17,73 @@ import (
 
 // ------------ Standard Page Handlers
 
+// Since I can't declare these as variables due to the viper instance not running fully at boot, they will be made functions
+func returnHeadingSubtemplate() string {
+	return viper.GetString("directories.templates") + "/components/heading.gohtml"
+}
+
+func returnFooterSubtemplate() string {
+	return viper.GetString("directories.templates") + "/components/footer.gohtml"
+}
+
+func returnHomePage() string {
+	return viper.GetString("directories.templates") + "homePage.html"
+}
+
+func returnPluginRepoPage() string {
+	return viper.GetString("directories.templates") + "pluginRepo.html"
+}
+
+func returnSettingsPage() string {
+	return viper.GetString("directories.templates") + "settings.html"
+}
+
+func returnLinkHealthPage() string {
+	return viper.GetString("directories.templates") + "linkhealth.html"
+}
+
+func returnUploadImagePage() string {
+	return viper.GetString("directories.templates") + "uploadImage.html"
+}
+
+var tmpl = make(map[string]*template.Template)
+
 //HomePageHandler returns Template: homePage.html w/ Model: HomeV2
 func HomePageHandler(w http.ResponseWriter, r *http.Request) {
 	au := model.HomeV2()
-	t, err := template.ParseFiles(viper.GetString("directories.templates") + "/homePage.html")
-	fmt.Println(err)
-	errorHandler.PageLoadError(w, err)
-	templateErr := t.Execute(w, au)
-	errorHandler.StandardError(templateErr)
+	tmpl["homePage.html"] = template.Must(template.ParseFiles(returnHomePage(), returnHeadingSubtemplate(), returnFooterSubtemplate()))
+	templateError := tmpl["homePage.html"].Execute(w, au)
+	errorHandler.StandardError(templateError)
 }
 
 // SettingsPageHandler returns Template: settings.html w/ Model: ServSettingGet
 func SettingsPageHandler(w http.ResponseWriter, r *http.Request) {
 	au := model.ServSettingGet()
-	t, err := template.ParseFiles(viper.GetString("directories.templates") + "/settings.html")
-	errorHandler.PageLoadError(w, err)
-	t.Execute(w, au)
+	tmpl["settings.html"] = template.Must(template.ParseFiles(returnSettingsPage(), returnHeadingSubtemplate(), returnFooterSubtemplate()))
+	templateError := tmpl["settings.html"].Execute(w, au)
+	errorHandler.StandardError(templateError)
 }
 
 // UploadPageHandler is a very simple HTTP Serving File for the Upload Page
 func UploadPageHandler(w http.ResponseWriter, r *http.Request) {
-	p := viper.GetString("directories.templates") + "/uploadImage.html"
-	http.ServeFile(w, r, p)
+	tmpl["uploadPage.html"] = template.Must(template.ParseFiles(returnUploadImagePage(), returnHeadingSubtemplate(), returnFooterSubtemplate()))
+	templateError := tmpl["uploadPage.html"].Execute(w, nil)
+	errorHandler.StandardError(templateError)
 }
 
 // PluginRepoPageHandler returns Template: pluginRepo.html w/ Data: apiFunc.GetPluginData
 func PluginRepoPageHandler(w http.ResponseWriter, r *http.Request) {
 	resp := apiFunc.GetPluginData()
-	t, err := template.ParseFiles(viper.GetString("directories.templates") + "/pluginRepo.html")
-	errorHandler.PageLoadError(w, err)
-	t.Execute(w, resp)
+	tmpl["pluginRepo.html"] = template.Must(template.ParseFiles(returnPluginRepoPage(), returnHeadingSubtemplate(), returnFooterSubtemplate()))
+	templateError := tmpl["pluginRepo.html"].Execute(w, resp)
+	errorHandler.StandardError(templateError)
 }
 
 // LinkHealthPageHandler returns basic page data w/ no template. Page: linkhealth.html
 func LinkHealthPageHandler(w http.ResponseWriter, r *http.Request) {
-	p := viper.GetString("directories.templates") + "/linkhealth.html"
-	http.ServeFile(w, r, p)
+	tmpl["linkhealth.html"] = template.Must(template.ParseFiles(returnLinkHealthPage(), returnHeadingSubtemplate(), returnFooterSubtemplate()))
+	templateError := tmpl["linkhealth.html"].Execute(w, nil)
+	errorHandler.StandardError(templateError)
 }
 
 // UploadHandler is paired to http.HandleFunc("/upload", ) to handle the digestion of image uploads to GoPage
