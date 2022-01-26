@@ -1,3 +1,6 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+
 body {
   /* Styles applied to the entire body */
 
@@ -7,6 +10,7 @@ body {
 
   /* remove user-agent margins to allow element to fill to edge of page */
   background-image: none;
+  font-family: "consolas";
 }
 
 a {
@@ -25,6 +29,7 @@ a:active {
 
 .heading {
   background-color: var(--heading-back-drop-colour);
+  background-image: linear-gradient(360deg, var(--heading-back-drop-colour), var(--heading-back-drop-colour-grad));
   color: var(--heading-text-colour);
   text-align: center;
   display: grid;
@@ -48,11 +53,12 @@ a:active {
 }
 
 .titleCard {
-  background-color: inherit;
-  color: inherit;
+  /*background-color: inherit;
+  color: inherit;*/
   grid-column: 1;
   grid-row: 1;
   height: 5vh;
+  font-family: "Staatliches";
   /*grid-column: 3;
   grid-row: 1;*/
 }
@@ -78,8 +84,8 @@ a:active {
 }
 
 .timeStamp {
-  background-color: inherit;
-  color: inherit;
+  /*background-color: inherit;
+  color: inherit;*/
   grid-column: 8;
   grid-row: 1;
   height: 4vh;
@@ -131,6 +137,10 @@ a:active {
 }
 
 /* Specific to styling of text across pages */
+.text-style-minor {
+  color: var(--text-style-minor-colour);
+}
+
 .text-style-issue {
   color: var(--text-style-issue-colour);
 }
@@ -162,6 +172,7 @@ footer {
 
 footer p {
   /* text inside the DOM element footer */
+  font-family: "consolas";
   display: inline;  /* Allows the text to be side by side */
   margin-right: 10px; /* Spacing outside the text element DIV
     to give them space between multiple text items to breath */
@@ -184,6 +195,7 @@ footer p {
 .btn-create {
   background-color: var(--create-action-back-drop-colour);
   color: var(--create-action-text-colour);
+  background-image: linear-gradient(75deg, var(--create-action-back-drop-colour), var(--create-action-back-drop-colour-grad));
 }
 
 .btn-undo {
@@ -206,7 +218,7 @@ footer p {
 
 .grow-shadow-hover {
   -webkit-transform: perspective(1px) translate(0);
-  transofmr: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
   box-shadow: 0 0 1px rgba(0, 0, 0, 0);
   -webkit-transition-duration: 0.3s;
   transition-duration: 0.3s;

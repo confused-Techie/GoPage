@@ -4,7 +4,99 @@ While more advanced option are not made available through this they can always
 be added. And along with each revision, will be a CSS version revision.
 */
 
-/* Revision: 0.2 */
+/* Revision: 0.3 */
+
+/* My Attempt at Learning Colours */
+/*
+Tetradic Colours: Used for Major Themeing Elements
+Color Shades: Adding black to the major colour, for elements intended on being further back.
+Color Tints: Adding white to a major colour, for elements intedended on being closer to the screen.
+
+In general I'm liking going with the third tint for gradient values
+
+https://htmlcolorcodes.com/color-picker/
+
+#661294: Purple Tetradic
+  ** Shades: Lightest to Darkest
+  #661294
+  #591082
+  #4D0E6F
+  #400B5D
+  #33094A
+  #260738
+  #1A0525
+  #0D0212
+  ** Tints: Normal to Lightest
+  #661294
+  #7930A1
+  #8C4DAF
+  #9F6BBC
+  #B389CA
+  #C6A6D7
+  #D9C4E4
+  #ECE1F2
+
+#942512: Red Tetradic
+  ** Shades: Lightest to Darkest
+  #942512
+  #822010
+  #6F1C0E
+  #5D170B
+  #4A1309
+  #380E07
+  #250905
+  #120502
+  ** Tints: Normal to Lightest
+  #942512
+  #A14030
+  #AF5C4D
+  #BC776B
+  #CA9289
+  #D7ADA6
+  #E4C8C4
+  #F2E4E1
+
+#409412: Green Tetradic
+  ** Shades: Lightest to Darkest
+  #409412
+  #388210
+  #306F0E
+  #285D0B
+  #204A09
+  #183807
+  #102505
+  #081202
+  ** Tints: Normal to Lightest
+  #409412
+  #58A130
+  #70AF4D
+  #88BC6B
+  #A0CA89
+  #B7D7A6
+  #CFE4C4
+  #E7F2E1
+
+#128194: Blue Tetradic
+  ** Shades: Lightest to Darkest
+  #128194
+  #107182
+  #0E616F
+  #0B515D
+  #09414A
+  #073038
+  #052025
+  #021012
+  ** Tints: Normal to Lightest
+  #128194
+  #3091A1
+  #4DA1AF
+  #6BB0BC
+  #89C0CA
+  #A6D0D7
+  #C4E0E4
+  #E1EFF2
+
+*/
 
 :root {
   /* The following will be generally universally used items */
@@ -14,6 +106,7 @@ be added. And along with each revision, will be a CSS version revision.
   --link-text-colour: white;
 
   --heading-back-drop-colour: #0d0d0d;
+  --heading-back-drop-colour-grad: #292929;
   --heading-text-colour: white;
   --heading-hr-border: 2px solid black;
 
@@ -23,8 +116,11 @@ be added. And along with each revision, will be a CSS version revision.
 
   /* The following is themeing for common elements across pages */
   --card-back-drop-colour: #2b2b2b;
+  --card-back-drop-colour-grad: #424242;
+  --card-back-drop-colour-border: #128194;
 
   --create-action-back-drop-colour: #661294;
+  --create-action-back-drop-colour-grad: #9F6BBC;
   --create-action-text-colour: white;
 
   --confirm-action-back-drop-colour: #007523;
@@ -42,6 +138,7 @@ be added. And along with each revision, will be a CSS version revision.
 
   /* Settings more specific to the HomePage */
   --category-selector-back-drop-colour: #242424;
+  --category-selector-back-drop-colour-grad: #3b3b3b;
   --category-selector-text-colour: white;
 
   --category-selector-button-back-drop: inherit;
@@ -60,4 +157,5 @@ be added. And along with each revision, will be a CSS version revision.
   /* Text styling Options */
   --text-style-issue-colour: red;
   --text-style-declare-colour: white;
+  --text-style-minor-colour: #8C4DAF;
 }
