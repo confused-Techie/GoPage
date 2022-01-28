@@ -33,11 +33,9 @@ a:active {
   color: var(--heading-text-colour);
   text-align: center;
   display: grid;
-/*  grid-template-columns: repeat(5, 1fr);*/
   grid-template-columns: repeat(5, 8%) repeat(3, 1fr);
   height: 5vh;
   align-items: baseline;
-
 }
 
 .settingsIcon {
@@ -53,14 +51,10 @@ a:active {
 }
 
 .titleCard {
-  /*background-color: inherit;
-  color: inherit;*/
   grid-column: 1;
   grid-row: 1;
   height: 5vh;
   font-family: "Staatliches";
-  /*grid-column: 3;
-  grid-row: 1;*/
 }
 
 .pluginRepo {
@@ -84,18 +78,12 @@ a:active {
 }
 
 .timeStamp {
-  /*background-color: inherit;
-  color: inherit;*/
   grid-column: 8;
   grid-row: 1;
   height: 4vh;
-/*  grid-column: 5;
-  grid-row: 1;*/
 }
 
 .headerPluginLeft {
-/*  grid-column: 2;
-  grid-row: 1;*/
   grid-column: 6;
   grid-row: 1;
   margin-top: auto;
@@ -109,16 +97,12 @@ a:active {
   cursor: pointer;
 }
 
-
-
 .headerPluginLeft:hover .add-plugin {
   opacity: 1;
   -webkit-transition: opacity 0.5s ease-in;
 }
 
 .headerPluginRight {
-/*  grid-column: 4;
-  grid-row: 1;*/
   grid-column: 7;
   grid-row: 1;
   margin-top: auto;
@@ -179,9 +163,11 @@ footer p {
 }
 
 /* ---------------------- */
+
 /* Universal Stylings for pages */
 
 /* =================== */
+
 /*    generic-button */
 
 .simple-button {
@@ -214,6 +200,7 @@ footer p {
 }
 
 /* ================== */
+
 /*    grow-shadow-hover */
 
 .grow-shadow-hover {
@@ -233,6 +220,7 @@ footer p {
 }
 
 /* ==================== */
+
 /*  reveal-on-hover */
 
 .reveal-on-hover {
@@ -244,6 +232,7 @@ footer p {
 }
 
 /* ================ */
+
 /*  dropdown / dropdown-content / dropdown-content-item */
 
 .dropdown {
@@ -275,6 +264,7 @@ footer p {
 }
 
 /* ===================== */
+
 /*  hover-shadow-radial */
 
 .hover-shadow-radial {
@@ -319,6 +309,7 @@ footer p {
 }
 
 /* ================== */
+
 /* card styling */
 
 .bubble-card-daily {
@@ -340,6 +331,7 @@ footer p {
 }
 
 /* ================== */
+
 /* bar-list bar-list-bars */
 
 .bar-list {
@@ -361,6 +353,7 @@ footer p {
 }
 
 /* ================== */
+
 /*  snackbar */
 
 .snackbar {
