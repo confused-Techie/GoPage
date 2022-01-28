@@ -227,9 +227,9 @@ footer p {
 }
 
 .grow-shadow-hover:hover, .grow-shadow-hover:focus, .grow-shadow-hover:active {
-  box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);
-  -webkit-transform: scale(1.2);
-  transform: scale(1.2);
+  box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.7);
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 /* ==================== */
@@ -412,4 +412,30 @@ footer p {
 @keyframes snack-fadeout {
   from { bottom: 30px; opacity: 1;}
   to { bottom: 30px; opacity: 0;}
+}
+
+/* ===================== */
+/*    Less useful items, and tbd if useful */
+
+.adamantium:hover {
+  --ada-colour-hvr: #2b2b2b;
+  --ada-colour-hvr-grad: #464646;
+  --ada-colour-hvr-grad2: #959595;
+  --ada-colour: #2b2b2b;
+  background: linear-gradient(-60deg, var(--ada-colour-hvr), var(--ada-colour-hvr-grad), var(--ada-colour-hvr-grad2), var(--ada-colour));
+  background-size: 200% 200%;
+  animation: gradientItemAdamantium 5s ease infinite;
+}
+
+@keyframes gradientItemAdamantium {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }

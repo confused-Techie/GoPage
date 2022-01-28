@@ -81,7 +81,7 @@ https://htmlcolorcodes.com/color-picker/
   #128194
   #107182
   #0E616F
-  #0B515D
+  #0B515D - card-back-drop-colour-hover-grad2
   #09414A
   #073038
   #052025
@@ -96,27 +96,57 @@ https://htmlcolorcodes.com/color-picker/
   #C4E0E4
   #E1EFF2
 
+Background Colors
+#2b2b2b - Card Color
+  ** Tints: Darkest to Lightest
+  #2b2b2b
+  #464646
+  #606060   - card gradient
+  #7A7A7A
+  #959595
+  #AFAFAF
+  #CACACA
+  #E4E4E4
+  ** Shades: Lightest to Darkest
+  #2b2b2b
+  #262626 - category-selector-button-hover-bc
+  #202020 - heading-back-drop-colour-grad, category-selector-button-active-bc
+  #1B1B1B
+  #151515 - back-drop-colour
+  #101010
+  #0B0B0B
+  #050505 - heading-back-drop-colour, footer-back-drop-colour
+  ** Tones: Darkest to Lightest
+  #2b2b2b
+  #363636
+  #404040
+  #4B4B4B
+  #555555
+  #606060
+  #6A6A6A
+  #757575
+
 */
 
 :root {
   /* The following will be generally universally used items */
-  --back-drop-colour: #1a1a1a;
+  --back-drop-colour: #151515;
   --body-text-colour: white;
 
   --link-text-colour: white;
 
-  --heading-back-drop-colour: #0d0d0d;
-  --heading-back-drop-colour-grad: #292929;
+  --heading-back-drop-colour: #050505;
+  --heading-back-drop-colour-grad: #202020;
   --heading-text-colour: white;
   --heading-hr-border: 2px solid black;
 
   --footer-border-top: 2px solid black;
-  --footer-back-drop-colour: #0d0d0d;
+  --footer-back-drop-colour: #050505;
   --footer-text-colour: white;
 
   /* The following is themeing for common elements across pages */
   --card-back-drop-colour: #2b2b2b;
-  --card-back-drop-colour-grad: #424242;
+  --card-back-drop-colour-hover: #202020;
   --card-back-drop-colour-border: #128194;
 
   --create-action-back-drop-colour: #661294;
@@ -143,8 +173,8 @@ https://htmlcolorcodes.com/color-picker/
 
   --category-selector-button-back-drop: inherit;
   --category-selector-button-text: inherit;
-  --category-selector-button-hover-bc: #1c1c1c;
-  --category-selector-button-active-bc: #171616;
+  --category-selector-button-hover-bc: #262626;
+  --category-selector-button-active-bc: #202020;
 
   /* The following will be special to the settings page */
   --settings-seperator-border-bottom: 2px solid black;

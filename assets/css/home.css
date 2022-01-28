@@ -82,6 +82,10 @@ As to be honest I've hated CSS for years. */
   border-bottom: .3rem solid var(--card-back-drop-colour-border);
 }
 
+.filterDiv:hover {
+  background-color: var(--card-back-drop-colour-hover);
+}
+
 @keyframes fadeEffect {
   from { opacity: 0; }
   to { opacity: 1; }

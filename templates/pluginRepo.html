@@ -12,7 +12,7 @@
 
   <div class="updatePluginButtonContainer">
     <div class="updatePluginButton">
-      <button onclick="updatePlugin()" class="simple-button btn-create"><span id="i18n-buttonUpdateAvailablePlugins">Update Available Plugins</span></button>
+      <button onclick="updatePlugin()" class="simple-button btn-create grow-shadow-hover"><span id="i18n-buttonUpdateAvailablePlugins">Update Available Plugins</span></button>
     </div>
   </div>
 
@@ -57,7 +57,7 @@
             {{.License}}
           </div>
           <div class="plugin-action">
-            <div class="btn-destroy simple-button" onclick="uninstallPlugin({{.Name}})">
+            <div class="btn-destroy simple-button grow-shadow-hover" onclick="uninstallPlugin({{.Name}})">
               <img src="/assets/images/minus-circle.svg" alt="Minus Sign Icon Indicating Button to Uninstall Plugin">
             </div>
           </div>
@@ -107,11 +107,11 @@
         </div>
         <div class="plugin-action">
           {{if .Installed}}
-          <div class="btn-destroy simple-button" onclick="uninstallPlugin({{.Name}})">
+          <div class="btn-destroy simple-button grow-shadow-hover" onclick="uninstallPlugin({{.Name}})">
             <img src="/assets/images/minus-circle.svg" alt="Minus Sign Icon Indicating Button to Uninstall Plugin">
           </div>
           {{else}}
-          <div class="btn-create simple-button" onclick="installPlugin({{.DownloadLink}}, {{.Name}})">
+          <div class="btn-create simple-button grow-shadow-hover" onclick="installPlugin({{.DownloadLink}}, {{.Name}})">
             <img src="/assets/images/download.svg" alt="Arrow Pointing Down Icon Indicating Button to Install Plugin">
           </div>
           {{end}}
@@ -128,7 +128,7 @@
   </div>
 
   {{template "footer" .}}
-  
+
   <script src="/assets/js/universal.js"></script>
   <script src="/assets/js/langHandler.js"></script>
   <script src="/assets/js/pluginRepo.js"></script>
