@@ -42,7 +42,7 @@ jobs:
           output: results.sarif
           format: sarif
           # Attempting to modify the tools used, specifically disable csslint
-          run-csslint: false
+          tool: "stylelint"
           # Adjust severity of non-security issues
           gh-code-scanning-compat: true
           # Force 0 exit code to allow SARIF file generation
