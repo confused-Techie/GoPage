@@ -19,6 +19,7 @@ As to be honest I've hated CSS for years. */
 
   overflow: hidden;
   background-color: var(--category-selector-back-drop-colour);
+  background-image: linear-gradient(to left, var(--category-selector-back-drop-colour), var(--category-selector-back-drop-colour-grad));
   color: var(--category-selector-text-colour);
   border-radius: 10px;
 }
@@ -72,11 +73,17 @@ As to be honest I've hated CSS for years. */
 
 .filterDiv {
   background-color: var(--card-back-drop-colour);
+  background-image: linear-gradient(60deg, var(--card-back-drop-colour), var(--card-back-drop-colour-grad));
   text-align: center;
   animation-name: fadeEffect;
   animation-duration: 0.5s;
   display: none;
   position: relative;
+  border-bottom: .3rem solid var(--card-back-drop-colour-border);
+}
+
+.filterDiv:hover {
+  background-color: var(--card-back-drop-colour-hover);
 }
 
 @keyframes fadeEffect {
@@ -86,7 +93,7 @@ As to be honest I've hated CSS for years. */
 
 .item {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0.1fr, 1fr));
   grid-column-gap: 5px;
   grid-row-gap: 5px;
 }
@@ -247,12 +254,12 @@ As to be honest I've hated CSS for years. */
 
 .new-button-container button {
   /* Button element in the New Item Button */
-  background-color: var(--create-action-back-drop-colour);
+  /*background-color: var(--create-action-back-drop-colour);
   color: var(--create-action-text-colour);
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  padding: 10px; /* space around content WITHIN DIV */
+  padding: 10px; *//* space around content WITHIN DIV */
 }
 
 /* ============ */
