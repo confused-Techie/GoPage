@@ -10,7 +10,7 @@ body {
 
   /* remove user-agent margins to allow element to fill to edge of page */
   background-image: none;
-  font-family: "consolas";
+  font-family: "consolas", sans-serif;
 }
 
 a {
@@ -54,7 +54,7 @@ a:active {
   grid-column: 1;
   grid-row: 1;
   height: 5vh;
-  font-family: "Staatliches";
+  font-family: "Staatliches", sans-serif;
 }
 
 .pluginRepo {
@@ -89,7 +89,6 @@ a:active {
   margin-top: auto;
   margin-bottom: auto;
 }
-
 
 .headerPluginLeft .add-plugin {
   opacity: 0;
@@ -276,7 +275,7 @@ footer p {
   position: relative;
 }
 
-.hover-shadow-radial:before, .hover-shadow-radial:after {
+.hover-shadow-radial::before, .hover-shadow-radial::after {
   pointer-events: none;
   position: absolute;
   content: '';
@@ -292,19 +291,19 @@ footer p {
   transition-property: opacity;
 }
 
-.hover-shadow-radial:before {
+.hover-shadow-radial::before {
   bottom: 100%;
   background: -webkit-radial-gradient(50% 150%, ellipse, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 60%);
   background: radial-gradient(ellipse at 50% 150%, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 60%);
 }
 
-.hover-shadow-radial:after {
+.hover-shadow-radial::after {
   top: 100%;
   background: -webkit-radial-gradient(50% -50%, ellipse, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 60%);
   background: radial-gradient(ellipse at 50% -50%, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 60%);
 }
 
-.hover-shadow-radial:hover:before, .hover-shadow-radial:focus:before, .hover-shadow-radial:active:before, .hover-shadow-radial:hover:after, .hover-shadow-radial:focus:after, .hover-shadow-radial:active:after {
+.hover-shadow-radial:hover::before, .hover-shadow-radial:focus::before, .hover-shadow-radial:active::before, .hover-shadow-radial:hover::after, .hover-shadow-radial:focus::after, .hover-shadow-radial:active::after {
   opacity: 1;
 }
 
@@ -363,7 +362,6 @@ footer p {
   background-color: #333; /* TODO: Remove hardcoded color */
   color: #fff; /* TODO: Remove hardcoded colour */
   text-align: center;
-  border-radius: 2px;
   padding: 16px;
   position: fixed; /* Sit on top of the screen */
   z-index: 1;
@@ -388,26 +386,55 @@ footer p {
 
 /* animations to fade the snackbar in and out */
 @-webkit-keyframes snack-fadein {
-  from { bottom: 0; opacity: 0;}
-  to { bottom: 30px; opacity: 0;}
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+
+  to {
+    bottom: 30px;
+    opacity: 0;
+  }
 }
 
 @keyframes snack-fadein {
-  from { bottom: 0; opacity: 1;}
-  to { bottom: 30px; opacity: 1;}
+  from {
+    bottom: 0;
+    opacity: 1;
+  }
+
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
 }
 
 @-webkit-keyframes snack-fadeout {
-  from { bottom: 30px; opacity: 1;}
-  to { bottom: 30px; opacity: 0;}
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+
+  to {
+    bottom: 30px;
+    opacity: 0;
+  }
 }
 
 @keyframes snack-fadeout {
-  from { bottom: 30px; opacity: 1;}
-  to { bottom: 30px; opacity: 0;}
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+
+  to {
+    bottom: 30px;
+    opacity: 0;
+  }
 }
 
 /* ===================== */
+
 /*    Less useful items, and tbd if useful */
 
 .adamantium:hover {
@@ -415,6 +442,7 @@ footer p {
   --ada-colour-hvr-grad: #464646;
   --ada-colour-hvr-grad2: #959595;
   --ada-colour: #2b2b2b;
+
   background: linear-gradient(-60deg, var(--ada-colour-hvr), var(--ada-colour-hvr-grad), var(--ada-colour-hvr-grad2), var(--ada-colour));
   background-size: 200% 200%;
   animation: gradientItemAdamantium 5s ease infinite;
@@ -424,10 +452,11 @@ footer p {
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
-
   }
+
   100% {
     background-position: 0% 50%;
   }

@@ -57,7 +57,6 @@ As to be honest I've hated CSS for years. */
   /* Targets the container for EACH Item listed */
   background-color: var(--card-back-drop-colour);
   text-align: center;
-  /*border-radius: 3px;*/
   border-radius: 50px;
   animation-name: fadeEffect;
   animation-duration: 0.5s;
@@ -79,7 +78,7 @@ As to be honest I've hated CSS for years. */
   animation-duration: 0.5s;
   display: none;
   position: relative;
-  border-bottom: .3rem solid var(--card-back-drop-colour-border);
+  border-bottom: 0.3rem solid var(--card-back-drop-colour-border);
 }
 
 .filterDiv:hover {
@@ -187,14 +186,12 @@ As to be honest I've hated CSS for years. */
   right: 10px;
   top: 30%;
   opacity: 0;
--webkit-transition: opacity 0.5s ease-out;
+  -webkit-transition: opacity 0.5s ease-out;
 }
 
 .optionsContent {
   position: absolute;
-  display: none;
   left: -60px;
-  /*bottom: -100%;*/
   top: -110%;
   display: block;
   opacity: 0;
@@ -237,9 +234,7 @@ As to be honest I've hated CSS for years. */
   opacity: 1;
 }
 
-
 .optionsItem:hover .optionsContent {
-  /*display: block;*/
   opacity: 1;
   transition: opacity 0.5s ease-in;
   -webkit-transition: opacity 0.5s ease-in;
@@ -247,22 +242,15 @@ As to be honest I've hated CSS for years. */
 
 
 .new-button-container {
-  /* The New Item Button container for the form */
-
   text-align: center;
 }
 
 .new-button-container button {
   /* Button element in the New Item Button */
-  /*background-color: var(--create-action-back-drop-colour);
-  color: var(--create-action-text-colour);
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  padding: 10px; *//* space around content WITHIN DIV */
 }
 
 /* ============ */
+
 /* CSS for form elements carried over from new/edit items */
 
 .form-input {
