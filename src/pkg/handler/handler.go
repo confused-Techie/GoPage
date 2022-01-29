@@ -9,6 +9,7 @@ import (
 	modifySettings "github.com/confused-Techie/GoPage/src/pkg/modifySettings"
 	universalMethods "github.com/confused-Techie/GoPage/src/pkg/universalMethods"
 	"github.com/spf13/viper"
+	"html"
 	"html/template"
 	"io/ioutil"
 	"net/http"
@@ -186,7 +187,7 @@ func ChangeLang(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("Error Occurred when setting Lang: ", err)
 		json.NewEncoder(w).Encode("Error Occurred when setting Lang")
 	}
-	json.NewEncoder(w).Encode(resp)
+	json.NewEncoder(w).Encode(html.EscapeString(resp))
 }
 
 // ---------------- Link Item Handlers
@@ -402,7 +403,7 @@ func APIInstallPlugin(w http.ResponseWriter, r *http.Request) {
 	resp, err := apiFunc.InstallUniversal(source)
 	errorHandler.JSONReturnError(w, err)
 	fmt.Println("From Install Plugin:", universalMethods.LogInjectionAvoidance(resp))
-	json.NewEncoder(w).Encode(resp)
+	json.NewEncoder(w).Encode(html.EscapeString(resp))
 }
 
 // APIUninstallPlugin an endpoint to uninstall a specific plugin via URL Parameters, return json of logs
@@ -417,7 +418,7 @@ func APIUninstallPlugin(w http.ResponseWriter, r *http.Request) {
 	resp, err := apiFunc.UninstallUniversal(pluginName)
 	errorHandler.JSONReturnError(w, err)
 	fmt.Println("From Uninstall Plugin:", universalMethods.LogInjectionAvoidance(resp))
-	json.NewEncoder(w).Encode(resp)
+	json.NewEncoder(w).Encode(html.EscapeString(resp))
 }
 
 // ------------ API Handlers
