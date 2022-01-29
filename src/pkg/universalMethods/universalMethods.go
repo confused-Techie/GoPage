@@ -1,7 +1,7 @@
 package universalMethods
 
 import (
-  "strings"
+	"strings"
 )
 
 // LogInjectionAvoidance will do basic sanitization of strings before being put into the log

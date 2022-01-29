@@ -1,21 +1,21 @@
 package apiFunc
 
 import (
-	universalMethods "github.com/confused-Techie/GoPage/src/pkg/universalMethods"
+	"archive/zip"
+	"crypto/tls"
 	"encoding/json"
 	"fmt"
+	universalMethods "github.com/confused-Techie/GoPage/src/pkg/universalMethods"
 	"github.com/spf13/viper"
 	"io"
 	"io/ioutil"
 	"net/http"
 	"os"
 	"os/exec"
-	"runtime"
-	"time"
-	"archive/zip"
-	"crypto/tls"
 	"path/filepath"
+	"runtime"
 	"strings"
+	"time"
 )
 
 var client = http.Client{
