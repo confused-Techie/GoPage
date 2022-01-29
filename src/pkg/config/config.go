@@ -2,7 +2,7 @@ package config
 
 import (
 	"flag"
-	modifySettings "github.com/confused-Techie/GoPage/modifySettings"
+	modifySettings "github.com/confused-Techie/GoPage/src/pkg/modifySettings"
 	"github.com/spf13/viper"
 	"os"
 	"runtime"

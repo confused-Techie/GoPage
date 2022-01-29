@@ -1,6 +1,7 @@
 package apiFunc
 
 import (
+	universalMethods "github.com/confused-Techie/GoPage/src/pkg/universalMethods"
 	"encoding/json"
 	"fmt"
 	"github.com/spf13/viper"
@@ -311,7 +312,7 @@ type UniversalPluginList struct {
 func UninstallUniversal(pluginName string) (string, error) {
 	var consoleData string
 	// We want to first remove the old files
-	fmt.Println("Uninstalling Plugin: " + pluginName)
+	fmt.Println("Uninstalling Plugin: " + universalMethods.LogInjectionAvoidance(pluginName))
 	consoleData = consoleData + "Uninstalling Plugin: " + pluginName + "... \n"
 
 	rmvPlg := os.RemoveAll(viper.GetString("directories.plugin") + pluginName)
@@ -373,7 +374,7 @@ func UninstallUniversal(pluginName string) (string, error) {
 	// now we can loop through the installed plugin list
 	for i, itm := range installedPluginList.UniversalPluginItem {
 		if itm.Name == pluginName {
-			fmt.Println("Matching Data: " + itm.Name + ":" + pluginName)
+			fmt.Println("Matching Data: " + universalMethods.LogInjectionAvoidance(itm.Name) + ":" + universalMethods.LogInjectionAvoidance(pluginName))
 			// now to remove this item from the list all together
 			installedPluginList.UniversalPluginItem = append(installedPluginList.UniversalPluginItem[:i], installedPluginList.UniversalPluginItem[i+1:]...)
 			// From Slice tricks to delete the element at i position
@@ -399,7 +400,7 @@ func InstallUniversal(src string) (string, error) {
 	var consoleData string
 	// Due to file limitations of Powershell, and the issue of building
 	// Scripts per platform, lets see if we can use Go to handle the grunt work
-	fmt.Println("Installed New Plugin from: " + src)
+	fmt.Println("Installed New Plugin from: " + universalMethods.LogInjectionAvoidance(src))
 	consoleData = consoleData + "Installed New Plugin from: " + src + "... \n"
 
 	// The below here will download the file

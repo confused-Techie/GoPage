@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
-	config "github.com/confused-Techie/GoPage/config"
-	handler "github.com/confused-Techie/GoPage/handler"
-	modifySettings "github.com/confused-Techie/GoPage/modifySettings"
+	config "github.com/confused-Techie/GoPage/src/pkg/config"
+	handler "github.com/confused-Techie/GoPage/src/pkg/handler"
+	modifySettings "github.com/confused-Techie/GoPage/src/pkg/modifySettings"
+	universalMethods "github.com/confused-Techie/GoPage/src/pkg/universalMethods"
 	"github.com/spf13/viper"
 	"log"
 	"net/http"
@@ -71,7 +72,7 @@ func main() {
 	if err != nil {
 		log.Fatal("Cannot Determine Server Language: ", err)
 	}
-	fmt.Println(langEnv)
+	fmt.Println(universalMethods.LogInjectionAvoidance(langEnv))
 
 	// Reading variables using the model. This is for dev purposes
 	fmt.Println("Server Port: \t", config.Server.Port)

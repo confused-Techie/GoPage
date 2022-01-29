@@ -2,7 +2,7 @@ package modifySettings
 
 import (
 	"fmt"
-	model "github.com/confused-Techie/GoPage/model"
+	model "github.com/confused-Techie/GoPage/src/pkg/model"
 )
 
 var commandLineString string

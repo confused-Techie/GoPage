@@ -3,10 +3,11 @@ package handler
 import (
 	"encoding/json"
 	"fmt"
-	apiFunc "github.com/confused-Techie/GoPage/apiFunc"
-	errorHandler "github.com/confused-Techie/GoPage/errorHandler"
-	model "github.com/confused-Techie/GoPage/model"
-	modifySettings "github.com/confused-Techie/GoPage/modifySettings"
+	apiFunc "github.com/confused-Techie/GoPage/src/pkg/apiFunc"
+	errorHandler "github.com/confused-Techie/GoPage/src/pkg/errorHandler"
+	model "github.com/confused-Techie/GoPage/src/pkg/model"
+	modifySettings "github.com/confused-Techie/GoPage/src/pkg/modifySettings"
+	universalMethods "github.com/confused-Techie/GoPage/src/pkg/universalMethods"
 	"github.com/spf13/viper"
 	"html/template"
 	"io/ioutil"
@@ -100,7 +101,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	defer file.Close()
-	fmt.Printf("Uploaded File: %+v\n", handler.Filename)
+	fmt.Printf("Uploaded File: %+v\n", universalMethods.LogInjectionAvoidance(handler.Filename))
 	fmt.Printf("File Size: %+v\n", handler.Size)
 	fmt.Printf("MIME Header: %+v\n", handler.Header)
 
@@ -400,7 +401,7 @@ func APIInstallPlugin(w http.ResponseWriter, r *http.Request) {
 
 	resp, err := apiFunc.InstallUniversal(source)
 	errorHandler.JSONReturnError(w, err)
-	fmt.Println("From Install Plugin:", resp)
+	fmt.Println("From Install Plugin:", universalMethods.LogInjectionAvoidance(resp))
 	json.NewEncoder(w).Encode(resp)
 }
 
@@ -415,7 +416,7 @@ func APIUninstallPlugin(w http.ResponseWriter, r *http.Request) {
 
 	resp, err := apiFunc.UninstallUniversal(pluginName)
 	errorHandler.JSONReturnError(w, err)
-	fmt.Println("From Uninstall Plugin:", resp)
+	fmt.Println("From Uninstall Plugin:", universalMethods.LogInjectionAvoidance(resp))
 	json.NewEncoder(w).Encode(resp)
 }
 
