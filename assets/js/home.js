@@ -16,7 +16,7 @@ window.onload = function() {
 // ADD onclick Handlers
 document.getElementById("ShowAllCategorySelector").onclick = function() {
   filterSelection('all');
-}
+};
 
 function onPageLoad() {
   // first in the onload we can use the built in api call to get all json objects, to then create the other filter buttons
@@ -31,7 +31,7 @@ function onPageLoad() {
         // while ensuring we don't add the same button twice
 
         if (assignedBtns.indexOf(element.category) == -1) {
-          let btn = document.createElement("button");
+          var btn = document.createElement("button");
           btn.innerHTML = `${element.category}`;
           btn.onclick = function() {
             filterSelection(`${element.category}`);
@@ -59,16 +59,16 @@ function filterSelection(c) {
 
   if (c == "all") { c = ""; }
 
-  for (let i = 0; i < filterDivElement.length; i++) {
+  for (var i = 0; i < filterDivElement.length; i++) {
     removeClass(filterDivElement[i], "show");
     if (filterDivElement[i].className.indexOf(c) > -1) { addClass(filterDivElement[i], "show"); }
   }
 }
 
 function removeClass(element, name) {
-  let elementClasses = element.className.split(" ");
-  let provNames = name.split(" ");
-  for (let i = 0; i < provNames.length; i++) {
+  var elementClasses = element.className.split(" ");
+  var provNames = name.split(" ");
+  for (var i = 0; i < provNames.length; i++) {
     while (elementClasses.indexOf(provNames[i]) > -1) {
       elementClasses.splice(elementClasses.indexOf(provNames[i]), 1);
     }
@@ -77,9 +77,9 @@ function removeClass(element, name) {
 }
 
 function addClass(element, name) {
-  let elementClasses = element.className.split(" ");
-  let provNames = name.split(" ");
-  for (let i = 0; i < provNames.length; i++) {
+  var elementClasses = element.className.split(" ");
+  var provNames = name.split(" ");
+  for (var i = 0; i < provNames.length; i++) {
     if (elementClasses.indexOf(provNames[i]) == -1) {
       element.className += " " + provNames[i];
     }
@@ -308,7 +308,7 @@ function modalDelete(id) {
     if (event.target == modal) {
       universe.CloseModal("deleteModal");
     }
-  }
+  };
 }
 
 /*eslint-disable-next-line no-unused-vars*/
@@ -392,7 +392,7 @@ function validateLinkItemData(form) {
   // TODO:: Validate the use of Plugin Locations
   return new Promise(function (resolve, reject) {
     // this will just check the required data to see if it is valid
-    const checkString = function(string) {
+    var checkString = function(string) {
       if (typeof string === 'string' && string.length > 1) {
         return true;
       } else {
@@ -407,7 +407,7 @@ function validateLinkItemData(form) {
 
     var tmpValidObject = { valid: false, msg: "" };
 
-    const buildValidObj = function(bool, string) {
+    var buildValidObj = function(bool, string) {
       tmpValidObject.valid = bool;
       tmpValidObject.msg = string;
       return tmpValidObject;

@@ -14,22 +14,18 @@ function loadAvailableImages() {
         // since the gitignore was added to this folder, we need to ensure we don't grab it. Although in release builds it should be remvoed
         if (imageList[i] != null && imageList[i] != "" ) {
           // after validating this is good data, we also need to ensure to break the column every four lines
-          const insertImg = function() {
-            var imgSrc = `/assets/userImages/${imageList[i]}`;
-            insertHTML += `<img src="${imgSrc}" onclick="setImage('${imageList[i]}');">`;
-          };
 
           // we need to account for the first image-column entry
           // the below will break up the images' column every four images by checking the modulus or remainder
           if (i === 0) {
             insertHTML += "<div class='image-column'>";
-            insertImg();
+            insertHTML += insertImg(imageList[i]);
           } else if (i % 4 === 0) {
             insertHTML += "</div>";
             insertHTML += "<div class='image-column'>";
-            insertImg();
+            insertHTML += insertImg(imageList[i]);
           } else {
-            insertImg();
+            insertHTML += insertImg(imageList[i]);
           }
         } // else likely invalid data
       }
@@ -42,6 +38,11 @@ function loadAvailableImages() {
 
       document.getElementById("existingImages").innerHTML = insertHTML;
     });
+}
+
+function insertImg(imageLoc) {
+  var imgSrc = `/assets/userImages/${imageLoc}`;
+  return `<img src="${imgSrc}" onclick="setImage('${imageLoc}');">`;
 }
 
 /*eslint-disable-next-line no-unused-vars*/
@@ -82,7 +83,7 @@ function unsetImage() {
 
       // then to post this data back to GoPage
 
-      const successHandler = function() {
+      var successHandler = function() {
         langHandler.ProvideStringRaw("i18n-generatedRemoveImageSuccess")
           .then((resString) => {
             universe.SnackbarCommon("uploadImageSnackbar", resString);
