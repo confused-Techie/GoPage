@@ -1,5 +1,4 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Staatliches&display=swap");
 
 body {
   /* Styles applied to the entire body */
@@ -29,7 +28,11 @@ a:active {
 
 .heading {
   background-color: var(--heading-back-drop-colour);
-  background-image: linear-gradient(360deg, var(--heading-back-drop-colour), var(--heading-back-drop-colour-grad));
+  background-image: linear-gradient(
+    360deg,
+    var(--heading-back-drop-colour),
+    var(--heading-back-drop-colour-grad)
+  );
   color: var(--heading-text-colour);
   text-align: center;
   display: grid;
@@ -146,17 +149,17 @@ footer {
   padding: 5px; /* space around the content within its DIV */
   background-color: var(--footer-back-drop-colour);
   color: var(--footer-text-colour);
-  position: fixed;  /* removes the footer from the normal document flow.
+  position: fixed; /* removes the footer from the normal document flow.
         No space will be made for this element, having it in the same place on every page. */
-  bottom: 0;   /* bottom, top, left, right; determine its location within the page */
+  bottom: 0; /* bottom, top, left, right; determine its location within the page */
   left: 0;
-  width: 100%;  /* Ensures the item takes the entire width of the page */
+  width: 100%; /* Ensures the item takes the entire width of the page */
 }
 
 footer p {
   /* text inside the DOM element footer */
   font-family: "consolas", sans-serif;
-  display: inline;  /* Allows the text to be side by side */
+  display: inline; /* Allows the text to be side by side */
   margin-right: 10px; /* Spacing outside the text element DIV
     to give them space between multiple text items to breath */
 }
@@ -180,7 +183,11 @@ footer p {
 .btn-create {
   background-color: var(--create-action-back-drop-colour);
   color: var(--create-action-text-colour);
-  background-image: linear-gradient(75deg, var(--create-action-back-drop-colour), var(--create-action-back-drop-colour-grad));
+  background-image: linear-gradient(
+    75deg,
+    var(--create-action-back-drop-colour),
+    var(--create-action-back-drop-colour-grad)
+  );
 }
 
 .btn-undo {
@@ -212,7 +219,9 @@ footer p {
   transition-property: box-shadow, transform;
 }
 
-.grow-shadow-hover:hover, .grow-shadow-hover:focus, .grow-shadow-hover:active {
+.grow-shadow-hover:hover,
+.grow-shadow-hover:focus,
+.grow-shadow-hover:active {
   box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.7);
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
@@ -275,10 +284,11 @@ footer p {
   position: relative;
 }
 
-.hover-shadow-radial::before, .hover-shadow-radial::after {
+.hover-shadow-radial::before,
+.hover-shadow-radial::after {
   pointer-events: none;
   position: absolute;
-  content: '';
+  content: "";
   left: 0;
   width: 90%;
   box-sizing: border-box;
@@ -293,17 +303,40 @@ footer p {
 
 .hover-shadow-radial::before {
   bottom: 100%;
-  background: -webkit-radial-gradient(50% 150%, ellipse, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 60%);
-  background: radial-gradient(ellipse at 50% 150%, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 60%);
+  background: -webkit-radial-gradient(
+    50% 150%,
+    ellipse,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0) 60%
+  );
+  background: radial-gradient(
+    ellipse at 50% 150%,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0) 60%
+  );
 }
 
 .hover-shadow-radial::after {
   top: 100%;
-  background: -webkit-radial-gradient(50% -50%, ellipse, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 60%);
-  background: radial-gradient(ellipse at 50% -50%, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 60%);
+  background: -webkit-radial-gradient(
+    50% -50%,
+    ellipse,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0) 60%
+  );
+  background: radial-gradient(
+    ellipse at 50% -50%,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0) 60%
+  );
 }
 
-.hover-shadow-radial:hover::before, .hover-shadow-radial:focus::before, .hover-shadow-radial:active::before, .hover-shadow-radial:hover::after, .hover-shadow-radial:focus::after, .hover-shadow-radial:active::after {
+.hover-shadow-radial:hover::before,
+.hover-shadow-radial:focus::before,
+.hover-shadow-radial:active::before,
+.hover-shadow-radial:hover::after,
+.hover-shadow-radial:focus::after,
+.hover-shadow-radial:active::after {
   opacity: 1;
 }
 
@@ -443,7 +476,13 @@ footer p {
   --ada-colour-hvr-grad2: #959595;
   --ada-colour: #2b2b2b;
 
-  background: linear-gradient(-60deg, var(--ada-colour-hvr), var(--ada-colour-hvr-grad), var(--ada-colour-hvr-grad2), var(--ada-colour));
+  background: linear-gradient(
+    -60deg,
+    var(--ada-colour-hvr),
+    var(--ada-colour-hvr-grad),
+    var(--ada-colour-hvr-grad2),
+    var(--ada-colour)
+  );
   background-size: 200% 200%;
   animation: gradientItemAdamantium 5s ease infinite;
 }

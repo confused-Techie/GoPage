@@ -22,20 +22,22 @@ function initHostSummary() {
           // once all items are fetched we can then modify the page
 
           // to properly have translations for generated text
-        var hostNameString = "";
-        var hostOperatingSystem = "";
-        langHandler.ProvideStringRaw("i18n-generatedSettingsHostName")
-          .then((resHostString) => {
-            hostNameString = resHostString;
+          var hostNameString = "";
+          var hostOperatingSystem = "";
+          langHandler
+            .ProvideStringRaw("i18n-generatedSettingsHostName")
+            .then((resHostString) => {
+              hostNameString = resHostString;
 
-            langHandler.ProvideStringRaw("i18n-generatedSettingsOperatingSystem")
-              .then((resOSString) => {
-                hostOperatingSystem = resOSString;
+              langHandler
+                .ProvideStringRaw("i18n-generatedSettingsOperatingSystem")
+                .then((resOSString) => {
+                  hostOperatingSystem = resOSString;
 
-                var htmlToInsert = `<p>${hostNameString}: ${systemHostName}</p><p>${hostOperatingSystem}: ${systemHostOS}</p>`;
-                htmlToReplace.innerHTML = htmlToInsert;
-              });
-          });
+                  var htmlToInsert = `<p>${hostNameString}: ${systemHostName}</p><p>${hostOperatingSystem}: ${systemHostOS}</p>`;
+                  htmlToReplace.innerHTML = htmlToInsert;
+                });
+            });
         });
     });
 }

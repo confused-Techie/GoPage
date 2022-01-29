@@ -1,4 +1,3 @@
-
 function loadAvailableImages() {
   // first we want to grab the list of all images in the userImages dir
   fetch("/userimages")
@@ -12,7 +11,7 @@ function loadAvailableImages() {
       insertHTML += "<div class='image-row'>";
       for (var i = 0; i < imageList.length; i++) {
         // since the gitignore was added to this folder, we need to ensure we don't grab it. Although in release builds it should be remvoed
-        if (imageList[i] != null && imageList[i] != "" ) {
+        if (imageList[i] != null && imageList[i] != "") {
           // after validating this is good data, we also need to ensure to break the column every four lines
 
           // we need to account for the first image-column entry
@@ -54,22 +53,30 @@ function setImage(name) {
       data.customBackground.set = true;
       data.customBackground.src = name;
 
-      const successHandler = function() {
-        langHandler.ProvideStringRaw("i18n-generatedUploadSuccessSnackbar")
+      const successHandler = function () {
+        langHandler
+          .ProvideStringRaw("i18n-generatedUploadSuccessSnackbar")
           .then((resString) => {
             // We know this string is a composite string, so we use the langHandler Composite handler to insert the name
-            universe.SnackbarCommon("uploadImageSnackbar", langHandler.UnicornComposite(resString, name));
+            universe.SnackbarCommon(
+              "uploadImageSnackbar",
+              langHandler.UnicornComposite(resString, name)
+            );
           });
       };
 
-      universe.WriteUserSettings(universe.CreateJSONPOSTHeaders(JSON.stringify(data)), successHandler,
-          function(err) { universe.GenericErrorHandler("uploadImageSnackbar", err); });
+      universe.WriteUserSettings(
+        universe.CreateJSONPOSTHeaders(JSON.stringify(data)),
+        successHandler,
+        function (err) {
+          universe.GenericErrorHandler("uploadImageSnackbar", err);
+        }
+      );
       // The above is attempted to be simplified to the greatest extent.
       // WriteUserSettings(requestOptions, successCallback, errorCallback)
       // requestOptions: CreateJSONPOSTHeaders with the stringified Data.
       // successCallback: The defined const successHandler. Which must be defined to contain logic of Composite String Method
       // errorCallback: An inline function taking the err passed, and then passing that to the GenericErrorHandler with the proper snackbar id
-
     });
 }
 
@@ -83,16 +90,21 @@ function unsetImage() {
 
       // then to post this data back to GoPage
 
-      var successHandler = function() {
-        langHandler.ProvideStringRaw("i18n-generatedRemoveImageSuccess")
+      var successHandler = function () {
+        langHandler
+          .ProvideStringRaw("i18n-generatedRemoveImageSuccess")
           .then((resString) => {
             universe.SnackbarCommon("uploadImageSnackbar", resString);
           });
       };
 
-      universe.WriteUserSettings(universe.CreateJSONPOSTHeaders(JSON.stringify(data)), successHandler,
-          function(err) { universe.GenericErorrHandler("uploadImageSnackbar", err); });
-
+      universe.WriteUserSettings(
+        universe.CreateJSONPOSTHeaders(JSON.stringify(data)),
+        successHandler,
+        function (err) {
+          universe.GenericErorrHandler("uploadImageSnackbar", err);
+        }
+      );
     });
 }
 

@@ -1,5 +1,4 @@
-
-window.onload = function() {
+window.onload = function () {
   onPageLoad();
 };
 
@@ -16,27 +15,31 @@ function onPageLoad() {
       var matchList = [];
       // matchList = [ { type: exact|hostname, matched: url, friendly: [ array of friendly items matched.] } ]
       data.forEach((element) => {
-
         data.forEach((elementCheck) => {
           // Since we know each data item will have an id associated, we can ensure it doesn't match against itself
           // be checking the id
           if (element.id != elementCheck.id) {
             if (element.link == elementCheck.link) {
               //console.log(`${element.link} Matches Exactly for ${elementCheck.link}`);
-              var tmpObjExact = { type: "exact", matched: element.link, friendly: [ element.friendlyName, elementCheck.friendlyName ] };
+              var tmpObjExact = {
+                type: "exact",
+                matched: element.link,
+                friendly: [element.friendlyName, elementCheck.friendlyName],
+              };
               matchList.push(tmpObjExact);
             }
             if (getHostname(element.link) == getHostname(elementCheck.link)) {
               //console.log(`${element.link} Matches hostname of ${elementCheck.link}`);
-              var tmpObjHost = { type: "hostname", matched: element.link, friendly: [ element.friendlyName, elementCheck.friendlyName ] };
+              var tmpObjHost = {
+                type: "hostname",
+                matched: element.link,
+                friendly: [element.friendlyName, elementCheck.friendlyName],
+              };
               matchList.push(tmpObjHost);
             }
           } // else these are the same exact item
-
         });
-
       });
-
 
       // now time to add this data to the page
       var htmlToInsert = "";
@@ -45,15 +48,18 @@ function onPageLoad() {
       var matchItemString = "";
       var matchLinkItemString = "";
 
-      langHandler.ProvideStringRaw("i18n-generatedLHMatchType")
+      langHandler
+        .ProvideStringRaw("i18n-generatedLHMatchType")
         .then((matchTypeRes) => {
           matchTypeString = matchTypeRes;
 
-          langHandler.ProvideStringRaw("i18n-generatedLHMatchedItem")
+          langHandler
+            .ProvideStringRaw("i18n-generatedLHMatchedItem")
             .then((matchItemRes) => {
               matchItemString = matchItemRes;
 
-              langHandler.ProvideStringRaw("i18n-generatedLHLinkItem")
+              langHandler
+                .ProvideStringRaw("i18n-generatedLHLinkItem")
                 .then((linkItemRes) => {
                   matchLinkItemString = linkItemRes;
 
@@ -66,11 +72,11 @@ function onPageLoad() {
                   });
 
                   // once this is all created, we can attach it into the dom.
-                  document.getElementById("link-health").innerHTML = htmlToInsert;
+                  document.getElementById("link-health").innerHTML =
+                    htmlToInsert;
                 });
             });
         });
-
     });
 }
 

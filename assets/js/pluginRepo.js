@@ -1,4 +1,3 @@
-
 // Here we can respond to the install, and uninstall requests of plugins
 
 /*eslint-disable-next-line no-unused-vars */
@@ -25,7 +24,7 @@ function pluginFetchWrapper(target) {
       try {
         JSON.parse(res);
         return res.json();
-      } catch(err) {
+      } catch (err) {
         return res.text();
       }
     })
@@ -36,7 +35,8 @@ function pluginFetchWrapper(target) {
         // error occured.
         // We can add error checking here to make it more human readable.
         if (data.includes("Err") && data.includes("32")) {
-          var tmpData = "Golang Error 32: The process cannot access the file because it is being used by another process.";
+          var tmpData =
+            "Golang Error 32: The process cannot access the file because it is being used by another process.";
           console.log(data);
           console.log(tmpData);
           modalResults(tmpData, "Failure");
@@ -45,13 +45,11 @@ function pluginFetchWrapper(target) {
           modalResults(data, "Failure");
         }
       }
-
     })
     .catch((err) => {
       console.log(err);
       modalResults(err, "Failure");
     });
-
 }
 
 function modalResults(content, status) {
@@ -61,9 +59,9 @@ function modalResults(content, status) {
   // and register any onclick handlers after inserting into the DOM
   // also we need to gather translations for the button text
   var buttonText = "";
-  langHandler.ProvideStringRaw("i18n-generatedRepoButtonOkay")
+  langHandler
+    .ProvideStringRaw("i18n-generatedRepoButtonOkay")
     .then((resString) => {
-
       buttonText = resString;
       var formattedContent = formatModalContent(content);
 
@@ -71,7 +69,7 @@ function modalResults(content, status) {
       modal.innerHTML = insertHTML;
 
       var clearModal = document.getElementById("clearModal");
-      clearModal.onclick = function() {
+      clearModal.onclick = function () {
         modal.style.display = "none";
       };
 

@@ -10,7 +10,10 @@ function checkPlugins() {
             .then((packRes) => packRes.json())
             .then((packData) => {
               // Adding check for page this is loaded on to reduce duplication of a seperate nonHomeLoad for plugins
-              if (packData.type == "item" && document.title == "GoPage - Home") {
+              if (
+                packData.type == "item" &&
+                document.title == "GoPage - Home"
+              ) {
                 var script = document.createElement("script");
                 script.src = `/plugins${packData.mainDir}${packData.main}`;
                 // Importing the JS as a module here, ensures that any functions or global variables are not in the global scope
@@ -26,17 +29,25 @@ function checkPlugins() {
                   .then((res) => res.json())
                   .then((headerData) => {
                     if (headerData.headerPlugins.right.name == packData.name) {
-                      headerPluginAssignment("headerPluginRight", packData.name, headerData.headerPlugins.right.options);
+                      headerPluginAssignment(
+                        "headerPluginRight",
+                        packData.name,
+                        headerData.headerPlugins.right.options
+                      );
                       loadJS(packData.mainDir, packData.main);
                     }
                     if (headerData.headerPlugins.left.name == packData.name) {
-                      headerPluginAssignment("headerPluginLeft", packData.name, headerData.headerPlugins.left.options);
+                      headerPluginAssignment(
+                        "headerPluginLeft",
+                        packData.name,
+                        headerData.headerPlugins.left.options
+                      );
                       loadJS(packData.mainDir, packData.main);
-                    }   // else the plugin is installed but unassigned and should not be called.
+                    } // else the plugin is installed but unassigned and should not be called.
                   });
               }
             });
-          }
+        }
       });
     });
 }
@@ -44,10 +55,14 @@ function checkPlugins() {
 checkPlugins();
 
 function headerPluginAssignment(elementID, pluginName, pluginOptions) {
-  document.getElementById(elementID).setAttribute("data-pluginName", pluginName);
+  document
+    .getElementById(elementID)
+    .setAttribute("data-pluginName", pluginName);
   document.getElementById(elementID).className += ` ${pluginName}`;
   if (pluginOptions) {
-    document.getElementById(elementID).setAttribute("data-options", pluginOptions);
+    document
+      .getElementById(elementID)
+      .setAttribute("data-options", pluginOptions);
   }
 }
 

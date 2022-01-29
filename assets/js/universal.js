@@ -7,9 +7,10 @@ checkCustomBackgroundImage();
 function loadTimeStamp() {
   if (document.getElementById("timeStamp") != null) {
     const dateToDisplay = new Date();
-    document.getElementById("timeStamp").innerHTML = `<h2>${dateToDisplay.toLocaleTimeString()} ${dateToDisplay.toLocaleDateString()}</h2>`;
+    document.getElementById(
+      "timeStamp"
+    ).innerHTML = `<h2>${dateToDisplay.toLocaleTimeString()} ${dateToDisplay.toLocaleDateString()}</h2>`;
   }
-
 }
 
 function updaterTimeStamp() {
@@ -20,11 +21,10 @@ function updaterTimeStamp() {
 }
 
 window.addEventListener("DOMContentLoaded", () => {
-  langHandler.DetermineLang()
-    .then(() => {
-      // once this returns, we can start a lookup of the strings
-      langHandler.InsertLang();
-    });
+  langHandler.DetermineLang().then(() => {
+    // once this returns, we can start a lookup of the strings
+    langHandler.InsertLang();
+  });
 });
 
 function checkCustomBackgroundImage() {
@@ -45,7 +45,7 @@ function checkCustomBackgroundImage() {
 
           // Valid Values: auto, length, percentage, cover, contain, initial, inherit :: https://www.w3schools.com/jsref/prop_style_backgroundsize.asp
           document.body.style.backgroundSize = data.customBackground.size;
-        } catch(err) {
+        } catch (err) {
           //console.log(err);
         }
       } // else image is not set

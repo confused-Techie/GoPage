@@ -10,7 +10,7 @@ var pluginAPI = {
     // option=value;
 
     // First we will break up the config into its different key value pairs
-    var keyValue = rawConfig.split(';');
+    var keyValue = rawConfig.split(";");
     // Then to add these keys with their declaration to the object
     var obj = {};
     for (let i = 0; i < keyValue.length; i++) {
@@ -20,6 +20,5 @@ var pluginAPI = {
       }
     }
     return obj;
-  }
-
+  },
 };

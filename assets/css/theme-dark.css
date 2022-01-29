@@ -150,7 +150,7 @@ Background Colors
   --card-back-drop-colour-border: #128194;
 
   --create-action-back-drop-colour: #661294;
-  --create-action-back-drop-colour-grad: #9F6BBC;
+  --create-action-back-drop-colour-grad: #9f6bbc;
   --create-action-text-colour: white;
 
   --confirm-action-back-drop-colour: #007523;
@@ -187,5 +187,5 @@ Background Colors
   /* Text styling Options */
   --text-style-issue-colour: red;
   --text-style-declare-colour: white;
-  --text-style-minor-colour: #8C4DAF;
+  --text-style-minor-colour: #8c4daf;
 }

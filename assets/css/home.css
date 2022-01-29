@@ -19,7 +19,11 @@ As to be honest I've hated CSS for years. */
 
   overflow: hidden;
   background-color: var(--category-selector-back-drop-colour);
-  background-image: linear-gradient(to left, var(--category-selector-back-drop-colour), var(--category-selector-back-drop-colour-grad));
+  background-image: linear-gradient(
+    to left,
+    var(--category-selector-back-drop-colour),
+    var(--category-selector-back-drop-colour-grad)
+  );
   color: var(--category-selector-text-colour);
   border-radius: 10px;
 }
@@ -72,7 +76,11 @@ As to be honest I've hated CSS for years. */
 
 .filterDiv {
   background-color: var(--card-back-drop-colour);
-  background-image: linear-gradient(60deg, var(--card-back-drop-colour), var(--card-back-drop-colour-grad));
+  background-image: linear-gradient(
+    60deg,
+    var(--card-back-drop-colour),
+    var(--card-back-drop-colour-grad)
+  );
   text-align: center;
   animation-name: fadeEffect;
   animation-duration: 0.5s;
@@ -86,8 +94,12 @@ As to be honest I've hated CSS for years. */
 }
 
 @keyframes fadeEffect {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .item {

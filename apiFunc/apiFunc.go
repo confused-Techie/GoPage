@@ -11,11 +11,10 @@ import (
 	"os/exec"
 	"runtime"
 	"time"
-
 	"archive/zip"
+	"crypto/tls"
 	"path/filepath"
 	"strings"
-	"crypto/tls"
 )
 
 var client = http.Client{

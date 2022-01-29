@@ -14,30 +14,15 @@ var langHandler = {
 
     var resourceName = `strings.${currentLang}.json`;
 
-    fetch(`/assets/lang/${resourceName}`)
-      .then((response) => {
-        response.json().then((res) => {
-          // stringing in this way, allows us to work with the JSON formatted response without having to build in another wait for the promise to resolve
-          // like the previous implementation
-          if (response.ok) {
-            if (res[id]) {
-              element.textContent = res[id];
-            } else {
-              //console.log(`Translation for this item does not exist: ${id}`);
-              fetch("/assets/lang/strings.en.json")
-                .then((defaultRes) => defaultRes.json())
-                .then((defaultData) => {
-                  if (defaultData[id]) {
-                    element.textContent = defaultData[id];
-                  } else {
-                    //console.log(`Default Translation for this item does not exist: ${id}`);
-                    element.textContent = "Translations Missing!";
-                  }
-                });
-            }
+    fetch(`/assets/lang/${resourceName}`).then((response) => {
+      response.json().then((res) => {
+        // stringing in this way, allows us to work with the JSON formatted response without having to build in another wait for the promise to resolve
+        // like the previous implementation
+        if (response.ok) {
+          if (res[id]) {
+            element.textContent = res[id];
           } else {
-            //console.log(`Language file seemed to fail with: ${response.status}`);
-            //console.log(`Providing default language strings...`);
+            //console.log(`Translation for this item does not exist: ${id}`);
             fetch("/assets/lang/strings.en.json")
               .then((defaultRes) => defaultRes.json())
               .then((defaultData) => {
@@ -45,42 +30,39 @@ var langHandler = {
                   element.textContent = defaultData[id];
                 } else {
                   //console.log(`Default Translation for this item does not exist: ${id}`);
-                  element.textContent = "Translations missing!";
+                  element.textContent = "Translations Missing!";
                 }
               });
           }
-        });
+        } else {
+          //console.log(`Language file seemed to fail with: ${response.status}`);
+          //console.log(`Providing default language strings...`);
+          fetch("/assets/lang/strings.en.json")
+            .then((defaultRes) => defaultRes.json())
+            .then((defaultData) => {
+              if (defaultData[id]) {
+                element.textContent = defaultData[id];
+              } else {
+                //console.log(`Default Translation for this item does not exist: ${id}`);
+                element.textContent = "Translations missing!";
+              }
+            });
+        }
       });
+    });
   },
   ProvideStringRaw: function ProvideStringRaw(id) {
     // This will be used for providing strings of generated content, where its not possible to then change the string wtihin the DOM
     return new Promise(function (resolve, reject) {
-
       var resourceName = `strings.${currentLang}.json`;
 
-      fetch(`/assets/lang/${resourceName}`)
-        .then((response) => {
-          response.json().then((res) => {
-            if (response.ok) {
-              if (res[id]) {
-                resolve(res[id]);
-              } else {
-                //console.log(`Translation for this item does not exist: ${id}`);
-                fetch("/assets/lang/strings.en.json")
-                  .then((defaultRes) => defaultRes.json())
-                  .then((defaultData) => {
-                    if (defaultData[id]) {
-                      resolve(defaultData[id]);
-                    } else {
-                      //console.log(`Default Translation for this item does not exist: ${id}`);
-                      reject("Translations Missing!");
-                    }
-                  });
-              }
+      fetch(`/assets/lang/${resourceName}`).then((response) => {
+        response.json().then((res) => {
+          if (response.ok) {
+            if (res[id]) {
+              resolve(res[id]);
             } else {
-              // requested language file isn't available
-              //console.log(`Language file seemed to fail with: ${response.status}`);
-              //console.log('Providing default langauge stirngs...');
+              //console.log(`Translation for this item does not exist: ${id}`);
               fetch("/assets/lang/strings.en.json")
                 .then((defaultRes) => defaultRes.json())
                 .then((defaultData) => {
@@ -92,8 +74,23 @@ var langHandler = {
                   }
                 });
             }
-          });
+          } else {
+            // requested language file isn't available
+            //console.log(`Language file seemed to fail with: ${response.status}`);
+            //console.log('Providing default langauge stirngs...');
+            fetch("/assets/lang/strings.en.json")
+              .then((defaultRes) => defaultRes.json())
+              .then((defaultData) => {
+                if (defaultData[id]) {
+                  resolve(defaultData[id]);
+                } else {
+                  //console.log(`Default Translation for this item does not exist: ${id}`);
+                  reject("Translations Missing!");
+                }
+              });
+          }
         });
+      });
     });
   },
   DetermineLang: function DetermineLang() {
@@ -117,7 +114,7 @@ var langHandler = {
               resolve("Language Unchanged");
             }
           });
-      } catch(err) {
+      } catch (err) {
         reject(err);
       }
     });
@@ -127,7 +124,7 @@ var langHandler = {
     fetch("/assets/lang/strings.json")
       .then((response) => response.json())
       .then((strings) => {
-        for (var i=0; i < strings.length; i++) {
+        for (var i = 0; i < strings.length; i++) {
           var curEle = document.getElementById(strings[i]);
           if (curEle != null) {
             langHandler.ProvideString(strings[i], curEle);
@@ -152,9 +149,10 @@ var langHandler = {
     if (arguments.length > 1) {
       var t = typeof arguments[1];
       var key;
-      var args = ("string" === t || "number" === t) ?
-        Array.prototype.slice.call(arguments)
-        : arguments[1];
+      var args =
+        "string" === t || "number" === t
+          ? Array.prototype.slice.call(arguments)
+          : arguments[1];
       // since the conditional ternary operator to define args will liekly include the inital string
       // if array we want to remove it if array
       if (Array.isArray(args)) {
@@ -166,5 +164,5 @@ var langHandler = {
       }
     }
     return str;
-  }
+  },
 };

@@ -8,11 +8,11 @@
   border: noe;
 }
 
-input[type=submit] {
+input[type="submit"] {
   display: none;
 }
 
-input[type=file]::file-selector-button {
+input[type="file"]::file-selector-button {
   /* Since we want to use our custom styling here we can hide the element, and style the label only */
 
   /* Or we can use the pseudo-element introduced in CSS Pseudo-Elements Module Level 4 */
