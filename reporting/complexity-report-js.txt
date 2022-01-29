@@ -1,8 +1,8 @@
 Mean per-function logical LOC: 3.081968331968332
 Mean per-function parameter count: 0.7803030303030304
 Mean per-function cyclomatic complexity: 1.3715631215631217
-Mean per-function Halstead effort: 604.4412352140879
-Mean per-module maintainability index: 135.12439312660473
+Mean per-function Halstead effort: 602.7476735258106
+Mean per-module maintainability index: 135.13166938298707
 First-order density: 0%
 Change cost: 9.090909090909092%
 Core size: 0%
@@ -485,7 +485,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\langHandler.js
   Mean parameter count: 1
   Cyclomatic complexity: 5
   Cyclomatic complexity density: 17.857142857142858%
-  Maintainability index: 130.21430600178954
+  Maintainability index: 130.29434482199534
   Dependency count: 0
 
   Function: ProvideString
@@ -561,9 +561,9 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\langHandler.js
     Parameter count: 0
     Cyclomatic complexity: 5
     Cyclomatic complexity density: 50%
-    Halstead difficulty: 13.045454545454545
-    Halstead volume: 408.42407511394265
-    Halstead effort: 5328.077707168251
+    Halstead difficulty: 13.333333333333332
+    Halstead volume: 389.82550928781745
+    Halstead effort: 5197.6734571708985
 
 D:\Personal Documents\GitHub Repositories\GoPage\assets\js\linkhealth.js
 

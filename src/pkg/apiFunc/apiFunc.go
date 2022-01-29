@@ -230,14 +230,14 @@ func InstallCmd(src string) (string, error) {
 
 		cmd := exec.Command("PowerShell", "-File", "./scripts/windowsPluginInstaller.ps1", "-source", src, "-dest", viper.GetString("directories.plugin"))
 
-		if out, err := cmd.Output(); err != nil {
-			fmt.Println("Error:", err)
+		out, err := cmd.Output()
+		if err != nil {
+			fmt.Println("Error: ", err)
 			return "", err
-		} else {
-			// %s\n here used to format the return of bytes as text, which in main will be encoded as json
-			fmt.Printf("Output: %s\n", out)
-			return fmt.Sprintf("%s\n", out), nil
 		}
+		// %s\n here used to format the return of bytes as text, which in main will be encoded as json
+		fmt.Printf("Output: %s\n", out)
+		return fmt.Sprintf("%s\n", out), nil
 	} else if runtime.GOOS == "darwin" {
 
 	}

@@ -156,7 +156,7 @@ var langHandler = {
       // since the conditional ternary operator to define args will liekly include the inital string
       // if array we want to remove it if array
       if (Array.isArray(args)) {
-        var tmp = args.shift();
+        args.shift();
       }
 
       for (key in args) {
