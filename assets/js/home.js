@@ -525,7 +525,7 @@ function editItemModalV2(oldId, oldFriendlyName, oldLink, oldCategory, oldPlugin
           universe.SnackbarError("homePageSnackbar", validData.msg);
         }
       });
-  }
+  };
 }
 
 function headerPlugins() {

@@ -36,6 +36,7 @@ func Ping(domain string) (int, error) {
 	return resp.StatusCode, nil
 }
 
+// PingNoSSL mimics the command line utility ping, returning the HTTP Status Code, but ignoring certificates, to aide self-hosted status checks
 func PingNoSSL(domain string) (int, error) {
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},

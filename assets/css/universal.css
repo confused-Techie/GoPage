@@ -155,7 +155,7 @@ footer {
 
 footer p {
   /* text inside the DOM element footer */
-  font-family: "consolas";
+  font-family: "consolas", sans-serif;
   display: inline;  /* Allows the text to be side by side */
   margin-right: 10px; /* Spacing outside the text element DIV
     to give them space between multiple text items to breath */

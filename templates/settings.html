@@ -1,89 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <title>Settings</title>
-  <link id="theme" rel="stylesheet" type="text/css" href="/assets/css/theme-dark.css">
-  <link rel="stylesheet" type="text/css" href="/assets/css/universal.css">
-  <link rel="stylesheet" type="text/css" href="/assets/css/settings.css">
-</head>
-<body>
+  <head>
+    <title>Settings</title>
+    <link
+      id="theme"
+      rel="stylesheet"
+      type="text/css"
+      href="/assets/css/theme-dark.css"
+    />
+    <link rel="stylesheet" type="text/css" href="/assets/css/universal.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/settings.css" />
+  </head>
+  <body>
+    {{template "heading" .}}
 
-  {{template "heading" .}}
-
-  <div class="bar-list">
-    <div class="seperator"><h2><span id="i18n-headerSummary">Summary</span></h2></div>
-
-    <div class="settingsContainerSummary bar-list-bars">
-      <div class="server-settings">
-        <p><span id="i18n-serverSummaryServerName">Server Name</span>: {{.Name}}</p>
-        <p><span id="i18n-serverSummaryServerVersion">Server Version</span>: {{.Version}}</p>
-        <p><span id="i18n-serverSummaryGoPageAuthor">GoPage Author</span>: {{.Author}}</p>
+    <div class="bar-list">
+      <div class="seperator">
+        <h2><span id="i18n-headerSummary">Summary</span></h2>
       </div>
-      <div id="host-settings" class="host-settings">
 
-      </div>
-    </div>
-
-    <div class="seperator"><h2><span id="i18n-headerTools">Tools</span></h2></div>
-
-    <div class="settingsShortcuts">
-      <div class="bar-list-bars">
-        <div class="shortcut-list-item">
-          <div class="shortcut-list-title">
-            <span id="i18n-toolNamePluginRepo">Plugin Repo</span>
-          </div>
-          <div class="shortcut-list-description">
-            <p><span id="i18n-toolDescriptionPluginRepo">A Place to get new Plugins.</span></p>
-          </div>
-          <a href="/pluginrepo">
-          <div class="shortcut-list-launch">
-            <img src="/assets/images/external-link.svg" alt="External Link Icon to Open Plugin Repo">
-          </div>
-          </a>
+      <div class="settingsContainerSummary bar-list-bars">
+        <div class="server-settings">
+          <p>
+            <span id="i18n-serverSummaryServerName">Server Name</span>:
+            {{.Name}}
+          </p>
+          <p>
+            <span id="i18n-serverSummaryServerVersion">Server Version</span>:
+            {{.Version}}
+          </p>
+          <p>
+            <span id="i18n-serverSummaryGoPageAuthor">GoPage Author</span>:
+            {{.Author}}
+          </p>
         </div>
+        <div id="host-settings" class="host-settings"></div>
       </div>
 
-      <div class="bar-list-bars">
-        <div class="shortcut-list-item">
-          <div class="shortcut-list-title">
-            <span id="i18n-toolNameLinkHealth">Link Health</span>
-          </div>
-          <div class="shortcut-list-description">
-            <p><span id="i18n-toolDescriptionLinkHealth">A Place to check the health and any Duplicates of Items</span></p>
-          </div>
-          <a href="/linkhealth">
-          <div class="shortcut-list-launch">
-            <img src="/assets/images/external-link.svg" alt="External Link Icon to Open Link Health">
-          </div>
-          </a>
-        </div>
+      <div class="seperator">
+        <h2><span id="i18n-headerTools">Tools</span></h2>
       </div>
 
-      <div class="bar-list-bars">
-        <div class="shortcut-list-item">
-          <div class="shortcut-list-title">
-            <span id="i18n-toolNameBackgroundImage">Background Image</span>
-          </div>
-          <div class="shortcut-list-description">
-            <p><span id="i18n-toolDescriptionBackgroundImage">Tool to upload new Background Images and change the current one.</span></p>
-          </div>
-          <a href="/uploadpage">
-            <div class="shortcut-list-launch">
-              <img src="/assets/images/external-link.svg" alt="External Link Icon to Open Background Image">
+      <div class="settingsShortcuts">
+        <div class="bar-list-bars">
+          <div class="shortcut-list-item">
+            <div class="shortcut-list-title">
+              <span id="i18n-toolNamePluginRepo">Plugin Repo</span>
             </div>
-          </a>
+            <div class="shortcut-list-description">
+              <p>
+                <span id="i18n-toolDescriptionPluginRepo"
+                  >A Place to get new Plugins.</span
+                >
+              </p>
+            </div>
+            <a href="/pluginrepo">
+              <div class="shortcut-list-launch">
+                <img
+                  src="/assets/images/external-link.svg"
+                  alt="External Link Icon to Open Plugin Repo"
+                />
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="bar-list-bars">
+          <div class="shortcut-list-item">
+            <div class="shortcut-list-title">
+              <span id="i18n-toolNameLinkHealth">Link Health</span>
+            </div>
+            <div class="shortcut-list-description">
+              <p>
+                <span id="i18n-toolDescriptionLinkHealth"
+                  >A Place to check the health and any Duplicates of Items</span
+                >
+              </p>
+            </div>
+            <a href="/linkhealth">
+              <div class="shortcut-list-launch">
+                <img
+                  src="/assets/images/external-link.svg"
+                  alt="External Link Icon to Open Link Health"
+                />
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="bar-list-bars">
+          <div class="shortcut-list-item">
+            <div class="shortcut-list-title">
+              <span id="i18n-toolNameBackgroundImage">Background Image</span>
+            </div>
+            <div class="shortcut-list-description">
+              <p>
+                <span id="i18n-toolDescriptionBackgroundImage"
+                  >Tool to upload new Background Images and change the current
+                  one.</span
+                >
+              </p>
+            </div>
+            <a href="/uploadpage">
+              <div class="shortcut-list-launch">
+                <img
+                  src="/assets/images/external-link.svg"
+                  alt="External Link Icon to Open Background Image"
+                />
+              </div>
+            </a>
+          </div>
         </div>
       </div>
-
     </div>
 
-  </div>
+    {{template "footer" .}}
 
-  {{template "footer" .}}
-  
-  <script src="/assets/js/universal.js"></script>
-  <script src="/assets/js/langHandler.js"></script>
-  <script type="module" src="/assets/js/pluginLoad.js"></script>
-  <script src="/assets/js/settings.js"></script>
-</body>
+    <script src="/assets/js/universal.js"></script>
+    <script src="/assets/js/langHandler.js"></script>
+    <script type="module" src="/assets/js/pluginLoad.js"></script>
+    <script src="/assets/js/settings.js"></script>
+  </body>
 </html>

@@ -438,6 +438,7 @@ func APIPingHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(resp)
 }
 
+// APIPingNoSSLHandler is the API Endpoint for the No SSL Ping function for plugins
 func APIPingNoSSLHandler(w http.ResponseWriter, r *http.Request) {
 	keys, ok := r.URL.Query()["url"]
 	if !ok || len(keys[0]) < 1 {

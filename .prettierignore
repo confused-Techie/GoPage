@@ -1,0 +1,25 @@
+.git
+.github
+assets/lang
+assets/userImages
+binaries
+cleanFiles
+depreciated
+DEV-docs
+docs
+installer
+reporting
+scripts
+.dockerignore
+.eslintrc.json
+.gitattributes
+.gitignore
+go.mod
+go.sum
+*.exe
+readme.md
+config.yml
+list.json
+
+# Prettier doesn't seem to handle templating well, so we will ignore some html
+templates
