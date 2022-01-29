@@ -341,7 +341,7 @@ func UninstallUniversal(pluginName string) (string, error) {
 	// now with the available data we can loop through it
 	for _, itm := range availablePluginList.UniversalPluginItem {
 		if itm.Name == pluginName {
-			fmt.Println("Matching Data: " + itm.Name + ":" + pluginName)
+			fmt.Println("Matching Data: " + universalMethods.LogInjectionAvoidance(itm.Name) + ":" + universalMethods.LogInjectionAvoidance(pluginName))
 			itm.Installed = false
 		}
 	}
