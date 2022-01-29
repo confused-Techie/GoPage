@@ -253,13 +253,13 @@ func UninstallCmd(name string) (string, error) {
 
 		cmd := exec.Command("PowerShell", "-File", "./scripts/windowsPluginUninstaller.ps1", "-pluginName", name, "-dest", viper.GetString("directories.plugin"))
 
-		if out, err := cmd.Output(); err != nil {
-			fmt.Println("Error:", err)
+		out, err := cmd.Output()
+		if err != nil {
+			fmt.Println("Error: ", err)
 			return "", err
-		} else {
-			fmt.Printf("Output: %s\n", out)
-			return fmt.Sprintf("%s\n", out), nil
 		}
+		fmt.Printf("Output: %s\n", out)
+		return fmt.Sprintf("%s\n", out), nil
 	} else if runtime.GOOS == "darwin" {
 
 	}

@@ -10,9 +10,11 @@
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/confused-Techie/GoPage)](https://goreportcard.com/report/github.com/confused-Techie/GoPage)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/aaadbe13d42448a6b4a942be881544c3)](https://www.codacy.com/gh/confused-Techie/GoPage/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=confused-Techie/GoPage&amp;utm_campaign=Badge_Grade)
-<img src="https://badgen.net/github/release/confused-Techie/GoPage">
-<img src="https://badgen.net/github/license/confused-Techie/GoPage">
-<img src="https://img.shields.io/github/last-commit/confused-Techie/GoPage">
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+
+[![Latest Release](https://badgen.net/github/release/confused-Techie/GoPage)](https://github.com/confused-Techie/GoPage/releases/latest)
+[![License](https://badgen.net/github/license/confused-Techie/GoPage)](https://github.com/confused-Techie/GoPage/blob/main/LICENSE)
+[![Last Commit](https://img.shields.io/github/last-commit/confused-Techie/GoPage)](https://github.com/confused-Techie/GoPage/commits/main)
 
 GoPage has been made with the goal of extreme simplicity and convenient extensibility. Where standalone it's a simplistic way to store and manage Links to pages giving them unique user-defined categories, with easy ability to edit them down the line. And if you mix in the existing plugins and extreme ease of creating new ones gives life to these Links to show you the data needed at a moments glance.
 
