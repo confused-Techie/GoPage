@@ -22,3 +22,5 @@ gocyclo . | Out-File -FilePath reporting/cyclomatic-complexity-go.txt -Encoding 
 echo "Determined cyclomatic complexity reports for Golang..."
 
 echo "Finished tasks."
+
+# While I wanted to continue adding modules here, some will need to be moved to npm scripts, to help the build tools 

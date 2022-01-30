@@ -30,3 +30,5 @@ settings/userSettings.json
 binaries/
 # ignore the depreciated folder of whole files that are rendered obsolete
 depreciated/
+# Ignore all the other files not included here
+node_modules/

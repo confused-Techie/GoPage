@@ -1,0 +1,24 @@
+{
+  "name": "GoPage",
+  "version": "0.4",
+  "description": "A simple Website Shortcut Dashboard written in Go.",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/confused-Techie/GoPage"
+  },
+  "author": "confused-Techie",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/confused-Techie/GoPage/issues"
+  },
+  "homepage": "https://github.com/confused-Techie/GoPage#readme",
+  "devDependencies": {
+    "cssnano": "^5.0.16",
+    "postcss": "^8.4.5",
+    "postcss-cli": "^9.1.0"
+  }
+}

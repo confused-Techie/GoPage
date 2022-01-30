@@ -5,6 +5,7 @@ assets/userImages
 binaries
 cleanFiles
 depreciated
+node_modules
 DEV-docs
 docs
 installer
