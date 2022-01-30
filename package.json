@@ -1,10 +1,12 @@
 {
   "name": "GoPage",
-  "version": "0.4",
+  "version": "0.0.4",
   "description": "A simple Website Shortcut Dashboard written in Go.",
   "main": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "minify-css": "powershell scripts/minify-css.ps1",
+    "minify-js": "powershell scripts/minify-js.ps1"
   },
   "repository": {
     "type": "git",
@@ -19,6 +21,7 @@
   "devDependencies": {
     "cssnano": "^5.0.16",
     "postcss": "^8.4.5",
-    "postcss-cli": "^9.1.0"
+    "postcss-cli": "^9.1.0",
+    "terser": "^5.10.0"
   }
 }

@@ -1,13 +1,13 @@
 {
   "totals": {
     "average": {
-      "performance": 94,
-      "accessibility": 93.4,
-      "best-practices": 97.2,
-      "seo": 74.8
+      "performance": 100,
+      "accessibility": 100,
+      "best-practices": 98.6,
+      "seo": 100
     },
     "homePage": {
-      "performance": 99,
+      "performance": 100,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100
@@ -16,39 +16,39 @@
       "performance": 100,
       "accessibility": 100,
       "best-practices": 93,
-      "seo": 73
+      "seo": 100
     },
     "settings": {
       "performance": 100,
       "accessibility": 100,
       "best-practices": 100,
-      "seo": 73
+      "seo": 100
     },
     "linkHealth": {
       "performance": 100,
       "accessibility": 100,
       "best-practices": 100,
-      "seo": 73
+      "seo": 100
     },
     "uploadImage": {
-      "performance": 73,
-      "accessibility": 67,
-      "best-practices": 93,
-      "seo": 64
+      "performance": 100,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
     }
   },
   "homePage": {
     "performance": {
-      "score": 99,
-      "first-contentiful-paint": "0.6s",
-      "speed-index": "0.6s",
-      "largest-contentiful-paint": "1.0s",
-      "time-to-interactive": "0.9s",
+      "score": 100,
+      "first-contentiful-paint": "0.3s",
+      "speed-index": "0.3s",
+      "largest-contentiful-paint": "0.7s",
+      "time-to-interactive": "0.5s",
       "total-blocking-time": "0ms",
-      "cumulative-layout-shift": "0.005",
+      "cumulative-layout-shift": "0.001",
       "details": {
-        "avoid chaining critical requests: 6 chains found",
-        "keep request counts low and transfer sizes small: 28 requests * 135 KiB",
+        "avoid chaining critical requests: 9 chains found",
+        "keep request counts low and transfer sizes small: 27 requests * 190 KiB",
         "largest contentiful paint element: 1 element",
         "avoid large layout shifts: 5 elements found"
       }
@@ -67,12 +67,12 @@
   "pluginRepo": {
     "performance": {
       "score": 100,
-      "first-contentiful-paint": "0.5s",
-      "speed-index": "0.5s",
-      "largest-contentiful-paint": "0.5s",
-      "time-to-interactive": "0.5s",
+      "first-contentiful-paint": "0.3s",
+      "speed-index": "0.3s",
+      "largest-contentiful-paint": "0.6s",
+      "time-to-interactive": "0.3s",
       "total-blocking-time": "0ms",
-      "cumulative-layout-shift": "0",
+      "cumulative-layout-shift": "0.003",
       "details": {
         "image elements do not have explicit width and height",
         "does not have a meta name viewport tag",
@@ -89,27 +89,21 @@
       }
     },
     "seo": {
-      "score": 73,
-      "details": {
-        "no meta name viewport tag",
-        "docuemtn does not hvae a meta description",
-        "robots.txt is not valid"
-      }
+      "score": 100
     }
   },
 
   "settings": {
     "performance": {
       "score": 100,
-      "first-contentiful-paint": "0.5s",
-      "speed-index": "0.5s",
+      "first-contentiful-paint": "0.3s",
+      "speed-index": "0.3s",
       "largest-contentiful-paint": "0.5s",
-      "time-to-interactive": "0.5s",
+      "time-to-interactive": "0.3s",
       "total-blocking-time": "0ms",
       "cumulative-layout-shift": "0",
       "details": {
         "image elements do not have explicit width and height",
-        "does not have a meta name viewport tag with width or initial scale"
       }
     },
     "accessibility": {
@@ -119,27 +113,19 @@
       "score": 100
     },
     "seo": {
-      "score": 73,
-      "details": {
-        "does not have a meta name viewport tag",
-        "Document does not have a meta description",
-        "robots.txt is not valid"
-      }
+      "score": 100,
     }
   },
 
   "linkHealth": {
     "performance": {
       "score": 100,
-      "first-contentiful-paint": "0.5s",
-      "speed-index": "0.5s",
-      "largest-contentiful-paint": "0.6s",
-      "time-to-interactive": "0.5s",
+      "first-contentiful-paint": "0.2s",
+      "speed-index": "0.2s",
+      "largest-contentiful-paint": "0.4s",
+      "time-to-interactive": "0.2s",
       "total-blocking-time": "0ms",
       "cumulative-layout-shift": "0",
-      "details": {
-        "does not have a meta name viewport tag"
-      }
     },
     "accessibility": {
       "score": 100
@@ -148,36 +134,29 @@
       "score": 100
     },
     "seo": {
-      "score": 73,
-      "details": {
-        "no meta name viewport tag",
-        "document does not have a meta description",
-        "robots.txt is not valid"
-      }
+      "score": 100,
     }
   },
 
   "uploadImage": {
     "performance": {
-      "score": 73,
-      "first-contentiful-paint": "0.5s",
-      "speed-index": "0.5s",
-      "largest-contentiful-paint": "6.7s",
-      "time-to-interactive": "0.5s",
+      "score": 76,
+      "first-contentiful-paint": "0.3s",
+      "speed-index": "0.4s",
+      "largest-contentiful-paint": "6.2s",
+      "time-to-interactive": "0.3s",
       "total-blocking-time": "0ms",
-      "cumulative-layout-shift": "0.126",
+      "cumulative-layout-shift": "0.012",
       "details": {
-        "properly size images: 5.2s",
+        "properly size images: 5.08s",
         "serve images in next-gen formats: 2.72s",
-        "eliminate render-blocking resources: 0.36s",
         "image elements do not have explicit width and height",
-        "does not have a metqa name viewport tag",
         "avoid enormous network paylods: 6,815KiB",
         "serve static assets with an efficient cache policy"
       }
     },
     "accessibility": {
-      "score": 67,
+      "score": 71,
       "details": {
         "image elements do not have alt attributes",
         "form elements do not hvae associated labels"
@@ -190,11 +169,30 @@
       }
     },
     "seo": {
-      "score": 64,
-      "does not have a meta name viewport tag",
-      "docuemnt does not have a meta description",
-      "image elements do not have alt attributes",
-      "robots.txt is not valid"
+      "score": 91,
+      "details": {
+        "image elements do not have alt attributes"
+      }
+    }
+  },
+  "uploadImage-NoImages": {
+    "performance": {
+      "score": 100,
+      "first-contentful-paint": "0.3s",
+      "speed-index": "0.3s",
+      "largest-contentful-paint": "0.4s",
+      "time-to-interactive": "0.3s",
+      "total-blocking-time": "0ms",
+      "cumulative-layout-shift": "0.001"
+    },
+    "accessibility": {
+      "score": 100
+    },
+    "best-practices": {
+      "score": 100
+    },
+    "seo": {
+      "score": 100
     }
   }
 }

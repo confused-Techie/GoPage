@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta name="description" content="GoPage - A simple Website Shortcut Dashboard written in Go">
+  <meta name="viewport" content="width=device-width">
   <title>GoPage - Plugin Repo</title>
   <link id="theme" rel="stylesheet" type="text/css" href="/assets/css/theme-dark.css">
-  <link rel="stylesheet" type="text/css" href="/assets/css/universal.css">
-  <link rel="stylesheet" type="text/css" href="/assets/css/pluginRepo.css">
+  <link rel="stylesheet" type="text/css" href="/assets/dist/universal.min.css">
+  <link rel="stylesheet" type="text/css" href="/assets/dist/pluginRepo.min.css">
 </head>
 <body>
 
@@ -134,5 +136,17 @@
   <script src="/assets/js/pluginRepo.js"></script>
   <script src="/assets/js/universe.js"></script>
   <script type="module" src="/assets/js/pluginLoad.js"></script>
+
+  <noscript>
+    <style type="text/css">
+      .heading {
+        display: none;
+      }
+    </style>
+    <div class="noscriptmsg">
+      Sorry to say, this website was created with assumtion JavaScript is enabled. Incorrect and Unexpected behavior WILL occur with it disabled.
+    </div>
+  </noscript>
+  
 </body>
 </html>

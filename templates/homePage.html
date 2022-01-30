@@ -4,14 +4,9 @@
   <meta name="description" content="GoPage - A simple Website Shortcut Dashboard written in Go">
   <meta name="viewport" content="width=device-width">
   <title>GoPage - Home</title>
-  <!--<link rel="preload" href="/assets/css/home.css" as="style">
-  <link rel="preload" href="/assets/css/universal.css" as="style">
-  <link rel="preload" href="/assets/css/theme-dark.css" as="style">-->
   <link id="theme" rel="stylesheet" type="text/css" href="/assets/css/theme-dark.css">
-  <link rel="stylesheet" type="text/css" href="/assets/css/universal.css">
-  <link rel="stylesheet" type="text/css" href="/assets/css/home.css">
-  <link rel="preload" href="https://fonts.gstatic.com">
-  <!-- Using preload to fetch the domain for font import, to reduce loads by 150ms -->
+  <link rel="stylesheet" type="text/css" href="/assets/dist/universal.min.css">
+  <link rel="stylesheet" type="text/css" href="/assets/dist/home.min.css">
 </head>
 <body>
 
@@ -360,6 +355,7 @@
   <div id="homePageSnackbar" class="snackbar"> </div>
 
   {{template "footer" .}}
+  
   <script type="module" src="/assets/js/pluginLoad.js"></script>
   <script src="/assets/js/universe.js"></script>
   <script src="/assets/js/langHandler.js"></script>
