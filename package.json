@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "minify-css": "powershell scripts/minify-css.ps1",
-    "minify-js": "powershell scripts/minify-js.ps1"
+    "minify-js": "powershell scripts/minify-js.ps1",
+    "lint": "powershell scripts/linting.ps1",
+    "complexity": "powershell scripts/complexity.ps1"
   },
   "repository": {
     "type": "git",
@@ -19,9 +21,11 @@
   },
   "homepage": "https://github.com/confused-Techie/GoPage#readme",
   "devDependencies": {
+    "complexity-report": "^2.0.0-alpha",
     "cssnano": "^5.0.16",
     "postcss": "^8.4.5",
     "postcss-cli": "^9.1.0",
+    "prettier": "^2.5.1",
     "terser": "^5.10.0"
   }
 }

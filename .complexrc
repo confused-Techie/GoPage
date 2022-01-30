@@ -1,0 +1,5 @@
+{
+  "excludepattern": "node_modules",
+  "filepattern": "\\.js$",
+  "output": "./reporting/complexity-report-js.txt"
+}

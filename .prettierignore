@@ -21,6 +21,7 @@ go.sum
 readme.md
 config.yml
 list.json
+assets/dist
 
 # Prettier doesn't seem to handle templating well, so we will ignore some html
 templates
