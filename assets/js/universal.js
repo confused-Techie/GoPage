@@ -23,7 +23,9 @@ function updaterTimeStamp() {
 window.addEventListener("DOMContentLoaded", () => {
   langHandler.DetermineLang().then(() => {
     // once this returns, we can start a lookup of the strings
-    langHandler.InsertLang();
+    //langHandler.InsertLang();
+    // Testing the new Metered connection to reduce network abuse
+    langHandler.InsertLangMetered();
   });
 });
 

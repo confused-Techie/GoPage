@@ -1,0 +1,9 @@
+{{define "head"}}
+<head>
+  <title>{{ .Title }}</title>
+  <link id="theme" rel="stylesheet" type="text/css" href="{{ .Theme }}">
+  {{range .CSS }}
+    <link rel="stylesheet" type="text/css" href="{{ . }}">
+  {{end}}
+</head>
+{{end}}

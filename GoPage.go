@@ -97,6 +97,9 @@ func main() {
 	http.HandleFunc("/linkhealth", handler.LinkHealthPageHandler)
 	http.HandleFunc("/uploadpage", handler.UploadPageHandler)
 
+	http.HandleFunc("/robots.txt", handler.RobotsHandler)
+	http.HandleFunc("/sitemap.xml", handler.SitemapHandler)
+
 	// UploadPage Endpoints: Used for the functionality of the uploadPage
 	http.HandleFunc("/upload", handler.UploadHandler)
 	http.HandleFunc("/userimages", handler.UserImagesHandler)

@@ -26,6 +26,8 @@ As to be honest I've hated CSS for years. */
   );
   color: var(--category-selector-text-colour);
   border-radius: 10px;
+
+  display: inline-block;
 }
 
 #btnContainer button {
@@ -254,6 +256,11 @@ As to be honest I've hated CSS for years. */
 
 .new-button-container {
   text-align: center;
+}
+
+.new-button-container-gen2 {
+  display: inline;
+  vertical-align: bottom;
 }
 
 .new-button-container button {

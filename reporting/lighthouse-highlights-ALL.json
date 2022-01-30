@@ -7,10 +7,10 @@
       "seo": 74.8
     },
     "homePage": {
-      "performance": 97,
+      "performance": 99,
       "accessibility": 100,
       "best-practices": 100,
-      "seo": 91
+      "seo": 100
     },
     "pluginRepo": {
       "performance": 100,
@@ -39,14 +39,19 @@
   },
   "homePage": {
     "performance": {
-      "score": 97,
+      "score": 99,
       "first-contentiful-paint": "0.6s",
       "speed-index": "0.6s",
-      "largest-contentiful-paint": "1.2s",
+      "largest-contentiful-paint": "1.0s",
       "time-to-interactive": "0.9s",
       "total-blocking-time": "0ms",
-      "cumulative-layout-shift": "0.002",
-      "details": {}
+      "cumulative-layout-shift": "0.005",
+      "details": {
+        "avoid chaining critical requests: 6 chains found",
+        "keep request counts low and transfer sizes small: 28 requests * 135 KiB",
+        "largest contentiful paint element: 1 element",
+        "avoid large layout shifts: 5 elements found"
+      }
     },
     "accessibility": {
       "score": 100
@@ -55,10 +60,7 @@
       "score": 100
     },
     "seo": {
-      "score": 91,
-      "details": {
-        "robots.txt is not valid"
-      }
+      "score": 100
     }
   },
 

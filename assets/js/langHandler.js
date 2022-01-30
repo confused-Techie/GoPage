@@ -51,6 +51,42 @@ var langHandler = {
       });
     });
   },
+  InsertLangMetered: function InsertLangMetered() {
+    // This will be equivilant to ProvideString, with slight improvements, and initiating as few web requests as possible
+    var resourceName = `strings.${currentLang}.json`;
+    var canUseChosenLang = false;
+
+    fetch("/assets/lang/strings.json")
+      .then((response) => response.json())
+      .then((strings) => {
+        // to avoid doing a lookup during each string identification we will call all network requests first
+
+        fetch(`/assets/lang/${resourceName}`).then((chosenLangResponse) => {
+          chosenLangResponse.json().then((chosenLangStrings) => {
+            if (chosenLangResponse.ok) {
+              canUseChosenLang = true;
+            }
+
+            fetch("/assets/lang/strings.en.json")
+              .then((defaultLangRes) => defaultLangRes.json())
+              .then((defaultLangStrings) => {
+                for (var i = 0; i < strings.length; i++) {
+                  var curEle = document.getElementById(strings[i]);
+                  if (curEle != null) {
+                    if (canUseChosenLang && chosenLangStrings[strings[i]]) {
+                      curEle.textContent = chosenLangStrings[strings[i]];
+                    } else if (defaultLangStrings[strings[i]]) {
+                      curEle.textContent = defaultLangStrings[strings[i]];
+                    } else {
+                      curEle.textContent = "Translations Missing!";
+                    }
+                  } // else the string isn't on this page
+                }
+              });
+          });
+        });
+      });
+  },
   ProvideStringRaw: function ProvideStringRaw(id) {
     // This will be used for providing strings of generated content, where its not possible to then change the string wtihin the DOM
     return new Promise(function (resolve, reject) {

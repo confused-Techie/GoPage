@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>http://localhost:8080/</loc>
+    <lastmod>2022-01-29</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>http://localhost:8080/pluginrepo</loc>
+    <lastmod>2022-01-29</lastmod>
+  </url>
+  <url>
+    <loc>http://localhost:8080/settings</loc>
+    <lastmod>2022-01-29</lastmod>
+  </url>
+  <url>
+    <loc>http://localhost:8080/linkhealth</loc>
+    <lastmod>2022-01-29</lastmod>
+  </url>
+  <url>
+    <loc>http://localhost:8080/uploadpage</loc>
+    <lastmod>2022-01-29</lastmod>
+  </url>
+</urlset>

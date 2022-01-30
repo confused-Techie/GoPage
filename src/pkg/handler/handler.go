@@ -28,6 +28,10 @@ func returnFooterSubtemplate() string {
 	return viper.GetString("directories.templates") + "/components/footer.gohtml"
 }
 
+func returnHeadSubtemplate() string {
+	return viper.GetString("directories.templates") + "/components/head.gohtml"
+}
+
 func returnHomePage() string {
 	return viper.GetString("directories.templates") + "homePage.html"
 }
@@ -83,8 +87,17 @@ func PluginRepoPageHandler(w http.ResponseWriter, r *http.Request) {
 
 // LinkHealthPageHandler returns basic page data w/ no template. Page: linkhealth.html
 func LinkHealthPageHandler(w http.ResponseWriter, r *http.Request) {
-	tmpl["linkhealth.html"] = template.Must(template.ParseFiles(returnLinkHealthPage(), returnHeadingSubtemplate(), returnFooterSubtemplate()))
-	templateError := tmpl["linkhealth.html"].Execute(w, nil)
+	data := struct {
+		Title string
+		Theme string
+		CSS   []string
+	}{
+		Title: "GoPage - Link Health",
+		Theme: "/assets/css/theme-dark.css",
+		CSS:   []string{"/assets/css/universal.css"},
+	}
+	tmpl["linkhealth.html"] = template.Must(template.ParseFiles(returnLinkHealthPage(), returnHeadingSubtemplate(), returnFooterSubtemplate(), returnHeadSubtemplate()))
+	templateError := tmpl["linkhealth.html"].Execute(w, data)
 	errorHandler.StandardError(templateError)
 }
 
@@ -126,6 +139,16 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 
 	// After successfully uploading the file, redirect to the home page
 	http.Redirect(w, r, "/uploadpage", 301)
+}
+
+// RobotsHandler is a simple static file server for a robots file, if this happens to exposed to the internet
+func RobotsHandler(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, viper.GetString("directories.staticAssets")+"static/robots.txt")
+}
+
+// SitemapHandler is a simple static file server for the sitemap at the root
+func SitemapHandler(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, viper.GetString("directories.staticAssets")+"static/sitemap.xml")
 }
 
 // ------------ User Settings Modifiers
