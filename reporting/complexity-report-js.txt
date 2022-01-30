@@ -567,7 +567,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\langHandler.js
 
 D:\Personal Documents\GitHub Repositories\GoPage\assets\js\linkhealth.js
 
-  Physical LOC: 86
+  Physical LOC: 90
   Logical LOC: 6
   Mean parameter count: 0.3333333333333333
   Cyclomatic complexity: 1
@@ -588,7 +588,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\linkhealth.js
 
   Function: onPageLoad
     Line No.: 5
-    Physical LOC: 77
+    Physical LOC: 81
     Logical LOC: 1
     Parameter count: 0
     Cyclomatic complexity: 1
@@ -598,7 +598,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\linkhealth.js
     Halstead effort: 27.863137138648344
 
   Function: getHostname
-    Line No.: 83
+    Line No.: 87
     Physical LOC: 4
     Logical LOC: 1
     Parameter count: 1

@@ -1,0 +1,198 @@
+{
+  "totals": {
+    "average": {
+      "performance": 94,
+      "accessibility": 93.4,
+      "best-practices": 97.2,
+      "seo": 74.8
+    },
+    "homePage": {
+      "performance": 97,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 91
+    },
+    "pluginRepo": {
+      "performance": 100,
+      "accessibility": 100,
+      "best-practices": 93,
+      "seo": 73
+    },
+    "settings": {
+      "performance": 100,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 73
+    },
+    "linkHealth": {
+      "performance": 100,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 73
+    },
+    "uploadImage": {
+      "performance": 73,
+      "accessibility": 67,
+      "best-practices": 93,
+      "seo": 64
+    }
+  },
+  "homePage": {
+    "performance": {
+      "score": 97,
+      "first-contentiful-paint": "0.6s",
+      "speed-index": "0.6s",
+      "largest-contentiful-paint": "1.2s",
+      "time-to-interactive": "0.9s",
+      "total-blocking-time": "0ms",
+      "cumulative-layout-shift": "0.002",
+      "details": {}
+    },
+    "accessibility": {
+      "score": 100
+    },
+    "best-practices": {
+      "score": 100
+    },
+    "seo": {
+      "score": 91,
+      "details": {
+        "robots.txt is not valid"
+      }
+    }
+  },
+
+  "pluginRepo": {
+    "performance": {
+      "score": 100,
+      "first-contentiful-paint": "0.5s",
+      "speed-index": "0.5s",
+      "largest-contentiful-paint": "0.5s",
+      "time-to-interactive": "0.5s",
+      "total-blocking-time": "0ms",
+      "cumulative-layout-shift": "0",
+      "details": {
+        "image elements do not have explicit width and height",
+        "does not have a meta name viewport tag",
+        "serve static assets with an efficient ccache policy"
+      }
+    },
+    "accessibility": {
+      "score": 100
+    },
+    "best-practices": {
+      "score": 93,
+      "details": {
+        "Issues loged, SameSite cookie airnow.gov"
+      }
+    },
+    "seo": {
+      "score": 73,
+      "details": {
+        "no meta name viewport tag",
+        "docuemtn does not hvae a meta description",
+        "robots.txt is not valid"
+      }
+    }
+  },
+
+  "settings": {
+    "performance": {
+      "score": 100,
+      "first-contentiful-paint": "0.5s",
+      "speed-index": "0.5s",
+      "largest-contentiful-paint": "0.5s",
+      "time-to-interactive": "0.5s",
+      "total-blocking-time": "0ms",
+      "cumulative-layout-shift": "0",
+      "details": {
+        "image elements do not have explicit width and height",
+        "does not have a meta name viewport tag with width or initial scale"
+      }
+    },
+    "accessibility": {
+      "score": 100
+    },
+    "best-practices": {
+      "score": 100
+    },
+    "seo": {
+      "score": 73,
+      "details": {
+        "does not have a meta name viewport tag",
+        "Document does not have a meta description",
+        "robots.txt is not valid"
+      }
+    }
+  },
+
+  "linkHealth": {
+    "performance": {
+      "score": 100,
+      "first-contentiful-paint": "0.5s",
+      "speed-index": "0.5s",
+      "largest-contentiful-paint": "0.6s",
+      "time-to-interactive": "0.5s",
+      "total-blocking-time": "0ms",
+      "cumulative-layout-shift": "0",
+      "details": {
+        "does not have a meta name viewport tag"
+      }
+    },
+    "accessibility": {
+      "score": 100
+    },
+    "best-practices": {
+      "score": 100
+    },
+    "seo": {
+      "score": 73,
+      "details": {
+        "no meta name viewport tag",
+        "document does not have a meta description",
+        "robots.txt is not valid"
+      }
+    }
+  },
+
+  "uploadImage": {
+    "performance": {
+      "score": 73,
+      "first-contentiful-paint": "0.5s",
+      "speed-index": "0.5s",
+      "largest-contentiful-paint": "6.7s",
+      "time-to-interactive": "0.5s",
+      "total-blocking-time": "0ms",
+      "cumulative-layout-shift": "0.126",
+      "details": {
+        "properly size images: 5.2s",
+        "serve images in next-gen formats: 2.72s",
+        "eliminate render-blocking resources: 0.36s",
+        "image elements do not have explicit width and height",
+        "does not have a metqa name viewport tag",
+        "avoid enormous network paylods: 6,815KiB",
+        "serve static assets with an efficient cache policy"
+      }
+    },
+    "accessibility": {
+      "score": 67,
+      "details": {
+        "image elements do not have alt attributes",
+        "form elements do not hvae associated labels"
+      }
+    },
+    "best-practices": {
+      "score": 93,
+      "details": {
+        "serves images with low resolution"
+      }
+    },
+    "seo": {
+      "score": 64,
+      "does not have a meta name viewport tag",
+      "docuemnt does not have a meta description",
+      "image elements do not have alt attributes",
+      "robots.txt is not valid"
+    }
+  }
+}

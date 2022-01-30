@@ -71,6 +71,10 @@ function onPageLoad() {
                     htmlToInsert += htmlEnd;
                   });
 
+                  if (matchList.length === 0) {
+                    htmlToInsert += `<div class="bar-list-bars"> <div><p>No offending Links Found</p></div></div>`;
+                  }
+
                   // once this is all created, we can attach it into the dom.
                   document.getElementById("link-health").innerHTML =
                     htmlToInsert;

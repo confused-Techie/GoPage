@@ -52,6 +52,18 @@ func noCache(h http.Handler) http.Handler {
 	return http.HandlerFunc(fn)
 }
 
+func cacheControl(h http.Handler) http.Handler {
+	fn := func(w http.ResponseWriter, r *http.Request) {
+		modtime := universalMethods.LastModifiedTime(r.URL.String())
+
+		w.Header().Set("Cache-Control", "max-age=2592000") // 30 Days
+		w.Header().Set("Last-Modified", modtime.UTC().Format(time.RFC1123))
+
+		h.ServeHTTP(w, r)
+	}
+	return http.HandlerFunc(fn)
+}
+
 func main() {
 	// Here we can add all viper configuration file/env file setup
 	// this will grab the proper config location, home of windows or linux, or if dev flag used the local dir
@@ -108,7 +120,7 @@ func main() {
 
 	// CSS / JS / Language / Images
 	fs := http.FileServer(http.Dir(viper.GetString("directories.staticAssets")))
-	http.Handle("/assets/", http.StripPrefix("/assets/", fs))
+	http.Handle("/assets/", cacheControl(http.StripPrefix("/assets/", fs)))
 
 	// Plugins Folder: Installed/Available/Installed Plugins Data
 	plugin := http.FileServer(http.Dir(viper.GetString("directories.plugin")))
