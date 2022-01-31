@@ -14,6 +14,8 @@
   "globals": {
     "langHandler": "readonly",
     "pluginAPI": "readonly",
-    "universe": "readonly"
+    "universe": "readonly",
+    "module": "readonly",
+    "require": "readonly"
   }
 }

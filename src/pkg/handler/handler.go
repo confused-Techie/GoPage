@@ -32,6 +32,10 @@ func returnHeadSubtemplate() string {
 	return viper.GetString("directories.templates") + "/components/head.gohtml"
 }
 
+func returnNoScriptSubtemplate() string {
+	return viper.GetString("directories.templates") + "/components/noscript.gohtml"
+}
+
 func returnHomePage() string {
 	return viper.GetString("directories.templates") + "homePage.html"
 }
@@ -91,12 +95,14 @@ func LinkHealthPageHandler(w http.ResponseWriter, r *http.Request) {
 		Title string
 		Theme string
 		CSS   []string
+		JS    []string
 	}{
 		Title: "GoPage - Link Health",
 		Theme: "/assets/css/theme-dark.css",
-		CSS:   []string{"/assets/css/universal.css"},
+		CSS:   []string{"/assets/dist/universal.min.css"},
+		JS:    []string{"/assets/js/universal.js", "/assets/js/langHandler.js", "/assets/js/linkhealth.js"},
 	}
-	tmpl["linkhealth.html"] = template.Must(template.ParseFiles(returnLinkHealthPage(), returnHeadingSubtemplate(), returnFooterSubtemplate(), returnHeadSubtemplate()))
+	tmpl["linkhealth.html"] = template.Must(template.ParseFiles(returnLinkHealthPage(), returnHeadingSubtemplate(), returnFooterSubtemplate(), returnHeadSubtemplate(), returnNoScriptSubtemplate()))
 	templateError := tmpl["linkhealth.html"].Execute(w, data)
 	errorHandler.StandardError(templateError)
 }

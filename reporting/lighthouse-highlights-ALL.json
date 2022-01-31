@@ -46,12 +46,12 @@
       "time-to-interactive": "0.5s",
       "total-blocking-time": "0ms",
       "cumulative-layout-shift": "0.001",
-      "details": {
+      "details": [
         "avoid chaining critical requests: 9 chains found",
         "keep request counts low and transfer sizes small: 27 requests * 190 KiB",
         "largest contentiful paint element: 1 element",
         "avoid large layout shifts: 5 elements found"
-      }
+      ]
     },
     "accessibility": {
       "score": 100
@@ -73,11 +73,11 @@
       "time-to-interactive": "0.3s",
       "total-blocking-time": "0ms",
       "cumulative-layout-shift": "0.003",
-      "details": {
+      "details": [
         "image elements do not have explicit width and height",
         "does not have a meta name viewport tag",
         "serve static assets with an efficient ccache policy"
-      }
+      ]
     },
     "accessibility": {
       "score": 100
@@ -102,9 +102,9 @@
       "time-to-interactive": "0.3s",
       "total-blocking-time": "0ms",
       "cumulative-layout-shift": "0",
-      "details": {
-        "image elements do not have explicit width and height",
-      }
+      "details": [
+        "image elements do not have explicit width and height"
+      ]
     },
     "accessibility": {
       "score": 100
@@ -147,26 +147,26 @@
       "time-to-interactive": "0.3s",
       "total-blocking-time": "0ms",
       "cumulative-layout-shift": "0.012",
-      "details": {
+      "details": [
         "properly size images: 5.08s",
         "serve images in next-gen formats: 2.72s",
         "image elements do not have explicit width and height",
         "avoid enormous network paylods: 6,815KiB",
         "serve static assets with an efficient cache policy"
-      }
+      ]
     },
     "accessibility": {
       "score": 71,
-      "details": {
+      "details": [
         "image elements do not have alt attributes",
         "form elements do not hvae associated labels"
-      }
+      ]
     },
     "best-practices": {
       "score": 93,
-      "details": {
+      "details": [
         "serves images with low resolution"
-      }
+      ]
     },
     "seo": {
       "score": 91,

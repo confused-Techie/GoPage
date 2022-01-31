@@ -26,7 +26,6 @@ As to be honest I've hated CSS for years. */
   );
   color: var(--category-selector-text-colour);
   border-radius: 10px;
-
   display: inline-block;
 }
 
