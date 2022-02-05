@@ -1,18 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta name="description" content="GoPage - A Simple Website Shortcut Dashboard written in Go">
-    <meta name="viewport" content="width=device-width">
-    <title>Settings</title>
-    <link
-      id="theme"
-      rel="stylesheet"
-      type="text/css"
-      href="/assets/css/theme-dark.css"
-    />
-    <link rel="stylesheet" type="text/css" href="/assets/dist/universal.min.css" />
-    <link rel="stylesheet" type="text/css" href="/assets/dist/settings.min.css" />
-  </head>
+ {{template "head" .}}
+ 
   <body>
     {{template "heading" .}}
 
@@ -25,15 +14,19 @@
         <div class="server-settings">
           <p>
             <span id="i18n-serverSummaryServerName">Server Name</span>:
-            {{.Name}}
+            {{.Data.Name}}
           </p>
           <p>
             <span id="i18n-serverSummaryServerVersion">Server Version</span>:
-            {{.Version}}
+            {{.Data.Version}}
           </p>
           <p>
             <span id="i18n-serverSummaryGoPageAuthor">GoPage Author</span>:
-            {{.Author}}
+            {{.Data.Author}}
+          </p>
+          <p>
+            <span id="">Server Language</span>:
+            {{.Data.Language}}
           </p>
         </div>
         <div id="host-settings" class="host-settings"></div>
@@ -118,21 +111,13 @@
 
     {{template "footer" .}}
 
-    <script src="/assets/js/universal.js"></script>
-    <script src="/assets/js/langHandler.js"></script>
-    <script type="module" src="/assets/js/pluginLoad.js"></script>
-    <script src="/assets/js/settings.js"></script>
+    {{range .JS}}
+      <script src="{{ . }}"></script>
+    {{end}}
 
-    <noscript>
-      <style type="text/css">
-        .heading {
-          display: none;
-        }
-      </style>
-      <div class="noscriptmsg">
-        Sorry to say, this website was created with assumtion JavaScript is enabled. Incorrect and Unexpected behavior WILL occur with it disabled.
-      </div>
-    </noscript>
+    <script type="module" src="/assets/js/pluginLoad.js"></script>
+
+    {{template "noscript" .}}
 
   </body>
 </html>

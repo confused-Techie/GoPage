@@ -16,7 +16,7 @@ func LogInjectionAvoidance(input string) string {
 }
 
 // LastModifiedTime returns the ModTime of the requested string, assuming a relative path provided
-func LastModifiedTime(filename string) time.Time {
+func LastModifiedTime(filename string) string {
 	// Since I know where assets is located, we can just append the . here
 	fileLoc := "." + filename
 	file, err := os.Stat(fileLoc)
@@ -25,5 +25,6 @@ func LastModifiedTime(filename string) time.Time {
 		fmt.Println(err)
 	}
 	modifiedtime := file.ModTime()
-	return modifiedtime
+	formatedTime := modifiedtime.UTC().Format(time.RFC1123)
+	return formatedTime
 }

@@ -69,15 +69,41 @@ func HomePageHandler(w http.ResponseWriter, r *http.Request) {
 // SettingsPageHandler returns Template: settings.html w/ Model: ServSettingGet
 func SettingsPageHandler(w http.ResponseWriter, r *http.Request) {
 	au := model.ServSettingGet()
-	tmpl["settings.html"] = template.Must(template.ParseFiles(returnSettingsPage(), returnHeadingSubtemplate(), returnFooterSubtemplate()))
-	templateError := tmpl["settings.html"].Execute(w, au)
+	data := struct {
+		Title string
+		Theme string
+		CSS []string
+		JS []string
+		Data *model.ServSetting
+	}{
+		Title: "GoPage - Settings",
+		Theme: "/assets/css/theme-dark.css",
+		CSS: []string{"/assets/dist/universal.min.css", "/assets/dist/settings.min.css"},
+		JS: []string{"/assets/js/universal.js", "/assets/js/langHandler.js", "/assets/js/settings.js"},
+		Data: au,
+	}
+	//au := model.ServSettingGet()
+	tmpl["settings.html"] = template.Must(template.ParseFiles(returnSettingsPage(), returnHeadingSubtemplate(), returnFooterSubtemplate(), returnHeadSubtemplate(), returnNoScriptSubtemplate()))
+	//templateError := tmpl["settings.html"].Execute(w, au)
+	templateError := tmpl["settings.html"].Execute(w, data)
 	errorHandler.StandardError(templateError)
 }
 
 // UploadPageHandler is a very simple HTTP Serving File for the Upload Page
 func UploadPageHandler(w http.ResponseWriter, r *http.Request) {
-	tmpl["uploadPage.html"] = template.Must(template.ParseFiles(returnUploadImagePage(), returnHeadingSubtemplate(), returnFooterSubtemplate()))
-	templateError := tmpl["uploadPage.html"].Execute(w, nil)
+	data := struct {
+		Title string
+		Theme string
+		CSS []string
+		JS []string
+	}{
+		Title: "GoPage - Upload",
+		Theme: "/assets/css/theme-dark.css",
+		CSS: []string{"/assets/dist/universal.min.css", "/assets/dist/uploadImage.min.css"},
+		JS: []string{"/assets/js/langHandler.js", "/assets/js/universal.js", "/assets/js/universe.js", "/assets/js/uploadImage.js"},
+	}
+	tmpl["uploadPage.html"] = template.Must(template.ParseFiles(returnUploadImagePage(), returnHeadingSubtemplate(), returnFooterSubtemplate(), returnHeadSubtemplate(), returnNoScriptSubtemplate()))
+	templateError := tmpl["uploadPage.html"].Execute(w, data)
 	errorHandler.StandardError(templateError)
 }
 

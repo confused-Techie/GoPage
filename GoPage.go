@@ -57,7 +57,7 @@ func cacheControl(h http.Handler) http.Handler {
 		modtime := universalMethods.LastModifiedTime(r.URL.String())
 
 		w.Header().Set("Cache-Control", "max-age=2592000") // 30 Days
-		w.Header().Set("Last-Modified", modtime.UTC().Format(time.RFC1123))
+		w.Header().Set("Last-Modified", modtime)
 
 		h.ServeHTTP(w, r)
 	}
