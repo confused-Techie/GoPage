@@ -84,9 +84,9 @@
     },
     "best-practices": {
       "score": 93,
-      "details": {
+      "details": [
         "Issues loged, SameSite cookie airnow.gov"
-      }
+      ]
     },
     "seo": {
       "score": 100
