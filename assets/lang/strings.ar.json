@@ -33,11 +33,11 @@
   "i18n-labelFriendlyName": "Enter Friendly Name",
   "i18n-labelLink": "Enter Link",
   "i18n-labelCategory": "Enter Category",
-  "i18n-pluginRepoVersion": "Version",
-  "i18n-pluginRepoLicense": "License",
+  "i18n-pluginRepoVersion": "الإصدار",
+  "i18n-pluginRepoLicense": "الترخيص",
   "i18n-generatedSettingsHostName": "Server Host Name",
   "i18n-generatedSettingsOperatingSystem": "Server Operating System",
-  "i18n-generatedRepoButtonOkay": "Okay",
+  "i18n-generatedRepoButtonOkay": "حسنا",
   "i18n-generatedLHMatchType": "Match Type",
   "i18n-generatedLHMatchedItem": "Matched Item",
   "i18n-generatedLHLinkItem": "Link Items",
@@ -48,7 +48,7 @@
   "i18n-modalFirstTimePlugin": "Visit the Plugin Repo to start installing Plugins",
   "i18n-modalFirstTimeLang": "Change the Language GoPage uses.",
   "i18n-modalFirstTimeDocumentation": "Visit the documentation for further assistance",
-  "i18n-modalFirstTimeLangSubmit": "Submit",
+  "i18n-modalFirstTimeLangSubmit": "قدم ",
   "i18n-modalFirstTimeClose": "Close First Time Setup",
   " i18n-headerUploadNewImage": "Upload New Image"
 }
