@@ -49,7 +49,7 @@ GoPage has been made with the goal of extreme simplicity and convenient extensib
   * Spanish: 100%
   * Chinese Traditional: 100%
 
-![Translations Progress(https://badges.awesome-crowdin.com/translation-15135739-498245.png)]
+![Translations Progress](https://badges.awesome-crowdin.com/translation-15135739-498245.png)
 
 ## Installation
 
