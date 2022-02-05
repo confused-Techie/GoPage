@@ -1,0 +1,191 @@
+{
+  "global": [
+    {
+      "location": "DEV-docs/",
+      "comment": "Exclude Documentation for Development",
+      "action": "exclude"
+    },
+    {
+      "location": "node_modules/",
+      "comment": "Exclude node_modules Globally",
+      "action": "exclude"
+    },
+    {
+      "location": "depreciated/",
+      "comment": "Exclude depreciated blocks of code",
+      "action": "exclude"
+    },
+    {
+      "location": "*.exe",
+      "comment": "Exclude any go build or installer artifacts in root",
+      "action": "exclude"
+    },
+    {
+      "location": "binaries/",
+      "comment": "Exclude any Installer and build binaries",
+      "action": "exclude"
+    },
+    {
+      "location": "list.json",
+      "comment": "Exclude main data file to avoid PII leakage",
+      "action": "exclude"
+    },
+    {
+      "location": "settings/userSettings.json",
+      "comment": "Exclude userSettings file to avoid PII leakage",
+      "action": "exclude"
+    }
+  ],
+  "dockerignore": [
+    {
+      "location": "docs/",
+      "comment": "Ignore all documentation to save container size",
+      "action": "exclude"
+    },
+    {
+      "location": "readme.md",
+      "action": "exclude"
+    },
+    {
+      "location": "LICENSE",
+      "action": "exclude"
+    },
+    {
+      "location": "installer/",
+      "comment": "Ignore all installer files",
+      "action": "exclude"
+    },
+    {
+      "location": ".gitignore",
+      "comment": "Ignore all Git artifacts",
+      "action": "exclude"
+    },
+    {
+      "location": ".gitattributes",
+      "action": "exclude"
+    },
+    {
+      "location": ".github",
+      "action": "exclude"
+    },
+    {
+      "location": ".git",
+      "action": "exclude"
+    },
+    {
+      "location": "scripts/",
+      "comment": "Ignore build scripts",
+      "action": "exclude"
+    },
+    {
+      "location": "assets/userImages/**",
+      "comment": "Exclude testing and dev images",
+      "action": "exclude"
+    },
+    {
+      "location": "Dockerfile",
+      "comment": "Reduce build size as much as possible, and only allow docker items passes in context",
+      "action": "exclude"
+    },
+    {
+      "location": ".dockerignore",
+      "action": "exclude"
+    },
+    {
+      "location": "reporting/",
+      "comment": "Remove reporting stats for build size consideration",
+      "action": "exclude"
+    }
+  ],
+  "gitignore": [
+    {
+      "location": "installer/Output",
+      "comment": "Ignore installer binaries",
+      "action": "exclude"
+    },
+    {
+      "location": "cleanFiles/list.json",
+      "comment": "Ensure cleanfiles are included",
+      "action": "include"
+    }
+  ],
+  "prettierignore": [
+    {
+      "location": ".git",
+      "comment": "Exclude all git artifacts",
+      "action": "exclude"
+    },
+    {
+      "location": ".github",
+      "action": "exclude"
+    },
+    {
+      "location": ".gitattributes",
+      "action": "exclude"
+    },
+    {
+      "location": ".gitignore",
+      "action": "exclude"
+    },
+    {
+      "location": "cleanFiles/",
+      "comment": "Ignore incomplete files for installation",
+      "action": "exclude"
+    },
+    {
+      "location": "docs/",
+      "comment": "Don't format documentation",
+      "action": "exclude"
+    },
+    {
+      "location": "readme.md",
+      "action": "exclude"
+    },
+    {
+      "location": "installer/",
+      "comment": "Nothing to format in this location",
+      "action": "exclude"
+    },
+    {
+      "location": "reporting/",
+      "comment": "Save CPU cycles on ignoring auto-generated reports",
+      "action": "exclude"
+    },
+    {
+      "location": "scripts/",
+      "comment": "Don't format powershell scripts",
+      "action": "exclude"
+    },
+    {
+      "location": ".dockerignore",
+      "comment": "Ignore other build tools",
+      "action": "exclude"
+    },
+    {
+      "location": ".eslintrc.json",
+      "action": "exclude"
+    },
+    {
+      "location": "go.mod",
+      "action": "exclude"
+    },
+    {
+      "location": "go.sum",
+      "action": "exclude"
+    },
+    {
+      "location": "config.yml",
+      "action": "exclude"
+    },
+    {
+      "location": "assets/dist",
+      "comment": "Don't try formatting minified items",
+      "action": "exclude"
+    },
+    {
+      "location": "templates/",
+      "comment": "Prettier seems to not like templates with .html, so we will ignore for now",
+      "action": "exclude"
+    }
+  ]
+}

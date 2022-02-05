@@ -16,6 +16,10 @@
 [![License](https://badgen.net/github/license/confused-Techie/GoPage)](https://github.com/confused-Techie/GoPage/blob/main/LICENSE)
 [![Last Commit](https://img.shields.io/github/last-commit/confused-Techie/GoPage)](https://github.com/confused-Techie/GoPage/commits/main)
 
+[![Crowdin](https://badges.crowdin.net/gopage/localized.svg)](https://crowdin.com/project/gopage)
+![zh-TW translation](https://img.shields.io/badge/dynamic/json?color=blue&label=zh-TW&style=flat&query=%24.progress.1.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-15135739-498245.json)
+![es-MX translation](https://img.shields.io/badge/dynamic/json?color=blue&label=es-MX&style=flat&query=%24.progress.0.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-15135739-498245.json)
+
 GoPage has been made with the goal of extreme simplicity and convenient extensibility. Where standalone it's a simplistic way to store and manage Links to pages giving them unique user-defined categories, with easy ability to edit them down the line. And if you mix in the existing plugins and extreme ease of creating new ones gives life to these Links to show you the data needed at a moments glance.
 
 ![Example of GoPage HomePage](/docs/assets/homepage-utilized-0.4.png)

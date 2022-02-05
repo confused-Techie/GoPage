@@ -8,7 +8,8 @@
     "minify-css": "powershell scripts/minify-css.ps1",
     "minify-js": "powershell scripts/minify-js.ps1",
     "lint": "powershell scripts/linting.ps1",
-    "complexity": "powershell scripts/complexity.ps1"
+    "complexity": "powershell scripts/complexity.ps1",
+    "ignore": "compactignore ."
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,7 @@
   },
   "homepage": "https://github.com/confused-Techie/GoPage#readme",
   "devDependencies": {
+    "@confused-techie/compactignore": "^1.0.0",
     "complexity-report": "^2.0.0-alpha",
     "cssnano": "^5.0.16",
     "postcss": "^8.4.5",
