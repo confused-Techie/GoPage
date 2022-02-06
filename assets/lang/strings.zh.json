@@ -50,5 +50,6 @@
   "i18n-modalFirstTimeDocumentation": "按右邊按鈕到 '文件' 以獲取更多幫助",
   "i18n-modalFirstTimeLangSubmit": "確認",
   "i18n-modalFirstTimeClose": "關閉首次設定",
-  " i18n-headerUploadNewImage": "上傳圖片"
+  "i18n-headerUploadNewImage": "Upload New Image",
+  "i18n-headerSettings": "Settings"
 }
