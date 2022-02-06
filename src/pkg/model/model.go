@@ -86,12 +86,12 @@ func (i ItemV2) NoBottomRightPlugin() bool {
 
 // PageTemplate is used to define the struct used to create each page
 type PageTemplate struct {
-	Title string
-	Theme string
-	CSS []string
-	JS []string
-	Data interface{}
-	TargetStrings map[string]string
+	Title          string
+	Theme          string
+	CSS            []string
+	JS             []string
+	Data           interface{}
+	TargetStrings  map[string]string
 	DefaultStrings map[string]string
 	TargetLanguage string
 }

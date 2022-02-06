@@ -32,7 +32,7 @@ func returnAgnosticStrings(langCode string) map[string]string {
 	// Since I do know that the translations should only ever include strings, we can make a small attempt
 	// at ensuring the strings file doesn't become a vector for malicious activity
 
-	file, err := os.OpenFile(viper.GetString("directories.staticAssets")+"lang/strings." + langCode + ".json", os.O_RDWR|os.O_APPEND, 0666)
+	file, err := os.OpenFile(viper.GetString("directories.staticAssets")+"lang/strings."+langCode+".json", os.O_RDWR|os.O_APPEND, 0666)
 	errorHandler.StandardError(err)
 	b, err := ioutil.ReadAll(file)
 	errorHandler.StandardError(err)
@@ -60,12 +60,12 @@ func HomePageHandler(w http.ResponseWriter, r *http.Request) {
 	au := model.HomeV2()
 
 	data := model.PageTemplate{
-		Title: "Gopage - Home",
-		Theme: "/assets/css/theme-dark.css",
-		CSS: []string{"/assets/dist/universal.min.css", "/assets/dist/home.min.css"},
-		JS: []string{"/assets/js/universe.js", "/assets/js/langHandler.js", "/assets/js/home.js", "/assets/js/pluginhandler.js", "/assets/js/universal.js"},
-		Data: au,
-		TargetStrings: returnTargetStrings(),
+		Title:          "Gopage - Home",
+		Theme:          "/assets/css/theme-dark.css",
+		CSS:            []string{"/assets/dist/universal.min.css", "/assets/dist/home.min.css"},
+		JS:             []string{"/assets/js/universe.js", "/assets/js/langHandler.js", "/assets/js/home.js", "/assets/js/pluginhandler.js", "/assets/js/universal.js"},
+		Data:           au,
+		TargetStrings:  returnTargetStrings(),
 		DefaultStrings: returnDefaultStrings(),
 		TargetLanguage: model.ServSettingGetLang(),
 	}
@@ -92,12 +92,12 @@ func SettingsPageHandler(w http.ResponseWriter, r *http.Request) {
 	au := model.ServSettingGet()
 
 	data := model.PageTemplate{
-		Title: "GoPage - Settings",
-		Theme: "/assets/css/theme-dark.css",
-		CSS: []string{"/assets/dist/universal.min.css", "/assets/dist/settings.min.css"},
-		JS: []string{"/assets/js/universal.js", "/assets/js/langHandler.js", "/assets/js/settings.js"},
-		Data: au,
-		TargetStrings: returnTargetStrings(),
+		Title:          "GoPage - Settings",
+		Theme:          "/assets/css/theme-dark.css",
+		CSS:            []string{"/assets/dist/universal.min.css", "/assets/dist/settings.min.css"},
+		JS:             []string{"/assets/js/universal.js", "/assets/js/langHandler.js", "/assets/js/settings.js"},
+		Data:           au,
+		TargetStrings:  returnTargetStrings(),
 		DefaultStrings: returnDefaultStrings(),
 		TargetLanguage: model.ServSettingGetLang(),
 	}
@@ -120,12 +120,12 @@ func SettingsPageHandler(w http.ResponseWriter, r *http.Request) {
 func UploadPageHandler(w http.ResponseWriter, r *http.Request) {
 
 	data := model.PageTemplate{
-		Title: "GoPage - Upload",
-		Theme: "/assets/css/theme-dark.css",
-		CSS: []string{"/assets/dist/universal.min.css", "/assets/dist/uploadImage.min.css"},
-		JS: []string{"/assets/js/langHandler.js", "/assets/js/universal.js", "/assets/js/universe.js", "/assets/js/uploadImage.js"},
-		Data: "",
-		TargetStrings: returnTargetStrings(),
+		Title:          "GoPage - Upload",
+		Theme:          "/assets/css/theme-dark.css",
+		CSS:            []string{"/assets/dist/universal.min.css", "/assets/dist/uploadImage.min.css"},
+		JS:             []string{"/assets/js/langHandler.js", "/assets/js/universal.js", "/assets/js/universe.js", "/assets/js/uploadImage.js"},
+		Data:           "",
+		TargetStrings:  returnTargetStrings(),
 		DefaultStrings: returnDefaultStrings(),
 		TargetLanguage: model.ServSettingGetLang(),
 	}
@@ -148,12 +148,12 @@ func PluginRepoPageHandler(w http.ResponseWriter, r *http.Request) {
 	//resp := apiFunc.GetPluginData()
 
 	data := model.PageTemplate{
-		Title: "Gopage - Plugin Repo",
-		Theme: "/assets/css/theme-dark.css",
-		CSS: []string{"/assets/dist/universal.min.css", "/assets/dist/pluginRepo.min.css"},
-		JS: []string{},
-		Data: apiFunc.GetPluginData(),
-		TargetStrings: returnTargetStrings(),
+		Title:          "Gopage - Plugin Repo",
+		Theme:          "/assets/css/theme-dark.css",
+		CSS:            []string{"/assets/dist/universal.min.css", "/assets/dist/pluginRepo.min.css"},
+		JS:             []string{},
+		Data:           apiFunc.GetPluginData(),
+		TargetStrings:  returnTargetStrings(),
 		DefaultStrings: returnDefaultStrings(),
 		TargetLanguage: model.ServSettingGetLang(),
 	}
@@ -175,12 +175,12 @@ func PluginRepoPageHandler(w http.ResponseWriter, r *http.Request) {
 func LinkHealthPageHandler(w http.ResponseWriter, r *http.Request) {
 
 	data := model.PageTemplate{
-		Title: "GoPage - Link Health",
-		Theme: "/assets/css/theme-dark.css",
-		CSS:   []string{"/assets/dist/universal.min.css"},
-		JS:    []string{"/assets/js/universal.js", "/assets/js/langHandler.js", "/assets/js/linkhealth.js"},
-		Data: "",
-		TargetStrings: returnTargetStrings(),
+		Title:          "GoPage - Link Health",
+		Theme:          "/assets/css/theme-dark.css",
+		CSS:            []string{"/assets/dist/universal.min.css"},
+		JS:             []string{"/assets/js/universal.js", "/assets/js/langHandler.js", "/assets/js/linkhealth.js"},
+		Data:           "",
+		TargetStrings:  returnTargetStrings(),
 		DefaultStrings: returnDefaultStrings(),
 		TargetLanguage: model.ServSettingGetLang(),
 	}
