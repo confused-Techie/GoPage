@@ -51,5 +51,14 @@
   "i18n-modalFirstTimeLangSubmit": "قدم ",
   "i18n-modalFirstTimeClose": "Close First Time Setup",
   "i18n-headerUploadNewImage": "Upload New Image",
-  "i18n-headerSettings": "Settings"
+  "i18n-headerSettings": "Settings",
+  "i18n-headerGoPage": "GoPage",
+  "i18n-genericEdit": "Edit",
+  "i18n-genericDelete": "Delete",
+  "i18n-modalHeaderPlugin": "Header Plugin",
+  "i18n-serverSummaryServerLanguage": "Server Language",
+  "i18n-uploadPromptImageUpload": "Choose an Image to Upload",
+  "i18n-uploadPromptButton": "Upload Image",
+  "i18n-unsetImagePrompt": "Use no Background Image",
+  "i18n-unsetImageButton": "Unset Image"
 }
