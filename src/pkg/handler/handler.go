@@ -71,7 +71,7 @@ func HomePageHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	templateArray := []string{
-		returnDynamicTemplate("homePage.html"),
+		returnDynamicTemplate("homePage.gohtml"),
 		returnDynamicSubTemplate("heading.gohtml"),
 		returnDynamicSubTemplate("footer.gohtml"),
 		returnDynamicSubTemplate("head.gohtml"),
@@ -103,7 +103,7 @@ func SettingsPageHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	templateArray := []string{
-		returnDynamicTemplate("settings.html"),
+		returnDynamicTemplate("settings.gohtml"),
 		returnDynamicSubTemplate("heading.gohtml"),
 		returnDynamicSubTemplate("footer.gohtml"),
 		returnDynamicSubTemplate("head.gohtml"),
@@ -131,7 +131,7 @@ func UploadPageHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	templateArray := []string{
-		returnDynamicTemplate("uploadImage.html"),
+		returnDynamicTemplate("uploadImage.gohtml"),
 		returnDynamicSubTemplate("heading.gohtml"),
 		returnDynamicSubTemplate("footer.gohtml"),
 		returnDynamicSubTemplate("head.gohtml"),
@@ -159,7 +159,7 @@ func PluginRepoPageHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	templateArray := []string{
-		returnDynamicTemplate("pluginRepo.html"),
+		returnDynamicTemplate("pluginRepo.gohtml"),
 		returnDynamicSubTemplate("heading.gohtml"),
 		returnDynamicSubTemplate("footer.gohtml"),
 		returnDynamicSubTemplate("noscript.gohtml"),
@@ -186,7 +186,7 @@ func LinkHealthPageHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	templateArray := []string{
-		returnDynamicTemplate("linkhealth.html"),
+		returnDynamicTemplate("linkhealth.gohtml"),
 		returnDynamicSubTemplate("heading.gohtml"),
 		returnDynamicSubTemplate("footer.gohtml"),
 		returnDynamicSubTemplate("head.gohtml"),
