@@ -1,31 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
  {{template "head" .}}
- 
+
   <body>
     {{template "heading" .}}
 
     <div class="bar-list">
       <div class="seperator">
-        <h2><span id="i18n-headerSummary">Summary</span></h2>
+        <h2>{{ or (index .TargetStrings "i18n-headerSummary") (index .DefaultStrings "ii18n-headerSummary") }}</h2>
       </div>
 
       <div class="settingsContainerSummary bar-list-bars">
         <div class="server-settings">
           <p>
-            <span id="i18n-serverSummaryServerName">Server Name</span>:
+            {{ or (index .TargetStrings "i18n-serverSummaryServerName") (index .DefaultStrings "i18n-serverSummaryServerName") }}:
             {{.Data.Name}}
           </p>
           <p>
-            <span id="i18n-serverSummaryServerVersion">Server Version</span>:
+            {{ or (index .TargetStrings "i18n-serverSummaryServerVersion") (index .DefaultStrings "i18n-serverSummaryServerVersion") }}:
             {{.Data.Version}}
           </p>
           <p>
-            <span id="i18n-serverSummaryGoPageAuthor">GoPage Author</span>:
+            {{ or (index .TargetStrings "i18n-serverSummaryGoPageAuthor") (index .DefaultStrings "i18n-serverSummaryGoPageAuthor") }}:
             {{.Data.Author}}
           </p>
           <p>
-            <span id="">Server Language</span>:
+            <span id="i18n-TODO">Server Language</span>:
             {{.Data.Language}}
           </p>
         </div>
@@ -33,20 +32,27 @@
       </div>
 
       <div class="seperator">
-        <h2><span id="i18n-headerTools">Tools</span></h2>
+        <h2>{{ or
+              (index .TargetStrings "i18n-headerTools")
+              (index .DefaultStrings "i18n-headerTools")
+            }}</h2>
       </div>
 
       <div class="settingsShortcuts">
         <div class="bar-list-bars">
           <div class="shortcut-list-item">
             <div class="shortcut-list-title">
-              <span id="i18n-toolNamePluginRepo">Plugin Repo</span>
+              {{ or
+                (index .TargetStrings "i18n-toolNamePluginRepo")
+                (index .DefaultStrings "i18n-toolNamePluginRepo")
+              }}
             </div>
             <div class="shortcut-list-description">
               <p>
-                <span id="i18n-toolDescriptionPluginRepo"
-                  >A Place to get new Plugins.</span
-                >
+                {{ or
+                  (index .TargetStrings "i18n-toolDescriptionPluginRepo")
+                  (index .DefaultStrings "i18n-toolDescriptionPluginRepo")
+                }}
               </p>
             </div>
             <a href="/pluginrepo">
@@ -63,13 +69,17 @@
         <div class="bar-list-bars">
           <div class="shortcut-list-item">
             <div class="shortcut-list-title">
-              <span id="i18n-toolNameLinkHealth">Link Health</span>
+              {{ or
+                (index .TargetStrings "i18n-toolNameLinkHealth")
+                (index .DefaultStrings "i18n-toolNameLinkHealth")
+              }}
             </div>
             <div class="shortcut-list-description">
               <p>
-                <span id="i18n-toolDescriptionLinkHealth"
-                  >A Place to check the health and any Duplicates of Items</span
-                >
+                {{ or
+                  (index .TargetStrings "i18n-toolDescriptionLinkHealth")
+                  (index .DefaultStrings "i18n-toolDescriptionLinkHealth")
+                }}
               </p>
             </div>
             <a href="/linkhealth">
@@ -86,14 +96,17 @@
         <div class="bar-list-bars">
           <div class="shortcut-list-item">
             <div class="shortcut-list-title">
-              <span id="i18n-toolNameBackgroundImage">Background Image</span>
+              {{ or
+                (index .TargetStrings "i18n-toolNameBackgroundImage")
+                (index .DefaultStrings "i18n-toolNameBackgroundImage")
+              }}
             </div>
             <div class="shortcut-list-description">
               <p>
-                <span id="i18n-toolDescriptionBackgroundImage"
-                  >Tool to upload new Background Images and change the current
-                  one.</span
-                >
+                {{ or
+                  (index .TargetStrings "i18n-toolDescriptionBackgroundImage")
+                  (index .DefaultStrings "i18n-toolDescriptionBackgroundImage")
+                }}
               </p>
             </div>
             <a href="/uploadpage">

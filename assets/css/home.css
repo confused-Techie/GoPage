@@ -218,13 +218,6 @@ As to be honest I've hated CSS for years. */
   border-radius: 10px;
   padding: 5px;
   cursor: pointer;
-  box-shadow: -5px 5px 2px black;
-  -webkit-transition: box-shadow 0.3s ease-out;
-}
-
-.optionsContent-Edit:hover {
-  box-shadow: -10px 8px 3px black;
-  -webkit-transition: box-shadow 0.5s ease-in;
 }
 
 .optionsContent-Delete {
@@ -234,13 +227,6 @@ As to be honest I've hated CSS for years. */
   border-radius: 10px;
   padding: 5px;
   cursor: pointer;
-  box-shadow: -5px 5px 2px black;
-  -webkit-transition: box-shadow 0.3s ease-out;
-}
-
-.optionsContent-Delete:hover {
-  box-shadow: -10px 8px 3px black;
-  -webkit-transition: box-shadow 0.5s ease-in;
 }
 
 .filterDiv:hover .optionsItem {

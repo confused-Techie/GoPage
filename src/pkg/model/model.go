@@ -84,6 +84,18 @@ func (i ItemV2) NoBottomRightPlugin() bool {
 	return doesHave
 }
 
+// PageTemplate is used to define the struct used to create each page
+type PageTemplate struct {
+	Title string
+	Theme string
+	CSS []string
+	JS []string
+	Data interface{}
+	TargetStrings map[string]string
+	DefaultStrings map[string]string
+	TargetLanguage string 
+}
+
 func checkError(err error) {
 	if err != nil {
 		fmt.Println(err)
@@ -120,6 +132,17 @@ func ServSettingGet() (au *ServSetting) {
 	json.Unmarshal(b, &srvStting)
 	checkError(err)
 	return &srvStting
+}
+
+// ServSettingGetLang returns a string of the langauge code saved in the server settings file
+func ServSettingGetLang() string {
+	file, err := os.OpenFile(viper.GetString("directories.setting")+"/serverSettings.json", os.O_RDWR|os.O_APPEND, 0666)
+	checkError(err)
+	b, err := ioutil.ReadAll(file)
+	var srvStting ServSetting
+	json.Unmarshal(b, &srvStting)
+	checkError(err)
+	return srvStting.Language
 }
 
 // ServSettingSetLang is made to modify the server settings language value only

@@ -1,7 +1,10 @@
 {{define "head"}}
+<html lang="{{ .TargetLanguage }}">
+<html lang="{{ .TargetLanguage }}" xml:lang="{{ .TargetLanguage }}" xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta name="description" content="GoPage - A Simple Website Shortcut Dashboard written in Go">
   <meta name="viewport" content="width=device-width">
+  <meta http-equiv="Content-Langauge" content="{{ .TargetLanguage }}">
   <title>{{ .Title }}</title>
   <link id="theme" rel="stylesheet" type="text/css" href="{{ .Theme }}">
   {{range .CSS }}

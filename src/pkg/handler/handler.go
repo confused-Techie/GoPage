@@ -19,41 +19,39 @@ import (
 
 // ------------ Standard Page Handlers
 
-// Since I can't declare these as variables due to the viper instance not running fully at boot, they will be made functions
-func returnHeadingSubtemplate() string {
-	return viper.GetString("directories.templates") + "/components/heading.gohtml"
+func returnDynamicTemplate(t string) string {
+	return viper.GetString("directories.templates") + t
 }
 
-func returnFooterSubtemplate() string {
-	return viper.GetString("directories.templates") + "/components/footer.gohtml"
+func returnDynamicSubTemplate(t string) string {
+	return viper.GetString("directories.templates") + "/components/" + t
 }
 
-func returnHeadSubtemplate() string {
-	return viper.GetString("directories.templates") + "/components/head.gohtml"
+func returnTargetStrings() map[string]string {
+	// While original was using map[string]interface{} as was thought to be the best for mapping unknown JSON
+	// Since I do know that the translations should only ever include strings, we can make a small attempt
+	// at ensuring the strings file doesn't become a vector for malicious activity
+	var targetLangCode = model.ServSettingGetLang()
+
+	file, err := os.OpenFile(viper.GetString("directories.staticAssets")+"lang/strings." + targetLangCode + ".json", os.O_RDWR|os.O_APPEND, 0666)
+	errorHandler.StandardError(err)
+	b, err := ioutil.ReadAll(file)
+	errorHandler.StandardError(err)
+	var objmap map[string]string
+	err = json.Unmarshal(b, &objmap)
+	errorHandler.StandardError(err)
+	return objmap
 }
 
-func returnNoScriptSubtemplate() string {
-	return viper.GetString("directories.templates") + "/components/noscript.gohtml"
-}
-
-func returnHomePage() string {
-	return viper.GetString("directories.templates") + "homePage.html"
-}
-
-func returnPluginRepoPage() string {
-	return viper.GetString("directories.templates") + "pluginRepo.html"
-}
-
-func returnSettingsPage() string {
-	return viper.GetString("directories.templates") + "settings.html"
-}
-
-func returnLinkHealthPage() string {
-	return viper.GetString("directories.templates") + "linkhealth.html"
-}
-
-func returnUploadImagePage() string {
-	return viper.GetString("directories.templates") + "uploadImage.html"
+func returnDefaultStrings() map[string]string {
+	file, err := os.OpenFile(viper.GetString("directories.staticAssets")+"lang/strings.en.json", os.O_RDWR|os.O_APPEND, 0666)
+	errorHandler.StandardError(err)
+	b, err := ioutil.ReadAll(file)
+	errorHandler.StandardError(err)
+	var objmap map[string]string
+	err = json.Unmarshal(b, &objmap)
+	errorHandler.StandardError(err)
+	return objmap
 }
 
 var tmpl = make(map[string]*template.Template)
@@ -61,74 +59,142 @@ var tmpl = make(map[string]*template.Template)
 //HomePageHandler returns Template: homePage.html w/ Model: HomeV2
 func HomePageHandler(w http.ResponseWriter, r *http.Request) {
 	au := model.HomeV2()
-	tmpl["homePage.html"] = template.Must(template.ParseFiles(returnHomePage(), returnHeadingSubtemplate(), returnFooterSubtemplate()))
-	templateError := tmpl["homePage.html"].Execute(w, au)
+
+	data := model.PageTemplate{
+		Title: "Gopage - Home",
+		Theme: "/assets/css/theme-dark.css",
+		CSS: []string{"/assets/dist/universal.min.css", "/assets/dist/home.min.css"},
+		JS: []string{"/assets/js/universe.js", "/assets/js/langHandler.js", "/assets/js/home.js", "/assets/js/pluginhandler.js", "/assets/js/universal.js"},
+		Data: au,
+		TargetStrings: returnTargetStrings(),
+		DefaultStrings: returnDefaultStrings(),
+		TargetLanguage: model.ServSettingGetLang(),
+	}
+
+	templateArray := []string{
+		returnDynamicTemplate("homePage.html"),
+		returnDynamicSubTemplate("heading.gohtml"),
+		returnDynamicSubTemplate("footer.gohtml"),
+		returnDynamicSubTemplate("head.gohtml"),
+		returnDynamicSubTemplate("noscript.gohtml"),
+		returnDynamicSubTemplate("firstTimeSetup.gohtml"),
+	}
+
+	// this is using the variadic nature of ParseFiles to advantage, to instead of endless returns for each template,
+	// they can be dynamically returned via a simple constructor, then passed as an array to ParseFiles
+
+	tmpl["homePage.html"] = template.Must(template.ParseFiles(templateArray...))
+	templateError := tmpl["homePage.html"].Execute(w, data)
 	errorHandler.StandardError(templateError)
 }
 
 // SettingsPageHandler returns Template: settings.html w/ Model: ServSettingGet
 func SettingsPageHandler(w http.ResponseWriter, r *http.Request) {
 	au := model.ServSettingGet()
-	data := struct {
-		Title string
-		Theme string
-		CSS []string
-		JS []string
-		Data *model.ServSetting
-	}{
+
+	data := model.PageTemplate{
 		Title: "GoPage - Settings",
 		Theme: "/assets/css/theme-dark.css",
 		CSS: []string{"/assets/dist/universal.min.css", "/assets/dist/settings.min.css"},
 		JS: []string{"/assets/js/universal.js", "/assets/js/langHandler.js", "/assets/js/settings.js"},
 		Data: au,
+		TargetStrings: returnTargetStrings(),
+		DefaultStrings: returnDefaultStrings(),
+		TargetLanguage: model.ServSettingGetLang(),
 	}
-	//au := model.ServSettingGet()
-	tmpl["settings.html"] = template.Must(template.ParseFiles(returnSettingsPage(), returnHeadingSubtemplate(), returnFooterSubtemplate(), returnHeadSubtemplate(), returnNoScriptSubtemplate()))
-	//templateError := tmpl["settings.html"].Execute(w, au)
+
+	templateArray := []string{
+		returnDynamicTemplate("settings.html"),
+		returnDynamicSubTemplate("heading.gohtml"),
+		returnDynamicSubTemplate("footer.gohtml"),
+		returnDynamicSubTemplate("head.gohtml"),
+		returnDynamicSubTemplate("noscript.gohtml"),
+	}
+
+	tmpl["settings.html"] = template.Must(template.ParseFiles(templateArray...))
+
 	templateError := tmpl["settings.html"].Execute(w, data)
 	errorHandler.StandardError(templateError)
 }
 
 // UploadPageHandler is a very simple HTTP Serving File for the Upload Page
 func UploadPageHandler(w http.ResponseWriter, r *http.Request) {
-	data := struct {
-		Title string
-		Theme string
-		CSS []string
-		JS []string
-	}{
+
+	data := model.PageTemplate{
 		Title: "GoPage - Upload",
 		Theme: "/assets/css/theme-dark.css",
 		CSS: []string{"/assets/dist/universal.min.css", "/assets/dist/uploadImage.min.css"},
 		JS: []string{"/assets/js/langHandler.js", "/assets/js/universal.js", "/assets/js/universe.js", "/assets/js/uploadImage.js"},
+		Data: "",
+		TargetStrings: returnTargetStrings(),
+		DefaultStrings: returnDefaultStrings(),
+		TargetLanguage: model.ServSettingGetLang(),
 	}
-	tmpl["uploadPage.html"] = template.Must(template.ParseFiles(returnUploadImagePage(), returnHeadingSubtemplate(), returnFooterSubtemplate(), returnHeadSubtemplate(), returnNoScriptSubtemplate()))
+
+	templateArray := []string{
+		returnDynamicTemplate("uploadImage.html"),
+		returnDynamicSubTemplate("heading.gohtml"),
+		returnDynamicSubTemplate("footer.gohtml"),
+		returnDynamicSubTemplate("head.gohtml"),
+		returnDynamicSubTemplate("noscript.gohtml"),
+	}
+
+	tmpl["uploadPage.html"] = template.Must(template.ParseFiles(templateArray...))
 	templateError := tmpl["uploadPage.html"].Execute(w, data)
 	errorHandler.StandardError(templateError)
 }
 
 // PluginRepoPageHandler returns Template: pluginRepo.html w/ Data: apiFunc.GetPluginData
 func PluginRepoPageHandler(w http.ResponseWriter, r *http.Request) {
-	resp := apiFunc.GetPluginData()
-	tmpl["pluginRepo.html"] = template.Must(template.ParseFiles(returnPluginRepoPage(), returnHeadingSubtemplate(), returnFooterSubtemplate()))
-	templateError := tmpl["pluginRepo.html"].Execute(w, resp)
+	//resp := apiFunc.GetPluginData()
+
+	data := model.PageTemplate{
+		Title: "Gopage - Plugin Repo",
+		Theme: "/assets/css/theme-dark.css",
+		CSS: []string{"/assets/dist/universal.min.css", "/assets/dist/pluginRepo.min.css"},
+		JS: []string{},
+		Data: apiFunc.GetPluginData(),
+		TargetStrings: returnTargetStrings(),
+		DefaultStrings: returnDefaultStrings(),
+		TargetLanguage: model.ServSettingGetLang(),
+	}
+
+	templateArray := []string{
+		returnDynamicTemplate("pluginRepo.html"),
+		returnDynamicSubTemplate("heading.gohtml"),
+		returnDynamicSubTemplate("footer.gohtml"),
+		returnDynamicSubTemplate("noscript.gohtml"),
+		returnDynamicSubTemplate("head.gohtml"),
+	}
+
+	tmpl["pluginRepo.html"] = template.Must(template.ParseFiles(templateArray...))
+	templateError := tmpl["pluginRepo.html"].Execute(w, data)
 	errorHandler.StandardError(templateError)
 }
 
 // LinkHealthPageHandler returns basic page data w/ no template. Page: linkhealth.html
 func LinkHealthPageHandler(w http.ResponseWriter, r *http.Request) {
-	data := struct {
-		Title string
-		Theme string
-		CSS   []string
-		JS    []string
-	}{
+
+	data := model.PageTemplate{
 		Title: "GoPage - Link Health",
 		Theme: "/assets/css/theme-dark.css",
 		CSS:   []string{"/assets/dist/universal.min.css"},
 		JS:    []string{"/assets/js/universal.js", "/assets/js/langHandler.js", "/assets/js/linkhealth.js"},
+		Data: "",
+		TargetStrings: returnTargetStrings(),
+		DefaultStrings: returnDefaultStrings(),
+		TargetLanguage: model.ServSettingGetLang(),
 	}
-	tmpl["linkhealth.html"] = template.Must(template.ParseFiles(returnLinkHealthPage(), returnHeadingSubtemplate(), returnFooterSubtemplate(), returnHeadSubtemplate(), returnNoScriptSubtemplate()))
+
+	templateArray := []string{
+		returnDynamicTemplate("linkhealth.html"),
+		returnDynamicSubTemplate("heading.gohtml"),
+		returnDynamicSubTemplate("footer.gohtml"),
+		returnDynamicSubTemplate("head.gohtml"),
+		returnDynamicSubTemplate("noscript.gohtml"),
+	}
+
+	tmpl["linkhealth.html"] = template.Must(template.ParseFiles(templateArray...))
 	templateError := tmpl["linkhealth.html"].Execute(w, data)
 	errorHandler.StandardError(templateError)
 }

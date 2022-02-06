@@ -1,0 +1,62 @@
+{{define "firstTimeSetup"}}
+<div id="firstTimeModal" class="modal">
+  <div class="modal-content">
+    <h2><span id="i18n-modalFirstTimeWelcome">Welcome to GoPage, looks like it's your first time here. Here are some helpful ways to get started.</span></h2>
+    <div class="firstTimeModalContent">
+      <div class="firstTimeModalItem">
+        <div class="firstTimeModalItemText">
+          <h3><span id="i18n-modalFirstTimeLink">Create your first Link Item.</span></h3>
+        </div>
+        <a href="/new"><button class="firstTimeModalItemButton">
+          <img src="/assets/images/external-link.svg" alt="External Link Icon to Open New Link Item" width="24" height="24">
+        </button></a>
+      </div>
+      <hr>
+
+      <div class="firstTimeModalItem">
+        <div class="firstTimeModalItemText">
+          <h3><span id="i18n-modalFirstTimePlugin">Visit the Plugin Repo to start installing Plugins</span></h3>
+        </div>
+        <a href="/pluginrepo"><button class="firstTimeModalItemButton">
+          <img src="/assets/images/external-link.svg" alt="External Link Icon to Open Plugin Repo" width="24" height="24">
+        </button></a>
+      </div>
+      <hr>
+
+      <div class="firstTimeModalItem">
+        <div class="firstTimeModalItemText">
+          <h3><span id="i18n-modalFirstTimeLang">Change the Language GoPage uses.</span></h3>
+        </div>
+        <div class="firstTimeModalItemLang">
+          <div class="firstTimeModalLangChoice">
+            <select name="changeLang" id="changeLang">
+              <option value="en">English</option>
+              <option value="es">Spanish</option>
+              <option value="zh">Chinese - Traditional</option>
+              <option value="ko">Korean</option>
+            </select>
+          </div>
+          <div class="firstTimeModalLangSubmit">
+            <button class="firstTimeModalItemButton" id="firstTimeModalLangSubmit">
+              <span id="i18n-modalFirstTimeLangSubmit">Submit</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <hr>
+
+      <div class="firstTimeModalItem">
+        <div class="firstTimeModalItemText">
+          <h3><span id="i18n-modalFirstTimeDocumentation">Visit the documentation for further assistance</span></h3>
+        </div>
+        <a href="https://github.com/confused-Techie/GoPage/blob/main/readme.md"><button class="firstTimeModalItemButton">
+          <img src="/assets/images/external-link.svg" alt="External Link Icon to Open GoPage Github documentation" width="24" height="24">
+        </button></a>
+      </div>
+
+    </div>
+
+    <button id="closeFirstTimeModal" class="closeFirstTimeModal"><span id="i18n-modalFirstTimeClose">Close First Time Setup</span></button>
+  </div>
+</div>
+{{end}}

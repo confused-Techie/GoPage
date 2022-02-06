@@ -1,13 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta name="description" content="GoPage - A simple Website Shortcut Dashboard written in Go">
-  <meta name="viewport" content="width=device-width">
-  <title>GoPage - Home</title>
-  <link id="theme" rel="stylesheet" type="text/css" href="/assets/css/theme-dark.css">
-  <link rel="stylesheet" type="text/css" href="/assets/dist/universal.min.css">
-  <link rel="stylesheet" type="text/css" href="/assets/dist/home.min.css">
-</head>
+{{template "head" . }}
+
 <body>
 
   {{template "heading" .}}
@@ -23,7 +16,7 @@
     </div>
 
     <div class="itemContainer">
-      {{range .Items}}
+      {{range .Data.Items}}
       {{/* To make some data available within the range of plugins, we can assign variables here for use */}}
       {{ $itemLink := .Link }}
         <div class="filterDiv bubble-card-daily {{.Category}}">
@@ -77,12 +70,12 @@
             <div class="optionsItem">
               <img src="/assets/images/more-vertical-white.svg" alt="Three Vertical Dots to indicate additional options" width="24" height="24">
               <div class="optionsContent">
-                <div class="optionsContent-Edit">
+                <div class="optionsContent-Edit grow-shadow-hover">
                   <a onclick="editItemModalV2( {{.ID}}, {{.FriendlyName}}, {{.Link}}, {{.Category}}, {{.Plugins}} );return false;">
                     Edit
                   </a>
                 </div>
-                <div class="optionsContent-Delete">
+                <div class="optionsContent-Delete grow-shadow-hover">
                   <a onclick="modalDelete( {{.ID}} );return false;">
                     Delete
                   </a>
@@ -286,87 +279,19 @@
     </div>
   </div>
 
-  <div id="firstTimeModal" class="modal">
-    <div class="modal-content">
-      <h2><span id="i18n-modalFirstTimeWelcome">Welcome to GoPage, looks like it's your first time here. Here are some helpful ways to get started.</span></h2>
-      <div class="firstTimeModalContent">
-        <div class="firstTimeModalItem">
-          <div class="firstTimeModalItemText">
-            <h3><span id="i18n-modalFirstTimeLink">Create your first Link Item.</span></h3>
-          </div>
-          <a href="/new"><button class="firstTimeModalItemButton">
-            <img src="/assets/images/external-link.svg" alt="External Link Icon to Open New Link Item" width="24" height="24">
-          </button></a>
-        </div>
-        <hr class="heading">
-
-        <div class="firstTimeModalItem">
-          <div class="firstTimeModalItemText">
-            <h3><span id="i18n-modalFirstTimePlugin">Visit the Plugin Repo to start installing Plugins</span></h3>
-          </div>
-          <a href="/pluginrepo"><button class="firstTimeModalItemButton">
-            <img src="/assets/images/external-link.svg" alt="External Link Icon to Open Plugin Repo" width="24" height="24">
-          </button></a>
-        </div>
-        <hr class="heading">
-
-        <div class="firstTimeModalItem">
-          <div class="firstTimeModalItemText">
-            <h3><span id="i18n-modalFirstTimeLang">Change the Language GoPage uses.</span></h3>
-          </div>
-          <div class="firstTimeModalItemLang">
-            <div class="firstTimeModalLangChoice">
-              <select name="changeLang" id="changeLang">
-                <option value="en">English</option>
-                <option value="es">Spanish</option>
-              </select>
-            </div>
-            <div class="firstTimeModalLangSubmit">
-              <button class="firstTimeModalItemButton" id="firstTimeModalLangSubmit">
-                <span id="i18n-modalFirstTimeLangSubmit">Submit</span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <hr class="heading">
-
-        <div class="firstTimeModalItem">
-          <div class="firstTimeModalItemText">
-            <h3><span id="i18n-modalFirstTimeDocumentation">Visit the documentation for further assistance</span></h3>
-          </div>
-          <a href="https://github.com/confused-Techie/GoPage/blob/main/readme.md"><button class="firstTimeModalItemButton">
-            <img src="/assets/images/external-link.svg" alt="External Link Icon to Open GoPage Github documentation" width="24" height="24">
-          </button></a>
-        </div>
-
-      </div>
-
-      <button id="closeFirstTimeModal" class="closeFirstTimeModal"><span id="i18n-modalFirstTimeClose">Close First Time Setup</span></button>
-
-    </div>
-  </div>
+  {{template "firstTimeSetup" .}}
 
   <div id="homePageSnackbar" class="snackbar"> </div>
 
   {{template "footer" .}}
 
   <script type="module" src="/assets/js/pluginLoad.js"></script>
-  <script src="/assets/js/universe.js"></script>
-  <script src="/assets/js/langHandler.js"></script>
-  <script src="/assets/js/home.js"></script>
-  <script src="/assets/js/pluginhandler.js"></script>
-  <script src="/assets/js/universal.js"></script>
 
-  <noscript>
-    <style type="text/css">
-      .heading {
-        display: none;
-      }
-    </style>
-    <div class="noscriptmsg">
-      Sorry to say, this website was created with assumtion JavaScript is enabled. Incorrect and Unexpected behavior WILL occur with it disabled.
-    </div>
-  </noscript>
+  {{range .JS}}
+    <script src="{{ . }}"></script>
+  {{end}}
+
+  {{template "noscript" .}}
 
 </body>
 </html>

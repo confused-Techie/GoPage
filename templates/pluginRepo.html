@@ -1,13 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta name="description" content="GoPage - A simple Website Shortcut Dashboard written in Go">
-  <meta name="viewport" content="width=device-width">
-  <title>GoPage - Plugin Repo</title>
-  <link id="theme" rel="stylesheet" type="text/css" href="/assets/css/theme-dark.css">
-  <link rel="stylesheet" type="text/css" href="/assets/dist/universal.min.css">
-  <link rel="stylesheet" type="text/css" href="/assets/dist/pluginRepo.min.css">
-</head>
+{{template "head" .}}
+
 <body>
 
   {{template "heading" .}}
@@ -21,7 +14,7 @@
   <div class="seperator"> <h2><span id="i18n-headerInstalled">Installed</span></h2></div>
 
   <div class="bar-list">
-    {{range .Installed.PluginItem}}
+    {{range .Data.Installed.PluginItem}}
       <div class="bar-list-bars">
         <div class="plugin-item">
           <div class="plugin-icon">
@@ -71,7 +64,7 @@
   <div class="seperator"> <h2><span id="i18n-headerAvaialble">Available</span></h2></div>
 
   <div class="bar-list">
-    {{range .Available.AvailablePluginItem}}
+    {{range .Data.Available.AvailablePluginItem}}
     <div class="bar-list-bars">
       <div class="plugin-item">
         <div class="plugin-icon">
@@ -131,22 +124,12 @@
 
   {{template "footer" .}}
 
-  <script src="/assets/js/universal.js"></script>
-  <script src="/assets/js/langHandler.js"></script>
-  <script src="/assets/js/pluginRepo.js"></script>
-  <script src="/assets/js/universe.js"></script>
+  {{range .JS}}
+    <script src="{{ . }}"></script>
+  {{end}}
   <script type="module" src="/assets/js/pluginLoad.js"></script>
 
-  <noscript>
-    <style type="text/css">
-      .heading {
-        display: none;
-      }
-    </style>
-    <div class="noscriptmsg">
-      Sorry to say, this website was created with assumtion JavaScript is enabled. Incorrect and Unexpected behavior WILL occur with it disabled.
-    </div>
-  </noscript>
-  
+  {{template "noscript" .}}
+
 </body>
 </html>
