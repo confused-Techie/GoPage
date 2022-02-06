@@ -5,13 +5,28 @@
 
   {{template "heading" .}}
 
+  {{/* Since we know we will need to access some strings within a ranged loop on this page, */}}
+  {{/* We can define global values for the strings here */}}
+  {{ $scopedTargetStrings := .TargetStrings }}
+  {{ $scopedDefaultStrings := .DefaultStrings }}
+
   <div class="updatePluginButtonContainer">
     <div class="updatePluginButton">
-      <button onclick="updatePlugin()" class="simple-button btn-create grow-shadow-hover"><span id="i18n-buttonUpdateAvailablePlugins">Update Available Plugins</span></button>
+      <button onclick="updatePlugin()" class="simple-button btn-create grow-shadow-hover">
+        {{ or
+          (index .TargetStrings "i18n-buttonUpdateAvailablePlugins")
+          (index .DefaultStrings "i18n-buttonUpdateAvailablePlugins")
+        }}
+      </button>
     </div>
   </div>
 
-  <div class="seperator"> <h2><span id="i18n-headerInstalled">Installed</span></h2></div>
+  <div class="seperator"> <h2>
+    {{ or
+      (index .TargetStrings "i18n-headerInstalled")
+      (index .DefaultStrings "i18n-headerInstalled")
+    }}
+  </h2></div>
 
   <div class="bar-list">
     {{range .Data.Installed.PluginItem}}
@@ -39,7 +54,10 @@
             <a href="{{.InfoLink}}">{{.FriendlyName}}</a>
           </div>
           <div class="plugin-version">
-            <span id="i18n-pluginRepoVersion">Version</span>: {{.Version}}
+            {{ or
+              (index $scopedTargetStrings "i18n-pluginRepoVersion")
+              (index $scopedDefaultStrings "i18n-pluginRepoVersion")
+            }}: {{ .Version }}
           </div>
           <div class="plugin-description">
             {{.Description}}
@@ -48,7 +66,10 @@
             &#64; {{.Author}}
           </div>
           <div class="plugin-license">
-            <span id="i18n-pluginRepoLicense">License</span>:
+            {{ or
+              (index $scopedTargetStrings "i18n-pluginRepoLicense")
+              (index $scopedDefaultStrings "i18n-pluginRepoLicense")
+            }}:
             {{.License}}
           </div>
           <div class="plugin-action">
@@ -61,7 +82,12 @@
     {{end}}
   </div>
 
-  <div class="seperator"> <h2><span id="i18n-headerAvaialble">Available</span></h2></div>
+  <div class="seperator"> <h2>
+    {{ or
+      (index .TargetStrings "i18n-headerAvaialble")
+      (index .DefaultStrings "i18n-headerAvaialble")
+    }}
+  </h2></div>
 
   <div class="bar-list">
     {{range .Data.Available.AvailablePluginItem}}
@@ -89,7 +115,10 @@
           <a href="{{.InfoLink}}">{{.FriendlyName}}</a>
         </div>
         <div class="plugin-version">
-          <span id="i18n-pluginRepoVersion">Version</span>: {{.Version}}
+          {{ or
+            (index $scopedTargetStrings "i18n-pluginRepoVersion")
+            (index $scopedDefaultStrings "i18n-pluginRepoVersion")
+          }}: {{ .Version }}
         </div>
         <div class="plugin-description">
           {{.Description}}
@@ -98,7 +127,10 @@
           &#64; {{.Author}}
         </div>
         <div class="plugin-license">
-          <span id="i18n-pluginRepoLicense">License</span>: {{.License}}
+          {{ or
+            (index $scopedTargetStrings "i18n-pluginRepoLicense")
+            (index $scopedDefaultStrings "i18n-pluginRepoLicense")
+          }}: {{ .License }}
         </div>
         <div class="plugin-action">
           {{if .Installed}}

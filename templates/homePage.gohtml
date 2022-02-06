@@ -4,6 +4,8 @@
 <body>
 
   {{template "heading" .}}
+  {{ $scopedTargetStrings := .TargetStrings }}
+  {{ $scopedDefaultStrings := .DefaultStrings }}
 
   <div class="container">
 
@@ -124,7 +126,9 @@
 
   <div id="headerPluginModal" class="modal">
     <div class="modal-content">
-      <h2><span id="i18n-TODO">Header Plugin</span></h2>
+      <h2>
+        <span id="i18n-TODO">Header Plugin</span>
+      </h2>
       <form id="header-plugin-form">
         <label>
           {{ or
@@ -161,69 +165,189 @@
 
   <div id="newItemModal" class="modal">
     <div class="modal-content">
-      <h2><span id="i18n-headerNewItem">New Item's Data</span></h2>
+      <h2>
+        {{ or
+          (index .TargetStrings "i18n-headerNewItem")
+          (index .DefaultStrings "i18n-headerNewItem")
+        }}
+      </h2>
       <form id="new-item-form">
-        <label><span id="i18n-labelFriendlyName">Enter Friendly Name</span></label><br>
+        <label>
+          {{ or
+            (index .TargetStrings "i18n-labelFriendlyName")
+            (index .DefaultStrings "i18n-labelFriendlyName")
+          }}
+        </label><br>
         <input class="form-input" type="text" name="friendlyName" autocomplete="off" /><br><br>
 
-        <label><span id="i18n-labelLink">Enter Link</span></label><br>
+        <label>
+          {{ or
+            (index .TargetStrings "i18n-labelLink")
+            (index .DefaultStrings "i18n-labelLink")
+          }}
+        </label><br>
         <input class="form-input" type="text" name="link" autocomplete="off" placeholder="https://www.my-favourite-site.com" /><br><br>
 
-        <label><span id="i18n-labelCategory">Enter Category</span></label><br>
+        <label>
+          {{ or
+            (index .TargetStrings "i18n-labelCategory")
+            (index .DefaultStrings "i18n-labelCategory")
+          }}
+        </label><br>
         <input class="form-input" list="new-current-category" type="text" name="category" autocomplete="off" /><br><br>
 
-        <label><span id="18n-labelChoosePlugin">Choose a Plugin</span></label><br>
+        <label>
+          {{ or
+            (index .TargetStrings "i18n-labelChoosePlugin")
+            (index .DefaultStrings "i18n-labelChoosePlugin")
+          }}
+        </label><br>
         <input oninput="dataListInputV2(this, 'new')" class="form-input" list="new-available-plugins" type="text" autocomplete="off" name="plugin-name1" /><br><br>
-        <label><span id="18n-labelChoosePluginLocation">Choose a Location for your Plugin</span></label><br>
+        <label>
+          {{ or
+            (index .TargetStrings "i18n-labelChoosePluginLocation")
+            (index .DefaultStrings "i18n-labelChoosePluginLocation")
+          }}
+        </label><br>
         <input class="form-input" type="text" list="new-plugin-location-list" name="plugin-loc1" autocomplete="off" id="plugin-loc1"/><br><br>
-        <label class="readonly_id" id="plugin-label1"><span id="i18n-labelPluginOptions">Define any Options Needed for your Plugin.</span></label><br>
+        <label class="readonly_id" id="plugin-label1">
+          {{ or
+            (index .TargetStrings "i18n-labelPluginOptions")
+            (index .DefaultStrings "i18n-labelPluginOptions")
+          }}
+        </label><br>
         <input class="readonly_id form-input" readonly type="text" name="plugin-options1" id="plugin-options1" /><br><br>
         <div class="plugin-example" id="plugin-example1"> </div>
 
-        <label><span id="18n-labelChoosePlugin">Choose a Plugin</span></label><br>
+        <label>
+          {{ or
+            (index .TargetStrings "i18n-labelChoosePlugin")
+            (index .DefaultStrings "i18n-labelChoosePlugin")
+          }}
+        </label><br>
         <input oninput="dataListInputV2(this, 'new')" class="form-input" list="new-available-plugins" type="text" autocomplete="off" name="plugin-name2" /><br><br>
-        <label><span id="18n-labelChoosePluginLocation">Choose a Location for your Plugin</span></label><br>
+        <label>
+          {{ or
+            (index .TargetStrings "i18n-labelChoosePluginLocation")
+            (index .DefaultStrings "i18n-labelChoosePluginLocation")
+          }}
+        </label><br>
         <input class="form-input" type="text" list="new-plugin-location-list" name="plugin-loc2" autocomplete="off" id="plugin-loc2"/><br><br>
-        <label class="readonly_id" id="plugin-label2"><span id="i18n-labelPluginOptions">Define any Options Needed for your Plugin.</span></label><br>
+        <label class="readonly_id" id="plugin-label2">
+          {{ or
+            (index .TargetStrings "i18n-labelPluginOptions")
+            (index .DefaultStrings "i18n-labelPluginOptions")
+          }}
+        </label><br>
         <input class="readonly_id form-input" readonly type="text" name="plugin-options2" id="plugin-options2" /><br><br>
         <div class="plugin-example" id="plugin-example2"> </div>
 
-        <label><span id="18n-labelChoosePlugin">Choose a Plugin</span></label><br>
+        <label>
+          {{ or
+            (index .TargetStrings "i18n-labelChoosePlugin")
+            (index .DefaultStrings "i18n-labelChoosePlugin")
+          }}
+        </label><br>
         <input oninput="dataListInputV2(this, 'new')" class="form-input" list="new-available-plugins" type="text" autocomplete="off" name="plugin-name3" /><br><br>
-        <label><span id="18n-labelChoosePluginLocation">Choose a Location for your Plugin</span></label><br>
+        <label>
+          {{ or
+            (index .TargetStrings "i18n-labelChoosePluginLocation")
+            (index .DefaultStrings "i18n-labelChoosePluginLocation")
+          }}
+        </label><br>
         <input class="form-input" type="text" list="new-plugin-location-list" name="plugin-loc3" autocomplete="off" id="plugin-loc3"/><br><br>
-        <label class="readonly_id" id="plugin-label3"><span id="i18n-labelPluginOptions">Define any Options Needed for your Plugin.</span></label><br>
+        <label class="readonly_id" id="plugin-label3">
+          {{ or
+            (index .TargetStrings "i18n-labelPluginOptions")
+            (index .DefaultStrings "i18n-labelPluginOptions")
+          }}
+        </label><br>
         <input class="readonly_id form-input" readonly type="text" name="plugin-options3" id="plugin-options3" /><br><br>
         <div class="plugin-example" id="plugin-example3"> </div>
 
-        <label><span id="18n-labelChoosePlugin">Choose a Plugin</span></label><br>
+        <label>
+          {{ or
+            (index .TargetStrings "i18n-labelChoosePlugin")
+            (index .DefaultStrings "i18n-labelChoosePlugin")
+          }}
+        </label><br>
         <input oninput="dataListInputV2(this, 'new')" class="form-input" list="new-available-plugins" type="text" autocomplete="off" name="plugin-name4" /><br><br>
-        <label><span id="18n-labelChoosePluginLocation">Choose a Location for your Plugin</span></label><br>
+        <label>
+          {{ or
+            (index .TargetStrings "i18n-labelChoosePluginLocation")
+            (index .DefaultStrings "i18n-labelChoosePluginLocation")
+          }}
+        </label><br>
         <input class="form-input" type="text" list="new-plugin-location-list" name="plugin-loc4" autocomplete="off" id="plugin-loc4"/><br><br>
-        <label class="readonly_id" id="plugin-label4"><span id="i18n-labelPluginOptions">Define any Options Needed for your Plugin.</span></label><br>
+        <label class="readonly_id" id="plugin-label4">
+          {{ or
+            (index .TargetStrings "i18n-labelPluginOptions")
+            (index .DefaultStrings "i18n-labelPluginOptions")
+          }}
+        </label><br>
         <input class="readonly_id form-input" readonly type="text" name="plugin-options4" id="plugin-options4" /><br><br>
         <div class="plugin-example" id="plugin-example4"> </div>
 
-        <label><span id="18n-labelChoosePlugin">Choose a Plugin</span></label><br>
+        <label>
+          {{ or
+            (index .TargetStrings "i18n-labelChoosePlugin")
+            (index .DefaultStrings "i18n-labelChoosePlugin")
+          }}
+        </label><br>
         <input oninput="dataListInputV2(this, 'new')" class="form-input" list="new-available-plugins" type="text" autocomplete="off" name="plugin-name5" /><br><br>
-        <label><span id="18n-labelChoosePluginLocation">Choose a Location for your Plugin</span></label><br>
+        <label>
+          {{ or
+            (index .TargetStrings "i18n-labelChoosePluginLocation")
+            (index .DefaultStrings "i18n-labelChoosePluginLocation")
+          }}
+        </label><br>
         <input class="form-input" type="text" list="new-plugin-location-list" name="plugin-loc5" autocomplete="off" id="plugin-loc5"/><br><br>
-        <label class="readonly_id" id="plugin-label5"><span id="i18n-labelPluginOptions">Define any Options Needed for your Plugin.</span></label><br>
+        <label class="readonly_id" id="plugin-label5">
+          {{ or
+            (index .TargetStrings "i18n-labelPluginOptions")
+            (index .DefaultStrings "i18n-labelPluginOptions")
+          }}
+        </label><br>
         <input class="readonly_id form-input" readonly type="text" name="plugin-options5" id="plugin-options5" /><br><br>
         <div class="plugin-example" id="plugin-example5"> </div>
 
-        <label><span id="18n-labelChoosePlugin">Choose a Plugin</span></label><br>
+        <label>
+          {{ or
+            (index .TargetStrings "i18n-labelChoosePlugin")
+            (index .DefaultStrings "i18n-labelChoosePlugin")
+          }}
+        </label><br>
         <input oninput="dataListInputV2(this, 'new')" class="form-input" list="new-available-plugins" type="text" autocomplete="off" name="plugin-name6" /><br><br>
-        <label><span id="18n-labelChoosePluginLocation">Choose a Location for your Plugin</span></label><br>
+        <label>
+          {{ or
+            (index .TargetStrings "i18n-labelChoosePluginLocation")
+            (index .DefaultStrings "i18n-labelChoosePluginLocation")
+          }}
+        </label><br>
         <input class="form-input" type="text" list="new-plugin-location-list" name="plugin-loc6" autocomplete="off" id="plugin-loc6"/><br><br>
-        <label class="readonly_id" id="plugin-label6"><span id="i18n-labelPluginOptions">Define any Options Needed for your Plugin.</span></label><br>
+        <label class="readonly_id" id="plugin-label6">
+          {{ or
+            (index .TargetStrings "i18n-labelPluginOptions")
+            (index .DefaultStrings "i18n-labelPluginOptions")
+          }}
+        </label><br>
         <input class="readonly_id form-input" readonly type="text" name="plugin-options6" id="plugin-options6" /><br><br>
         <div class="plugin-example" id="plugin-example6"> </div>
 
         <!-- todo:: In the future I would like to create these elements as needed, rather than have the max amount available to edit at once -->
 
-        <button id="new-form-goBack" class="simple-button btn-undo grow-shadow-hover" type="button"><span id="i18n-buttonGoBack">Go Back</span></button>
-        <button id="new-form-submit" class="simple-button btn-create grow-shadow-hover" type="button"><span id="118n-modalFirstTimeLangSubmit">Submit</span></button>
+        <button id="new-form-goBack" class="simple-button btn-undo grow-shadow-hover" type="button">
+          {{ or
+            (index .TargetStrings "i18n-buttonGoBack")
+            (index .DefaultStrings "i18n-buttonGoBack")
+          }}
+        </button>
+        <button id="new-form-submit" class="simple-button btn-create grow-shadow-hover" type="button">
+          {{ or
+            (index .TargetStrings "i18n-modalFirstTimeLangSubmit")
+            (index .DefaultStrings "i18n-modalFirstTimeLangSubmit")
+          }}
+        </button>
 
         <datalist id="new-current-category"> </datalist>
         <datalist id="new-available-plugins"> </datalist>
@@ -243,72 +367,193 @@
 
   <div id="editItemModal" class="modal">
     <div class="modal-content">
-      <h2><span id="i18n-headerEditItem">Edit Item</span></h2>
+      <h2>
+        {{ or
+          (index .TargetStrings "i18n-headerEditItem")
+          (index .DefaultStrings "i18n-headerEditItem")
+        }}
+      </h2>
       <form id="edit-item-form">
-        <label><span id="i18n-labelFriendlyName">Enter Friendly Name</span></label><br>
+        <label>
+          {{ or
+            (index .TargetStrings "i18n-labelFriendlyName")
+            (index .DefaultStrings "i18n-labelFriendlyName")
+          }}
+        </label><br>
         <input class="form-input" type="text" name="friendlyName" autocomplete="off" id="edit-friendlyName"/><br><br>
 
-        <label><span id="i18n-labelLink">Enter Link</span></label><br>
+        <label>
+          {{ or
+            (index .TargetStrings "i18n-labelLink")
+            (index .DefaultStrings "i18n-labelLink")
+          }}
+        </label><br>
         <input class="form-input" type="text" name="link" autocomplete="off" placeholder="https://www.my-favourite-site.com" id="edit-link"/><br><br>
 
-        <label><span id="i18n-labelCategory">Enter Category</span></label><br>
+        <label>
+          {{ or
+            (index .TargetStrings "i18n-labelCategory")
+            (index .DefaultStrings "i18n-labelCategory")
+          }}
+        </label><br>
         <input class="form-input" list="edit-current-category" type="text" name="category" autocomplete="off" id="edit-category"/><br><br>
 
+        {{/* FIXME Note that the text below is never shown to the end user, and is here for quick reference during creation */}}
         <label class="readonly_id">Enter the same ID:</label>
         <input type="text" name="id" readonly class="readonly_id form-input" id="edit-id"/><br><br>
 
-        <label><span id="18n-labelChoosePlugin">Choose a Plugin</span></label><br>
+        <label>
+          {{ or
+            (index .TargetStrings "i18n-labelChoosePlugin")
+            (index .DefaultStrings "i18n-labelChoosePlugin")
+          }}
+        </label><br>
         <input oninput="dataListInputV2(this, 'edit')" class="form-input" list="edit-available-plugins" type="text" autocomplete="off" name="edit-plugin-name1" id="edit-plugin-name1"/><br><br>
-        <label><span id="18n-labelChoosePluginLocation">Choose a Location for your Plugin</span></label><br>
+        <label>
+          {{ or
+            (index .TargetStrings "i18n-labelChoosePluginLocation")
+            (index .DefaultStrings "i18n-labelChoosePluginLocation")
+          }}
+        </label><br>
         <input class="form-input" type="text" list="edit-plugin-location-list" name="edit-plugin-loc1" autocomplete="off" id="edit-plugin-loc1"/><br><br>
-        <label class="readonly_id" id="edit-plugin-label1"><span id="i18n-labelPluginOptions">Define any Options Needed for your Plugin.</span></label><br>
+        <label class="readonly_id" id="edit-plugin-label1">
+          {{ or
+            (index .TargetStrings "i18n-labelPluginOptions")
+            (index .DefaultStrings "i18n-labelPluginOptions")
+          }}
+        </label><br>
         <input class="readonly_id form-input" readonly type="text" name="edit-plugin-options1" id="edit-plugin-options1" /><br><br>
         <div class="plugin-example" id="edit-plugin-example1"> </div>
 
-        <label><span id="18n-labelChoosePlugin">Choose a Plugin</span></label><br>
+        <label>
+          {{ or
+            (index .TargetStrings "i18n-labelChoosePlugin")
+            (index .DefaultStrings "i18n-labelChoosePlugin")
+          }}
+        </label><br>
         <input oninput="dataListInputV2(this, 'edit')" class="form-input" list="edit-available-plugins" type="text" autocomplete="off" name="edit-plugin-name2" id="edit-plugin-name2"/><br><br>
-        <label><span id="18n-labelChoosePluginLocation">Choose a Location for your Plugin</span></label><br>
+        <label>
+          {{ or
+            (index .TargetStrings "i18n-labelChoosePluginLocation")
+            (index .DefaultStrings "i18n-labelChoosePluginLocation")
+          }}
+        </label><br>
         <input class="form-input" type="text" list="edit-plugin-location-list" name="edit-plugin-loc2" autocomplete="off" id="edit-plugin-loc2"/><br><br>
-        <label class="readonly_id" id="edit-plugin-label2"><span id="i18n-labelPluginOptions">Define any Options Needed for your Plugin.</span></label><br>
+        <label class="readonly_id" id="edit-plugin-label2">
+          {{ or
+            (index .TargetStrings "i18n-labelPluginOptions")
+            (index .DefaultStrings "i18n-labelPluginOptions")
+          }}
+        </label><br>
         <input class="readonly_id form-input" readonly type="text" name="edit-plugin-options2" id="edit-plugin-options2" /><br><br>
         <div class="plugin-example" id="edit-plugin-example2"> </div>
 
-        <label><span id="18n-labelChoosePlugin">Choose a Plugin</span></label><br>
+        <label>
+          {{ or
+            (index .TargetStrings "i18n-labelChoosePlugin")
+            (index .DefaultStrings "i18n-labelChoosePlugin")
+          }}
+        </label><br>
         <input oninput="dataListInputV2(this, 'edit')" class="form-input" list="edit-available-plugins" type="text" autocomplete="off" name="edit-plugin-name3" id="edit-plugin-name3"/><br><br>
-        <label><span id="18n-labelChoosePluginLocation">Choose a Location for your Plugin</span></label><br>
+        <label>
+          {{ or
+            (index .TargetStrings "i18n-labelChoosePluginLocation")
+            (index .DefaultStrings "i18n-labelChoosePluginLocation")
+          }}
+        </label><br>
         <input class="form-input" type="text" list="edit-plugin-location-list" name="edit-plugin-loc3" autocomplete="off" id="edit-plugin-loc3"/><br><br>
-        <label class="readonly_id" id="edit-plugin-label3"><span id="i18n-labelPluginOptions">Define any Options Needed for your Plugin.</span></label><br>
+        <label class="readonly_id" id="edit-plugin-label3">
+          {{ or
+            (index .TargetStrings "i18n-labelPluginOptions")
+            (index .DefaultStrings "i18n-labelPluginOptions")
+          }}
+        </label><br>
         <input class="readonly_id form-input" readonly type="text" name="edit-plugin-options3" id="edit-plugin-options3" /><br><br>
         <div class="plugin-example" id="edit-plugin-example3"> </div>
 
-        <label><span id="18n-labelChoosePlugin">Choose a Plugin</span></label><br>
+        <label>
+          {{ or
+            (index .TargetStrings "i18n-labelChoosePlugin")
+            (index .DefaultStrings "i18n-labelChoosePlugin")
+          }}
+        </label><br>
         <input oninput="dataListInputV2(this, 'edit')" class="form-input" list="edit-available-plugins" type="text" autocomplete="off" name="edit-plugin-name4" id="edit-plugin-name4"/><br><br>
-        <label><span id="18n-labelChoosePluginLocation">Choose a Location for your Plugin</span></label><br>
+        <label>
+          {{ or
+            (index .TargetStrings "i18n-labelChoosePluginLocation")
+            (index .DefaultStrings "i18n-labelChoosePluginLocation")
+          }}
+        </label><br>
         <input class="form-input" type="text" list="edit-plugin-location-list" name="edit-plugin-loc4" autocomplete="off" id="edit-plugin-loc4"/><br><br>
-        <label class="readonly_id" id="edit-plugin-label4"><span id="i18n-labelPluginOptions">Define any Options Needed for your Plugin.</span></label><br>
+        <label class="readonly_id" id="edit-plugin-label4">
+          {{ or
+            (index .TargetStrings "i18n-labelPluginOptions")
+            (index .DefaultStrings "i18n-labelPluginOptions")
+          }}
+        </label><br>
         <input class="readonly_id form-input" readonly type="text" name="edit-plugin-options4" id="edit-plugin-options4" /><br><br>
         <div class="plugin-example" id="edit-plugin-example4"> </div>
 
-        <label><span id="18n-labelChoosePlugin">Choose a Plugin</span></label><br>
+        <label>
+          {{ or
+            (index .TargetStrings "i18n-labelChoosePlugin")
+            (index .DefaultStrings "i18n-labelChoosePlugin")
+          }}
+        </label><br>
         <input oninput="dataListInputV2(this, 'edit')" class="form-input" list="edit-available-plugins" type="text" autocomplete="off" name="edit-plugin-name5" id="edit-plugin-name5"/><br><br>
-        <label><span id="18n-labelChoosePluginLocation">Choose a Location for your Plugin</span></label><br>
+        <label>
+          {{ or
+            (index .TargetStrings "i18n-labelChoosePluginLocation")
+            (index .DefaultStrings "i18n-labelChoosePluginLocation")
+          }}
+        </label><br>
         <input class="form-input" type="text" list="edit-plugin-location-list" name="edit-plugin-loc5" autocomplete="off" id="edit-plugin-loc5"/><br><br>
-        <label class="readonly_id" id="edit-plugin-label5"><span id="i18n-labelPluginOptions">Define any Options Needed for your Plugin.</span></label><br>
+        <label class="readonly_id" id="edit-plugin-label5">
+          {{ or
+            (index .TargetStrings "i18n-labelPluginOptions")
+            (index .DefaultStrings "i18n-labelPluginOptions")
+          }}
+        </label><br>
         <input class="readonly_id form-input" readonly type="text" name="edit-plugin-options5" id="edit-plugin-options5" /><br><br>
         <div class="plugin-example" id="edit-plugin-example5"> </div>
 
-        <label><span id="18n-labelChoosePlugin">Choose a Plugin</span></label><br>
+        <label>
+          {{ or
+            (index .TargetStrings "i18n-labelChoosePlugin")
+            (index .DefaultStrings "i18n-labelChoosePlugin")
+          }}
+        </label><br>
         <input oninput="dataListInputV2(this, 'edit')" class="form-input" list="edit-available-plugins" type="text" autocomplete="off" name="edit-plugin-name6" id="edit-plugin-name6"/><br><br>
-        <label><span id="18n-labelChoosePluginLocation">Choose a Location for your Plugin</span></label><br>
+        <label>
+          {{ or
+            (index .TargetStrings "i18n-labelChoosePluginLocation")
+            (index .DefaultStrings "i18n-labelChoosePluginLocation")
+          }}
+        </label><br>
         <input class="form-input" type="text" list="edit-plugin-location-list" name="edit-plugin-loc6" autocomplete="off" id="edit-plugin-loc6"/><br><br>
-        <label class="readonly_id" id="edit-plugin-label6"><span id="i18n-labelPluginOptions">Define any Options Needed for your Plugin.</span></label><br>
+        <label class="readonly_id" id="edit-plugin-label6">
+          {{ or
+            (index .TargetStrings "i18n-labelPluginOptions")
+            (index .DefaultStrings "i18n-labelPluginOptions")
+          }}
+        </label><br>
         <input class="readonly_id form-input" readonly type="text" name="edit-plugin-options6" id="edit-plugin-options6" /><br><br>
         <div class="plugin-example" id="edit-plugin-example6"> </div>
 
         <!-- todo:: In the future I would like to create these elements as needed, rather than have the max amount available to edit at once -->
 
-        <button id="edit-form-goBack" class="simple-button btn-undo grow-shadow-hover" type="button"><span id="i18n-buttonGoBack">Go Back</span></button>
-        <button id="edit-form-submit" class="simple-button btn-create grow-shadow-hover" type="button"><span id="i18n-modalFirstTimeLangSubmit">Submit</span></button>
+        <button id="edit-form-goBack" class="simple-button btn-undo grow-shadow-hover" type="button">
+          {{ or
+            (index .TargetStrings "i18n-buttonGoBack")
+            (index .DefaultStrings "i18n-buttonGoBack")
+          }}
+        </button>
+        <button id="edit-form-submit" class="simple-button btn-create grow-shadow-hover" type="button">
+          {{ or
+            (index .TargetStrings "i18n-modalFirstTimeLangSubmit")
+            (index .DefaultStrings "i18n-modalFirstTimeLangSubmit")
+          }}
+        </button>
 
         <datalist id="edit-current-category"> </datalist>
         <datalist id="edit-available-plugins"> </datalist>

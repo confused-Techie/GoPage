@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html lang="en">
 
 {{template "head" .}}
 
@@ -8,7 +7,12 @@
   {{template "heading" .}}
 
   <div class="uploadImageContainer">
-    <h3>Upload New Image</h3>
+    <h3>
+      {{ or
+        (index .TargetStrings "i18n-headerUploadNewImage")
+        (index .DefaultStrings "i18n-headerUploadNewImage")
+      }}
+    </h3>
 
     <form
       enctype="multipart/form-data"
@@ -17,12 +21,16 @@
       >
 
       <label>
+        {{/* TODO Add this to strings */}}
         Choose an Image to Upload:
         <input type="file" name="myFile"/>
       </label>
 
 
-      <button type="submit" class="simple-button btn-create grow-shadow-hover">Upload Image</button>
+      <button type="submit" class="simple-button btn-create grow-shadow-hover">
+        {{/* TODO add to strings */}}
+        Upload Image
+      </button>
 
 
       </form>
@@ -31,9 +39,15 @@
   <div class="seperator"> </div>
 
   <div class="unsetImageContainer">
-    <h3>Use no Background Image</h3>
+    <h3>
+      {{/* TODO add to strings */}}
+      Use no Background Image
+    </h3>
 
-    <button onclick="unsetImage();" class="simple-button btn-create grow-shadow-hover">Unset Image</button>
+    <button onclick="unsetImage();" class="simple-button btn-create grow-shadow-hover">
+      {{/* TODO add to strings */}}
+      Unset Image
+    </button>
   </div>
 
   <div class="existingImages" id="existingImages">
