@@ -2,12 +2,24 @@
 <footer>
   <img src="/assets/images/github-white.svg" alt="Github's Octocat Icon" width="24" height="24">
   <p><a href="https://github.com/confused-Techie/GoPage">
-    <span id="i18n-footerSourceCode">Source Code</span></a></p>
+    {{ or
+      (index .TargetStrings "i18n-footerSourceCode")
+      (index .DefaultStrings "i18n-footerSourceCode")
+    }}
+  </a></p>
   <img src="/assets/images/git-branch-white.svg" alt="Github's New Code Branch Icon" width="24" height="24">
   <p><a href="https://github.com/confused-Techie/GoPage/blob/main/docs/contribute.md">
-    <span id="i18n-footerContribute">Contribute</span></a></p>
+    {{ or
+      (index .TargetStrings "i18n-footerContribute")
+      (index .DefaultStrings "i18n-footerContribute")
+    }}
+    </a></p>
   <img src="/assets/images/feather-white.svg" alt="Feather Icon Project Logo" width="24" height="24">
   <p><a href="https://feathericons.com">
-    <span id="i18n-footerThanksFeather">Thanks Feather Icons</span></a></p>
+    {{ or
+      (index .TargetStrings "i18n-footerThanksFeather")
+      (index .DefaultStrings "i18n-footerThanksFeather")
+    }}
+    </a></p>
 </footer>
 {{end}}

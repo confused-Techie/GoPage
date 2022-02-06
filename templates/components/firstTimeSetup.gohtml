@@ -1,11 +1,21 @@
 {{define "firstTimeSetup"}}
 <div id="firstTimeModal" class="modal">
   <div class="modal-content">
-    <h2><span id="i18n-modalFirstTimeWelcome">Welcome to GoPage, looks like it's your first time here. Here are some helpful ways to get started.</span></h2>
+    <h2>
+      {{ or
+        (index .TargetStrings "i18n-modalFirstTimeWelcome")
+        (index .DefaultStrings "i18n-modalFirstTimeWelcome")
+      }}
+    </h2>
     <div class="firstTimeModalContent">
       <div class="firstTimeModalItem">
         <div class="firstTimeModalItemText">
-          <h3><span id="i18n-modalFirstTimeLink">Create your first Link Item.</span></h3>
+          <h3>
+            {{ or
+              (index .TargetStrings "i18n-modalFirstTimeLink")
+              (index .DefaultStrings "i18n-modalFirstTimeLink")
+            }}
+          </h3>
         </div>
         <a href="/new"><button class="firstTimeModalItemButton">
           <img src="/assets/images/external-link.svg" alt="External Link Icon to Open New Link Item" width="24" height="24">
@@ -15,7 +25,12 @@
 
       <div class="firstTimeModalItem">
         <div class="firstTimeModalItemText">
-          <h3><span id="i18n-modalFirstTimePlugin">Visit the Plugin Repo to start installing Plugins</span></h3>
+          <h3>
+            {{ or
+              (index .TargetStrings "i18n-modalFirstTimePlugin")
+              (index .DefaultStrings "i18n-modalFirstTimePlugin")
+            }}
+          </h3>
         </div>
         <a href="/pluginrepo"><button class="firstTimeModalItemButton">
           <img src="/assets/images/external-link.svg" alt="External Link Icon to Open Plugin Repo" width="24" height="24">
@@ -25,7 +40,12 @@
 
       <div class="firstTimeModalItem">
         <div class="firstTimeModalItemText">
-          <h3><span id="i18n-modalFirstTimeLang">Change the Language GoPage uses.</span></h3>
+          <h3>
+            {{ or
+              (index .TargetStrings "i18n-modalFirstTimeLang")
+              (index .DefaultStrings "i18n-modalFirstTimeLang")
+            }}
+          </h3>
         </div>
         <div class="firstTimeModalItemLang">
           <div class="firstTimeModalLangChoice">
@@ -38,7 +58,10 @@
           </div>
           <div class="firstTimeModalLangSubmit">
             <button class="firstTimeModalItemButton" id="firstTimeModalLangSubmit">
-              <span id="i18n-modalFirstTimeLangSubmit">Submit</span>
+              {{ or
+                (index .TargetStrings "i18n-modalFirstTimeLangSubmit")
+                (index .DefaultStrings "i18n-modalFirstTimeLangSubmit")
+              }}
             </button>
           </div>
         </div>
@@ -47,7 +70,12 @@
 
       <div class="firstTimeModalItem">
         <div class="firstTimeModalItemText">
-          <h3><span id="i18n-modalFirstTimeDocumentation">Visit the documentation for further assistance</span></h3>
+          <h3>
+            {{ or
+              (index .TargetStrings "i18n-modalFirstTimeDocumentation")
+              (index .DefaultStrings "i18n-modalFirstTimeDocumentation")
+            }}
+          </h3>
         </div>
         <a href="https://github.com/confused-Techie/GoPage/blob/main/readme.md"><button class="firstTimeModalItemButton">
           <img src="/assets/images/external-link.svg" alt="External Link Icon to Open GoPage Github documentation" width="24" height="24">
@@ -56,7 +84,12 @@
 
     </div>
 
-    <button id="closeFirstTimeModal" class="closeFirstTimeModal"><span id="i18n-modalFirstTimeClose">Close First Time Setup</span></button>
+    <button id="closeFirstTimeModal" class="closeFirstTimeModal">
+      {{ or
+        (index .TargetStrings "i18n-modalFirstTimeClose")
+        (index .DefaultStrings "i18n-modalFirstTimeClose")
+      }}
+    </button>
   </div>
 </div>
 {{end}}

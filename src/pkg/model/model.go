@@ -93,7 +93,7 @@ type PageTemplate struct {
 	Data interface{}
 	TargetStrings map[string]string
 	DefaultStrings map[string]string
-	TargetLanguage string 
+	TargetLanguage string
 }
 
 func checkError(err error) {

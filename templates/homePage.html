@@ -8,11 +8,21 @@
   <div class="container">
 
     <div class="new-button-container-gen2">
-      <button onclick="newItemModal();" class="hover-shadow-radial grow-shadow-hover simple-button btn-create"><span id="i18n-AddNewItem">Add New Item</span></button>
+      <button onclick="newItemModal();" class="hover-shadow-radial grow-shadow-hover simple-button btn-create">
+        {{ or
+          (index .TargetStrings "i18n-AddNewItem")
+          (index .DefaultStrings "i18n-AddNewItem")
+        }}
+      </button>
     </div>
 
     <div id="btnContainer">
-      <button class="btn active" id="ShowAllCategorySelector"><span id="i18n-ShowAllCategorySelector">Show All</span></button>
+      <button class="btn active" id="ShowAllCategorySelector">
+        {{ or
+          (index .TargetStrings "i18n-ShowAllCategorySelector")
+          (index .DefaultStrings "i18n-ShowAllCategorySelector")
+        }}
+      </button>
     </div>
 
     <div class="itemContainer">
@@ -72,12 +82,12 @@
               <div class="optionsContent">
                 <div class="optionsContent-Edit grow-shadow-hover">
                   <a onclick="editItemModalV2( {{.ID}}, {{.FriendlyName}}, {{.Link}}, {{.Category}}, {{.Plugins}} );return false;">
-                    Edit
+                    <span id="i18n-TODO">Edit</span>
                   </a>
                 </div>
                 <div class="optionsContent-Delete grow-shadow-hover">
                   <a onclick="modalDelete( {{.ID}} );return false;">
-                    Delete
+                    <span id="i18n-TODO">Delete</span>
                   </a>
                 </div>
               </div>
@@ -91,24 +101,59 @@
 
   <div id="deleteModal" class="modal">
     <div class="modal-content">
-      <h3><span id="i18n-modalDeleteConfirmationMessage">Are you Sure you want to Delete this Item?</span></h3>
-      <button id="delete-modal" class="delete"><span id="i18n-modalDeleteConfirm">Confirm</span></button>
-      <button id="notDelete-modal" class="notDelete"><span id="i18n-modalDeleteNevermind">Nevermind</span></button>
+      <h3>
+        {{ or
+          (index .TargetStrings "i18n-modalDeleteConfirmationMessage")
+          (index .DefaultStrings "i18n-modalDeleteConfirmationMessage")
+        }}
+      </h3>
+      <button id="delete-modal" class="delete">
+        {{ or
+          (index .TargetStrings "i18n-modalDeleteConfirm")
+          (index .DefaultStrings "i18n-modalDeleteConfirm")
+        }}
+      </button>
+      <button id="notDelete-modal" class="notDelete">
+        {{ or
+          (index .TargetStrings "i18n-modalDeleteNevermind")
+          (index .DefaultStrings "i18n-modalDeleteNevermind")
+        }}
+      </button>
     </div>
   </div>
 
   <div id="headerPluginModal" class="modal">
     <div class="modal-content">
-      <h2>Header Plugin</h2>
+      <h2><span id="i18n-TODO">Header Plugin</span></h2>
       <form id="header-plugin-form">
-        <label><span id="i18n-labelChoosePlugin">Choose a Plugin</span></label><br>
+        <label>
+          {{ or
+            (index .TargetStrings "i18n-labelChoosePlugin")
+            (index .DefaultStrings "i18n-labelChoosePlugin")
+          }}
+        </label><br>
         <input oninput="dataListInputHeader(this)" class="form-input" list="header-plugin-list" type="text" autocomplete="off" name="header-plugin-name" id="header-plugin-name"/><br><br>
-        <label class="readonly_id" id="header-plugin-label"><span id="i18n-labelPluginOptioons">Define any Options Needed for your Plugin.</span></label><br>
+        <label class="readonly_id" id="header-plugin-label">
+          {{ or
+            (index .TargetStrings "i18n-labelPluginOptions")
+            (index .DefaultStrings "i18n-labelPluginOptions")
+          }}
+        </label><br>
         <input class="readonly_id form-input" readonly type="text" name="header-plugin-options" id="header-plugin-options"/><br><br>
         <div class="plugin-example" id="header-plugin-example"> </div>
 
-        <button id="headerPlugin-goBack" class="simple-button btn-undo grow-shadow-hover" type="button"><span id="i18n-buttonGoBack">Go Back</span></button>
-        <button id="headerPlugin-submit" class="simple-button btn-create grow-shadow-hover" type="button"><span id="118n-modalFirstTimeLangSubmit">Submit</span></button>
+        <button id="headerPlugin-goBack" class="simple-button btn-undo grow-shadow-hover" type="button">
+          {{ or
+            (index .TargetStrings "i18n-buttonGoBack")
+            (index .DefaultStrings "i18n-buttonGoBack")
+          }}
+        </button>
+        <button id="headerPlugin-submit" class="simple-button btn-create grow-shadow-hover" type="button">
+          {{ or
+            (index .TargetStrings "i18n-modalFirstTimeLangSubmit")
+            (index .DefaultStrings "i18n-modalFirstTimeLangSubmit")
+          }}
+        </button>
         <datalist id="header-plugin-list"> </datalist>
       </form>
     </div>

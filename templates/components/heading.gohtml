@@ -1,10 +1,31 @@
 {{define "heading"}}
 <div class="heading">
-  <div class="titleCard"><h2><a href="/">GoPage</a></h2></div>
-  <div class="pluginRepo"><h3><a href="/pluginrepo" class="text-style-minor">Plugin Repo</a></h3></div>
-  <div class="backgroundImage"><h3><a href="/uploadpage" class="text-style-minor">Background Image</a></h3></div>
-  <div class="linkHealth"><h3><a href="/linkhealth" class="text-style-minor">Link Health</a></h3></div>
-  <div class="settings"><h3><a href="/settings" class="text-style-minor">Settings</a></h3></div>
+  <div class="titleCard"><h2><a href="/">
+    {{ /* TODO Add GoPage to Strings */ }}
+    GoPage
+  </a></h2></div>
+  <div class="pluginRepo"><h3><a href="/pluginrepo" class="text-style-minor">
+    {{ or
+      (index .TargetStrings "i18n-toolNamePluginRepo")
+      (index .DefaultStrings "i18n-toolNamePluginRepo")
+    }}
+  </a></h3></div>
+  <div class="backgroundImage"><h3><a href="/uploadpage" class="text-style-minor">
+    {{ or
+      (index .TargetStrings "i18n-toolNameBackgroundImage")
+      (index .DefaultStrings "i18n-toolNameBackgroundImage")
+    }}
+  </a></h3></div>
+  <div class="linkHealth"><h3><a href="/linkhealth" class="text-style-minor">
+    {{ or
+      (index .TargetStrings "i18n-toolNameLinkHealth")
+      (index .DefaultStrings "i18n-toolNameLinkHealth")
+    }}
+  </a></h3></div>
+  <div class="settings"><h3><a href="/settings" class="text-style-minor">
+    {{ /* TODO Add Settings to Strings */ }}
+    Settings
+  </a></h3></div>
   <div class="headerPluginLeft" id="headerPluginLeft">
     <div class="add-plugin">
       <img class="add-plugin-btn grow-shadow-hover" src="/assets/images/plus-circle-white.svg" alt="White Plus Icon surrounded by circle, to add Header Plugin" width="24" height="24">
