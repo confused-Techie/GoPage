@@ -50,5 +50,6 @@
   "i18n-modalFirstTimeDocumentation": "Presione el botón de la derecha para visitar la documentación para más asistencia",
   "i18n-modalFirstTimeLangSubmit": "Enviar",
   "i18n-modalFirstTimeClose": "Cerrar la primera configuración",
-  " i18n-headerUploadNewImage": "Subir nueva imagen"
+  "i18n-headerUploadNewImage": "Upload New Image",
+  "i18n-headerSettings": "Settings"
 }
