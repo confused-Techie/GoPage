@@ -27,13 +27,12 @@ func returnDynamicSubTemplate(t string) string {
 	return viper.GetString("directories.templates") + "/components/" + t
 }
 
-func returnTargetStrings() map[string]string {
+func returnAgnosticStrings(langCode string) map[string]string {
 	// While original was using map[string]interface{} as was thought to be the best for mapping unknown JSON
 	// Since I do know that the translations should only ever include strings, we can make a small attempt
 	// at ensuring the strings file doesn't become a vector for malicious activity
-	var targetLangCode = model.ServSettingGetLang()
 
-	file, err := os.OpenFile(viper.GetString("directories.staticAssets")+"lang/strings." + targetLangCode + ".json", os.O_RDWR|os.O_APPEND, 0666)
+	file, err := os.OpenFile(viper.GetString("directories.staticAssets")+"lang/strings." + langCode + ".json", os.O_RDWR|os.O_APPEND, 0666)
 	errorHandler.StandardError(err)
 	b, err := ioutil.ReadAll(file)
 	errorHandler.StandardError(err)
@@ -43,15 +42,15 @@ func returnTargetStrings() map[string]string {
 	return objmap
 }
 
+func returnTargetStrings() map[string]string {
+
+	var targetLangCode = model.ServSettingGetLang()
+
+	return returnAgnosticStrings(targetLangCode)
+}
+
 func returnDefaultStrings() map[string]string {
-	file, err := os.OpenFile(viper.GetString("directories.staticAssets")+"lang/strings.en.json", os.O_RDWR|os.O_APPEND, 0666)
-	errorHandler.StandardError(err)
-	b, err := ioutil.ReadAll(file)
-	errorHandler.StandardError(err)
-	var objmap map[string]string
-	err = json.Unmarshal(b, &objmap)
-	errorHandler.StandardError(err)
-	return objmap
+	return returnAgnosticStrings("en")
 }
 
 var tmpl = make(map[string]*template.Template)
