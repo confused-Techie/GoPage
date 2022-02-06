@@ -36,7 +36,10 @@
             {{.Data.Author}}
           </p>
           <p>
-            <span id="i18n-TODO">Server Language</span>:
+            {{ or
+              (index .TargetStrings "i18n-serverSummaryServerLanguage")
+              (index .DefaultStrings "i18n-serverSummaryServerLanguage") 
+            }}:
             {{.Data.Language}}
           </p>
         </div>
