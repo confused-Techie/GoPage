@@ -89,13 +89,13 @@ func HomePageHandler(w http.ResponseWriter, r *http.Request) {
 
 // SettingsPageHandler returns Template: settings.html w/ Model: ServSettingGet
 func SettingsPageHandler(w http.ResponseWriter, r *http.Request) {
-	au := model.ServSettingGet()
+	au := model.FullServSettingGet()
 
 	data := model.PageTemplate{
 		Title:          "GoPage - Settings",
 		Theme:          "/assets/css/theme-dark.css",
 		CSS:            []string{"/assets/dist/universal.min.css", "/assets/dist/settings.min.css"},
-		JS:             []string{"/assets/js/universal.js", "/assets/js/langHandler.js", "/assets/js/settings.js"},
+		JS:             []string{"/assets/js/universal.js", "/assets/js/langHandler.js"},
 		Data:           au,
 		TargetStrings:  returnTargetStrings(),
 		DefaultStrings: returnDefaultStrings(),

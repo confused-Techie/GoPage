@@ -24,8 +24,6 @@ go.sum
 config.yml
 # Don't try formatting minified items
 assets/dist
-# Prettier seems to not like templates with .html, so we will ignore for now
-templates/
 # Exclude Documentation for Development
 DEV-docs/
 # Exclude node_modules Globally

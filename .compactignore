@@ -181,11 +181,6 @@
       "location": "assets/dist",
       "comment": "Don't try formatting minified items",
       "action": "exclude"
-    },
-    {
-      "location": "templates/",
-      "comment": "Prettier seems to not like templates with .html, so we will ignore for now",
-      "action": "exclude"
     }
   ]
 }

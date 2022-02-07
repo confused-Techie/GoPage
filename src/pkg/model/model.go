@@ -6,6 +6,7 @@ import (
 	"github.com/spf13/viper"
 	"io/ioutil"
 	"os"
+	apiFunc "github.com/confused-Techie/GoPage/src/pkg/apiFunc"
 )
 
 // ItemPluginsV2 a struct dependency of ItemV2, for JSON Plugin Models
@@ -123,6 +124,24 @@ type ServSetting struct {
 	Language string `json:"lang"`
 }
 
+type FullServSetting struct {
+	ServerSettings *ServSetting
+	ServerHostName string
+	ServerOS string
+}
+
+func FullServSettingGet() (au *FullServSetting) {
+	var fSrvStting FullServSetting
+	fSrvStting.ServerSettings = ServSettingGet()
+
+	tmp, err := apiFunc.HostSettingGet()
+	checkError(err)
+	fSrvStting.ServerHostName = tmp
+	fSrvStting.ServerOS = apiFunc.HostOSGet()
+
+	return &fSrvStting
+}
+
 // ServSettingGet returns the item of Server Settings to allow templating
 func ServSettingGet() (au *ServSetting) {
 	file, err := os.OpenFile(viper.GetString("directories.setting")+"/serverSettings.json", os.O_RDWR|os.O_APPEND, 0666)
@@ -136,12 +155,8 @@ func ServSettingGet() (au *ServSetting) {
 
 // ServSettingGetLang returns a string of the langauge code saved in the server settings file
 func ServSettingGetLang() string {
-	file, err := os.OpenFile(viper.GetString("directories.setting")+"/serverSettings.json", os.O_RDWR|os.O_APPEND, 0666)
-	checkError(err)
-	b, err := ioutil.ReadAll(file)
-	var srvStting ServSetting
-	json.Unmarshal(b, &srvStting)
-	checkError(err)
+	srvStting := ServSettingGet()
+
 	return srvStting.Language
 }
 

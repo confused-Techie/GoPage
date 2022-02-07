@@ -6,10 +6,12 @@
 
     <div class="bar-list">
       <div class="seperator">
-        <h2>{{ or
-              (index .TargetStrings "i18n-headerSummary")
-              (index .DefaultStrings "ii18n-headerSummary")
-            }}</h2>
+        <h2>
+          {{ or
+            (index .TargetStrings "i18n-headerSummary")
+            (index .DefaultStrings "ii18n-headerSummary")
+          }}
+        </h2>
       </div>
 
       <div class="settingsContainerSummary bar-list-bars">
@@ -19,31 +21,46 @@
               (index .TargetStrings "i18n-serverSummaryServerName")
               (index .DefaultStrings "i18n-serverSummaryServerName")
             }}:
-            {{.Data.Name}}
+            {{.Data.ServerSettings.Name}}
           </p>
           <p>
             {{ or
               (index .TargetStrings "i18n-serverSummaryServerVersion")
               (index .DefaultStrings "i18n-serverSummaryServerVersion")
             }}:
-            {{.Data.Version}}
+            {{.Data.ServerSettings.Version}}
           </p>
           <p>
             {{ or
               (index .TargetStrings "i18n-serverSummaryGoPageAuthor")
               (index .DefaultStrings "i18n-serverSummaryGoPageAuthor")
             }}:
-            {{.Data.Author}}
+            {{.Data.ServerSettings.Author}}
           </p>
           <p>
             {{ or
               (index .TargetStrings "i18n-serverSummaryServerLanguage")
-              (index .DefaultStrings "i18n-serverSummaryServerLanguage") 
+              (index .DefaultStrings "i18n-serverSummaryServerLanguage")
             }}:
-            {{.Data.Language}}
+            {{.Data.ServerSettings.Language}}
           </p>
         </div>
-        <div id="host-settings" class="host-settings"></div>
+        <div id="host-settings" class="host-settings">
+          <p>
+            {{ or
+              (index .TargetStrings "i18n-generatedSettingsHostName")
+              (index .DefaultStrings "i18n-generatedSettingsHostName")
+            }}:
+            {{ .Data.ServerHostName }}
+          </p>
+          <p>
+            {{ or
+              (index .TargetStrings "i18n-generatedSettingsOperatingSystem")
+              (index .DefaultStrings "i18n-generatedSettingsOperatingSystem")
+            }}:
+            {{ .Data.ServerOS }}
+          </p>
+        </div>
       </div>
 
       <div class="seperator">
