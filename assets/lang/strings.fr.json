@@ -1,7 +1,7 @@
 {
   "i18n-footerSourceCode": "Source Code",
   "i18n-footerContribute": "Apporter",
-  "i18n-footerThanksFeather": "Thanks Feather Icons",
+  "i18n-footerThanksFeather": "Special Thanks Feather Icons",
   "i18n-modalDeleteConfirmationMessage": "Êtes-vous sûr de vouloir supprimer cet article ?",
   "i18n-modalDeleteConfirm": "Confirmer",
   "i18n-modalDeleteNevermind": "Peu importe",
@@ -42,7 +42,7 @@
   "i18n-generatedLHMatchedItem": "Articles assortis",
   "i18n-generatedLHLinkItem": "Elément lié",
   "i18n-generatedUploadSuccessSnackbar": "Successfully set '{0}' as background image. (You may need to refresh...)",
-  "i18n-generatedRemoveImageSuccess": "Unset the Background Image. (You may need to refresh...)",
+  "i18n-generatedRemoveImageSuccess": "Successfully removed the Background Image. (You may need to refresh...)",
   "i18n-modalFirstTimeWelcome": "Welcome to GoPage, looks like it's your first time here. Here are some helpful ways to get started.",
   "i18n-modalFirstTimeLink": "Create your first Link Item.",
   "i18n-modalFirstTimePlugin": "Visit the Plugin Repo to start installing Plugins",
@@ -60,5 +60,5 @@
   "i18n-uploadPromptImageUpload": "Choose an Image to Upload",
   "i18n-uploadPromptButton": "Upload Image",
   "i18n-unsetImagePrompt": "Use no Background Image",
-  "i18n-unsetImageButton": "Unset Image"
+  "i18n-unsetImageButton": "Remove Image"
 }
