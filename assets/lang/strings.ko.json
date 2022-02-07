@@ -23,7 +23,7 @@
   "i18n-toolNamePluginRepo": "플러그인 저장소",
   "i18n-toolDescriptionPluginRepo": "플러그인 저장소에 연결하려면 오른쪽에 있는 버튼을 클릭합니다",
   "i18n-toolNameLinkHealth": "링크 상태",
-  "i18n-toolDescriptionLinkHealth": "A Place to check the health and any Duplicates of Items",
+  "i18n-toolDescriptionLinkHealth": "우측의 버튼을 클릭하여 상태 및 중복 항목이 있는지 확인합니다.",
   "i18n-toolNameBackgroundImage": "배경 이미지",
   "i18n-toolDescriptionBackgroundImage": "Tool to upload new Background Images and change the current one.",
   "i18n-serverSummaryServerName": "Server Name",
