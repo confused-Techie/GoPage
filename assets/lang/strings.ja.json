@@ -1,7 +1,7 @@
 {
   "i18n-footerSourceCode": "ソースコード",
   "i18n-footerContribute": "今すぐ寄付",
-  "i18n-footerThanksFeather": "Thanks Feather Icons",
+  "i18n-footerThanksFeather": "Special Thanks Feather Icons",
   "i18n-modalDeleteConfirmationMessage": "このアイテムを削除してもよろしいですか？",
   "i18n-modalDeleteConfirm": "確認",
   "i18n-modalDeleteNevermind": "辞める",
@@ -60,5 +60,5 @@
   "i18n-uploadPromptImageUpload": "Choose an Image to Upload",
   "i18n-uploadPromptButton": "Upload Image",
   "i18n-unsetImagePrompt": "Use no Background Image",
-  "i18n-unsetImageButton": "Unset Image"
+  "i18n-unsetImageButton": "Remove Image"
 }
