@@ -53,12 +53,12 @@
   "i18n-headerUploadNewImage": "上傳圖片",
   "i18n-headerSettings": "設定",
   "i18n-headerGoPage": "GoPage",
-  "i18n-genericEdit": "Edit",
-  "i18n-genericDelete": "Delete",
-  "i18n-modalHeaderPlugin": "Header Plugin",
-  "i18n-serverSummaryServerLanguage": "Server Language",
-  "i18n-uploadPromptImageUpload": "Choose an Image to Upload",
-  "i18n-uploadPromptButton": "Upload Image",
-  "i18n-unsetImagePrompt": "Use no Background Image",
-  "i18n-unsetImageButton": "Unset Image"
+  "i18n-genericEdit": "編輯",
+  "i18n-genericDelete": "刪除",
+  "i18n-modalHeaderPlugin": "外掛程式標題",
+  "i18n-serverSummaryServerLanguage": "伺服器語言",
+  "i18n-uploadPromptImageUpload": "選擇要上傳的圖片",
+  "i18n-uploadPromptButton": "上傳圖片",
+  "i18n-unsetImagePrompt": "不使用背景圖片",
+  "i18n-unsetImageButton": "移除背影圖片"
 }
