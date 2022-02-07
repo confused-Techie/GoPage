@@ -3,10 +3,10 @@ package model
 import (
 	"encoding/json"
 	"fmt"
+	apiFunc "github.com/confused-Techie/GoPage/src/pkg/apiFunc"
 	"github.com/spf13/viper"
 	"io/ioutil"
 	"os"
-	apiFunc "github.com/confused-Techie/GoPage/src/pkg/apiFunc"
 )
 
 // ItemPluginsV2 a struct dependency of ItemV2, for JSON Plugin Models
@@ -97,6 +97,10 @@ type PageTemplate struct {
 	TargetLanguage string
 }
 
+func (i PageTemplate) Wrap() string {
+	return "hello world"
+}
+
 func checkError(err error) {
 	if err != nil {
 		fmt.Println(err)
@@ -127,7 +131,7 @@ type ServSetting struct {
 type FullServSetting struct {
 	ServerSettings *ServSetting
 	ServerHostName string
-	ServerOS string
+	ServerOS       string
 }
 
 func FullServSettingGet() (au *FullServSetting) {

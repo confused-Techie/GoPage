@@ -147,12 +147,13 @@ func UploadPageHandler(w http.ResponseWriter, r *http.Request) {
 func PluginRepoPageHandler(w http.ResponseWriter, r *http.Request) {
 	//resp := apiFunc.GetPluginData()
 
+	// TODO Change this back to min for universal.css
 	data := model.PageTemplate{
 		Title:          "Gopage - Plugin Repo",
 		Theme:          "/assets/css/theme-dark.css",
-		CSS:            []string{"/assets/dist/universal.min.css", "/assets/dist/pluginRepo.min.css"},
-		JS:             []string{},
-		Data:           apiFunc.GetPluginData(),
+		CSS:            []string{"/assets/css/universal.css", "/assets/dist/pluginRepo.min.css"},
+		JS:             []string{"/assets/js/pluginRepo.js", "/assets/js/universe.js", "/assets/js/langHandler.js", "/assets/js/universal.js"},
+		Data:           apiFunc.GetDualPluginList(),
 		TargetStrings:  returnTargetStrings(),
 		DefaultStrings: returnDefaultStrings(),
 		TargetLanguage: model.ServSettingGetLang(),
@@ -164,10 +165,22 @@ func PluginRepoPageHandler(w http.ResponseWriter, r *http.Request) {
 		returnDynamicSubTemplate("footer.gohtml"),
 		returnDynamicSubTemplate("noscript.gohtml"),
 		returnDynamicSubTemplate("head.gohtml"),
+		returnDynamicSubTemplate("snackbar.gohtml"),
+		returnDynamicSubTemplate("pluginRepo/pluginItem.gohtml"),
 	}
 
-	tmpl["pluginRepo.html"] = template.Must(template.ParseFiles(templateArray...))
-	templateError := tmpl["pluginRepo.html"].Execute(w, data)
+	// This func map allows any item regaurdless of context to access the strings, specifically for
+	// variable declaration within subtemplates that are passed a ranged context
+	thisTemplate := template.Must(template.New("pluginRepo.gohtml").Funcs(template.FuncMap{
+		"ReturnTargetStrings": func() map[string]string {
+			return data.TargetStrings
+		},
+		"ReturnDefaultStrings": func() map[string]string {
+			return data.DefaultStrings
+		},
+	}).ParseFiles(templateArray...))
+
+	templateError := thisTemplate.Execute(w, data)
 	errorHandler.StandardError(templateError)
 }
 
@@ -591,6 +604,6 @@ func APIHostOSHandler(w http.ResponseWriter, r *http.Request) {
 
 // APIInstalledPluginsHandler exposes the installed plugins endpoint
 func APIInstalledPluginsHandler(w http.ResponseWriter, r *http.Request) {
-	resp := apiFunc.GetInstalledPluginsList()
+	resp := "NO LONGER IMPLEMENTED"
 	json.NewEncoder(w).Encode(resp)
 }

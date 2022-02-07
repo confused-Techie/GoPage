@@ -449,6 +449,27 @@ footer p {
   animation: snack-fadein 0.5s, snack-fadeout 0.5s 2.5s;
 }
 
+.snackbar.grid {
+  display: grid;
+  grid-template-columns: 1fr 0.5fr;
+  padding: 0.2rem;
+}
+
+.snackbar .msg {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.snackbar .icon {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: center;
+}
+
+.snackbar.success {
+  background-color: var(--confirm-action-back-drop-colour);
+}
+
 .snackbar.error {
   background-color: var(--error-action-back-drop-colour);
 }
