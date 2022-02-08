@@ -97,10 +97,6 @@ type PageTemplate struct {
 	TargetLanguage string
 }
 
-func (i PageTemplate) Wrap() string {
-	return "hello world"
-}
-
 func checkError(err error) {
 	if err != nil {
 		fmt.Println(err)
@@ -128,12 +124,14 @@ type ServSetting struct {
 	Language string `json:"lang"`
 }
 
+// FullServSetting a struct to contain the standard ServSetting AND the hostname and OS
 type FullServSetting struct {
 	ServerSettings *ServSetting
 	ServerHostName string
 	ServerOS       string
 }
 
+// FullServSettingGet a wrapper for the struct FullServSetting
 func FullServSettingGet() (au *FullServSetting) {
 	var fSrvStting FullServSetting
 	fSrvStting.ServerSettings = ServSettingGet()
