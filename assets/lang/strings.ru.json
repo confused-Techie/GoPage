@@ -1,7 +1,7 @@
 {
   "i18n-footerSourceCode": "Исходный код",
   "i18n-footerContribute": "Поддержать проект",
-  "i18n-footerThanksFeather": "Thanks Feather Icons",
+  "i18n-footerThanksFeather": "Special Thanks Feather Icons",
   "i18n-modalDeleteConfirmationMessage": "Вы уверены, что хотите удалить этот элемент?",
   "i18n-modalDeleteConfirm": "Подтвердить",
   "i18n-modalDeleteNevermind": "Отказаться",
@@ -42,7 +42,7 @@
   "i18n-generatedLHMatchedItem": "Matched Item",
   "i18n-generatedLHLinkItem": "Link Items",
   "i18n-generatedUploadSuccessSnackbar": "Successfully set '{0}' as background image. (You may need to refresh...)",
-  "i18n-generatedRemoveImageSuccess": "Unset the Background Image. (You may need to refresh...)",
+  "i18n-generatedRemoveImageSuccess": "Successfully removed the Background Image. (You may need to refresh...)",
   "i18n-modalFirstTimeWelcome": "Welcome to GoPage, looks like it's your first time here. Here are some helpful ways to get started.",
   "i18n-modalFirstTimeLink": "Create your first Link Item.",
   "i18n-modalFirstTimePlugin": "Visit the Plugin Repo to start installing Plugins",
@@ -50,5 +50,15 @@
   "i18n-modalFirstTimeDocumentation": "Visit the documentation for further assistance",
   "i18n-modalFirstTimeLangSubmit": "Отправить",
   "i18n-modalFirstTimeClose": "Close First Time Setup",
-  "i18n-headerUploadNewImage": "Upload New Image"
+  "i18n-headerUploadNewImage": "Upload New Image",
+  "i18n-headerSettings": "Settings",
+  "i18n-headerGoPage": "GoPage",
+  "i18n-genericEdit": "Edit",
+  "i18n-genericDelete": "Delete",
+  "i18n-modalHeaderPlugin": "Header Plugin",
+  "i18n-serverSummaryServerLanguage": "Server Language",
+  "i18n-uploadPromptImageUpload": "Choose an Image to Upload",
+  "i18n-uploadPromptButton": "Upload Image",
+  "i18n-unsetImagePrompt": "Use no Background Image",
+  "i18n-unsetImageButton": "Remove Image"
 }

@@ -50,5 +50,15 @@
   "i18n-modalFirstTimeDocumentation": "Presione el botón de la derecha para visitar la documentación para más asistencia",
   "i18n-modalFirstTimeLangSubmit": "Enviar",
   "i18n-modalFirstTimeClose": "Cerrar la primera configuración",
-  "i18n-headerUploadNewImage": "Subir nueva imagen"
+  "i18n-headerUploadNewImage": "Subir nueva imagen",
+  "i18n-headerSettings": "Configuración",
+  "i18n-headerGoPage": "GoPage",
+  "i18n-genericEdit": "Editar",
+  "i18n-genericDelete": "Eliminar",
+  "i18n-modalHeaderPlugin": "Plugin de cabecera",
+  "i18n-serverSummaryServerLanguage": "Idioma del servidor",
+  "i18n-uploadPromptImageUpload": "Selecciona una imagen para cargar",
+  "i18n-uploadPromptButton": "Subir imagen",
+  "i18n-unsetImagePrompt": "No usar imagen de fondo",
+  "i18n-unsetImageButton": "Eliminar imagen"
 }
