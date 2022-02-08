@@ -6,7 +6,7 @@
   "i18n-modalDeleteConfirm": "확인",
   "i18n-modalDeleteNevermind": "취소",
   "i18n-AddNewItem": "새 항목 추가",
-  "i18n-ShowAllCategorySelector": "모든 종류를 보여주십시오",
+  "i18n-ShowAllCategorySelector": "모든 종류를 보여주세요",
   "i18n-headerEditItem": "항목 편집",
   "i18n-labelNewFriendlyName": "이름 추가:",
   "i18n-labelNewLink": "새 링크를 입력:",
@@ -49,8 +49,8 @@
   "i18n-modalFirstTimeLang": "GoPage에서 언어 설정 변경하기",
   "i18n-modalFirstTimeDocumentation": "추가 도움말을 보려면 오른쪽에 있는 오른쪽에 있는 '파일' 버튼을 클릭하세요",
   "i18n-modalFirstTimeLangSubmit": "확인",
-  "i18n-modalFirstTimeClose": "처음 설정 닫히세요",
-  "i18n-headerUploadNewImage": "새 이미지 업로드하세요",
+  "i18n-modalFirstTimeClose": "처음 설정 닫히다",
+  "i18n-headerUploadNewImage": "새 이미지 업로드하다",
   "i18n-headerSettings": "설정",
   "i18n-headerGoPage": "GoPage",
   "i18n-genericEdit": "편집",
@@ -60,5 +60,5 @@
   "i18n-uploadPromptImageUpload": "업로드 할 이미지를 선택하세요",
   "i18n-uploadPromptButton": "이미지 업로드하기",
   "i18n-unsetImagePrompt": "배경 이미지를 사용하지 마세요",
-  "i18n-unsetImageButton": "Remove Image"
+  "i18n-unsetImageButton": "이미지를 제거하다"
 }
