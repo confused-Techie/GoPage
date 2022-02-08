@@ -42,7 +42,7 @@
   "i18n-generatedLHMatchedItem": "相符項目",
   "i18n-generatedLHLinkItem": "連結項目",
   "i18n-generatedUploadSuccessSnackbar": "成功設定 '{0}' 為背景圖片 (請刷新頁面)",
-  "i18n-generatedRemoveImageSuccess": "移除背影圖片 (請刷新頁面)",
+  "i18n-generatedRemoveImageSuccess": "成功移除背影圖片 (請刷新頁面)",
   "i18n-modalFirstTimeWelcome": "歡迎來到 GoPage, 看來這是你第一次來到這個網站. 以下是一些有用的入門小貼士.",
   "i18n-modalFirstTimeLink": "新增你的第一個鏈接項目",
   "i18n-modalFirstTimePlugin": "按右邊按鈕到 '外掛程式存儲庫' 開始安裝外掛程式",
