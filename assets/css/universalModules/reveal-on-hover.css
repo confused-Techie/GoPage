@@ -1,0 +1,7 @@
+.reveal-on-hover {
+  opacity: 0;
+}
+
+.reveal-on-hover:hover {
+  opacity: 1;
+}

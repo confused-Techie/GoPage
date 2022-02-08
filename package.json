@@ -9,7 +9,8 @@
     "minify-js": "powershell scripts/minify-js.ps1",
     "lint": "powershell scripts/linting.ps1",
     "complexity": "powershell scripts/complexity.ps1",
-    "ignore": "compactignore ."
+    "ignore": "compactignore .",
+    "testGulp": "gulp default"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,8 @@
     "@confused-techie/compactignore": "^1.0.0",
     "complexity-report": "^2.0.0-alpha",
     "cssnano": "^5.0.16",
+    "gulp": "^4.0.2",
+    "gulp-concat-css": "^3.1.0",
     "postcss": "^8.4.5",
     "postcss-cli": "^9.1.0",
     "prettier": "^2.5.1",

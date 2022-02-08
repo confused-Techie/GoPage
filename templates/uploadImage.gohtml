@@ -53,7 +53,7 @@
     <button onclick="unsetImage();" class="simple-button btn-create grow-shadow-hover">
       {{ or
         (index .TargetStrings "i18n-unsetImageButton")
-        (index .DefaultStrings "i18n-unsetImageButton") 
+        (index .DefaultStrings "i18n-unsetImageButton")
       }}
     </button>
   </div>
@@ -62,7 +62,7 @@
 
   </div>
 
-  <div id="uploadImageSnackbar" class="snackbar"> </div>
+  {{template "snackbar" .}}
 
   {{template "footer" .}}
 

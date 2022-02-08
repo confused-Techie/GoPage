@@ -1,0 +1,14 @@
+.text-style-minor {
+  color: var(--text-style-minor-colour);
+}
+
+.text-style-issue {
+  color: var(--text-style-issue-colour);
+}
+
+.text-style-declare {
+  color: var(--text-style-declare-colour);
+  font-weight: bold;
+  font-style: oblique;
+  text-decoration: underline;
+}

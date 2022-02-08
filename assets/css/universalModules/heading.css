@@ -1,0 +1,87 @@
+.heading {
+  background-color: var(--heading-back-drop-colour);
+  background-image: linear-gradient(
+    360deg,
+    var(--heading-back-drop-colour),
+    var(--heading-back-drop-colour-grad)
+  );
+  color: var(--heading-text-colour);
+  text-align: center;
+  display: grid;
+  grid-template-columns: repeat(5, 8%) repeat(3, 1fr);
+  height: 5vh;
+  align-items: baseline;
+}
+
+hr.heading {
+  border: var(--heading-hr-border);
+}
+
+.heading .titleCard {
+  grid-column: 1;
+  grid-row: 1;
+  height: 5vh;
+  font-family: "Staatliches", sans-serif;
+}
+
+.heading .pluginRepo {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.heading .backgroundImage {
+  grid-column: 3;
+  grid-row: 1;
+}
+
+.heading .linkHealth {
+  grid-column: 4;
+  grid-row: 1;
+}
+
+.heading .settings {
+  grid-column: 5;
+  grid-row: 1;
+}
+
+.heading .timeStamp {
+  grid-column: 8;
+  grid-row: 1;
+  height: 4vh;
+}
+
+.heading .headerPluginLeft {
+  grid-column: 6;
+  grid-row: 1;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.heading .headerPluginRight {
+  grid-column: 7;
+  grid-row: 1;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.heading .headerPluginLeft .add-plugin {
+  opacity: 0;
+  -webkit-transition: opacity 0.5s ease-out;
+  cursor: pointer;
+}
+
+.heading .headerPluginRight .add-plugin {
+  opacity: 0;
+  -webkit-transition: opacity 0.5s ease-out;
+  cursor: pointer;
+}
+
+.heading .headerPluginLeft:hover .add-plugin {
+  opacity: 1;
+  -webkit-transition: opacity 0.5s ease-in;
+}
+
+.heading .headerPluginRight:hover .add-plugin {
+  opacity: 1;
+  -webkit-transition: opacity 0.5s ease-in;
+}

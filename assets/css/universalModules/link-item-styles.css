@@ -1,0 +1,30 @@
+.adamantium:hover {
+  --ada-colour-hvr: #2b2b2b;
+  --ada-colour-hvr-grad: #464646;
+  --ada-colour-hvr-grad2: #959595;
+  --ada-colour: #2b2b2b;
+
+  background: linear-gradient(
+    -60deg,
+    var(--ada-colour-hvr),
+    var(--ada-colour-hvr-grad),
+    var(--ada-colour-hvr-grad2),
+    var(--ada-colour)
+  );
+  background-size: 200% 200%;
+  animation: gradientItemAdamantium 5s ease infinite;
+}
+
+@keyframes gradientItemAdamantium {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}

@@ -62,7 +62,7 @@ func HomePageHandler(w http.ResponseWriter, r *http.Request) {
 	data := model.PageTemplate{
 		Title:          "Gopage - Home",
 		Theme:          "/assets/css/theme-dark.css",
-		CSS:            []string{"/assets/dist/universal.min.css", "/assets/dist/home.min.css"},
+		CSS:            []string{"/assets/css/dist/universal.min.css", "/assets/css/dist/home.min.css"},
 		JS:             []string{"/assets/js/universe.js", "/assets/js/langHandler.js", "/assets/js/home.js", "/assets/js/pluginhandler.js", "/assets/js/universal.js"},
 		Data:           au,
 		TargetStrings:  returnTargetStrings(),
@@ -94,7 +94,7 @@ func SettingsPageHandler(w http.ResponseWriter, r *http.Request) {
 	data := model.PageTemplate{
 		Title:          "GoPage - Settings",
 		Theme:          "/assets/css/theme-dark.css",
-		CSS:            []string{"/assets/dist/universal.min.css", "/assets/dist/settings.min.css"},
+		CSS:            []string{"/assets/css/dist/universal.min.css", "/assets/css/dist/settings.min.css"},
 		JS:             []string{"/assets/js/universal.js", "/assets/js/langHandler.js"},
 		Data:           au,
 		TargetStrings:  returnTargetStrings(),
@@ -122,7 +122,7 @@ func UploadPageHandler(w http.ResponseWriter, r *http.Request) {
 	data := model.PageTemplate{
 		Title:          "GoPage - Upload",
 		Theme:          "/assets/css/theme-dark.css",
-		CSS:            []string{"/assets/dist/universal.min.css", "/assets/dist/uploadImage.min.css"},
+		CSS:            []string{"/assets/css/dist/universal.min.css", "/assets/css/dist/uploadImage.min.css"},
 		JS:             []string{"/assets/js/langHandler.js", "/assets/js/universal.js", "/assets/js/universe.js", "/assets/js/uploadImage.js"},
 		Data:           "",
 		TargetStrings:  returnTargetStrings(),
@@ -136,6 +136,7 @@ func UploadPageHandler(w http.ResponseWriter, r *http.Request) {
 		returnDynamicSubTemplate("footer.gohtml"),
 		returnDynamicSubTemplate("head.gohtml"),
 		returnDynamicSubTemplate("noscript.gohtml"),
+		returnDynamicSubTemplate("snackbar.gohtml"),
 	}
 
 	tmpl["uploadPage.html"] = template.Must(template.ParseFiles(templateArray...))
@@ -151,7 +152,7 @@ func PluginRepoPageHandler(w http.ResponseWriter, r *http.Request) {
 	data := model.PageTemplate{
 		Title:          "Gopage - Plugin Repo",
 		Theme:          "/assets/css/theme-dark.css",
-		CSS:            []string{"/assets/css/universal.css", "/assets/dist/pluginRepo.min.css"},
+		CSS:            []string{"/assets/css/universal.css", "/assets/css/dist/pluginRepo.min.css"},
 		JS:             []string{"/assets/js/pluginRepo.js", "/assets/js/universe.js", "/assets/js/langHandler.js", "/assets/js/universal.js"},
 		Data:           apiFunc.GetDualPluginList(),
 		TargetStrings:  returnTargetStrings(),
@@ -190,7 +191,7 @@ func LinkHealthPageHandler(w http.ResponseWriter, r *http.Request) {
 	data := model.PageTemplate{
 		Title:          "GoPage - Link Health",
 		Theme:          "/assets/css/theme-dark.css",
-		CSS:            []string{"/assets/dist/universal.min.css"},
+		CSS:            []string{"/assets/css/dist/universal.min.css"},
 		JS:             []string{"/assets/js/universal.js", "/assets/js/langHandler.js", "/assets/js/linkhealth.js"},
 		Data:           "",
 		TargetStrings:  returnTargetStrings(),
