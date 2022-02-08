@@ -1,0 +1,17 @@
+.bubble-card-daily {
+  border-radius: 30px;
+  max-width: 30%;
+  min-width: 15%;
+  min-height: 10%;
+  margin-right: 5px;
+  margin-top: 5px;
+}
+
+.boxy-card-daily {
+  border-radius: 3px;
+  max-width: 50%;
+  min-width: 30%;
+  min-height: 10%;
+  margin-right: 5px;
+  margin-top: 5px;
+}

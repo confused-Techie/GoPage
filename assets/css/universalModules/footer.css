@@ -1,0 +1,17 @@
+footer {
+  border-top: var(--footer-border-top);
+  text-align: center;
+  padding: 5px;
+  background-color: var(--footer-back-drop-colour);
+  color: var(--foter-text-colour);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+footer p {
+  font-family: "consolas", sans-serif;
+  display: inline;
+  margin-right: 10px;
+}

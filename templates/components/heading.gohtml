@@ -1,8 +1,10 @@
 {{define "heading"}}
 <div class="heading">
   <div class="titleCard"><h2><a href="/">
-    {{/* TODO Add GoPage to Strings */}}
-    GoPage
+    {{ or
+      (index .TargetStrings "i18n-headerGoPage")
+      (index .DefaultStrings "i18n-headerGoPage") 
+    }}
   </a></h2></div>
   <div class="pluginRepo"><h3><a href="/pluginrepo" class="text-style-minor">
     {{ or
@@ -23,8 +25,10 @@
     }}
   </a></h3></div>
   <div class="settings"><h3><a href="/settings" class="text-style-minor">
-    {{/* TODO Add Settings to Strings */}}
-    Settings
+    {{ or
+      (index .TargetStrings "i18n-headerSettings")
+      (index .DefaultStrings "i18n-headerSettings")
+    }}
   </a></h3></div>
   <div class="headerPluginLeft" id="headerPluginLeft">
     <div class="add-plugin">

@@ -21,15 +21,19 @@
       >
 
       <label>
-        {{/* TODO Add this to strings */}}
-        Choose an Image to Upload:
+        {{ or
+          (index .TargetStrings "i18n-uploadPromptImageUpload")
+          (index .DefaultStrings "i18n-uploadPromptImageUpload")
+        }}
         <input type="file" name="myFile"/>
       </label>
 
 
       <button type="submit" class="simple-button btn-create grow-shadow-hover">
-        {{/* TODO add to strings */}}
-        Upload Image
+        {{ or
+          (index .TargetStrings "i18n-uploadPromptImageUpload")
+          (index .DefaultStrings "i18n-uploadPromptImageUpload")
+        }}
       </button>
 
 
@@ -40,13 +44,17 @@
 
   <div class="unsetImageContainer">
     <h3>
-      {{/* TODO add to strings */}}
-      Use no Background Image
+      {{ or
+        (index .TargetStrings "i18n-unsetImagePrompt")
+        (index .DefaultStrings "i18n-unsetImagePrompt")
+      }}
     </h3>
 
     <button onclick="unsetImage();" class="simple-button btn-create grow-shadow-hover">
-      {{/* TODO add to strings */}}
-      Unset Image
+      {{ or
+        (index .TargetStrings "i18n-unsetImageButton")
+        (index .DefaultStrings "i18n-unsetImageButton")
+      }}
     </button>
   </div>
 
@@ -54,7 +62,7 @@
 
   </div>
 
-  <div id="uploadImageSnackbar" class="snackbar"> </div>
+  {{template "snackbar" .}}
 
   {{template "footer" .}}
 

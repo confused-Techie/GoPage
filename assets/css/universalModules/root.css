@@ -1,0 +1,29 @@
+@font-face {
+  font-family: "Staatliches";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/fonts/Staatliches/Staatliches-Regular.ttf")
+    format("truetype");
+}
+
+body {
+  background-color: var(--back-drop-colour);
+  color: var(--body-text-colour);
+  margin: 0 0 50px 0;
+  background-image: none;
+  font-family: "consolas", sans-serif;
+}
+
+a {
+  color: var(--link-text-colour);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:active {
+  text-decoration: underline;
+}

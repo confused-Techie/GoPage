@@ -59,7 +59,7 @@ function setImage(name) {
           .then((resString) => {
             // We know this string is a composite string, so we use the langHandler Composite handler to insert the name
             universe.SnackbarCommon(
-              "uploadImageSnackbar",
+              "snackbar",
               langHandler.UnicornComposite(resString, name)
             );
           });
@@ -94,7 +94,7 @@ function unsetImage() {
         langHandler
           .ProvideStringRaw("i18n-generatedRemoveImageSuccess")
           .then((resString) => {
-            universe.SnackbarCommon("uploadImageSnackbar", resString);
+            universe.SnackbarCommon("snackbar", resString);
           });
       };
 
@@ -102,7 +102,7 @@ function unsetImage() {
         universe.CreateJSONPOSTHeaders(JSON.stringify(data)),
         successHandler,
         function (err) {
-          universe.GenericErorrHandler("uploadImageSnackbar", err);
+          universe.GenericErorrHandler("snackbar", err);
         }
       );
     });

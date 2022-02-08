@@ -21,12 +21,13 @@ function updaterTimeStamp() {
 }
 
 window.addEventListener("DOMContentLoaded", () => {
-  langHandler.DetermineLang().then(() => {
-    // once this returns, we can start a lookup of the strings
-    //langHandler.InsertLang();
-    // Testing the new Metered connection to reduce network abuse
-    langHandler.InsertLangMetered();
-  });
+  //langHandler.DetermineLang().then(() => {
+  // once this returns, we can start a lookup of the strings
+  //langHandler.InsertLang();
+  // Testing the new Metered connection to reduce network abuse
+  //langHandler.InsertLangMetered();
+  //});
+  // with translations now part of templating, we no longer need to do a lookup at page load.
 });
 
 function checkCustomBackgroundImage() {

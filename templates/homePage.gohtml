@@ -84,12 +84,18 @@
               <div class="optionsContent">
                 <div class="optionsContent-Edit grow-shadow-hover">
                   <a onclick="editItemModalV2( {{.ID}}, {{.FriendlyName}}, {{.Link}}, {{.Category}}, {{.Plugins}} );return false;">
-                    <span id="i18n-TODO">Edit</span>
+                    {{ or
+                      (index $scopedTargetStrings "i18n-genericEdit")
+                      (index $scopedDefaultStrings "i18n-genericEdit")
+                    }}
                   </a>
                 </div>
                 <div class="optionsContent-Delete grow-shadow-hover">
                   <a onclick="modalDelete( {{.ID}} );return false;">
-                    <span id="i18n-TODO">Delete</span>
+                    {{ or
+                      (index $scopedTargetStrings "i18n-genericDelete")
+                      (index $scopedDefaultStrings "i18n-genericDelete")
+                    }}
                   </a>
                 </div>
               </div>
@@ -127,7 +133,10 @@
   <div id="headerPluginModal" class="modal">
     <div class="modal-content">
       <h2>
-        <span id="i18n-TODO">Header Plugin</span>
+        {{ or
+          (index .TargetStrings "i18n-modalHeaderPlugin")
+          (index .DefaultStrings "i18n-modalHeaderPlugin")
+        }}
       </h2>
       <form id="header-plugin-form">
         <label>

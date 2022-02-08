@@ -1,0 +1,9 @@
+.dropdown-shadow {
+  box-shadow: -5px 5px 2px black;
+  -webkit-transition: box-shadow 0.3s ease-out;
+}
+
+.dropdown-shadow:hover {
+  box-shadow: -10px 8px 3px black;
+  -webkit-transition: box-shadow 0.5s ease-in;
+}

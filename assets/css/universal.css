@@ -427,7 +427,6 @@ footer p {
 .snackbar {
   visibility: hidden; /* Hidden by default */
   min-width: 250px; /* Set default minimum width */
-  margin-left: -125px; /* Divide value of min-width by 2 */
   background-color: #333; /* TODO: Remove hardcoded color */
   color: #fff; /* TODO: Remove hardcoded colour */
   text-align: center;
@@ -437,6 +436,8 @@ footer p {
   left: 50%;
   bottom: 30px;
   border-radius: 5px;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
 
 .snackbar.show {
@@ -447,6 +448,30 @@ footer p {
 
   -webkit-animation: snack-fadein 0.5s, snack-fadeout 0.5s 2.5s;
   animation: snack-fadein 0.5s, snack-fadeout 0.5s 2.5s;
+}
+
+.snackbar.grid {
+  display: grid;
+  grid-template-columns: 1fr 10%;
+  padding: 0.5rem;
+  justify-items: start;
+}
+
+.snackbar .msg {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: center;
+}
+
+.snackbar .icon {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: center;
+  padding-left: 0.5vh;
+}
+
+.snackbar.success {
+  background-color: var(--confirm-action-back-drop-colour);
 }
 
 .snackbar.error {

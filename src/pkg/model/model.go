@@ -3,6 +3,7 @@ package model
 import (
 	"encoding/json"
 	"fmt"
+	apiFunc "github.com/confused-Techie/GoPage/src/pkg/apiFunc"
 	"github.com/spf13/viper"
 	"io/ioutil"
 	"os"
@@ -86,12 +87,12 @@ func (i ItemV2) NoBottomRightPlugin() bool {
 
 // PageTemplate is used to define the struct used to create each page
 type PageTemplate struct {
-	Title string
-	Theme string
-	CSS []string
-	JS []string
-	Data interface{}
-	TargetStrings map[string]string
+	Title          string
+	Theme          string
+	CSS            []string
+	JS             []string
+	Data           interface{}
+	TargetStrings  map[string]string
 	DefaultStrings map[string]string
 	TargetLanguage string
 }
@@ -123,6 +124,26 @@ type ServSetting struct {
 	Language string `json:"lang"`
 }
 
+// FullServSetting a struct to contain the standard ServSetting AND the hostname and OS
+type FullServSetting struct {
+	ServerSettings *ServSetting
+	ServerHostName string
+	ServerOS       string
+}
+
+// FullServSettingGet a wrapper for the struct FullServSetting
+func FullServSettingGet() (au *FullServSetting) {
+	var fSrvStting FullServSetting
+	fSrvStting.ServerSettings = ServSettingGet()
+
+	tmp, err := apiFunc.HostSettingGet()
+	checkError(err)
+	fSrvStting.ServerHostName = tmp
+	fSrvStting.ServerOS = apiFunc.HostOSGet()
+
+	return &fSrvStting
+}
+
 // ServSettingGet returns the item of Server Settings to allow templating
 func ServSettingGet() (au *ServSetting) {
 	file, err := os.OpenFile(viper.GetString("directories.setting")+"/serverSettings.json", os.O_RDWR|os.O_APPEND, 0666)
@@ -136,12 +157,8 @@ func ServSettingGet() (au *ServSetting) {
 
 // ServSettingGetLang returns a string of the langauge code saved in the server settings file
 func ServSettingGetLang() string {
-	file, err := os.OpenFile(viper.GetString("directories.setting")+"/serverSettings.json", os.O_RDWR|os.O_APPEND, 0666)
-	checkError(err)
-	b, err := ioutil.ReadAll(file)
-	var srvStting ServSetting
-	json.Unmarshal(b, &srvStting)
-	checkError(err)
+	srvStting := ServSettingGet()
+
 	return srvStting.Language
 }
 

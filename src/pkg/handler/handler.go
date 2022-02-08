@@ -32,7 +32,7 @@ func returnAgnosticStrings(langCode string) map[string]string {
 	// Since I do know that the translations should only ever include strings, we can make a small attempt
 	// at ensuring the strings file doesn't become a vector for malicious activity
 
-	file, err := os.OpenFile(viper.GetString("directories.staticAssets")+"lang/strings." + langCode + ".json", os.O_RDWR|os.O_APPEND, 0666)
+	file, err := os.OpenFile(viper.GetString("directories.staticAssets")+"lang/strings."+langCode+".json", os.O_RDWR|os.O_APPEND, 0666)
 	errorHandler.StandardError(err)
 	b, err := ioutil.ReadAll(file)
 	errorHandler.StandardError(err)
@@ -60,12 +60,12 @@ func HomePageHandler(w http.ResponseWriter, r *http.Request) {
 	au := model.HomeV2()
 
 	data := model.PageTemplate{
-		Title: "Gopage - Home",
-		Theme: "/assets/css/theme-dark.css",
-		CSS: []string{"/assets/dist/universal.min.css", "/assets/dist/home.min.css"},
-		JS: []string{"/assets/js/universe.js", "/assets/js/langHandler.js", "/assets/js/home.js", "/assets/js/pluginhandler.js", "/assets/js/universal.js"},
-		Data: au,
-		TargetStrings: returnTargetStrings(),
+		Title:          "Gopage - Home",
+		Theme:          "/assets/css/theme-dark.css",
+		CSS:            []string{"/assets/css/dist/universal.min.css", "/assets/css/dist/home.min.css"},
+		JS:             []string{"/assets/js/universe.js", "/assets/js/langHandler.js", "/assets/js/home.js", "/assets/js/pluginhandler.js", "/assets/js/universal.js"},
+		Data:           au,
+		TargetStrings:  returnTargetStrings(),
 		DefaultStrings: returnDefaultStrings(),
 		TargetLanguage: model.ServSettingGetLang(),
 	}
@@ -89,15 +89,15 @@ func HomePageHandler(w http.ResponseWriter, r *http.Request) {
 
 // SettingsPageHandler returns Template: settings.html w/ Model: ServSettingGet
 func SettingsPageHandler(w http.ResponseWriter, r *http.Request) {
-	au := model.ServSettingGet()
+	au := model.FullServSettingGet()
 
 	data := model.PageTemplate{
-		Title: "GoPage - Settings",
-		Theme: "/assets/css/theme-dark.css",
-		CSS: []string{"/assets/dist/universal.min.css", "/assets/dist/settings.min.css"},
-		JS: []string{"/assets/js/universal.js", "/assets/js/langHandler.js", "/assets/js/settings.js"},
-		Data: au,
-		TargetStrings: returnTargetStrings(),
+		Title:          "GoPage - Settings",
+		Theme:          "/assets/css/theme-dark.css",
+		CSS:            []string{"/assets/css/dist/universal.min.css", "/assets/css/dist/settings.min.css"},
+		JS:             []string{"/assets/js/universal.js", "/assets/js/langHandler.js"},
+		Data:           au,
+		TargetStrings:  returnTargetStrings(),
 		DefaultStrings: returnDefaultStrings(),
 		TargetLanguage: model.ServSettingGetLang(),
 	}
@@ -120,12 +120,12 @@ func SettingsPageHandler(w http.ResponseWriter, r *http.Request) {
 func UploadPageHandler(w http.ResponseWriter, r *http.Request) {
 
 	data := model.PageTemplate{
-		Title: "GoPage - Upload",
-		Theme: "/assets/css/theme-dark.css",
-		CSS: []string{"/assets/dist/universal.min.css", "/assets/dist/uploadImage.min.css"},
-		JS: []string{"/assets/js/langHandler.js", "/assets/js/universal.js", "/assets/js/universe.js", "/assets/js/uploadImage.js"},
-		Data: "",
-		TargetStrings: returnTargetStrings(),
+		Title:          "GoPage - Upload",
+		Theme:          "/assets/css/theme-dark.css",
+		CSS:            []string{"/assets/css/dist/universal.min.css", "/assets/css/dist/uploadImage.min.css"},
+		JS:             []string{"/assets/js/langHandler.js", "/assets/js/universal.js", "/assets/js/universe.js", "/assets/js/uploadImage.js"},
+		Data:           "",
+		TargetStrings:  returnTargetStrings(),
 		DefaultStrings: returnDefaultStrings(),
 		TargetLanguage: model.ServSettingGetLang(),
 	}
@@ -136,6 +136,7 @@ func UploadPageHandler(w http.ResponseWriter, r *http.Request) {
 		returnDynamicSubTemplate("footer.gohtml"),
 		returnDynamicSubTemplate("head.gohtml"),
 		returnDynamicSubTemplate("noscript.gohtml"),
+		returnDynamicSubTemplate("snackbar.gohtml"),
 	}
 
 	tmpl["uploadPage.html"] = template.Must(template.ParseFiles(templateArray...))
@@ -147,13 +148,14 @@ func UploadPageHandler(w http.ResponseWriter, r *http.Request) {
 func PluginRepoPageHandler(w http.ResponseWriter, r *http.Request) {
 	//resp := apiFunc.GetPluginData()
 
+	// TODO Change this back to min for universal.css
 	data := model.PageTemplate{
-		Title: "Gopage - Plugin Repo",
-		Theme: "/assets/css/theme-dark.css",
-		CSS: []string{"/assets/dist/universal.min.css", "/assets/dist/pluginRepo.min.css"},
-		JS: []string{},
-		Data: apiFunc.GetPluginData(),
-		TargetStrings: returnTargetStrings(),
+		Title:          "Gopage - Plugin Repo",
+		Theme:          "/assets/css/theme-dark.css",
+		CSS:            []string{"/assets/css/universal.css", "/assets/css/dist/pluginRepo.min.css"},
+		JS:             []string{"/assets/js/pluginRepo.js", "/assets/js/universe.js", "/assets/js/langHandler.js", "/assets/js/universal.js"},
+		Data:           apiFunc.GetDualPluginList(),
+		TargetStrings:  returnTargetStrings(),
 		DefaultStrings: returnDefaultStrings(),
 		TargetLanguage: model.ServSettingGetLang(),
 	}
@@ -164,10 +166,22 @@ func PluginRepoPageHandler(w http.ResponseWriter, r *http.Request) {
 		returnDynamicSubTemplate("footer.gohtml"),
 		returnDynamicSubTemplate("noscript.gohtml"),
 		returnDynamicSubTemplate("head.gohtml"),
+		returnDynamicSubTemplate("snackbar.gohtml"),
+		returnDynamicSubTemplate("pluginRepo/pluginItem.gohtml"),
 	}
 
-	tmpl["pluginRepo.html"] = template.Must(template.ParseFiles(templateArray...))
-	templateError := tmpl["pluginRepo.html"].Execute(w, data)
+	// This func map allows any item regaurdless of context to access the strings, specifically for
+	// variable declaration within subtemplates that are passed a ranged context
+	thisTemplate := template.Must(template.New("pluginRepo.gohtml").Funcs(template.FuncMap{
+		"ReturnTargetStrings": func() map[string]string {
+			return data.TargetStrings
+		},
+		"ReturnDefaultStrings": func() map[string]string {
+			return data.DefaultStrings
+		},
+	}).ParseFiles(templateArray...))
+
+	templateError := thisTemplate.Execute(w, data)
 	errorHandler.StandardError(templateError)
 }
 
@@ -175,12 +189,12 @@ func PluginRepoPageHandler(w http.ResponseWriter, r *http.Request) {
 func LinkHealthPageHandler(w http.ResponseWriter, r *http.Request) {
 
 	data := model.PageTemplate{
-		Title: "GoPage - Link Health",
-		Theme: "/assets/css/theme-dark.css",
-		CSS:   []string{"/assets/dist/universal.min.css"},
-		JS:    []string{"/assets/js/universal.js", "/assets/js/langHandler.js", "/assets/js/linkhealth.js"},
-		Data: "",
-		TargetStrings: returnTargetStrings(),
+		Title:          "GoPage - Link Health",
+		Theme:          "/assets/css/theme-dark.css",
+		CSS:            []string{"/assets/css/dist/universal.min.css"},
+		JS:             []string{"/assets/js/universal.js", "/assets/js/langHandler.js", "/assets/js/linkhealth.js"},
+		Data:           "",
+		TargetStrings:  returnTargetStrings(),
 		DefaultStrings: returnDefaultStrings(),
 		TargetLanguage: model.ServSettingGetLang(),
 	}
@@ -591,6 +605,6 @@ func APIHostOSHandler(w http.ResponseWriter, r *http.Request) {
 
 // APIInstalledPluginsHandler exposes the installed plugins endpoint
 func APIInstalledPluginsHandler(w http.ResponseWriter, r *http.Request) {
-	resp := apiFunc.GetInstalledPluginsList()
+	resp := "NO LONGER IMPLEMENTED"
 	json.NewEncoder(w).Encode(resp)
 }

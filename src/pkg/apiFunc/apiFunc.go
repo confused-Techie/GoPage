@@ -11,7 +11,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
-	"os/exec"
 	"path/filepath"
 	"runtime"
 	"strings"
@@ -68,205 +67,6 @@ func HostOSGet() string {
 // ------------------------------------------
 // This will be dedicated to the plugin store
 
-// PluginIcon is a child of AvailablePluginList & PluginItem
-type PluginIcon struct {
-	Available bool   `json:"available"`
-	Type      string `json:"type"`
-	Source    string `json:"src"`
-	Style     string `json:"style"`
-	Symbol    string `json:"symbol"`
-}
-
-// AvailablePluginItem is used to hold that JSON values of each available plugin item in the json array availableplugins.json
-type AvailablePluginItem struct {
-	Name         string     `json:"name"`
-	FriendlyName string     `json:"friendlyName"`
-	Version      string     `json:"version"`
-	Description  string     `json:"description"`
-	Type         string     `json:"type"`
-	Author       string     `json:"author"`
-	License      string     `json:"license"`
-	InfoLink     string     `json:"infoLink"`
-	DownloadLink string     `json:"downloadLink"`
-	Installed    bool       `json:"installed"`
-	Icon         PluginIcon `json:"icon"`
-}
-
-// AvailablePluginList is used to hold the full array from availableplugins.json
-type AvailablePluginList struct {
-	AvailablePluginItem []*AvailablePluginItem
-}
-
-// PluginItem is the same as AvailablePluginItem and really should be refractored to avoid its duplicity. Comes from a time when the files had differences
-type PluginItem struct {
-	Name         string     `json:"name"`
-	FriendlyName string     `json:"friendlyName"`
-	Version      string     `json:"version"`
-	Description  string     `json:"description"`
-	Type         string     `json:"type"`
-	Author       string     `json:"author"`
-	License      string     `json:"license"`
-	InfoLink     string     `json:"infoLink"`
-	DownloadLink string     `json:"downloadLink"`
-	Icon         PluginIcon `json:"icon"`
-}
-
-// InstalledPlugins used to hold the JSON array of PluginItem's
-type InstalledPlugins struct {
-	PluginItem []PluginItem
-}
-
-// InstallItem is used to help return the API call of installed plugin names only
-type InstallItem struct {
-	Name string `json:"name"`
-}
-
-// InstallList holds an array of InstalledItems for the API call of installed plugin names
-type InstallList struct {
-	InstallItem []*InstallItem
-}
-
-func checkError(err error) {
-	if err != nil {
-		fmt.Println(err)
-	}
-}
-
-// AvailablePlugins provides a struct of all available plugins and their data for filling out the plugin repo page
-func AvailablePlugins() (au *AvailablePluginList) {
-	file, err := os.OpenFile(viper.GetString("directories.plugin")+"availablePlugins.json", os.O_RDWR|os.O_APPEND, 0666)
-	checkError(err)
-	b, err := ioutil.ReadAll(file)
-	var alPlg AvailablePluginList
-	json.Unmarshal(b, &alPlg.AvailablePluginItem)
-	checkError(err)
-	return &alPlg
-}
-
-// AddItemToList helps to build a list of Plugins by adding one to the existing list
-func (list *InstalledPlugins) AddItemToList(item PluginItem) []PluginItem {
-	list.PluginItem = append(list.PluginItem, item)
-	return list.PluginItem
-}
-
-// GetInstalledPluginsList is used for the API call of all installed plugins names
-func GetInstalledPluginsList() (au *InstalledPlugins) {
-	file, err := os.OpenFile(viper.GetString("directories.plugin")+"installedPlugins.json", os.O_RDWR|os.O_APPEND, 0666)
-	checkError(err)
-	b, err := ioutil.ReadAll(file)
-	var instList InstallList
-	json.Unmarshal(b, &instList.InstallItem)
-	file.Close()
-	checkError(err)
-	//return &instList
-
-	plugDataItems := []PluginItem{}
-	plugDataList := InstalledPlugins{plugDataItems}
-
-	for _, itm := range instList.InstallItem {
-		//fmt.Println("Maybe Plugin Name: /t"+itm.Name)
-		var p = viper.GetString("directories.plugin") + string(itm.Name) + "/package.json"
-		file2, err := os.OpenFile(p, os.O_RDWR|os.O_APPEND, 0666)
-		checkError(err)
-		b, err := ioutil.ReadAll(file2)
-		var plgItm PluginItem
-		json.Unmarshal(b, &plgItm)
-		file2.Close()
-		checkError(err)
-		//fmt.Println(&plgItm)
-		plugDataList.AddItemToList(plgItm)
-	}
-	//fmt.Println(plugDataList)
-
-	return &plugDataList
-}
-
-// PluginData is able to hold both all installed and available plugins for the plugin repo, as to be able and return a sinle item
-type PluginData struct {
-	Installed *InstalledPlugins
-	Available *AvailablePluginList
-}
-
-// GetPluginData is able to return the PluginData struct
-func GetPluginData() (au *PluginData) {
-	resp := GetInstalledPluginsList()
-	resp1 := AvailablePlugins()
-	data := &PluginData{resp, resp1}
-	return data
-}
-
-// CmdTest was testing of functionaltiy and should be pruned after testing
-func CmdTest(src string) string {
-
-	fmt.Println(os.Getenv("OS"))
-	fmt.Println(runtime.GOOS)
-	fmt.Println(src)
-
-	if runtime.GOOS == "windows" {
-
-		// Knowing this is windows we can craft a command for the windows plugin installer
-		//data := viper.GetString("directories.scripts")
-		cmd := exec.Command("PowerShell", "-Command", "./scripts/windowsPluginInstaller.ps1", "-source", src)
-		fmt.Println(cmd)
-		if out, err := cmd.Output(); err != nil {
-			fmt.Println("Error:", err)
-		} else {
-			fmt.Printf("Output: %s\n", out)
-
-			return fmt.Sprintf("%s\n", out)
-		}
-	} else if runtime.GOOS == "darwin" {
-		fmt.Println("Fuck you Apple")
-	}
-
-	return "Shit"
-}
-
-// InstallCmd is a no longer utilized method of installing plugins using windows powershell scripts
-func InstallCmd(src string) (string, error) {
-	// Here we can call the scripts to install new commands.
-
-	if runtime.GOOS == "windows" {
-
-		cmd := exec.Command("PowerShell", "-File", "./scripts/windowsPluginInstaller.ps1", "-source", src, "-dest", viper.GetString("directories.plugin"))
-
-		out, err := cmd.Output()
-		if err != nil {
-			fmt.Println("Error: ", err)
-			return "", err
-		}
-		// %s\n here used to format the return of bytes as text, which in main will be encoded as json
-		fmt.Printf("Output: %s\n", out)
-		return fmt.Sprintf("%s\n", out), nil
-	} else if runtime.GOOS == "darwin" {
-
-	}
-
-	return "Generic Error", nil
-}
-
-// UninstallCmd is a no longer utilized method of installing plugins using windows powershell scripts
-func UninstallCmd(name string) (string, error) {
-	// Here we can call the script to uninstall
-
-	if runtime.GOOS == "windows" {
-
-		cmd := exec.Command("PowerShell", "-File", "./scripts/windowsPluginUninstaller.ps1", "-pluginName", name, "-dest", viper.GetString("directories.plugin"))
-
-		out, err := cmd.Output()
-		if err != nil {
-			fmt.Println("Error: ", err)
-			return "", err
-		}
-		fmt.Printf("Output: %s\n", out)
-		return fmt.Sprintf("%s\n", out), nil
-	} else if runtime.GOOS == "darwin" {
-
-	}
-
-	return "Generic Error", nil
-}
-
 // UniversalPluginOptions is a child of UniversalPluginItem the attempt at de-duplication of plugin Item models
 type UniversalPluginOptions struct {
 	Explain  string `json:"explain"`
@@ -277,11 +77,9 @@ type UniversalPluginOptions struct {
 type UniversalPluginIcon struct {
 	Available bool   `json:"available"`
 	Type      string `json:"type"`
-
-	Src string `json:"src"`
-
-	Style  string `json:"style"`
-	Symbol string `json:"symbol"`
+	Src       string `json:"src"`
+	Style     string `json:"style"`
+	Symbol    string `json:"symbol"`
 }
 
 // UniversalPluginItem is the attempt at de-duplication of plugin item models
@@ -306,6 +104,37 @@ type UniversalPluginItem struct {
 // UniversalPluginList holds the array of UniversalPluginItem 's as the attempt of de-duplication of plugin item models
 type UniversalPluginList struct {
 	UniversalPluginItem []*UniversalPluginItem
+}
+
+// UniversalDualPluginList holds two arrays of UniversalPluginItem's. One named available and the other named installed
+type UniversalDualPluginList struct {
+	Available *UniversalPluginList
+	Installed *UniversalPluginList
+}
+
+func checkError(err error) {
+	if err != nil {
+		fmt.Println(err)
+	}
+}
+
+// GetPluginList takes the target string plugin list, and returns it as a UniversalPluginList item
+func GetPluginList(source string) (au *UniversalPluginList) {
+	file, err := os.OpenFile(viper.GetString("directories.plugin")+source, os.O_RDWR|os.O_APPEND, 0666)
+	checkError(err)
+	b, err := ioutil.ReadAll(file)
+	var alPlg UniversalPluginList
+	json.Unmarshal(b, &alPlg.UniversalPluginItem)
+	checkError(err)
+	return &alPlg
+}
+
+// GetDualPluginList will return a UniversalDualPluginList item with both installed and available plugins
+func GetDualPluginList() (au *UniversalDualPluginList) {
+	installed := GetPluginList("installedPlugins.json")
+	available := GetPluginList("availablePlugins.json")
+	data := &UniversalDualPluginList{available, installed}
+	return data
 }
 
 // UninstallUniversal uses Go functions and libraries to uninstall plugins rather than powershell scripts and is the currently used method

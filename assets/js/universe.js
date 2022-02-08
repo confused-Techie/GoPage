@@ -12,7 +12,9 @@ var universe = {
 
     var snackbar = document.getElementById(id);
 
-    snackbar.innerText = textToShow;
+    var snackbarMsg = snackbar.getElementsByClassName("msg")[0];
+
+    snackbarMsg.innerText = textToShow;
     if (typeof extraClass === "string") {
       snackbar.className += extraClass;
     }
