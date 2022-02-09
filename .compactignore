@@ -178,8 +178,13 @@
       "action": "exclude"
     },
     {
-      "location": "assets/dist",
+      "location": "assets/css/dist",
       "comment": "Don't try formatting minified items",
+      "action": "exclude"
+    },
+    {
+      "location": "assets/css/bundle",
+      "comment": "Don't try formatting bundled items",
       "action": "exclude"
     }
   ]

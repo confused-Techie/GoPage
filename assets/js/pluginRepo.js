@@ -2,18 +2,30 @@
 
 /*eslint-disable-next-line no-unused-vars */
 function installPlugin(pluginUrl, pluginName) {
-  pluginFetchWrapperNonBlocking(`/plugins/install?source=${pluginUrl}`, "install", pluginName);
+  pluginFetchWrapperNonBlocking(
+    `/plugins/install?source=${pluginUrl}`,
+    "install",
+    pluginName
+  );
 }
 
 /*eslint-disable-next-line no-unused-vars */
 function uninstallPlugin(pluginName) {
-  pluginFetchWrapperNonBlocking(`/plugins/uninstall?pluginName=${pluginName}`, "delete", pluginName);
+  pluginFetchWrapperNonBlocking(
+    `/plugins/uninstall?pluginName=${pluginName}`,
+    "delete",
+    pluginName
+  );
 }
 
 /*eslint-disable-next-line no-unused-vars */
 function updatePlugin() {
   // TODO:: Available Plugins here needs to be added to strings
-  pluginFetchWrapperNonBlocking("/plugins/update", "update", "Available Plugins");
+  pluginFetchWrapperNonBlocking(
+    "/plugins/update",
+    "update",
+    "Available Plugins"
+  );
 }
 
 function pluginFetchWrapperNonBlocking(target, action, targetItem) {
@@ -26,7 +38,7 @@ function pluginFetchWrapperNonBlocking(target, action, targetItem) {
       try {
         JSON.parse(res);
         return res.json();
-      } catch(err) {
+      } catch (err) {
         return res.text();
       }
     })
@@ -38,7 +50,8 @@ function pluginFetchWrapperNonBlocking(target, action, targetItem) {
         // We can add additional error checking here to make it more human readable.
         if (data.includes("Err") && data.includes("32")) {
           // we know this would indicate a golang error 32
-          var tmpData = "Golang Error 32: The process cannot access the file because it is being used by another process.";
+          var tmpData =
+            "Golang Error 32: The process cannot access the file because it is being used by another process.";
           console.log(tmpData);
           console.log(data);
           returnData(targetItem, action, "fail", tmpData);
@@ -94,14 +107,32 @@ function returnData(itemName, action, status, details) {
         //    and the item name we are working with.
         // then SnackbarCommon: false - callback; false - extraClass; false - false - img; false - alt;
         // additionalDetails: Being the details passed here.
-        universe.SnackbarCommon("snackbar", langHandler.UnicornComposite(universe.FindReturnsString(action, status), itemName), false, false, false, false, details);
-
+        universe.SnackbarCommon(
+          "snackbar",
+          langHandler.UnicornComposite(
+            universe.FindReturnsString(action, status),
+            itemName
+          ),
+          false,
+          false,
+          false,
+          false,
+          details
+        );
       } else if (status == "fail") {
-
-        universe.SnackbarError("snackbar", langHandler.UnicornComposite(universe.FindReturnsString(action, status), itemName), false, details);
-
+        universe.SnackbarError(
+          "snackbar",
+          langHandler.UnicornComposite(
+            universe.FindReturnsString(action, status),
+            itemName
+          ),
+          false,
+          details
+        );
       } else {
-        console.error("Something went wrong processing the ReturnData() Request");
+        console.error(
+          "Something went wrong processing the ReturnData() Request"
+        );
       }
     }
   }

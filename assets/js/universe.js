@@ -4,7 +4,15 @@
 // Since a global variable within eslint is defined here, we turn off the redeclare warning
 /*eslint-disable-next-line no-redeclare, no-unused-vars*/
 var universe = {
-  SnackbarCommon: function (id, textToShow, callback, extraClass, img, alt, additionalDetails) {
+  SnackbarCommon: function (
+    id,
+    textToShow,
+    callback,
+    extraClass,
+    img,
+    alt,
+    additionalDetails
+  ) {
     // EXAMPLE:: universe.SnackbarCommon("homePageSnackbar", "Success", universe.ReloadCallback())
     // id = the div id of the snackbar to target, textToShow = the text that will appear within the div
     // callback is an optional function to execute after the snackbar has disappeared.
@@ -25,17 +33,21 @@ var universe = {
       snackbarIcon.querySelector("img").alt = alt ? alt : ""; // protect the alt from an undeclared value just in case.
     } else {
       // ensure this is always set to default in case this page instance has multiple calls
-      snackbarIcon.querySelector("img").src = "/assets/images/check-circle-white.svg";
-      snackbarIcon.querySelector("img").alt = "Check Mark with a Cirle surrounded it.";
+      snackbarIcon.querySelector("img").src =
+        "/assets/images/check-circle-white.svg";
+      snackbarIcon.querySelector("img").alt =
+        "Check Mark with a Cirle surrounded it.";
     }
 
     if (typeof additionalDetails === "string") {
       // If additional details have been specified, we want to then allow the icon to be clickable
       //
-      var showModalTemplateHandler = () => { this.ShowTemplateModal(additionalDetails); };
-      snackbarIcon.onclick = function() {
+      var showModalTemplateHandler = () => {
+        this.ShowTemplateModal(additionalDetails);
+      };
+      snackbarIcon.onclick = function () {
         showModalTemplateHandler();
-      }
+      };
     }
 
     if (typeof extraClass === "string") {
@@ -55,7 +67,15 @@ var universe = {
   },
   SnackbarError: function (id, textToShow, callback, details) {
     // A simple way to invoke SnackbarCommon while assigning the error class to the snackbar
-    this.SnackbarCommon(id, textToShow, callback, " error", "/assets/images/info-white.svg", "White Informational 'i' Icon", details);
+    this.SnackbarCommon(
+      id,
+      textToShow,
+      callback,
+      " error",
+      "/assets/images/info-white.svg",
+      "White Informational 'i' Icon",
+      details
+    );
   },
   ReloadCallback: function () {
     // Since passing the standard location.reload() doesn't work within the callback as it losses the this scope
@@ -89,7 +109,7 @@ var universe = {
     var modal = document.getElementById(id);
     modal.style.display = "none";
   },
-  ShowTemplateModal: function(text) {
+  ShowTemplateModal: function (text) {
     var modal = document.getElementById("modal");
     // since this is only for template modals, we can use a static ID
     var modalText = modal.querySelector(".msg").querySelector("p");
@@ -100,13 +120,14 @@ var universe = {
     // assigning as an anonymous arrow function since it seems that the this context is defined during the onclick
     // handler rather than during initialization of the onclick, causing the this namespace to be undefined, or at least
     // have the CloseModal function undefined.
-    var closeTemplateModal = () => { this.CloseModal("modal"); };
-    clearModalBtn.onclick = function() {
+    var closeTemplateModal = () => {
+      this.CloseModal("modal");
+    };
+    clearModalBtn.onclick = function () {
       closeTemplateModal();
     };
 
     this.ShowModal("modal");
-
   },
   WriteUserSettings: function (requestOptions, successCallback, errorCallback) {
     fetch("/api/usersettingswrite", requestOptions)
@@ -159,6 +180,5 @@ var universe = {
         }
       }
     }
-
-  }
+  },
 };

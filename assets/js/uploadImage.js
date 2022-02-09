@@ -54,14 +54,25 @@ function setImage(name) {
       data.customBackground.src = name;
 
       const successHandler = function () {
-        universe.SnackbarCommon("snackbar", langHandler.UnicornComposite(i18n_generatedUploadSuccessSnackbar, name));
+        universe.SnackbarCommon(
+          "snackbar",
+          langHandler.UnicornComposite(
+            i18n_generatedUploadSuccessSnackbar,
+            name
+          )
+        );
       };
 
       universe.WriteUserSettings(
         universe.CreateJSONPOSTHeaders(JSON.stringify(data)),
         successHandler,
         function (err) {
-          universe.SnackbarError("snackbar", i18n_returnValueGenericError, false, err);
+          universe.SnackbarError(
+            "snackbar",
+            i18n_returnValueGenericError,
+            false,
+            err
+          );
         }
       );
       // The above is attempted to be simplified to the greatest extent.
@@ -90,7 +101,12 @@ function unsetImage() {
         universe.CreateJSONPOSTHeaders(JSON.stringify(data)),
         successHandler,
         function (err) {
-          universe.SnackbarError("snackbar", i18n_returnValueGenericError, false, err);
+          universe.SnackbarError(
+            "snackbar",
+            i18n_returnValueGenericError,
+            false,
+            err
+          );
         }
       );
     });

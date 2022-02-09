@@ -23,7 +23,9 @@ go.mod
 go.sum
 config.yml
 # Don't try formatting minified items
-assets/dist
+assets/css/dist
+# Don't try formatting bundled items
+assets/css/bundle
 # Exclude Documentation for Development
 DEV-docs/
 # Exclude node_modules Globally

@@ -135,7 +135,18 @@ function firstTimeSetup() {
           fetch(`/api/changelang?lang=${chosenLang}`)
             .then((res) => res.json())
             .then((response) => {
-              universe.SnackbarCommon("snackbar", langHandler.UnicornComposite(i18n_returnsSuccessUpdate, i18n_returnValueLangauge), false, false, false, false, response);
+              universe.SnackbarCommon(
+                "snackbar",
+                langHandler.UnicornComposite(
+                  i18n_returnsSuccessUpdate,
+                  i18n_returnValueLangauge
+                ),
+                false,
+                false,
+                false,
+                false,
+                response
+              );
             });
         };
       }
@@ -401,11 +412,25 @@ function modalDelete(id) {
         if (response == "Success") {
           universe.CloseModal("deleteModal");
 
-          univser.SnackbarCommon("snackbar", langHandler.UnicornComposite(i18n_returnsSuccessDelete, i18n_returnValueLinkItem), universe.ReloadCallback());
-
+          univser.SnackbarCommon(
+            "snackbar",
+            langHandler.UnicornComposite(
+              i18n_returnsSuccessDelete,
+              i18n_returnValueLinkItem
+            ),
+            universe.ReloadCallback()
+          );
         } else {
           // an error occured during deletion
-          universe.SnackbarError("snackbar", langHandler.UnicornComposite(i18n_returnsFailureDelete, "Link Item"), false, response);
+          universe.SnackbarError(
+            "snackbar",
+            langHandler.UnicornComposite(
+              i18n_returnsFailureDelete,
+              "Link Item"
+            ),
+            false,
+            response
+          );
         }
       });
   };
@@ -466,7 +491,12 @@ function newItemModal() {
               rawObj.plugins.push(tmpObj);
             }
           } else {
-            universe.SnackbarError("snackbar", i18n_returnValueGenericError, false, "Something unexpected happened reading your data.");
+            universe.SnackbarError(
+              "snackbar",
+              i18n_returnValueGenericError,
+              false,
+              "Something unexpected happened reading your data."
+            );
           }
         }
 
@@ -481,12 +511,23 @@ function newItemModal() {
             if (result == "Success") {
               universe.CloseModal("newItemModal");
 
-              universe.SnackbarCommon("snackbar", langHandler.UnicornComposite(i18n_returnsSuccessAdd, i18n_returnValueLinkItem), universe.ReloadCallback());
-
+              universe.SnackbarCommon(
+                "snackbar",
+                langHandler.UnicornComposite(
+                  i18n_returnsSuccessAdd,
+                  i18n_returnValueLinkItem
+                ),
+                universe.ReloadCallback()
+              );
             } else {
               // error occured sending data
               console.log(`Error: ${result}`);
-              universe.SnackbarError("snackbar", i18n_returnValueGenericError, false, result);
+              universe.SnackbarError(
+                "snackbar",
+                i18n_returnValueGenericError,
+                false,
+                result
+              );
             }
           });
       } else {
@@ -637,11 +678,22 @@ function editItemModalV2(
             if (result == "Success") {
               universe.CloseModal("editItemModal");
 
-              universe.SnackbarCommon("snackbar", langHandler.UnicornComposite(i18n_returnsSuccessUpdate, i18n_returnValueLinkItem), universe.ReloadCallback());
-
+              universe.SnackbarCommon(
+                "snackbar",
+                langHandler.UnicornComposite(
+                  i18n_returnsSuccessUpdate,
+                  i18n_returnValueLinkItem
+                ),
+                universe.ReloadCallback()
+              );
             } else {
               console.log(`Error: ${result}`);
-              universe.SnackbarError("snackbar", i18n_returnValueGenericError, false, result);
+              universe.SnackbarError(
+                "snackbar",
+                i18n_returnValueGenericError,
+                false,
+                result
+              );
             }
           });
       } else {
@@ -679,13 +731,23 @@ function headerPlugins() {
             if (result == "Success") {
               universe.CloseModal("headerPluginModal");
 
-              universe.SnackbarCommon("snackbar", langHandler.UnicornComposite(i18n_returnsSuccessUpdate, i18n_returnValueHeaderPlugin), universe.ReloadCallback());
-
+              universe.SnackbarCommon(
+                "snackbar",
+                langHandler.UnicornComposite(
+                  i18n_returnsSuccessUpdate,
+                  i18n_returnValueHeaderPlugin
+                ),
+                universe.ReloadCallback()
+              );
             } else {
               // error occured
               console.log(result);
-              universe.SnackbarError("snackbar", i18n_returnValueGenericError, false, result);
-
+              universe.SnackbarError(
+                "snackbar",
+                i18n_returnValueGenericError,
+                false,
+                result
+              );
             }
           });
       });
