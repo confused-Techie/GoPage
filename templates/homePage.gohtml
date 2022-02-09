@@ -580,7 +580,11 @@
 
   {{template "firstTimeSetup" .}}
 
-  <div id="homePageSnackbar" class="snackbar"> </div>
+  {{template "returnsGlobalJS" . }}
+
+  {{template "snackbar" . }}
+
+  {{template "modal" . }}
 
   {{template "footer" .}}
 

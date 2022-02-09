@@ -1,0 +1,18 @@
+{{define "modal"}}
+<div id="modal" class="modal">
+
+  <div class="modal-content">
+
+    <div class="msg">
+      <p> </p>
+
+      <button id="clearModal" class="simple-button btn-confirm">
+        {{ or
+          (index .TargetStrings "i18n-generatedRepoButtonOkay")
+          (index .DefaultStrings "i18n-generatedRepoButtonOkay")
+        }}
+      </button>
+    </div>
+  </div>
+</div>
+{{end}}

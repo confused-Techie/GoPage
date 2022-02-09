@@ -62,9 +62,13 @@
 
   </div>
 
-  {{template "snackbar" .}}
+  {{template "returnsGlobalJS" . }}
 
-  {{template "footer" .}}
+  {{template "snackbar" . }}
+
+  {{template "modal" . }}
+
+  {{template "footer" . }}
 
   {{range .JS}}
     <script src="{{ . }}"></script>
@@ -72,7 +76,7 @@
 
   <script type="module" src="/assets/js/pluginLoad.js"></script>
 
-  {{template "noscript" .}}
+  {{template "noscript" . }}
 
   </body>
   </html>

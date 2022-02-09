@@ -2,78 +2,56 @@
 
 /*eslint-disable-next-line no-unused-vars */
 function installPlugin(pluginUrl, pluginName) {
-  pluginFetchWrapper(`/plugins/install?source=${pluginUrl}`);
+  pluginFetchWrapperNonBlocking(`/plugins/install?source=${pluginUrl}`, "install", pluginName);
 }
 
 /*eslint-disable-next-line no-unused-vars */
 function uninstallPlugin(pluginName) {
-  pluginFetchWrapper(`/plugins/uninstall?pluginName=${pluginName}`);
+  pluginFetchWrapperNonBlocking(`/plugins/uninstall?pluginName=${pluginName}`, "delete", pluginName);
 }
 
 /*eslint-disable-next-line no-unused-vars */
 function updatePlugin() {
-  pluginFetchWrapper("/plugins/update");
+  // TODO:: Available Plugins here needs to be added to strings
+  pluginFetchWrapperNonBlocking("/plugins/update", "update", "Available Plugins");
 }
 
-function pluginFetchWrapper(target) {
-  // This will attempt to combine the logic implemented within each fetch request into a single function
+function pluginFetchWrapperNonBlocking(target, action, targetItem) {
+  // valid actions: delete, install, update
+  // target is the name of the item being actioned against
 
   fetch(target)
     .then((res) => {
-      // since this may return error data not properly formated as a string, we need to have a backup to move to text
+      // since this may return error data not properly formatted as json, we need to have a backup
       try {
         JSON.parse(res);
         return res.json();
-      } catch (err) {
+      } catch(err) {
         return res.text();
       }
     })
     .then((data) => {
       if (data.includes("Success!")) {
-        modalResults(data, "Success!");
+        returnData(targetItem, action, "pass", formatModalContent(data));
       } else {
-        // error occured.
-        // We can add error checking here to make it more human readable.
+        // error of some sort occured.
+        // We can add additional error checking here to make it more human readable.
         if (data.includes("Err") && data.includes("32")) {
-          var tmpData =
-            "Golang Error 32: The process cannot access the file because it is being used by another process.";
-          console.log(data);
+          // we know this would indicate a golang error 32
+          var tmpData = "Golang Error 32: The process cannot access the file because it is being used by another process.";
           console.log(tmpData);
-          modalResults(tmpData, "Failure");
-        } else {
           console.log(data);
-          modalResults(data, "Failure");
+          returnData(targetItem, action, "fail", tmpData);
+        } else {
+          // currently unhandled error occured.
+          console.log(data);
+          returnData(targetItem, action, "fail", formatModalContent(data));
         }
       }
     })
     .catch((err) => {
       console.log(err);
-      modalResults(err, "Failure");
-    });
-}
-
-function modalResults(content, status) {
-  var modal = document.getElementById("dynamicModal");
-
-  // before being visible we want to build the content within the page,
-  // and register any onclick handlers after inserting into the DOM
-  // also we need to gather translations for the button text
-  var buttonText = "";
-  langHandler
-    .ProvideStringRaw("i18n-generatedRepoButtonOkay")
-    .then((resString) => {
-      buttonText = resString;
-      var formattedContent = formatModalContent(content);
-
-      var insertHTML = `<div class="modal-content"> <h3>${status}</h3> <p>${formattedContent}</p> <button id="clearModal" class="simple-button btn-confirm">${buttonText}</button> </div>`;
-      modal.innerHTML = insertHTML;
-
-      var clearModal = document.getElementById("clearModal");
-      clearModal.onclick = function () {
-        modal.style.display = "none";
-      };
-
-      universe.ShowModal("dynamicModal");
+      returnData(targetItem, action, "fail", formatModalContent(err));
     });
 }
 
@@ -90,4 +68,41 @@ function formatModalContent(text) {
     }
   }
   return newText;
+}
+
+function returnData(itemName, action, status, details) {
+  // This is made to work with the template modal & snackbar, using non-blocking design
+  // itemName = The name of the Plugin or Item that has been affected (e.g. Available Plugins, Pihole API)
+  // action = The explicit action taken (e.g. Deleted, Installed, Updated)
+  // action !! valid values: delete, install, update
+  // status = The status of the action (e.g. Successfully, Unsuccessfully)
+  // status !! valid values: fail, pass
+  // details = The long form details, this could be designed error codes, or raw returned data.
+
+  // first we will validate the multiple options
+  if (status != "pass" && status != "fail") {
+    console.error(`Invalid status passed to return data: ${status}`);
+  } else {
+    if (action != "delete" && action != "install" && action != "update") {
+      console.error(`Invalid action passed to return data: ${action}`);
+    } else {
+      if (status == "pass") {
+        // This will invoke the SnackbarCommon component of the universe Namespace, with the following values in order
+        // "snackbar" the template imported snackbar with generic naming
+        // The textToShow within the snackbar: Consisting of:
+        //    UnicornComposite of the Proper String returned by findProperString, which grabs the translated string from global variables
+        //    and the item name we are working with.
+        // then SnackbarCommon: false - callback; false - extraClass; false - false - img; false - alt;
+        // additionalDetails: Being the details passed here.
+        universe.SnackbarCommon("snackbar", langHandler.UnicornComposite(universe.FindReturnsString(action, status), itemName), false, false, false, false, details);
+
+      } else if (status == "fail") {
+
+        universe.SnackbarError("snackbar", langHandler.UnicornComposite(universe.FindReturnsString(action, status), itemName), false, details);
+
+      } else {
+        console.error("Something went wrong processing the ReturnData() Request");
+      }
+    }
+  }
 }

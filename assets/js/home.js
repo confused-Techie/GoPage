@@ -135,7 +135,7 @@ function firstTimeSetup() {
           fetch(`/api/changelang?lang=${chosenLang}`)
             .then((res) => res.json())
             .then((response) => {
-              universe.SnackbarCommon("homePageSnackbar", response);
+              universe.SnackbarCommon("snackbar", langHandler.UnicornComposite(i18n_returnsSuccessUpdate, i18n_returnValueLangauge), false, false, false, false, response);
             });
         };
       }
@@ -401,14 +401,11 @@ function modalDelete(id) {
         if (response == "Success") {
           universe.CloseModal("deleteModal");
 
-          universe.SnackbarCommon(
-            "homePageSnackbar",
-            "Successfully Deleted Link Item. Reloading Page...",
-            universe.ReloadCallback()
-          );
+          univser.SnackbarCommon("snackbar", langHandler.UnicornComposite(i18n_returnsSuccessDelete, i18n_returnValueLinkItem), universe.ReloadCallback());
+
         } else {
           // an error occured during deletion
-          universe.SnackbarError("homePageSnackbar", `Error: ${response}`);
+          universe.SnackbarError("snackbar", langHandler.UnicornComposite(i18n_returnsFailureDelete, "Link Item"), false, response);
         }
       });
   };
@@ -469,11 +466,7 @@ function newItemModal() {
               rawObj.plugins.push(tmpObj);
             }
           } else {
-            console.log("Something unexpected happened reading your data.");
-            universe.SnackbarError(
-              "homePageSnackbar",
-              "Something unexpected happened reading your data."
-            );
+            universe.SnackbarError("snackbar", i18n_returnValueGenericError, false, "Something unexpected happened reading your data.");
           }
         }
 
@@ -488,20 +481,17 @@ function newItemModal() {
             if (result == "Success") {
               universe.CloseModal("newItemModal");
 
-              universe.SnackbarCommon(
-                "homePageSnackbar",
-                "Successfully Added New Link Item. Refreshing...",
-                universe.ReloadCallback()
-              );
+              universe.SnackbarCommon("snackbar", langHandler.UnicornComposite(i18n_returnsSuccessAdd, i18n_returnValueLinkItem), universe.ReloadCallback());
+
             } else {
               // error occured sending data
               console.log(`Error: ${result}`);
-              universe.SnackbarError("homePageSnackbar", `Error: ${result}`);
+              universe.SnackbarError("snackbar", i18n_returnValueGenericError, false, result);
             }
           });
       } else {
         // validate data fails
-        universe.SnackbarError("homePageSnackbar", validateAnswer.msg);
+        universe.SnackbarError("snackbar", validateAnswer.msg);
       }
     });
   };
@@ -633,6 +623,7 @@ function editItemModalV2(
             }
           } else {
             console.log("Something unexpected happend reading your data.");
+            universe.SnackbarError("snackbar", i18n_returnValueGenericError);
           }
         }
 
@@ -646,19 +637,16 @@ function editItemModalV2(
             if (result == "Success") {
               universe.CloseModal("editItemModal");
 
-              universe.SnackbarCommon(
-                "homePageSnackbar",
-                "Successfully Modified existing Link Item. Refreshing...",
-                universe.ReloadCallback()
-              );
+              universe.SnackbarCommon("snackbar", langHandler.UnicornComposite(i18n_returnsSuccessUpdate, i18n_returnValueLinkItem), universe.ReloadCallback());
+
             } else {
               console.log(`Error: ${result}`);
-              universe.SnackbarError("homePageSnackbar", `Error: ${result}`);
+              universe.SnackbarError("snackbar", i18n_returnValueGenericError, false, result);
             }
           });
       } else {
         // data is not valid
-        universe.SnackbarError("homePageSnackbar", validData.msg);
+        universe.SnackbarError("snackbar", validData.msg);
       }
     });
   };
@@ -691,15 +679,13 @@ function headerPlugins() {
             if (result == "Success") {
               universe.CloseModal("headerPluginModal");
 
-              universe.SnackbarCommon(
-                "homePageSnackbar",
-                `Successfully set Header ${side} Plugin. Refreshing...`,
-                universe.ReloadCallback()
-              );
+              universe.SnackbarCommon("snackbar", langHandler.UnicornComposite(i18n_returnsSuccessUpdate, i18n_returnValueHeaderPlugin), universe.ReloadCallback());
+
             } else {
               // error occured
               console.log(result);
-              universe.SnackbarError("homePageSnackbar", `Error: ${result}`);
+              universe.SnackbarError("snackbar", i18n_returnValueGenericError, false, result);
+
             }
           });
       });

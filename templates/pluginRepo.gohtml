@@ -53,11 +53,9 @@
     {{end}}
   </div>
 
-  <div id="dynamicModal" class="modal">
-    <div class="modal-content">
+  {{template "returnsGlobalJS" . }}
 
-    </div>
-  </div>
+  {{template "modal" . }}
 
   {{template "snackbar" .}}
 

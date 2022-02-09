@@ -76,7 +76,10 @@ func HomePageHandler(w http.ResponseWriter, r *http.Request) {
 		returnDynamicSubTemplate("footer.gohtml"),
 		returnDynamicSubTemplate("head.gohtml"),
 		returnDynamicSubTemplate("noscript.gohtml"),
+		returnDynamicSubTemplate("modal.gohtml"),
+		returnDynamicSubTemplate("snackbar.gohtml"),
 		returnDynamicSubTemplate("firstTimeSetup.gohtml"),
+		returnDynamicSubTemplate("returnsGlobalJS.gohtml"),
 	}
 
 	// this is using the variadic nature of ParseFiles to advantage, to instead of endless returns for each template,
@@ -137,6 +140,8 @@ func UploadPageHandler(w http.ResponseWriter, r *http.Request) {
 		returnDynamicSubTemplate("head.gohtml"),
 		returnDynamicSubTemplate("noscript.gohtml"),
 		returnDynamicSubTemplate("snackbar.gohtml"),
+		returnDynamicSubTemplate("modal.gohtml"),
+		returnDynamicSubTemplate("returnsGlobalJS.gohtml"),
 	}
 
 	tmpl["uploadPage.html"] = template.Must(template.ParseFiles(templateArray...))
@@ -146,13 +151,11 @@ func UploadPageHandler(w http.ResponseWriter, r *http.Request) {
 
 // PluginRepoPageHandler returns Template: pluginRepo.html w/ Data: apiFunc.GetPluginData
 func PluginRepoPageHandler(w http.ResponseWriter, r *http.Request) {
-	//resp := apiFunc.GetPluginData()
 
-	// TODO Change this back to min for universal.css
 	data := model.PageTemplate{
 		Title:          "Gopage - Plugin Repo",
 		Theme:          "/assets/css/theme-dark.css",
-		CSS:            []string{"/assets/css/universal.css", "/assets/css/dist/pluginRepo.min.css"},
+		CSS:            []string{"/assets/css/dist/universal.min.css", "/assets/css/dist/pluginRepo.min.css"},
 		JS:             []string{"/assets/js/pluginRepo.js", "/assets/js/universe.js", "/assets/js/langHandler.js", "/assets/js/universal.js"},
 		Data:           apiFunc.GetDualPluginList(),
 		TargetStrings:  returnTargetStrings(),
@@ -167,6 +170,8 @@ func PluginRepoPageHandler(w http.ResponseWriter, r *http.Request) {
 		returnDynamicSubTemplate("noscript.gohtml"),
 		returnDynamicSubTemplate("head.gohtml"),
 		returnDynamicSubTemplate("snackbar.gohtml"),
+		returnDynamicSubTemplate("modal.gohtml"),
+		returnDynamicSubTemplate("returnsGlobalJS.gohtml"),
 		returnDynamicSubTemplate("pluginRepo/pluginItem.gohtml"),
 	}
 

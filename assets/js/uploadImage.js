@@ -54,22 +54,14 @@ function setImage(name) {
       data.customBackground.src = name;
 
       const successHandler = function () {
-        langHandler
-          .ProvideStringRaw("i18n-generatedUploadSuccessSnackbar")
-          .then((resString) => {
-            // We know this string is a composite string, so we use the langHandler Composite handler to insert the name
-            universe.SnackbarCommon(
-              "snackbar",
-              langHandler.UnicornComposite(resString, name)
-            );
-          });
+        universe.SnackbarCommon("snackbar", langHandler.UnicornComposite(i18n_generatedUploadSuccessSnackbar, name));
       };
 
       universe.WriteUserSettings(
         universe.CreateJSONPOSTHeaders(JSON.stringify(data)),
         successHandler,
         function (err) {
-          universe.GenericErrorHandler("uploadImageSnackbar", err);
+          universe.SnackbarError("snackbar", i18n_returnValueGenericError, false, err);
         }
       );
       // The above is attempted to be simplified to the greatest extent.
@@ -91,18 +83,14 @@ function unsetImage() {
       // then to post this data back to GoPage
 
       var successHandler = function () {
-        langHandler
-          .ProvideStringRaw("i18n-generatedRemoveImageSuccess")
-          .then((resString) => {
-            universe.SnackbarCommon("snackbar", resString);
-          });
+        universe.SnackbarCommon("snackbar", i18n_generatedRemoveImageSuccess);
       };
 
       universe.WriteUserSettings(
         universe.CreateJSONPOSTHeaders(JSON.stringify(data)),
         successHandler,
         function (err) {
-          universe.GenericErorrHandler("snackbar", err);
+          universe.SnackbarError("snackbar", i18n_returnValueGenericError, false, err);
         }
       );
     });
