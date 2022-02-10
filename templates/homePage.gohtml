@@ -25,6 +25,11 @@
           (index .DefaultStrings "i18n-ShowAllCategorySelector")
         }}
       </button>
+      {{range .HomePageCategory}}
+        <button class="btn" onclick="filterSelection({{ . }});">
+          {{ . }}
+        </button>
+      {{end}}
     </div>
 
     <div class="itemContainer">

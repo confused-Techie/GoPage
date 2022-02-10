@@ -60,14 +60,15 @@ func HomePageHandler(w http.ResponseWriter, r *http.Request) {
 	au := model.HomeV2()
 
 	data := model.PageTemplate{
-		Title:          "Gopage - Home",
-		Theme:          "/assets/css/theme-dark.css",
-		CSS:            []string{"/assets/css/dist/universal.min.css", "/assets/css/dist/home.min.css"},
-		JS:             []string{"/assets/js/universe.js", "/assets/js/langHandler.js", "/assets/js/home.js", "/assets/js/pluginhandler.js", "/assets/js/universal.js"},
-		Data:           au,
-		TargetStrings:  returnTargetStrings(),
-		DefaultStrings: returnDefaultStrings(),
-		TargetLanguage: model.ServSettingGetLang(),
+		Title:            "GoPage - Home",
+		Theme:            "/assets/css/theme-dark.css",
+		CSS:              []string{"/assets/css/dist/universal.min.css", "/assets/css/dist/home.min.css"},
+		JS:               []string{"/assets/js/universe.js", "/assets/js/langHandler.js", "/assets/js/home.js", "/assets/js/pluginhandler.js", "/assets/js/universal.js"},
+		Data:             au,
+		TargetStrings:    returnTargetStrings(),
+		DefaultStrings:   returnDefaultStrings(),
+		TargetLanguage:   model.ServSettingGetLang(),
+		HomePageCategory: model.ReturnCategories(au),
 	}
 
 	templateArray := []string{
@@ -153,7 +154,7 @@ func UploadPageHandler(w http.ResponseWriter, r *http.Request) {
 func PluginRepoPageHandler(w http.ResponseWriter, r *http.Request) {
 
 	data := model.PageTemplate{
-		Title:          "Gopage - Plugin Repo",
+		Title:          "GoPage - Plugin Repo",
 		Theme:          "/assets/css/theme-dark.css",
 		CSS:            []string{"/assets/css/dist/universal.min.css", "/assets/css/dist/pluginRepo.min.css"},
 		JS:             []string{"/assets/js/pluginRepo.js", "/assets/js/universe.js", "/assets/js/langHandler.js", "/assets/js/universal.js"},

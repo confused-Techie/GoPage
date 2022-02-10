@@ -28,3 +28,13 @@ func LastModifiedTime(filename string) string {
 	formatedTime := modifiedtime.UTC().Format(time.RFC1123)
 	return formatedTime
 }
+
+// StringInSlice is a simple method to implement JS Array.prototype.includes()
+func StringInSlice(a string, list []string) bool {
+	for _, b := range list {
+		if b == a {
+			return true
+		}
+	}
+	return false
+}

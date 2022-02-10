@@ -1,7 +1,7 @@
 window.onload = function () {
   // This is being moved from HTML to JS to reduce global pollution, and other concerns, as well as remove ESLinter complaints
 
-  onPageLoad();
+  filterSelection("all");
 
   firstTimeSetup();
 
@@ -16,40 +16,6 @@ window.onload = function () {
 document.getElementById("ShowAllCategorySelector").onclick = function () {
   filterSelection("all");
 };
-
-function onPageLoad() {
-  // first in the onload we can use the built in api call to get all json objects, to then create the other filter buttons
-
-  fetch("/api/items")
-    .then((response) => response.json())
-    .then((data) => {
-      var assignedBtns = [];
-      // then to loop through all the data
-      data.forEach((element) => {
-        // now we want to add this item as a button
-        // while ensuring we don't add the same button twice
-
-        if (assignedBtns.indexOf(element.category) == -1) {
-          var btn = document.createElement("button");
-          btn.innerHTML = `${element.category}`;
-          btn.onclick = function () {
-            filterSelection(`${element.category}`);
-          };
-          btn.className = "btn";
-
-          // since the normal method to detect the active button isn't working on these generated ones, we can add it manually
-          btn.addEventListener("click", generatedEventListener, false);
-          document.getElementById("btnContainer").appendChild(btn);
-
-          //then add this button to the list of assignedBtns
-          assignedBtns.push(element.category);
-        } // else the button has already been assigned and is ignored
-      });
-    });
-
-  // this provides a default
-  filterSelection("all");
-}
 
 function filterSelection(c) {
   var filterDivElement = document.getElementsByClassName("filterDiv");
@@ -569,15 +535,15 @@ function validateLinkItemData(form) {
           resolve(buildValidObj(true, ""));
         } else {
           // bad category value
-          resolve(buildValidObj(false, "Bad Category Value Entered."));
+          resolve(buildValidObj(false, i18n_validateCategory));
         }
       } else {
         // bad link value
-        resolve(buildValidObj(false, "Bad Link Value Entered."));
+        resolve(buildValidObj(false, i18n_validateLink));
       }
     } else {
       // bad friendly name
-      resolve(buildValidObj(false, "Bad Friendly Name Value Entered."));
+      resolve(buildValidObj(false, i18n_validateName));
     }
   });
 }

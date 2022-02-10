@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	apiFunc "github.com/confused-Techie/GoPage/src/pkg/apiFunc"
+	universalMethods "github.com/confused-Techie/GoPage/src/pkg/universalMethods"
 	"github.com/spf13/viper"
 	"io/ioutil"
 	"os"
@@ -87,14 +88,15 @@ func (i ItemV2) NoBottomRightPlugin() bool {
 
 // PageTemplate is used to define the struct used to create each page
 type PageTemplate struct {
-	Title          string
-	Theme          string
-	CSS            []string
-	JS             []string
-	Data           interface{}
-	TargetStrings  map[string]string
-	DefaultStrings map[string]string
-	TargetLanguage string
+	Title            string
+	Theme            string
+	CSS              []string
+	JS               []string
+	Data             interface{}
+	TargetStrings    map[string]string
+	DefaultStrings   map[string]string
+	TargetLanguage   string
+	HomePageCategory []string
 }
 
 func checkError(err error) {
@@ -112,6 +114,19 @@ func HomeV2() (au *AllItemsV2) {
 	json.Unmarshal(b, &alItms.Items)
 	checkError(err)
 	return &alItms
+}
+
+// ReturnCategories needs an initialized AllItmsV2 struct to return a slice of strings of all unique categories
+func ReturnCategories(au *AllItemsV2) []string {
+	var allCtgry []string
+
+	for _, itm := range au.Items {
+		if !universalMethods.StringInSlice(itm.Category, allCtgry) {
+			allCtgry = append(allCtgry, itm.Category)
+		}
+	}
+
+	return allCtgry
 }
 
 // Below will be model data for settings and pluginRepo
