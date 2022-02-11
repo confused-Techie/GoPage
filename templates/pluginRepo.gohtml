@@ -21,36 +21,8 @@
     </div>
   </div>
 
-  <div class="seperator"> <h2>
-    {{ or
-      (index .TargetStrings "i18n-headerInstalled")
-      (index .DefaultStrings "i18n-headerInstalled")
-    }}
-  </h2></div>
-
-  <div class="bar-list">
-    {{range .Data.Installed.UniversalPluginItem}}
-
-      {{template "pluginItem" . }}
-
-    {{end}}
-  </div>
-
-  <div class="seperator"> <h2>
-    {{ or
-      (index .TargetStrings "i18n-headerAvaialble")
-      (index .DefaultStrings "i18n-headerAvaialble")
-    }}
-  </h2></div>
-
-
-
-  <div class="bar-list">
-    {{range .Data.Available.UniversalPluginItem}}
-
-      {{template "pluginItem" . }}
-
-    {{end}}
+  <div id="pluginList">
+    {{template "pluginList" . }}
   </div>
 
   {{template "returnsGlobalJS" . }}

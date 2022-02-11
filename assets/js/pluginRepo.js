@@ -113,7 +113,7 @@ function returnData(itemName, action, status, details) {
             universe.FindReturnsString(action, status),
             itemName
           ),
-          false,
+          universe.HotReload("pluginList", "/pluginrepo"),
           false,
           false,
           false,

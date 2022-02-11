@@ -181,4 +181,42 @@ var universe = {
       }
     }
   },
+  HotReload: function (elementID, url, callback, callbackArg) {
+    // this is a function to add hot-reload capabilities to pages.
+    // requiring both the ID of the element to replace, and the url to query
+    // for the hot reload data.
+    // now it also supports a callback if one is needed to initialize or reload parts of a page
+    if (typeof elementID === "string" && typeof url === "string") {
+      var newHeaders = new Headers();
+
+      // append the custom hot-reload headers that go server will look for
+      newHeaders.append("GoPage-Action", "hot-reload");
+
+      var requestOptions = {
+        headers: newHeaders,
+      };
+
+      fetch(url, requestOptions)
+        .then((response) => response.text())
+        .then((data) => {
+          var e = document.getElementById(elementID);
+          e.innerHTML = data;
+
+          if (typeof callback === "function") {
+            if (typeof callbackArg === "string") {
+              callback(callbackArg);
+            } else {
+              callback();
+            }
+          }
+        })
+        .catch((err) => {
+          console.error(`universe.HotReload ERROR: ${err}`);
+        });
+    } else {
+      console.error(
+        `Invalid args passed to universe.HotReload! Element ID: ${elementID}, URL: ${url}`
+      );
+    }
+  },
 };

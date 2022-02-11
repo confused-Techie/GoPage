@@ -81,14 +81,30 @@ func HomePageHandler(w http.ResponseWriter, r *http.Request) {
 		returnDynamicSubTemplate("snackbar.gohtml"),
 		returnDynamicSubTemplate("firstTimeSetup.gohtml"),
 		returnDynamicSubTemplate("returnsGlobalJS.gohtml"),
+		returnDynamicSubTemplate("homePage/linkItemList.gohtml"),
 	}
+
+	tmpl["homePage.html"] = template.Must(template.ParseFiles(templateArray...))
+
+	var templateError error
+	switch r.Header.Get("GoPage-Action") {
+	case "hot-reload":
+
+		// handling for when hot-reload is set
+		templateError = tmpl["homePage.html"].ExecuteTemplate(w, "linkItemList", data)
+
+	default:
+		templateError = tmpl["homePage.html"].Execute(w, data)
+	}
+
+	errorHandler.StandardError(templateError)
 
 	// this is using the variadic nature of ParseFiles to advantage, to instead of endless returns for each template,
 	// they can be dynamically returned via a simple constructor, then passed as an array to ParseFiles
 
-	tmpl["homePage.html"] = template.Must(template.ParseFiles(templateArray...))
-	templateError := tmpl["homePage.html"].Execute(w, data)
-	errorHandler.StandardError(templateError)
+	//tmpl["homePage.html"] = template.Must(template.ParseFiles(templateArray...))
+	//templateError := tmpl["homePage.html"].Execute(w, data)
+	//errorHandler.StandardError(templateError)
 }
 
 // SettingsPageHandler returns Template: settings.html w/ Model: ServSettingGet
@@ -174,6 +190,7 @@ func PluginRepoPageHandler(w http.ResponseWriter, r *http.Request) {
 		returnDynamicSubTemplate("modal.gohtml"),
 		returnDynamicSubTemplate("returnsGlobalJS.gohtml"),
 		returnDynamicSubTemplate("pluginRepo/pluginItem.gohtml"),
+		returnDynamicSubTemplate("pluginRepo/pluginList.gohtml"),
 	}
 
 	// This func map allows any item regaurdless of context to access the strings, specifically for
@@ -187,8 +204,23 @@ func PluginRepoPageHandler(w http.ResponseWriter, r *http.Request) {
 		},
 	}).ParseFiles(templateArray...))
 
-	templateError := thisTemplate.Execute(w, data)
-	errorHandler.StandardError(templateError)
+	// Now to support hot-reload of this page, we will look for custom headers.
+
+	switch r.Header.Get("GoPage-Action") {
+	case "hot-reload":
+
+		// this will be the handling for hot-reload
+
+		templateError := thisTemplate.ExecuteTemplate(w, "pluginList", data)
+		errorHandler.StandardError(templateError)
+
+	default:
+
+		templateError := thisTemplate.Execute(w, data)
+		errorHandler.StandardError(templateError)
+
+	}
+
 }
 
 // LinkHealthPageHandler returns basic page data w/ no template. Page: linkhealth.html

@@ -1,0 +1,110 @@
+{{define "linkItemList"}}
+
+{{ $scopedTargetStrings := .TargetStrings }}
+{{ $scopedDefaultStrings := .DefaultStrings }}
+<div class="container">
+
+  <div class="new-button-container-gen2">
+    <button onclick="newItemModal();" class="hover-shadow-radial grow-shadow-hover simple-button btn-create">
+      {{ or
+        (index .TargetStrings "i18n-AddNewItem")
+        (index .DefaultStrings "i18n-AddNewItem")
+      }}
+    </button>
+  </div>
+
+  <div id="btnContainer">
+    <button class="btn active" id="ShowAllCategorySelector" onclick="filterSelection('all');">
+      {{ or
+        (index .TargetStrings "i18n-ShowAllCategorySelector")
+        (index .DefaultStrings "i18n-ShowAllCategorySelector")
+      }}
+    </button>
+    {{range .HomePageCategory}}
+      <button class="btn" onclick="filterSelection({{ . }});">
+        {{ . }}
+      </button>
+    {{end}}
+  </div>
+
+  <div class="itemContainer">
+    {{range .Data.Items}}
+    {{/* To make some data available within the range of plugins, we can assign variables here for use */}}
+    {{ $itemLink := .Link }}
+      <div class="filterDiv bubble-card-daily {{.Category}}">
+        <div class="item hover-shadow-radial">
+          <a href="{{.Link}}">
+            <div class="itemName grow-shadow-hover">{{.FriendlyName}}</div>
+          </a>
+
+          {{/* Here will be the declarations for Plugins */}}
+
+          {{range .Plugins}}
+            {{if eq .Location "top-left"}}
+              <div class="plugin-top-left {{.Name}}" data-url="{{$itemLink}}" data-pluginName="{{.Name}}" data-options="{{.Options}}">
+              </div>
+            {{end}}
+            {{if eq .Location "top-right"}}
+              <div class="plugin-top-right {{.Name}}" data-url="{{$itemLink}}" data-pluginName="{{.Name}}" data-options="{{.Options}}">
+              </div>
+            {{end}}
+            {{ if eq .Location "center"}}
+              <div class="plugin-center {{.Name}}" data-url="{{$itemLink}}" data-pluginName="{{.Name}}" data-options="{{.Options}}">
+              </div>
+            {{end}}
+            {{ if eq .Location "bottom-left"}}
+              <div class="plugin-bottom-left {{.Name}}" data-url="{{$itemLink}}" data-pluginName="{{.Name}}" data-options="{{.Options}}">
+              </div>
+            {{end}}
+            {{ if eq .Location "bottom-right"}}
+              <div class="plugin-bottom-right {{.Name}}" data-url="{{$itemLink}}" data-pluginName="{{.Name}}" data-options="{{.Options}}">
+              </div>
+            {{end}}
+          {{end}}
+
+          {{/* Now after all available plugins are assigned, we will check each location's existance using the HasType Method */}}
+          {{if .NoTopLeftPlugin}}
+            <div class="plugin-top-left"> </div>
+          {{end}}
+          {{if .NoTopRightPlugin}}
+            <div class="plugin-top-right"> </div>
+          {{end}}
+          {{ if .NoCenterPlugin}}
+            <div class="plugin-center"> </div>
+          {{end}}
+          {{ if .NoBottomLeftPlugin}}
+            <div class="plugin-bottom-left"> </div>
+          {{end}}
+          {{ if .NoBottomRightPlugin}}
+            <div class="plugin-bottom-right"> </div>
+          {{end}}
+
+          <div class="optionsItem">
+            <img src="/assets/images/more-vertical-white.svg" alt="Three Vertical Dots to indicate additional options" width="24" height="24">
+            <div class="optionsContent">
+              <div class="optionsContent-Edit grow-shadow-hover">
+                <a onclick="editItemModalV2( {{.ID}}, {{.FriendlyName}}, {{.Link}}, {{.Category}}, {{.Plugins}} );return false;">
+                  {{ or
+                    (index $scopedTargetStrings "i18n-genericEdit")
+                    (index $scopedDefaultStrings "i18n-genericEdit")
+                  }}
+                </a>
+              </div>
+              <div class="optionsContent-Delete grow-shadow-hover">
+                <a onclick="modalDelete( {{.ID}} );return false;">
+                  {{ or
+                    (index $scopedTargetStrings "i18n-genericDelete")
+                    (index $scopedDefaultStrings "i18n-genericDelete")
+                  }}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {{end}}
+  </div>
+
+</div>
+
+{{end}}

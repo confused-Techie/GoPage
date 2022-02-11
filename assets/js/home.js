@@ -1,7 +1,7 @@
 window.onload = function () {
   // This is being moved from HTML to JS to reduce global pollution, and other concerns, as well as remove ESLinter complaints
 
-  filterSelection("all");
+  homePageInit();
 
   firstTimeSetup();
 
@@ -12,10 +12,56 @@ window.onload = function () {
   headerPlugins();
 };
 
-// ADD onclick Handlers
-document.getElementById("ShowAllCategorySelector").onclick = function () {
+function homePageInit(type) {
+  // this is called during first page load and as a callback to template hot reloading
+
   filterSelection("all");
-};
+
+  var btnContainer = document.getElementById("btnContainer");
+  var btns = btnContainer.getElementsByClassName("btn");
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].addEventListener("click", function () {
+      var current = document.getElementsByClassName("active");
+      current[0].className = current[0].className.replace(" active", "");
+      this.className += " active";
+    });
+  }
+
+  // now keeping in mind that once a hot-reload occurs all plugins will lose their references to the DOM.
+  // so plugins must be reloaded, which can easily occur by reattaching thhem to the dom.
+  // plugins do have the custom data-plugin-type="iitem" attached that we can use.
+  if (typeof type === "string") {
+    if (type == "reload") {
+      reloadPluginJS();
+    }
+  }
+}
+
+function reloadPluginJS() {
+  var pluginList = document.querySelectorAll("[data-plugin-type]");
+
+  for (var i = 0; i < pluginList.length; i++) {
+    var newScript = document.createElement("script");
+    // pluginList[i].src returns the process src, as in the absoulte URL, to ensure that its identical, we will grab the relative
+    newScript.src = pluginList[i].attributes.src.nodeValue;
+    // but this still doesn't actual reload the script which may be a browser caching issue, we can add a cache buster
+    if (newScript.src.includes("cachebuster")) {
+      // added check for pre-existing cachebuster value, to only modify the exisitng one, rather than append endlessly
+      newScript.src = newScript.src.replace(
+        /[?]cachebuster=[0-9]+/,
+        `?cachebuster=${new Date().getTime()}`
+      );
+    } else {
+      newScript.src = `${newScript.src}?cachebuster=${new Date().getTime()}`;
+    }
+    newScript.type = pluginList[i].type;
+    newScript.dataset.pluginType = pluginList[i].dataset.pluginType;
+
+    // with the new script dom element created, remove the current one then append thhis one.
+    pluginList[i].remove();
+    document.body.appendChild(newScript);
+  }
+}
 
 function filterSelection(c) {
   var filterDivElement = document.getElementsByClassName("filterDiv");
@@ -50,28 +96,6 @@ function addClass(element, name) {
     if (elementClasses.indexOf(provNames[i]) == -1) {
       element.className += " " + provNames[i];
     }
-  }
-}
-
-// init adding class to currently active button
-//generatedEventListener();
-var btnContainer = document.getElementById("btnContainer");
-var btns = btnContainer.getElementsByClassName("btn");
-for (var i = 0; i < btns.length; i++) {
-  btns[i].addEventListener("click", function () {
-    var current = document.getElementsByClassName("active");
-    current[0].className = current[0].className.replace(" active", "");
-    this.className += " active";
-  });
-}
-
-function generatedEventListener(event) {
-  var btnContainer = document.getElementById("btnContainer");
-  var btns = btnContainer.getElementsByClassName("btn");
-  for (var i = 0; i < btns.length; i++) {
-    var current = document.getElementsByClassName("active");
-    current[0].className = current[0].className.replace(" active", "");
-    this.className += " active";
   }
 }
 
@@ -378,13 +402,13 @@ function modalDelete(id) {
         if (response == "Success") {
           universe.CloseModal("deleteModal");
 
-          univser.SnackbarCommon(
+          universe.SnackbarCommon(
             "snackbar",
             langHandler.UnicornComposite(
               i18n_returnsSuccessDelete,
               i18n_returnValueLinkItem
             ),
-            universe.ReloadCallback()
+            universe.HotReload("linkItemList", "/", homePageInit, "reload")
           );
         } else {
           // an error occured during deletion
@@ -483,7 +507,7 @@ function newItemModal() {
                   i18n_returnsSuccessAdd,
                   i18n_returnValueLinkItem
                 ),
-                universe.ReloadCallback()
+                universe.HotReload("linkItemList", "/", homePageInit, "reload")
               );
             } else {
               // error occured sending data
@@ -650,7 +674,7 @@ function editItemModalV2(
                   i18n_returnsSuccessUpdate,
                   i18n_returnValueLinkItem
                 ),
-                universe.ReloadCallback()
+                universe.HotReload("linkItemList", "/", homePageInit, "reload")
               );
             } else {
               console.log(`Error: ${result}`);
@@ -703,7 +727,7 @@ function headerPlugins() {
                   i18n_returnsSuccessUpdate,
                   i18n_returnValueHeaderPlugin
                 ),
-                universe.ReloadCallback()
+                universe.HotReload("linkItemList", "/", homePageInit, "reload")
               );
             } else {
               // error occured

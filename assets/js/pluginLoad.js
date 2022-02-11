@@ -18,6 +18,7 @@ function checkPlugins() {
                 script.src = `/plugins${packData.mainDir}${packData.main}`;
                 // Importing the JS as a module here, ensures that any functions or global variables are not in the global scope
                 script.type = "module";
+                script.dataset.pluginType = "item";
                 document.body.appendChild(script);
               } else if (packData.type == "theme") {
                 var currentTheme = document.getElementById("theme");
