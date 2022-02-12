@@ -32,5 +32,8 @@
     "postcss-cli": "^9.1.0",
     "prettier": "^2.5.1",
     "terser": "^5.10.0"
+  },
+  "overrides": {
+    "glob-parent": "^5.1.2"
   }
 }
