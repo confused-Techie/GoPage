@@ -99,6 +99,152 @@ function addClass(element, name) {
   }
 }
 
+function addPluginToFormV2() {
+  var lastAddPluginItem = document.getElementsByClassName("add-plugin-link")[document.getElementsByClassName("add-plugin-link").length -1];
+  // the last plugin should be the unexpanded plugin, until we change its display mode, and subsequently should have no information entered.
+
+  var clonedParent = lastAddPluginItem.parentElement.cloneNode(true);
+  lastAddPluginItem.parentElement.insertAdjacentElement("afterend", clonedParent);
+  // the lastAddPluginItem is the text adjacent to the plugin form.
+  // getting the parent allows us to have the full form-text div, which is what we want to duplicate and insert.
+
+  // now to chagne the display mode of the descendent div
+  var addInfoDescendent = lastAddPluginItem.parentElement.getElementsByClassName("additional_info")[0];
+  addInfoDescendent.style.display = "block";
+}
+
+function getLinkItemForm() {
+  // parseLinkItemForm will either return an object of JSON, or a string, containing an error message that is safe to display to the user.
+
+  var returnJSONObj = {
+    name: "",
+    link: "",
+    category: "",
+    plugins: []
+  };
+
+  var fullFormDOM = document.getElementById("new-item-test-form");
+  // since getElementById returns an element object, we need to ensure we only use methods available to access values.
+  // but to make life slightly easier, for non-plugin data, we can use the FomrData Object Constructor
+  var fullFormDATA = new FormData(document.getElementById("new-item-test-form"));
+  var linkItemName$ = fullFormDATA.getAll("friendlyName");
+  var linkItemLink$ = fullFormDATA.getAll("link");
+  var linkItemCategory$ = fullFormDATA.getAll("category");
+
+  returnJSONObj.name = linkItemName$[0];
+  returnJSONObj.link = linkItemLink$[0];
+  returnJSONObj.category = linkItemCategory$[0];
+
+  // with the required elements, we can do a validation check now
+  // first will be valid form data gathered check
+  if (linkItemName$.length > 1 || linkItemLink$.length > 1 || linkItemCategory$.length > 1) {
+    return "why so many values!";
+  }
+  // then check validity of entered values
+  if (!stringValidityNotEmpty(returnJSONObj.name)) {
+    return "name can't be empty";
+  } else if (!stringValidityNotEmpty(returnJSONObj.link)) {
+    return "link can't be empty";
+  } else if (!stringValidityNotEmpty(returnJSONObj.category)) {
+    return "cateogyr can't be empty";
+  }
+
+  // after checking the required data, we can use an element method querySelectorAll list to get an array of plugin form NodeList's
+  var pluginNodeList = fullFormDOM.querySelectorAll(`[class="additional_info"]`);
+
+  for (var i = 0; i < pluginNodeList.length; i++) {
+    // with our []NodeLists we will first take the child section of pluginAddContainer
+    var htmlCollectionPlugin = pluginNodeList[i].children[0];
+
+    var pluginName$ = htmlCollectionPlugin.querySelectorAll(`[name="pluginName"]`);
+    var pluginLocation$ = htmlCollectionPlugin.querySelectorAll(`[name="pluginLocation"]`);
+    var pluginOptions$ = htmlCollectionPlugin.querySelectorAll(`[name="pluginOptions"]`);
+
+    // check that only one item of this name is available
+    if (pluginName$.length > 1 || pluginLocation$.length > 1 || pluginOptions$.length > 1) {
+      return "why so many values!";
+    }
+    // check that it has a value, otherwise we know its empty and we can skip applying this plugin at all
+    if (!stringValidityNotEmpty(pluginName$[0].value)) {
+      continue;
+    }
+    // although if the name is valid, but hhas no location that should through an error
+    if (!stringValidityNotEmpty(pluginLocation$[0].value)) {
+      return "wheres the damn plugin location!";
+    }
+
+    // but if all is well we can create a temporary json object to push into the plugins array of the return json object
+    var tmpPluginJSON = {
+      name: pluginName$[0].value,
+      location: pluginLocation$[0].value,
+      options: !stringValidityNotEmpty(pluginOptions$[0].value) ? "" : pluginOptions$[0].value
+    };
+
+    returnJSONObj.plugins.push(tmpPluginJSON);
+  }
+
+  return returnJSONObj;
+
+}
+
+function setLinkItemForm(jsonObj) {
+  // this expects a valid JSON object.
+  // { name: 'linkItemName', link: 'linkItemLink', category: 'linkItemCategory', plugins: [ name: '', location: '', options: ''] }
+
+  // for documentation on why methods are used, or the logic behind thhe scenes here, look at getLinkItemForm()
+  try {
+    var fullFormDOM = document.getElementById("new-item-test-form");
+
+    //var fullFormDATA = new FormData(document.getElementById("new-item-test-form"));
+    //fullFormDATA.set("friendlyName", jsonObj.name);
+    //fullFormDATA.getAll("friendlyName")[0].value = jsonObj.name;
+    //fullFormDATA.getAll("link")[0] = jsonObj.link;
+    //fullFormDATA.getAll("category")[0] = jsonObj.category;
+    fullFormDOM.querySelector(`[name="friendlyName"]`).value = jsonObj.name;
+    fullFormDOM.querySelector(`[name="link"]`).value = jsonObj.link;
+    fullFormDOM.querySelector(`[name="category"]`).value = jsonObj.category;
+
+
+    for (var i = 0; i < jsonObj.plugins.length; i++) {
+      // firstly create the plugin item
+      addPluginToFormV2();
+      var pluginNodeList = fullFormDOM.querySelectorAll(`[class="additional_info"]`);
+      var htmlCollectionPlugin = pluginNodeList[i].children[0];
+
+      htmlCollectionPlugin.querySelectorAll(`[name="pluginName"]`)[0].value = jsonObj.plugins[i].name;
+      htmlCollectionPlugin.querySelectorAll(`[name="pluginLocation"]`)[0].value = jsonObj.plugins[i].location;
+      htmlCollectionPlugin.querySelectorAll(`[name="pluginOptions"]`)[0].value = jsonObj.plugins[i].options;
+    }
+    return true;
+    // return true at the end just in case to indicate valid data.
+
+  } catch(err) {
+    return err;
+  }
+
+}
+
+function stringValidityNotEmpty(string) {
+  // this returns true if the passed string seems to be valid, false otherwise
+  try {
+    if (typeof string === "string") {
+      if (string == "") {
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      return false;
+    }
+  } catch(err) {
+    return false;
+  }
+}
+
+function disablePluginLocation(element) {
+  document.getElementById("plugin-location-list").querySelector(`[value=${element.value}]`).setAttribute("disabled", "");
+}
+
 function firstTimeSetup() {
   // this will check for any saved items, and if there are none, will display a helpful modal of options to get started.
   fetch("/api/items")

@@ -76,6 +76,137 @@
     </div>
   </div>
 
+  <!-- This is the testing new form -->
+
+  <div class="modal" style="display: block;">
+    <div class="modal-content">
+
+      <h2>New Form Test</h2>
+
+      <form id="new-item-test-form" class="form">
+
+        <div class="form-row">
+          <div class="form-group" name="basic-data-group">
+            <label>Friendly Name</label>
+            <input type="text" name="friendlyName" required="true"/>
+          </div>
+          <div class="form-group">
+            <label>Link</label>
+            <input type="text" name="link" required="true"/>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Category</label>
+            <input type="text" name="category" required="true"/>
+          </div>
+          <div class="form-row-btn">
+            <button class="simple-button btn-undo grow-shadow-hover" type="button">Go Back</button>
+            <button class="simple-button btn-create grow-shadow-hover" type="button" onclick="parseLinkItemForm()">Submit</button>
+          </div>
+        </div>
+
+        <div class="form-text">
+          <a href="#" class="add-plugin-link" onclick="addPluginToFormV2();">
+            Add Plugin
+          </a>
+
+          <div class="additional_info" style="display: none;">
+
+            <section class="pluginAddContainer">
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Choose Plugin:</label>
+                  <input type="text" name="pluginName">
+                </div>
+                <div class="form-group">
+                  <label>Plugin Location:</label>
+                  <input type="text" name="pluginLocation" list="plugin-location-list" autocomplete="off" oninput="disablePluginLocation(this);">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Plugin Options:</label>
+                  <input type="text" name="pluginOptions">
+                </div>
+                <div class="form-group">
+                  <label>Plugin Options Example:</label>
+                  <input type="text" readonly>
+                </div>
+              </div>
+            </section>
+
+          </div>
+
+        </div>
+
+        <datalist id="plugin-location-list">
+          <option value="top-right" label="Top Right" />
+          <option value="top-left" label="Top Left" />
+          <option value="center" label="Center" />
+          <option value="bottom-left" label="Bottom Left" />
+          <option value="bottom-right" label="Bottom Right" />
+        </datalist>
+
+      </form>
+    </div>
+  </div>
+
+  <style>
+    .form {
+      display: block;
+      margin-top: 0em;
+      padding: 15px 50px 0px 50px;
+      overflow-y: auto;
+    }
+    .form-row {
+      margin: 0 -11px;
+      display: -webkit-flex;
+    }
+    .form-row .form-group {
+      width: 50%;
+      padding: 0 11px;
+    }
+    .form-group {
+      margin-bottom: 30px;
+      position: relative;
+    }
+    .form-row-btn {
+      width: 50%;
+      padding: 0 10px;
+    }
+    .form-text {
+      display: block;
+    }
+    .add-plugin-link {
+      -webkit-align-items: center;
+      display: -webkit-flex;
+      margin-bottom: 16px;
+    }
+    .pluginAddContainer {
+      display: block;
+    }
+    label {
+      font-weight: 800;
+      margin-bottom: 3px;
+    }
+    label, input {
+      display: block;
+      width: 100%;
+    }
+    input {
+      border-radius: 4px;
+      border: none;
+      padding: 5px;
+    }
+    input:focus {
+      outline: none;
+    }
+  </style>
+
+  <!-- ENDING new Form -->
+
   <div id="newItemModal" class="modal">
     <div class="modal-content">
       <h2>
