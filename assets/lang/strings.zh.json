@@ -60,5 +60,21 @@
   "i18n-uploadPromptImageUpload": "選擇要上傳的圖片",
   "i18n-uploadPromptButton": "上傳圖片",
   "i18n-unsetImagePrompt": "不使用背景圖片",
-  "i18n-unsetImageButton": "移除背影圖片"
+  "i18n-unsetImageButton": "移除背影圖片",
+  "i18n-returnsSuccessDelete": "Successfully Deleted '{0}'",
+  "i18n_returnsFailureDelete": "Unsuccessfully Deleted '{0}'",
+  "i18n_returnsSuccessInstall": "Successfully Installed '{0}'",
+  "i18n_returnsFailureInstall": "Unsuccessfully Installed '{0}'",
+  "i18n_returnsSuccessUpdate": "Successfully Updated '{0}'",
+  "i18n_returnsFailureUpdate": "Unsuccessfully Updated '{0}'",
+  "i18n_returnsSuccessAdd": "Successfully Added '{0}'",
+  "i18n_returnsFailureAdd": "Unsuccessfully Added '{0}'",
+  "i18n_returnValueGenericError": "An Error Occured",
+  "i18n_validateCategory": "Bad Category Value Entered.",
+  "i18n_validateLink": "Bad Link Value Entered.",
+  "i18n_validateName": "Bad Friendly Name Value Entered.",
+  "i18n_returnValueAvailablePlugins": "Available Plugins",
+  "i18n_returnValueLanguage": "Langauge",
+  "i18n_returnValueLinkItem": "Link Item",
+  "i18n_returnValueHeaderPlugin": "Header Plugin"
 }
