@@ -60,5 +60,21 @@
   "i18n-uploadPromptImageUpload": "업로드 할 이미지를 선택하세요",
   "i18n-uploadPromptButton": "이미지 업로드하기",
   "i18n-unsetImagePrompt": "배경 이미지를 사용하지 마세요",
-  "i18n-unsetImageButton": "이미지를 제거하다"
+  "i18n-unsetImageButton": "이미지를 제거하다",
+  "i18n-returnsSuccessDelete": "Successfully Deleted '{0}'",
+  "i18n_returnsFailureDelete": "Unsuccessfully Deleted '{0}'",
+  "i18n_returnsSuccessInstall": "Successfully Installed '{0}'",
+  "i18n_returnsFailureInstall": "Unsuccessfully Installed '{0}'",
+  "i18n_returnsSuccessUpdate": "Successfully Updated '{0}'",
+  "i18n_returnsFailureUpdate": "Unsuccessfully Updated '{0}'",
+  "i18n_returnsSuccessAdd": "Successfully Added '{0}'",
+  "i18n_returnsFailureAdd": "Unsuccessfully Added '{0}'",
+  "i18n_returnValueGenericError": "An Error Occured",
+  "i18n_validateCategory": "Bad Category Value Entered.",
+  "i18n_validateLink": "Bad Link Value Entered.",
+  "i18n_validateName": "Bad Friendly Name Value Entered.",
+  "i18n_returnValueAvailablePlugins": "Available Plugins",
+  "i18n_returnValueLanguage": "Langauge",
+  "i18n_returnValueLinkItem": "Link Item",
+  "i18n_returnValueHeaderPlugin": "Header Plugin"
 }
