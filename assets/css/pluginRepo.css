@@ -2,10 +2,6 @@
   text-align: center;
 }
 
-.updatePluginButton button {
-  /* All styling of this was standard and has been handed off to universal simple-button btn-create */
-}
-
 .seperator {
   text-align: center;
   border-bottom: 2px solid black;
@@ -19,7 +15,7 @@
   grid-row-gap: 5px;
 }
 
-.plugin-icon {
+.plugin-item .plugin-icon {
   grid-column: 1;
   grid-row: 1/3;
   margin-right: auto;
@@ -29,7 +25,7 @@
   height: auto;
 }
 
-.plugin-title {
+.plugin-item .plugin-title {
   font-size: 2em;
   margin-bottom: 5px;
   grid-column: 2;
@@ -37,54 +33,31 @@
   align-self: center;
 }
 
-.plugin-version {
+.plugin-item .plugin-version {
   grid-column: 2;
   grid-row: 2;
   align-self: center;
   text-align: center;
 }
 
-.plugin-description {
+.plugin-item .plugin-description {
   font-size: 1.5em;
   grid-column: 3;
   grid-row: 1/3;
   align-self: center;
 }
 
-.plugin-author {
+.plugin-item .plugin-author {
   grid-column: 4;
   grid-row: 1;
 }
 
-.plugin-license {
+.plugin-item .plugin-license {
   grid-column: 4;
   grid-row: 2;
 }
 
-.plugin-action {
+.plugin-item .plugin-action {
   grid-column: 5;
   grid-row: 1/3;
-}
-
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto; /* enable scroll if needed */
-  background-color: inherit;
-  background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modal-content {
-  background-color: var(--modal-back-drop-colour);
-  margin: 15% auto; /* 15% from the top and centered */
-  padding: 20px;
-  border: 1px solid #000;
-  width: 40%;
-  border-radius: 5px;
-  text-align: center;
 }

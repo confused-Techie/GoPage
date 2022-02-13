@@ -84,6 +84,8 @@ func HomePageHandler(w http.ResponseWriter, r *http.Request) {
 		returnDynamicSubTemplate("homePage/linkItemList.gohtml"),
 	}
 
+	// this is using the variadic nature of ParseFiles to advantage, to instead of endless returns for each template,
+	// they can be dynamically returned via a simple constructor, then passed as an array to ParseFiles
 	tmpl["homePage.html"] = template.Must(template.ParseFiles(templateArray...))
 
 	var templateError error
@@ -98,13 +100,6 @@ func HomePageHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	errorHandler.StandardError(templateError)
-
-	// this is using the variadic nature of ParseFiles to advantage, to instead of endless returns for each template,
-	// they can be dynamically returned via a simple constructor, then passed as an array to ParseFiles
-
-	//tmpl["homePage.html"] = template.Must(template.ParseFiles(templateArray...))
-	//templateError := tmpl["homePage.html"].Execute(w, data)
-	//errorHandler.StandardError(templateError)
 }
 
 // SettingsPageHandler returns Template: settings.html w/ Model: ServSettingGet

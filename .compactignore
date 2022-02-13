@@ -111,6 +111,11 @@
   ],
   "prettierignore": [
     {
+      "location": "templates/",
+      "comment": "Prettier does not like HTML templates",
+      "action": "exclude"
+    },
+    {
       "location": ".git",
       "comment": "Exclude all git artifacts",
       "action": "exclude"
