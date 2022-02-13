@@ -6,7 +6,8 @@ window.onload = function () {
   firstTimeSetup();
 
   // Then functions to fill out data of the forms
-  addFormCategory();
+  //addFormCategory();
+  initInstalledPluginListToForm();
 
   // Functions to allow setting and changing Header Plugins
   headerPlugins();
@@ -117,36 +118,42 @@ function getLinkItemForm() {
   // parseLinkItemForm will either return an object of JSON, or a string, containing an error message that is safe to display to the user.
 
   var returnJSONObj = {
-    name: "",
+    id: 0,
+    friendlyName: "",
     link: "",
     category: "",
     plugins: []
   };
 
-  var fullFormDOM = document.getElementById("new-item-test-form");
+  var fullFormDOM = document.getElementById("link-item-form");
   // since getElementById returns an element object, we need to ensure we only use methods available to access values.
   // but to make life slightly easier, for non-plugin data, we can use the FomrData Object Constructor
-  var fullFormDATA = new FormData(document.getElementById("new-item-test-form"));
+  var fullFormDATA = new FormData(document.getElementById("link-item-form"));
+  var staticID$ = fullFormDATA.getAll("staticID");
   var linkItemName$ = fullFormDATA.getAll("friendlyName");
   var linkItemLink$ = fullFormDATA.getAll("link");
   var linkItemCategory$ = fullFormDATA.getAll("category");
 
-  returnJSONObj.name = linkItemName$[0];
+  returnJSONObj.id = staticID$[0];
+  returnJSONObj.friendlyName = linkItemName$[0];
   returnJSONObj.link = linkItemLink$[0];
   returnJSONObj.category = linkItemCategory$[0];
+
 
   // with the required elements, we can do a validation check now
   // first will be valid form data gathered check
   if (linkItemName$.length > 1 || linkItemLink$.length > 1 || linkItemCategory$.length > 1) {
-    return "why so many values!";
+    // Why so many values
+    return i18n_returnValueGenericError;
   }
   // then check validity of entered values
-  if (!stringValidityNotEmpty(returnJSONObj.name)) {
-    return "name can't be empty";
+  // TODO fix the returns here
+  if (!stringValidityNotEmpty(returnJSONObj.friendlyName)) {
+    return i18n_validateName;
   } else if (!stringValidityNotEmpty(returnJSONObj.link)) {
-    return "link can't be empty";
+    return i18n_validateLink;
   } else if (!stringValidityNotEmpty(returnJSONObj.category)) {
-    return "cateogyr can't be empty";
+    return i18n_validateCategory;
   }
 
   // after checking the required data, we can use an element method querySelectorAll list to get an array of plugin form NodeList's
@@ -193,14 +200,10 @@ function setLinkItemForm(jsonObj) {
 
   // for documentation on why methods are used, or the logic behind thhe scenes here, look at getLinkItemForm()
   try {
-    var fullFormDOM = document.getElementById("new-item-test-form");
+    var fullFormDOM = document.getElementById("link-item-form");
 
-    //var fullFormDATA = new FormData(document.getElementById("new-item-test-form"));
-    //fullFormDATA.set("friendlyName", jsonObj.name);
-    //fullFormDATA.getAll("friendlyName")[0].value = jsonObj.name;
-    //fullFormDATA.getAll("link")[0] = jsonObj.link;
-    //fullFormDATA.getAll("category")[0] = jsonObj.category;
-    fullFormDOM.querySelector(`[name="friendlyName"]`).value = jsonObj.name;
+    fullFormDOM.querySelector(`[name="staticID"]`).value = jsonObj.id;
+    fullFormDOM.querySelector(`[name="friendlyName"]`).value = jsonObj.friendlyName;
     fullFormDOM.querySelector(`[name="link"]`).value = jsonObj.link;
     fullFormDOM.querySelector(`[name="category"]`).value = jsonObj.category;
 
@@ -241,8 +244,135 @@ function stringValidityNotEmpty(string) {
   }
 }
 
+/*eslint-disable-next-line no-unused-vars*/
 function disablePluginLocation(element) {
   document.getElementById("plugin-location-list").querySelector(`[value=${element.value}]`).setAttribute("disabled", "");
+}
+
+function addPluginOptions(element) {
+  var pluginContainerParent = element.parentElement.parentElement.parentElement;
+  var pluginChosen = element.value;
+  var pluginOptions = pluginContainerParent.querySelector(`[name="pluginOptions"]`);
+  var pluginExample = pluginContainerParent.querySelector(`[name="pluginExample"]`);
+
+  // with the elements we want to modify, lets get the data needed
+  fetch("/plugins/installedPlugins.json")
+    .then((res) => res.json())
+    .then((data) => {
+      data.forEach((element) => {
+        if (pluginChosen == element.name) {
+          pluginOptions.value = element.options.autofill;
+          pluginExample.value = element.options.explain;
+        }
+      });
+    });
+}
+
+function initInstalledPluginListToForm() {
+  fetch("/plugins/installedPlugins.json")
+    .then((response) => response.json())
+    .then((data) => {
+      var pluginListToInsertItem, pluginListToInsertHeader;
+
+      data.forEach((element) => {
+        if (element.type == "item") {
+          pluginListToInsertItem += `<option value='${element.name}'>`;
+        } else if (element.type == "header") {
+          pluginListToInsertHeader += `<option value='${element.name}'>`;
+        }
+      });
+      document.getElementById("plugin-installed-list").innerHTML = pluginListToInsertItem;
+      document.getElementById("header-plugin-list").innerHTML = pluginListToInsertHeader;
+    });
+}
+
+function newItemModal() {
+  // TODO call setLinkItemForm with an empty JSON obj, to remove any previous values
+  universe.ShowModal("link-item-modal");
+
+  var modalSubmit = document.getElementById("itemModalSubmit");
+  var modalClose = document.getElementById("itemModalGoBack");
+
+  modalClose.onclick = function() {
+    universe.CloseModal("link-item-modal");
+  };
+
+  modalSubmit.onclick = function() {
+    var formData = getLinkItemForm();
+
+    if (typeof formData === "string") {
+      universe.SnackbarError("snackbar", formData, false, i18n_returnValueGenericError);
+    } else if (typeof formData == "object") {
+
+      saveLinkItemModal("/api/new/", formData, i18n_returnsSuccessAdd);
+
+    } else {
+      universe.SnackbarError("snackbar", i18n_returnValueGenericError, false, "Something unexpected happned reading your data.");
+    }
+  };
+}
+
+function editItemModal(oldID, oldFriendlyName, oldLink, oldCategory, oldPlugins) {
+  // first lets make our JSON obj to pass
+  var returnJSONObj = {
+    id: parseInt(oldID),
+    friendlyName: oldFriendlyName,
+    link: oldLink,
+    category: oldCategory,
+    plugins: []
+  };
+
+  for (var i = 0; i < oldPlugins.length; i++) {
+    var tmpPluginJSON = {
+      name: oldPlugins[i].name,
+      location: oldPlugins[i].location,
+      options: oldPlugins[i].options,
+    };
+    returnJSONObj.plugins.push(tmpPluginJSON);
+  }
+
+  setLinkItemForm(returnJSONObj);
+  // once the data is injected into the page, we can display the modal
+  universe.ShowModal("link-item-modal");
+
+  var modalSubmit = document.getElementById("itemModalSubmit");
+  var modalClose = document.getElementById("itemModalGoBack");
+
+  modalClose.onclick = function() {
+    universe.CloseModal("link-item-modal");
+  };
+
+  modalSubmit.onclick = function() {
+    var formData = getLinkItemForm();
+
+    if (typeof formData === "string") {
+      universe.SnackbarError("snackbar", formData, false, i18n_returnValueGenericError);
+    } else if (typeof formData === "object") {
+      // before submitting this data we need to ensure the ID is an int, otherwise it'll fail.
+      formData.id = parseInt(formData.id);
+      saveLinkItemModal("/api/edit/", formData, i18n_returnsSuccessUpdate)
+    } else {
+      universe.SnackbarError("snackbar", i18n_returnValueGenericError, false, "Something unexpected happned reading your data.");
+    }
+  }
+}
+
+function saveLinkItemModal(endpoint, data, string) {
+  var rawJSON = JSON.stringify(data);
+
+  var requestOptions = universe.CreateJSONPOSTHeaders(rawJSON);
+
+  fetch(endpoint, requestOptions)
+    .then((response) => response.json())
+    .then((result) => {
+      if (result == "Success") {
+        universe.CloseModal("link-item-modal");
+
+        universe.SnackbarCommon("snackbar", langHandler.UnicornComposite(string, i18n_returnValueLinkItem), universe.HotReload("linkItemList", "/", homePageInit, "reload"));
+      } else {
+        universe.SnackbarError("snackbar", i18n_returnValueGenericError, false, result);
+      }
+    });
 }
 
 function firstTimeSetup() {
@@ -286,190 +416,6 @@ function firstTimeSetup() {
             });
         };
       }
-    });
-}
-
-// Form Based JS
-
-function addFormCategory() {
-  // first we need the list of all categories from the api
-  fetch("/api/items")
-    .then((response) => response.json())
-    .then((data) => {
-      var categoryListToInsert;
-      var categoryListToCheck = [];
-      data.forEach((element) => {
-        if (!categoryListToCheck.includes(element.category)) {
-          categoryListToInsert += `<option value='${element.category}'>`;
-          categoryListToCheck.push(element.category);
-        }
-      });
-      document.getElementById("new-current-category").innerHTML =
-        categoryListToInsert;
-      document.getElementById("edit-current-category").innerHTML =
-        categoryListToInsert;
-    });
-
-  // Handle the installed plugins datalist, via API
-  fetch("/plugins/installedPlugins.json")
-    .then((response) => response.json())
-    .then((data) => {
-      var pluginListToInsertITEM, pluginListToInsertHEADER;
-
-      data.forEach((element) => {
-        if (element.type == "item") {
-          pluginListToInsertITEM += `<option value='${element.name}'>`;
-        } else if (element.type == "header") {
-          pluginListToInsertHEADER += `<option value='${element.name}'>`;
-        }
-      });
-      document.getElementById("new-available-plugins").innerHTML =
-        pluginListToInsertITEM;
-      document.getElementById("edit-available-plugins").innerHTML =
-        pluginListToInsertITEM;
-      document.getElementById("header-plugin-list").innerHTML =
-        pluginListToInsertHEADER;
-    });
-}
-
-/*eslint disable-next-line no-unused-vars*/
-function dataListInputV2(ele, caller) {
-  fetch("/plugins/installedPlugins.json")
-    .then((res) => res.json())
-    .then((data) => {
-      data.forEach((element) => {
-        if (ele.value == element.name) {
-          if (element.config) {
-            if (
-              ele.getAttribute("name") == "plugin-name1" ||
-              ele.getAttribute("name") == "edit-plugin-name1"
-            ) {
-              if (caller == "new") {
-                dataListInputCaller(
-                  "plugin-label1",
-                  "plugin-example1",
-                  "plugin-options1",
-                  element.options.explain,
-                  element.options.autofill
-                );
-              } else if (caller == "edit") {
-                dataListInputCaller(
-                  "edit-plugin-label1",
-                  "edit-plugin-example1",
-                  "edit-plugin-options1",
-                  element.options.explain,
-                  element.options.autofill
-                );
-              }
-            } else if (
-              ele.getAttribute("name") == "plugin-name2" ||
-              ele.getAttribute("name") == "edit-plugin-name2"
-            ) {
-              if (caller == "new") {
-                dataListInputCaller(
-                  "plugin-label2",
-                  "plugin-example2",
-                  "plugin-options2",
-                  element.options.explain,
-                  element.options.autofill
-                );
-              } else if (caller == "edit") {
-                dataListInputCaller(
-                  "edit-plugin-label2",
-                  "edit-plugin-example2",
-                  "edit-plugin-options2",
-                  element.options.explain,
-                  element.options.autofill
-                );
-              }
-            } else if (
-              ele.getAttribute("name") == "plugin-name3" ||
-              ele.getAttribute("name") == "edit-plugin-name3"
-            ) {
-              if (caller == "new") {
-                dataListInputCaller(
-                  "plugin-label3",
-                  "plugin-example3",
-                  "plugin-options3",
-                  element.options.explain,
-                  element.options.autofill
-                );
-              } else if (caller == "edit") {
-                dataListInputCaller(
-                  "edit-plugin-label3",
-                  "edit-plugin-example3",
-                  "edit-plugin-options3",
-                  element.options.explain,
-                  element.options.autofill
-                );
-              }
-            } else if (
-              ele.getAttribute("name") == "plugin-name4" ||
-              ele.getAttribute("name") == "edit-plugin-name4"
-            ) {
-              if (caller == "new") {
-                dataListInputCaller(
-                  "plugin-label4",
-                  "plugin-example4",
-                  "plugin-options4",
-                  element.options.explain,
-                  element.options.autofill
-                );
-              } else if (caller == "edit") {
-                dataListInputCaller(
-                  "edit-plugin-label4",
-                  "edit-plugin-example4",
-                  "edit-plugin-options4",
-                  element.options.explain,
-                  element.options.autofill
-                );
-              }
-            } else if (
-              ele.getAttribute("name") == "plugin-name5" ||
-              ele.getAttribute("name") == "edit-plugin-name5"
-            ) {
-              if (caller == "new") {
-                dataListInputCaller(
-                  "plugin-label5",
-                  "plugin-example5",
-                  "plugin-options5",
-                  element.options.explain,
-                  element.options.autofill
-                );
-              } else if (caller == "edit") {
-                dataListInputCaller(
-                  "edit-plugin-label5",
-                  "edit-plugin-example5",
-                  "edit-plugin-options5",
-                  element.options.explain,
-                  element.options.autofill
-                );
-              }
-            } else if (
-              ele.getAttribute("name") == "plugin-name6" ||
-              ele.getAttribute("name") == "edit-plugin-name6"
-            ) {
-              if (caller == "new") {
-                dataListInputCaller(
-                  "plugin-label6",
-                  "plugin-example6",
-                  "plugin-options6",
-                  element.options.explain,
-                  element.options.autofill
-                );
-              } else if (caller == "edit") {
-                dataListInputCaller(
-                  "edit-plugin-label6",
-                  "edit-plugin-example6",
-                  "edit-plugin-options6",
-                  element.options.explain,
-                  element.options.autofill
-                );
-              }
-            } // 7
-          }
-        }
-      });
     });
 }
 
@@ -579,264 +525,6 @@ function modalDelete(id) {
     if (event.target == modal) {
       universe.CloseModal("deleteModal");
     }
-  };
-}
-
-/*eslint-disable-next-line no-unused-vars*/
-function newItemModal() {
-  universe.ShowModal("newItemModal");
-
-  // once visible we want to register an onclick ahndler with the now visible buttons
-  var modalNotNewBtn = document.getElementById("new-form-goBack");
-  var modalSubmit = document.getElementById("new-form-submit");
-
-  modalNotNewBtn.onclick = function () {
-    universe.CloseModal("newItemModal");
-  };
-
-  modalSubmit.onclick = function () {
-    // Here we will want to handle all validation features in the future
-    // such as ensuring that no plugin location is chosen twice and so on.
-    var form = document.getElementById("new-item-form");
-
-    validateLinkItemData(form).then((validateAnswer) => {
-      if (validateAnswer.valid) {
-        // and we will take the form data turning it into an object
-        var rawObj = {
-          friendlyName: form.friendlyName.value,
-          link: form.link.value,
-          category: form.category.value,
-          plugins: [],
-        };
-
-        // now to build the plugin portion of the object
-
-        // while only 6 options exist this is 7 to account for starting at 1
-        for (var i = 1; i < 7; i++) {
-          var elements = document.getElementsByName(`plugin-name${i}`);
-          var tmpObj = { name: "", options: "", location: "" };
-          if (elements.length === 1) {
-            // since getElementsByName returns a list of items, but we only care about the one that exists we use 0 to point at that one
-            if (elements[0].value) {
-              // this would indicate its a truthy value and we can add it
-              tmpObj.name = elements[0].value;
-              tmpObj.options = document.getElementById(
-                `plugin-options${i}`
-              ).value;
-              tmpObj.location = document.getElementById(`plugin-loc${i}`).value;
-              rawObj.plugins.push(tmpObj);
-            }
-          } else {
-            universe.SnackbarError(
-              "snackbar",
-              i18n_returnValueGenericError,
-              false,
-              "Something unexpected happened reading your data."
-            );
-          }
-        }
-
-        // now with the object built we can post it to the api endpoint
-        var rawJSON = JSON.stringify(rawObj);
-
-        var requestOptions = universe.CreateJSONPOSTHeaders(rawJSON);
-
-        fetch("/api/new/", requestOptions)
-          .then((response) => response.json())
-          .then((result) => {
-            if (result == "Success") {
-              universe.CloseModal("newItemModal");
-
-              universe.SnackbarCommon(
-                "snackbar",
-                langHandler.UnicornComposite(
-                  i18n_returnsSuccessAdd,
-                  i18n_returnValueLinkItem
-                ),
-                universe.HotReload("linkItemList", "/", homePageInit, "reload")
-              );
-            } else {
-              // error occured sending data
-              console.log(`Error: ${result}`);
-              universe.SnackbarError(
-                "snackbar",
-                i18n_returnValueGenericError,
-                false,
-                result
-              );
-            }
-          });
-      } else {
-        // validate data fails
-        universe.SnackbarError("snackbar", validateAnswer.msg);
-      }
-    });
-  };
-}
-
-function validateLinkItemData(form) {
-  // TODO:: Validate the use of Plugin Locations
-  return new Promise(function (resolve, reject) {
-    // this will just check the required data to see if it is valid
-    var checkString = function (string) {
-      if (typeof string === "string" && string.length > 1) {
-        return true;
-      } else {
-        return false;
-      }
-    };
-
-    // The required alements of a form:
-    // FriendlyName
-    // Link
-    // Category
-
-    var tmpValidObject = { valid: false, msg: "" };
-
-    var buildValidObj = function (bool, string) {
-      tmpValidObject.valid = bool;
-      tmpValidObject.msg = string;
-      return tmpValidObject;
-    };
-
-    if (checkString(form.friendlyName.value)) {
-      if (checkString(form.link.value)) {
-        if (checkString(form.category.value)) {
-          resolve(buildValidObj(true, ""));
-        } else {
-          // bad category value
-          resolve(buildValidObj(false, i18n_validateCategory));
-        }
-      } else {
-        // bad link value
-        resolve(buildValidObj(false, i18n_validateLink));
-      }
-    } else {
-      // bad friendly name
-      resolve(buildValidObj(false, i18n_validateName));
-    }
-  });
-}
-
-/*eslint-disable-next-line no-unused-vars*/
-function editItemModalV2(
-  oldId,
-  oldFriendlyName,
-  oldLink,
-  oldCategory,
-  oldPlugins
-) {
-  // We first want to fill in all the values from the existing item
-
-  document.getElementById("edit-id").value = oldId;
-  document.getElementById("edit-friendlyName").value = oldFriendlyName;
-  document.getElementById("edit-link").value = oldLink;
-  document.getElementById("edit-category").value = oldCategory;
-
-  // added check in case plugins aren't assigned at all, to avoid reading length of null item
-  if (oldPlugins) {
-    for (var i = 0; i < oldPlugins.length; i++) {
-      document.getElementById(`edit-plugin-name${i + 1}`).value =
-        oldPlugins[i].name;
-      document.getElementById(`edit-plugin-loc${i + 1}`).value =
-        oldPlugins[i].location;
-      if (
-        typeof oldPlugins[i].options != null &&
-        typeof oldPlugins[i].options != undefined &&
-        typeof oldPlugins[i].options != ""
-      ) {
-        // we want to assign the values and make them visible
-        dataListInputChangeView(`edit-plugin-label${i + 1}`);
-        dataListInputChangeAutofill(
-          `edit-plugin-options${i + 1}`,
-          oldPlugins[i].options
-        );
-      }
-    }
-  }
-
-  universe.ShowModal("editItemModal");
-
-  // then to attach handlers to the buttons
-  var modalNotEditBtn = document.getElementById("edit-form-goBack");
-  var modalSubmit = document.getElementById("edit-form-submit");
-
-  modalNotEditBtn.onclick = function () {
-    universe.CloseModal("editItemModal");
-  };
-
-  modalSubmit.onclick = function () {
-    var form = document.getElementById("edit-item-form");
-
-    validateLinkItemData(form).then((validData) => {
-      if (validData.valid) {
-        // and we will take the form data turning ti into an object
-        // parsing int here since if passed as string go will fail to unmarshal into json properly
-        var rawObj = {
-          id: parseInt(form.id.value),
-          friendlyName: form.friendlyName.value,
-          link: form.link.value,
-          category: form.category.value,
-          plugins: [],
-        };
-
-        // now to build teh plugin portion of the object
-
-        //while only 6 options exist this is 7 to account for starting at 1
-        for (var i = 1; i < 7; i++) {
-          var elements = document.getElementsByName(`edit-plugin-name${i}`);
-          var tmpObj = { name: "", options: "", location: "" };
-          if (elements.length === 1) {
-            if (elements[0].value) {
-              // this would indicate its a truthy value and we can add it
-              tmpObj.name = elements[0].value;
-              tmpObj.options = document.getElementById(
-                `edit-plugin-options${i}`
-              ).value;
-              tmpObj.location = document.getElementById(
-                `edit-plugin-loc${i}`
-              ).value;
-              rawObj.plugins.push(tmpObj);
-            }
-          } else {
-            console.log("Something unexpected happend reading your data.");
-            universe.SnackbarError("snackbar", i18n_returnValueGenericError);
-          }
-        }
-
-        // now with the object build we can post it to the api endpoint
-
-        var rawJSON = JSON.stringify(rawObj);
-
-        fetch("/api/edit/", universe.CreateJSONPOSTHeaders(rawJSON))
-          .then((response) => response.json())
-          .then((result) => {
-            if (result == "Success") {
-              universe.CloseModal("editItemModal");
-
-              universe.SnackbarCommon(
-                "snackbar",
-                langHandler.UnicornComposite(
-                  i18n_returnsSuccessUpdate,
-                  i18n_returnValueLinkItem
-                ),
-                universe.HotReload("linkItemList", "/", homePageInit, "reload")
-              );
-            } else {
-              console.log(`Error: ${result}`);
-              universe.SnackbarError(
-                "snackbar",
-                i18n_returnValueGenericError,
-                false,
-                result
-              );
-            }
-          });
-      } else {
-        // data is not valid
-        universe.SnackbarError("snackbar", validData.msg);
-      }
-    });
   };
 }
 

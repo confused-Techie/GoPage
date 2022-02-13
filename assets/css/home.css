@@ -411,3 +411,57 @@ As to be honest I've hated CSS for years. */
   cursor: pointer;
   margin: 5px;
 }
+
+/* ================================= */
+
+/* This needs to be organized, but this is the styling for the new edit/new modal */
+
+.form {
+  display: block;
+  margin-top: 0em;
+  padding: 15px 50px 0px 50px;
+  overflow-y: auto;
+}
+.form-row {
+  margin: 0 -11px;
+  display: -webkit-flex;
+}
+.form-row .form-group {
+  width: 50%;
+  padding: 0 11px;
+}
+.form-group {
+  margin-bottom: 30px;
+  position: relative;
+}
+.form-row-btn {
+  width: 50%;
+  padding: 0 10px;
+}
+.form-text {
+  display: block;
+}
+.add-plugin-link {
+  -webkit-align-items: center;
+  display: -webkit-flex;
+  margin-bottom: 16px;
+}
+.pluginAddContainer {
+  display: block;
+}
+label {
+  font-weight: 800;
+  margin-bottom: 3px;
+}
+label, input {
+  display: block;
+  width: 100%;
+}
+input {
+  border-radius: 4px;
+  border: none;
+  padding: 5px;
+}
+input:focus {
+  outline: none;
+}

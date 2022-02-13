@@ -83,7 +83,7 @@
             <img src="/assets/images/more-vertical-white.svg" alt="Three Vertical Dots to indicate additional options" width="24" height="24">
             <div class="optionsContent">
               <div class="optionsContent-Edit grow-shadow-hover">
-                <a onclick="editItemModalV2( {{.ID}}, {{.FriendlyName}}, {{.Link}}, {{.Category}}, {{.Plugins}} );return false;">
+                <a onclick="editItemModal( {{.ID}}, {{.FriendlyName}}, {{.Link}}, {{.Category}}, {{.Plugins}} );return false;">
                   {{ or
                     (index $scopedTargetStrings "i18n-genericEdit")
                     (index $scopedDefaultStrings "i18n-genericEdit")
