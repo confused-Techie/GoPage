@@ -16,6 +16,25 @@
     "pluginAPI": "readonly",
     "universe": "readonly",
     "module": "readonly",
-    "require": "readonly"
+    "require": "readonly",
+    "i18n_returnsSuccessDelete": "readonly",
+    "i18n_returnsFailureDelete": "readonly",
+    "i18n_returnsSuccessInstall": "readonly",
+    "i18n_returnsFailureInstall": "readonly",
+    "i18n_returnsSuccessUpdate": "readonly",
+    "i18n_returnsFailureUpdate": "readonly",
+    "i18n_returnsSuccessAdd": "readonly",
+    "i18n_returnsFailureAdd": "readonly",
+    "i18n_returnValueGenericError": "readonly",
+    "i18n_validateCategory": "readonly",
+    "i18n_validateLink": "readonly",
+    "i18n_validateName": "readonly",
+    "i18n_returnValueAvailablePlugins": "readonly",
+    "i18n_returnValueLangauge": "readonly",
+    "i18n_returnValueLinkItem": "readonly",
+    "i18n_returnValueLinkItem": "readonly",
+    "i18n_returnValueHeaderPlugin": "readonly",
+    "i18n_generatedUploadSuccessSnackbar": "readonly",
+    "i18n_generatedRemoveImageSuccess": "readonly"
   }
 }

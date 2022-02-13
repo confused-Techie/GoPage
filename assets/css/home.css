@@ -453,7 +453,8 @@ label {
   font-weight: 800;
   margin-bottom: 3px;
 }
-label, input {
+label,
+input {
   display: block;
   width: 100%;
 }

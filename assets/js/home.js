@@ -101,16 +101,25 @@ function addClass(element, name) {
 }
 
 function addPluginToFormV2() {
-  var lastAddPluginItem = document.getElementsByClassName("add-plugin-link")[document.getElementsByClassName("add-plugin-link").length -1];
+  var lastAddPluginItem =
+    document.getElementsByClassName("add-plugin-link")[
+      document.getElementsByClassName("add-plugin-link").length - 1
+    ];
   // the last plugin should be the unexpanded plugin, until we change its display mode, and subsequently should have no information entered.
 
   var clonedParent = lastAddPluginItem.parentElement.cloneNode(true);
-  lastAddPluginItem.parentElement.insertAdjacentElement("afterend", clonedParent);
+  lastAddPluginItem.parentElement.insertAdjacentElement(
+    "afterend",
+    clonedParent
+  );
   // the lastAddPluginItem is the text adjacent to the plugin form.
   // getting the parent allows us to have the full form-text div, which is what we want to duplicate and insert.
 
   // now to chagne the display mode of the descendent div
-  var addInfoDescendent = lastAddPluginItem.parentElement.getElementsByClassName("additional_info")[0];
+  var addInfoDescendent =
+    lastAddPluginItem.parentElement.getElementsByClassName(
+      "additional_info"
+    )[0];
   addInfoDescendent.style.display = "block";
 }
 
@@ -122,7 +131,7 @@ function getLinkItemForm() {
     friendlyName: "",
     link: "",
     category: "",
-    plugins: []
+    plugins: [],
   };
 
   var fullFormDOM = document.getElementById("link-item-form");
@@ -139,10 +148,13 @@ function getLinkItemForm() {
   returnJSONObj.link = linkItemLink$[0];
   returnJSONObj.category = linkItemCategory$[0];
 
-
   // with the required elements, we can do a validation check now
   // first will be valid form data gathered check
-  if (linkItemName$.length > 1 || linkItemLink$.length > 1 || linkItemCategory$.length > 1) {
+  if (
+    linkItemName$.length > 1 ||
+    linkItemLink$.length > 1 ||
+    linkItemCategory$.length > 1
+  ) {
     // Why so many values
     return i18n_returnValueGenericError;
   }
@@ -157,18 +169,29 @@ function getLinkItemForm() {
   }
 
   // after checking the required data, we can use an element method querySelectorAll list to get an array of plugin form NodeList's
-  var pluginNodeList = fullFormDOM.querySelectorAll(`[class="additional_info"]`);
+  var pluginNodeList = fullFormDOM.querySelectorAll(
+    `[class="additional_info"]`
+  );
 
   for (var i = 0; i < pluginNodeList.length; i++) {
     // with our []NodeLists we will first take the child section of pluginAddContainer
     var htmlCollectionPlugin = pluginNodeList[i].children[0];
 
-    var pluginName$ = htmlCollectionPlugin.querySelectorAll(`[name="pluginName"]`);
-    var pluginLocation$ = htmlCollectionPlugin.querySelectorAll(`[name="pluginLocation"]`);
-    var pluginOptions$ = htmlCollectionPlugin.querySelectorAll(`[name="pluginOptions"]`);
+    var pluginName$ =
+      htmlCollectionPlugin.querySelectorAll(`[name="pluginName"]`);
+    var pluginLocation$ = htmlCollectionPlugin.querySelectorAll(
+      `[name="pluginLocation"]`
+    );
+    var pluginOptions$ = htmlCollectionPlugin.querySelectorAll(
+      `[name="pluginOptions"]`
+    );
 
     // check that only one item of this name is available
-    if (pluginName$.length > 1 || pluginLocation$.length > 1 || pluginOptions$.length > 1) {
+    if (
+      pluginName$.length > 1 ||
+      pluginLocation$.length > 1 ||
+      pluginOptions$.length > 1
+    ) {
       return "why so many values!";
     }
     // check that it has a value, otherwise we know its empty and we can skip applying this plugin at all
@@ -184,14 +207,15 @@ function getLinkItemForm() {
     var tmpPluginJSON = {
       name: pluginName$[0].value,
       location: pluginLocation$[0].value,
-      options: !stringValidityNotEmpty(pluginOptions$[0].value) ? "" : pluginOptions$[0].value
+      options: !stringValidityNotEmpty(pluginOptions$[0].value)
+        ? ""
+        : pluginOptions$[0].value,
     };
 
     returnJSONObj.plugins.push(tmpPluginJSON);
   }
 
   return returnJSONObj;
-
 }
 
 function setLinkItemForm(jsonObj) {
@@ -203,28 +227,32 @@ function setLinkItemForm(jsonObj) {
     var fullFormDOM = document.getElementById("link-item-form");
 
     fullFormDOM.querySelector(`[name="staticID"]`).value = jsonObj.id;
-    fullFormDOM.querySelector(`[name="friendlyName"]`).value = jsonObj.friendlyName;
+    fullFormDOM.querySelector(`[name="friendlyName"]`).value =
+      jsonObj.friendlyName;
     fullFormDOM.querySelector(`[name="link"]`).value = jsonObj.link;
     fullFormDOM.querySelector(`[name="category"]`).value = jsonObj.category;
-
 
     for (var i = 0; i < jsonObj.plugins.length; i++) {
       // firstly create the plugin item
       addPluginToFormV2();
-      var pluginNodeList = fullFormDOM.querySelectorAll(`[class="additional_info"]`);
+      var pluginNodeList = fullFormDOM.querySelectorAll(
+        `[class="additional_info"]`
+      );
       var htmlCollectionPlugin = pluginNodeList[i].children[0];
 
-      htmlCollectionPlugin.querySelectorAll(`[name="pluginName"]`)[0].value = jsonObj.plugins[i].name;
-      htmlCollectionPlugin.querySelectorAll(`[name="pluginLocation"]`)[0].value = jsonObj.plugins[i].location;
-      htmlCollectionPlugin.querySelectorAll(`[name="pluginOptions"]`)[0].value = jsonObj.plugins[i].options;
+      htmlCollectionPlugin.querySelectorAll(`[name="pluginName"]`)[0].value =
+        jsonObj.plugins[i].name;
+      htmlCollectionPlugin.querySelectorAll(
+        `[name="pluginLocation"]`
+      )[0].value = jsonObj.plugins[i].location;
+      htmlCollectionPlugin.querySelectorAll(`[name="pluginOptions"]`)[0].value =
+        jsonObj.plugins[i].options;
     }
     return true;
     // return true at the end just in case to indicate valid data.
-
-  } catch(err) {
+  } catch (err) {
     return err;
   }
-
 }
 
 function stringValidityNotEmpty(string) {
@@ -239,21 +267,28 @@ function stringValidityNotEmpty(string) {
     } else {
       return false;
     }
-  } catch(err) {
+  } catch (err) {
     return false;
   }
 }
 
 /*eslint-disable-next-line no-unused-vars*/
 function disablePluginLocation(element) {
-  document.getElementById("plugin-location-list").querySelector(`[value=${element.value}]`).setAttribute("disabled", "");
+  document
+    .getElementById("plugin-location-list")
+    .querySelector(`[value=${element.value}]`)
+    .setAttribute("disabled", "");
 }
 
 function addPluginOptions(element) {
   var pluginContainerParent = element.parentElement.parentElement.parentElement;
   var pluginChosen = element.value;
-  var pluginOptions = pluginContainerParent.querySelector(`[name="pluginOptions"]`);
-  var pluginExample = pluginContainerParent.querySelector(`[name="pluginExample"]`);
+  var pluginOptions = pluginContainerParent.querySelector(
+    `[name="pluginOptions"]`
+  );
+  var pluginExample = pluginContainerParent.querySelector(
+    `[name="pluginExample"]`
+  );
 
   // with the elements we want to modify, lets get the data needed
   fetch("/plugins/installedPlugins.json")
@@ -281,8 +316,10 @@ function initInstalledPluginListToForm() {
           pluginListToInsertHeader += `<option value='${element.name}'>`;
         }
       });
-      document.getElementById("plugin-installed-list").innerHTML = pluginListToInsertItem;
-      document.getElementById("header-plugin-list").innerHTML = pluginListToInsertHeader;
+      document.getElementById("plugin-installed-list").innerHTML =
+        pluginListToInsertItem;
+      document.getElementById("header-plugin-list").innerHTML =
+        pluginListToInsertHeader;
     });
 }
 
@@ -293,33 +330,47 @@ function newItemModal() {
   var modalSubmit = document.getElementById("itemModalSubmit");
   var modalClose = document.getElementById("itemModalGoBack");
 
-  modalClose.onclick = function() {
+  modalClose.onclick = function () {
     universe.CloseModal("link-item-modal");
   };
 
-  modalSubmit.onclick = function() {
+  modalSubmit.onclick = function () {
     var formData = getLinkItemForm();
 
     if (typeof formData === "string") {
-      universe.SnackbarError("snackbar", formData, false, i18n_returnValueGenericError);
+      universe.SnackbarError(
+        "snackbar",
+        formData,
+        false,
+        i18n_returnValueGenericError
+      );
     } else if (typeof formData == "object") {
-
       saveLinkItemModal("/api/new/", formData, i18n_returnsSuccessAdd);
-
     } else {
-      universe.SnackbarError("snackbar", i18n_returnValueGenericError, false, "Something unexpected happned reading your data.");
+      universe.SnackbarError(
+        "snackbar",
+        i18n_returnValueGenericError,
+        false,
+        "Something unexpected happned reading your data."
+      );
     }
   };
 }
 
-function editItemModal(oldID, oldFriendlyName, oldLink, oldCategory, oldPlugins) {
+function editItemModal(
+  oldID,
+  oldFriendlyName,
+  oldLink,
+  oldCategory,
+  oldPlugins
+) {
   // first lets make our JSON obj to pass
   var returnJSONObj = {
     id: parseInt(oldID),
     friendlyName: oldFriendlyName,
     link: oldLink,
     category: oldCategory,
-    plugins: []
+    plugins: [],
   };
 
   for (var i = 0; i < oldPlugins.length; i++) {
@@ -338,23 +389,33 @@ function editItemModal(oldID, oldFriendlyName, oldLink, oldCategory, oldPlugins)
   var modalSubmit = document.getElementById("itemModalSubmit");
   var modalClose = document.getElementById("itemModalGoBack");
 
-  modalClose.onclick = function() {
+  modalClose.onclick = function () {
     universe.CloseModal("link-item-modal");
   };
 
-  modalSubmit.onclick = function() {
+  modalSubmit.onclick = function () {
     var formData = getLinkItemForm();
 
     if (typeof formData === "string") {
-      universe.SnackbarError("snackbar", formData, false, i18n_returnValueGenericError);
+      universe.SnackbarError(
+        "snackbar",
+        formData,
+        false,
+        i18n_returnValueGenericError
+      );
     } else if (typeof formData === "object") {
       // before submitting this data we need to ensure the ID is an int, otherwise it'll fail.
       formData.id = parseInt(formData.id);
-      saveLinkItemModal("/api/edit/", formData, i18n_returnsSuccessUpdate)
+      saveLinkItemModal("/api/edit/", formData, i18n_returnsSuccessUpdate);
     } else {
-      universe.SnackbarError("snackbar", i18n_returnValueGenericError, false, "Something unexpected happned reading your data.");
+      universe.SnackbarError(
+        "snackbar",
+        i18n_returnValueGenericError,
+        false,
+        "Something unexpected happned reading your data."
+      );
     }
-  }
+  };
 }
 
 function saveLinkItemModal(endpoint, data, string) {
@@ -368,9 +429,18 @@ function saveLinkItemModal(endpoint, data, string) {
       if (result == "Success") {
         universe.CloseModal("link-item-modal");
 
-        universe.SnackbarCommon("snackbar", langHandler.UnicornComposite(string, i18n_returnValueLinkItem), universe.HotReload("linkItemList", "/", homePageInit, "reload"));
+        universe.SnackbarCommon(
+          "snackbar",
+          langHandler.UnicornComposite(string, i18n_returnValueLinkItem),
+          universe.HotReload("linkItemList", "/", homePageInit, "reload")
+        );
       } else {
-        universe.SnackbarError("snackbar", i18n_returnValueGenericError, false, result);
+        universe.SnackbarError(
+          "snackbar",
+          i18n_returnValueGenericError,
+          false,
+          result
+        );
       }
     });
 }
