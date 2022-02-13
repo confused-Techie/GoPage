@@ -43,12 +43,12 @@
       "first-contentiful-paint": "0.3s",
       "speed-index": "0.3s",
       "largest-contentiful-paint": "0.7s",
-      "time-to-interactive": "0.5s",
+      "time-to-interactive": "0.4s",
       "total-blocking-time": "0ms",
-      "cumulative-layout-shift": "0.001",
+      "cumulative-layout-shift": "0",
       "details": [
         "avoid chaining critical requests: 9 chains found",
-        "keep request counts low and transfer sizes small: 27 requests * 190 KiB",
+        "keep request counts low and transfer sizes small: 23 requests * 303 KiB",
         "largest contentiful paint element: 1 element",
         "avoid large layout shifts: 5 elements found"
       ]
@@ -125,7 +125,7 @@
       "largest-contentiful-paint": "0.4s",
       "time-to-interactive": "0.2s",
       "total-blocking-time": "0ms",
-      "cumulative-layout-shift": "0",
+      "cumulative-layout-shift": "0"
     },
     "accessibility": {
       "score": 100
@@ -134,7 +134,7 @@
       "score": 100
     },
     "seo": {
-      "score": 100,
+      "score": 100
     }
   },
 
@@ -170,9 +170,9 @@
     },
     "seo": {
       "score": 91,
-      "details": {
+      "details": [
         "image elements do not have alt attributes"
-      }
+      ]
     }
   },
   "uploadImage-NoImages": {

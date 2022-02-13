@@ -32,7 +32,6 @@
     "i18n_returnValueAvailablePlugins": "readonly",
     "i18n_returnValueLangauge": "readonly",
     "i18n_returnValueLinkItem": "readonly",
-    "i18n_returnValueLinkItem": "readonly",
     "i18n_returnValueHeaderPlugin": "readonly",
     "i18n_generatedUploadSuccessSnackbar": "readonly",
     "i18n_generatedRemoveImageSuccess": "readonly"

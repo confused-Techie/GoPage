@@ -1,0 +1,11 @@
+{
+  "semi": true,
+  "overrides": [
+    {
+      "files": ["*.gohtml"],
+      "options": {
+        "parser": "go-template"
+      }
+    }
+  ]
+}
