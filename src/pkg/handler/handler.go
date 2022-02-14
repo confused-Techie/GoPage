@@ -81,6 +81,7 @@ func HomePageHandler(w http.ResponseWriter, r *http.Request) {
 		returnDynamicSubTemplate("snackbar.gohtml"),
 		returnDynamicSubTemplate("firstTimeSetup.gohtml"),
 		returnDynamicSubTemplate("returnsGlobalJS.gohtml"),
+		returnDynamicSubTemplate("loader.gohtml"),
 		returnDynamicSubTemplate("homePage/linkItemList.gohtml"),
 	}
 
@@ -183,6 +184,7 @@ func PluginRepoPageHandler(w http.ResponseWriter, r *http.Request) {
 		returnDynamicSubTemplate("head.gohtml"),
 		returnDynamicSubTemplate("snackbar.gohtml"),
 		returnDynamicSubTemplate("modal.gohtml"),
+		returnDynamicSubTemplate("loader.gohtml"),
 		returnDynamicSubTemplate("returnsGlobalJS.gohtml"),
 		returnDynamicSubTemplate("pluginRepo/pluginItem.gohtml"),
 		returnDynamicSubTemplate("pluginRepo/pluginList.gohtml"),
@@ -242,6 +244,28 @@ func LinkHealthPageHandler(w http.ResponseWriter, r *http.Request) {
 
 	tmpl["linkhealth.html"] = template.Must(template.ParseFiles(templateArray...))
 	templateError := tmpl["linkhealth.html"].Execute(w, data)
+	errorHandler.StandardError(templateError)
+}
+
+func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
+
+	data := model.PageTemplate{
+		Title: "404 Not Found",
+		Theme: "/assets/css/theme-dark.css",
+		CSS: []string{"/assets/css/dist/universal.min.css"},
+		TargetStrings: returnTargetStrings(),
+		DefaultStrings: returnDefaultStrings(),
+		TargetLanguage: model.ServSettingGetLang(),
+	}
+
+	templateArray := []string{
+		returnDynamicTemplate("notfound.gohtml"),
+		returnDynamicSubTemplate("head.gohtml"),
+		returnDynamicSubTemplate("noscript.gohtml"),
+	}
+
+	tmpl["notfound.html"] = template.Must(template.ParseFiles(templateArray...))
+	templateError := tmpl["notfound.html"].Execute(w, data)
 	errorHandler.StandardError(templateError)
 }
 

@@ -335,9 +335,14 @@ function newItemModal() {
   };
 
   modalSubmit.onclick = function () {
+    // first we will display the loading icon
+    universe.Loader(true);
+
     var formData = getLinkItemForm();
 
     if (typeof formData === "string") {
+      universe.Loader(false);
+      
       universe.SnackbarError(
         "snackbar",
         formData,
@@ -347,11 +352,14 @@ function newItemModal() {
     } else if (typeof formData == "object") {
       saveLinkItemModal("/api/new/", formData, i18n_returnsSuccessAdd);
     } else {
+      // if it fails, we will remove the loader to allow user interaction
+      universe.Loader(false);
+
       universe.SnackbarError(
         "snackbar",
         i18n_returnValueGenericError,
         false,
-        "Something unexpected happned reading your data."
+        "Something unexpected happened reading your data."
       );
     }
   };
@@ -394,6 +402,8 @@ function editItemModal(
   };
 
   modalSubmit.onclick = function () {
+    universe.Loader(true);
+
     var formData = getLinkItemForm();
 
     if (typeof formData === "string") {
@@ -408,6 +418,8 @@ function editItemModal(
       formData.id = parseInt(formData.id);
       saveLinkItemModal("/api/edit/", formData, i18n_returnsSuccessUpdate);
     } else {
+      universe.Loader(false);
+
       universe.SnackbarError(
         "snackbar",
         i18n_returnValueGenericError,
@@ -427,6 +439,9 @@ function saveLinkItemModal(endpoint, data, string) {
     .then((response) => response.json())
     .then((result) => {
       if (result == "Success") {
+        // make sure to disable any loaders that may be displayed
+        universe.Loader(false);
+
         universe.CloseModal("link-item-modal");
 
         universe.SnackbarCommon(
@@ -435,6 +450,8 @@ function saveLinkItemModal(endpoint, data, string) {
           universe.HotReload("linkItemList", "/", homePageInit, "reload")
         );
       } else {
+        universe.Loader(false);
+
         universe.SnackbarError(
           "snackbar",
           i18n_returnValueGenericError,

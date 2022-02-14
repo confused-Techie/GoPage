@@ -8,6 +8,7 @@ import (
 	"github.com/spf13/viper"
 	"io/ioutil"
 	"os"
+	"time"
 )
 
 // ItemPluginsV2 a struct dependency of ItemV2, for JSON Plugin Models
@@ -241,4 +242,15 @@ func UserSettingGet() (au *UserSetting) {
 	json.Unmarshal(b, &usrStting)
 	checkError(err)
 	return &usrStting
+}
+
+type HTTPReqInfo struct {
+	Method string
+	Uri string
+	Referer string
+	Ipaddr string
+	Code int
+	Size int64
+	Duration time.Duration
+	UserAgent string
 }

@@ -2,6 +2,8 @@
 
 /*eslint-disable-next-line no-unused-vars */
 function installPlugin(pluginUrl, pluginName) {
+  universe.Loader(true);
+
   pluginFetchWrapperNonBlocking(
     `/plugins/install?source=${pluginUrl}`,
     "install",
@@ -11,6 +13,8 @@ function installPlugin(pluginUrl, pluginName) {
 
 /*eslint-disable-next-line no-unused-vars */
 function uninstallPlugin(pluginName) {
+  universe.Loader(true);
+
   pluginFetchWrapperNonBlocking(
     `/plugins/uninstall?pluginName=${pluginName}`,
     "delete",
@@ -20,11 +24,12 @@ function uninstallPlugin(pluginName) {
 
 /*eslint-disable-next-line no-unused-vars */
 function updatePlugin() {
-  // TODO:: Available Plugins here needs to be added to strings
+  universe.Loader(true);
+
   pluginFetchWrapperNonBlocking(
     "/plugins/update",
     "update",
-    "Available Plugins"
+    i18n_returnValueAvailablePlugins
   );
 }
 
@@ -92,6 +97,9 @@ function returnData(itemName, action, status, details) {
   // status !! valid values: fail, pass
   // details = The long form details, this could be designed error codes, or raw returned data.
 
+  // but first first, lets disbale any active loader
+  universe.Loader(false);
+  
   // first we will validate the multiple options
   if (status != "pass" && status != "fail") {
     console.error(`Invalid status passed to return data: ${status}`);

@@ -219,4 +219,18 @@ var universe = {
       );
     }
   },
+  Loader: function(shouldShow) {
+    // 1st argument shouldShow = boolean specifying weather this is turning it off, or on
+    var loaderEle = document.getElementsByClassName("loader")[0];
+
+    if (typeof shouldShow === "boolean") {
+      if (shouldShow) {
+        loaderEle.style.display = "flex";
+      } else {
+        loaderEle.style.display = "none";
+      }
+    } else {
+      console.log("Loader expects first argument Boolean of whether or not to show the loader.");
+    }
+  },
 };

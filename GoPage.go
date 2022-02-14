@@ -6,10 +6,13 @@ import (
 	handler "github.com/confused-Techie/GoPage/src/pkg/handler"
 	modifySettings "github.com/confused-Techie/GoPage/src/pkg/modifySettings"
 	universalMethods "github.com/confused-Techie/GoPage/src/pkg/universalMethods"
+	model "github.com/confused-Techie/GoPage/src/pkg/model"
 	"github.com/spf13/viper"
 	"log"
 	"net/http"
 	"time"
+	"strings"
+	httpsnoop "github.com/felixge/httpsnoop"
 )
 
 // Below no caching mechanism borrowed from elithrar stackoverflow
@@ -52,6 +55,25 @@ func noCache(h http.Handler) http.Handler {
 	return http.HandlerFunc(fn)
 }
 
+func requestGetRemoteAddress(r *http.Request) string {
+	hdr := r.Header
+	hdrRealIP := hdr.Get("X-Real-Ip")
+	hdrForwardedFor := hdr.Get("X-Forwarded-For")
+	if hdrRealIP == "" && hdrForwardedFor == "" {
+		return r.RemoteAddr
+	}
+	if hdrForwardedFor != "" {
+		// X-Forwarded-For is potentially a list of addresses seperated with ","
+		parts := strings.Split(hdrForwardedFor, ",")
+		for i, p := range parts {
+			parts[i] = strings.TrimSpace(p)
+		}
+		// TODO: should return first non-local address
+		return parts[0]
+	}
+	return hdrRealIP
+}
+
 func cacheControl(h http.Handler) http.Handler {
 	fn := func(w http.ResponseWriter, r *http.Request) {
 		modtime := universalMethods.LastModifiedTime(r.URL.String())
@@ -62,6 +84,41 @@ func cacheControl(h http.Handler) http.Handler {
 		h.ServeHTTP(w, r)
 	}
 	return http.HandlerFunc(fn)
+}
+
+func logRequestHandler(h http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		//h.ServeHTTP(w, r)
+		ri := &model.HTTPReqInfo{
+			Method: r.Method,
+			Uri: r.URL.String(),
+			Referer: r.Header.Get("Referer"),
+			UserAgent: r.Header.Get("User-Agent"),
+			Ipaddr: requestGetRemoteAddress(r),
+		}
+		// httpsnoop runs its own handler, so h.ServeHTTP(w, r) is no longer needed
+		snoop := httpsnoop.CaptureMetrics(h, w, r)
+		ri.Code = snoop.Code
+		ri.Size = snoop.Written
+		ri.Duration = snoop.Duration
+
+		log.Printf("'%s %s' from %s - %d %dB in %v\n", ri.Method, ri.Uri,ri.Ipaddr, ri.Code, ri.Size, ri.Duration)
+	})
+
+}
+
+func notFoundHandler(h http.Handler) http.Handler {
+	// Since the HomePage of GoPage is registered to '/' any non-existant path is still registered to the root, and will be redirected there,
+	// so to properly have a page return 404, it's needed to implement a custom 404 middleware to the HomePage,
+	// otherwise currently you could type anything after '/' and if its not another valid path it redirects to the homepage
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path != "/" {
+			w.WriteHeader(http.StatusNotFound)
+			handler.NotFoundHandler(w, r)
+			return
+		}
+		h.ServeHTTP(w, r)
+	})
 }
 
 func main() {
@@ -91,61 +148,65 @@ func main() {
 
 	// Basic Page Handles: For the standard user pages
 
-	http.HandleFunc("/", handler.HomePageHandler)
-	http.HandleFunc("/settings", handler.SettingsPageHandler)
-	http.HandleFunc("/pluginrepo", handler.PluginRepoPageHandler)
-	http.HandleFunc("/linkhealth", handler.LinkHealthPageHandler)
-	http.HandleFunc("/uploadpage", handler.UploadPageHandler)
+	mux := http.NewServeMux()
 
-	http.HandleFunc("/robots.txt", handler.RobotsHandler)
-	http.HandleFunc("/sitemap.xml", handler.SitemapHandler)
+	// Standard Page Endpoints
+	mux.Handle("/", logRequestHandler(notFoundHandler(http.HandlerFunc(handler.HomePageHandler))))
+	mux.Handle("/settings", logRequestHandler(http.HandlerFunc(handler.SettingsPageHandler)))
+	mux.Handle("/pluginrepo", logRequestHandler(http.HandlerFunc(handler.PluginRepoPageHandler)))
+	mux.Handle("/linkhealth", logRequestHandler(http.HandlerFunc(handler.LinkHealthPageHandler)))
+	mux.Handle("/uploadpage", logRequestHandler(http.HandlerFunc(handler.UploadPageHandler)))
+
+	// Components Endpoints
+	mux.Handle("/robots.txt", http.HandlerFunc(handler.RobotsHandler))
+	mux.Handle("/sitemap.xml", http.HandlerFunc(handler.SitemapHandler))
 
 	// UploadPage Endpoints: Used for the functionality of the uploadPage
-	http.HandleFunc("/upload", handler.UploadHandler)
-	http.HandleFunc("/userimages", handler.UserImagesHandler)
+	mux.Handle("/upload", http.HandlerFunc(handler.UploadHandler))
+	mux.Handle("/userimages", http.HandlerFunc(handler.UserImagesHandler))
 
-	// Plugin Repo Endpoints: Used for the functionality of PluginRepo
-	http.HandleFunc("/plugins/install", handler.APIInstallPlugin)
-	http.HandleFunc("/plugins/uninstall", handler.APIUninstallPlugin)
-	http.HandleFunc("/plugins/update", handler.APIUpdatePlugin)
+	// Plugin Repo Endpoints: Used for the functionality of the PluginRepo
+	mux.Handle("/plugins/install", http.HandlerFunc(handler.APIInstallPlugin))
+	mux.Handle("/plugins/uninstall", http.HandlerFunc(handler.APIUninstallPlugin))
+	mux.Handle("/plugins/update", http.HandlerFunc(handler.APIUpdatePlugin))
 
 	// Modify Link Item Pages
 
 	// Carryover from previous format. URL Query based page to delete link, still usable
-	http.HandleFunc("/delete/", handler.DeleteHandler)
+	mux.Handle("/delete/", http.HandlerFunc(handler.DeleteHandler))
 
 	// API Endpoints for Modifying Link Items via JSON
-	http.HandleFunc("/api/deletelink/", handler.DeleteLinkItem)
-	http.HandleFunc("/api/edit/", handler.EditLinkItem)
-	http.HandleFunc("/api/new/", handler.AddLinkItem)
+	mux.Handle("/api/deletelink", http.HandlerFunc(handler.DeleteLinkItem))
+	mux.Handle("/api/edit/", http.HandlerFunc(handler.EditLinkItem))
+	mux.Handle("/api/new/", http.HandlerFunc(handler.AddLinkItem))
 
 	// Static Directories Access
 
-	// CSS / JS / Language / Images
+	// CSS / JS / Language / Images Endpoints
 	fs := http.FileServer(http.Dir(viper.GetString("directories.staticAssets")))
-	http.Handle("/assets/", cacheControl(http.StripPrefix("/assets/", fs)))
+	mux.Handle("/assets/", cacheControl(http.StripPrefix("/assets/", fs)))
 
 	// Plugins Folder: Installed/Available/Installed Plugins Data
+
 	plugin := http.FileServer(http.Dir(viper.GetString("directories.plugin")))
-	http.Handle("/plugins/", noCache(http.StripPrefix("/plugins/", plugin)))
+	mux.Handle("/plugins/", noCache(http.StripPrefix("/plugins/", plugin)))
 
 	// API Endpoints
 
-	// For the proper filtering of items, and hopeful searching, here will be an api call for js to get all items as json
-	http.HandleFunc("/api/items", handler.APIItemsHandler)
-	http.HandleFunc("/api/serversettings", handler.APIServerSettingsGet)
-	http.HandleFunc("/api/changelang", handler.ChangeLang) // /api/changelang?lang=en
-	http.HandleFunc("/api/usersettings", handler.APIUserSettingGet)
-	//http.HandleFunc("/api/usersettingswrite", model.UserSettingSet)
-	http.HandleFunc("/api/usersettingswrite", handler.UserSettingSet)
+	mux.Handle("/api/items", http.HandlerFunc(handler.APIItemsHandler))
+	mux.Handle("/api/serversettings", http.HandlerFunc(handler.APIServerSettingsGet))
+	mux.Handle("/api/changelang", http.HandlerFunc(handler.ChangeLang)) // /api/changelang?lang=en
+	mux.Handle("/api/usersettings", http.HandlerFunc(handler.APIUserSettingGet))
+	mux.Handle("/api/usersettingswrite", http.HandlerFunc(handler.UserSettingSet))
 
-	// Below will be API declarations used for plugins
-	http.HandleFunc("/api/ping", handler.APIPingHandler)
-	http.HandleFunc("/api/ping/nossl", handler.APIPingNoSSLHandler)
-	http.HandleFunc("/api/hostname", handler.APIHostNameHandler)
-	http.HandleFunc("/api/hostos", handler.APIHostOSHandler)
-	http.HandleFunc("/api/getinstalledplugins", handler.APIInstalledPluginsHandler)
+	// API Declarations used for plugins
+	mux.Handle("/api/ping", http.HandlerFunc(handler.APIPingHandler))
+	mux.Handle("/api/ping/nossl", http.HandlerFunc(handler.APIPingNoSSLHandler))
+	mux.Handle("/api/hostname", http.HandlerFunc(handler.APIHostNameHandler))
+	mux.Handle("/api/hostos", http.HandlerFunc(handler.APIHostOSHandler))
+	mux.Handle("/api/getinstalledplugins", http.HandlerFunc(handler.APIInstalledPluginsHandler))
 
 	// We are wrapping the listen in log.Fatal since it will only ever return an error, but otherwise nil
-	log.Fatal(http.ListenAndServe(":"+viper.GetString("server.port"), nil))
+	//log.Fatal(http.ListenAndServe(":"+viper.GetString("server.port"), nil))
+	log.Fatal(http.ListenAndServe(":"+viper.GetString("server.port"), mux))
 }
