@@ -41,7 +41,9 @@ var universe = {
 
     if (typeof additionalDetails === "string") {
       // If additional details have been specified, we want to then allow the icon to be clickable
-      //
+
+      snackbar.className += " clickable";
+
       var showModalTemplateHandler = () => {
         this.ShowTemplateModal(additionalDetails);
       };
@@ -55,15 +57,27 @@ var universe = {
     }
     snackbar.className += " show";
 
-    setTimeout(function () {
-      snackbar.className = snackbar.className.replace("show", "");
-      if (typeof extraClass === "string") {
-        snackbar.className = snackbar.className.replace(extraClass, "");
+    var eleAnim = document.getElementsByClassName("snackbar")[0];
+    // this will get the snackbar bby the class, assuming only one exists on the page
+    // and will be used to hopefully sync the timeout of removing the element, and css animation
+
+    eleAnim.addEventListener("animationend", function (event) {
+      // since the snackbar uses snack-fadein, and snack-fadeout
+      // we know we only want to exit when fadein finishes
+      if (event.animationName == "snack-fadeout") {
+        snackbar.className = snackbar.className.replace(" show", "");
+        if (typeof extraClass === "string") {
+          snackbar.className = snackbar.className.replace(extraClass, "");
+        }
+        // also remove the clickable class if the snackbar has extra details to show
+        if (typeof additionalDetails === "string") {
+          snackbar.className = snackbar.className.replace(" clickable", "");
+        }
+        if (typeof callback === "function") {
+          callback();
+        }
       }
-      if (typeof callback === "function") {
-        callback();
-      }
-    }, 3000);
+    });
   },
   SnackbarError: function (id, textToShow, callback, details) {
     // A simple way to invoke SnackbarCommon while assigning the error class to the snackbar
@@ -219,7 +233,7 @@ var universe = {
       );
     }
   },
-  Loader: function(shouldShow) {
+  Loader: function (shouldShow) {
     // 1st argument shouldShow = boolean specifying weather this is turning it off, or on
     var loaderEle = document.getElementsByClassName("loader")[0];
 
@@ -230,7 +244,9 @@ var universe = {
         loaderEle.style.display = "none";
       }
     } else {
-      console.log("Loader expects first argument Boolean of whether or not to show the loader.");
+      console.log(
+        "Loader expects first argument Boolean of whether or not to show the loader."
+      );
     }
   },
 };

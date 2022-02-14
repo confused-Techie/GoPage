@@ -20,7 +20,11 @@
   However, delay the fade out process for 2.5 seconds */
 
   -webkit-animation: snack-fadein 0.5s, snack-fadeout 0.5s 2.5s;
-  animation: snack-fadein 0.5s, snack-fadeout 0.5s 2.5s;
+  animation: snack-fadein 0.5s, snack-fadeout 0.5s 4.5s;
+}
+
+.snackbar.show:hover {
+  animation-play-state: paused;
 }
 
 .snackbar.grid {
@@ -43,12 +47,54 @@
   padding-left: 0.5vh;
 }
 
+.snackbar.clickable .icon img {
+  -webkit-animation: snackbar-breathing 2s ease-out infinite normal;
+  animation: snackbar-breathing 2s ease-out infinite normal;
+}
+
 .snackbar.success {
   background-color: var(--confirm-action-back-drop-colour);
 }
 
 .snackbar.error {
   background-color: var(--error-action-back-drop-colour);
+}
+
+@-webkit-keyframes snackbar-breathing {
+  0% {
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+
+  60% {
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+  }
+
+  100% {
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+}
+
+@keyframes snackbar-breathing {
+  0% {
+    -webkit-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+
+  60% {
+    -webkit-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    transform: scale(1.2);
+  }
+
+  100% {
+    -webkit-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    transform: scale(0.9);
+  }
 }
 
 /* animations to fade the snackbar in and out */

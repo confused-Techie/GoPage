@@ -342,7 +342,7 @@ function newItemModal() {
 
     if (typeof formData === "string") {
       universe.Loader(false);
-      
+
       universe.SnackbarError(
         "snackbar",
         formData,

@@ -245,12 +245,12 @@ func UserSettingGet() (au *UserSetting) {
 }
 
 type HTTPReqInfo struct {
-	Method string
-	Uri string
-	Referer string
-	Ipaddr string
-	Code int
-	Size int64
-	Duration time.Duration
+	Method    string
+	Uri       string
+	Referer   string
+	Ipaddr    string
+	Code      int
+	Size      int64
+	Duration  time.Duration
 	UserAgent string
 }

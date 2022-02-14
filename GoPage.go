@@ -4,15 +4,15 @@ import (
 	"fmt"
 	config "github.com/confused-Techie/GoPage/src/pkg/config"
 	handler "github.com/confused-Techie/GoPage/src/pkg/handler"
+	model "github.com/confused-Techie/GoPage/src/pkg/model"
 	modifySettings "github.com/confused-Techie/GoPage/src/pkg/modifySettings"
 	universalMethods "github.com/confused-Techie/GoPage/src/pkg/universalMethods"
-	model "github.com/confused-Techie/GoPage/src/pkg/model"
+	httpsnoop "github.com/felixge/httpsnoop"
 	"github.com/spf13/viper"
 	"log"
 	"net/http"
-	"time"
 	"strings"
-	httpsnoop "github.com/felixge/httpsnoop"
+	"time"
 )
 
 // Below no caching mechanism borrowed from elithrar stackoverflow
@@ -90,11 +90,11 @@ func logRequestHandler(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		//h.ServeHTTP(w, r)
 		ri := &model.HTTPReqInfo{
-			Method: r.Method,
-			Uri: r.URL.String(),
-			Referer: r.Header.Get("Referer"),
+			Method:    r.Method,
+			Uri:       r.URL.String(),
+			Referer:   r.Header.Get("Referer"),
 			UserAgent: r.Header.Get("User-Agent"),
-			Ipaddr: requestGetRemoteAddress(r),
+			Ipaddr:    requestGetRemoteAddress(r),
 		}
 		// httpsnoop runs its own handler, so h.ServeHTTP(w, r) is no longer needed
 		snoop := httpsnoop.CaptureMetrics(h, w, r)
@@ -102,7 +102,7 @@ func logRequestHandler(h http.Handler) http.Handler {
 		ri.Size = snoop.Written
 		ri.Duration = snoop.Duration
 
-		log.Printf("'%s %s' from %s - %d %dB in %v\n", ri.Method, ri.Uri,ri.Ipaddr, ri.Code, ri.Size, ri.Duration)
+		log.Printf("'%s %s' from %s - %d %dB in %v\n", ri.Method, ri.Uri, ri.Ipaddr, ri.Code, ri.Size, ri.Duration)
 	})
 
 }

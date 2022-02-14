@@ -99,7 +99,7 @@ function returnData(itemName, action, status, details) {
 
   // but first first, lets disbale any active loader
   universe.Loader(false);
-  
+
   // first we will validate the multiple options
   if (status != "pass" && status != "fail") {
     console.error(`Invalid status passed to return data: ${status}`);

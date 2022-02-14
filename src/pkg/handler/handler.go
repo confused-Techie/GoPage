@@ -250,10 +250,10 @@ func LinkHealthPageHandler(w http.ResponseWriter, r *http.Request) {
 func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
 
 	data := model.PageTemplate{
-		Title: "404 Not Found",
-		Theme: "/assets/css/theme-dark.css",
-		CSS: []string{"/assets/css/dist/universal.min.css"},
-		TargetStrings: returnTargetStrings(),
+		Title:          "404 Not Found",
+		Theme:          "/assets/css/theme-dark.css",
+		CSS:            []string{"/assets/css/dist/universal.min.css"},
+		TargetStrings:  returnTargetStrings(),
 		DefaultStrings: returnDefaultStrings(),
 		TargetLanguage: model.ServSettingGetLang(),
 	}
