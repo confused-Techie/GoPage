@@ -247,6 +247,7 @@ func LinkHealthPageHandler(w http.ResponseWriter, r *http.Request) {
 	errorHandler.StandardError(templateError)
 }
 
+// NotFoundHandler is the HTTP handler for a NotFound resource, directed to by the notFoundHandler middleware 
 func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
 
 	data := model.PageTemplate{

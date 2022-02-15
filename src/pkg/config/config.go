@@ -53,9 +53,11 @@ func DetermineEnv() string {
 	devEnv := flag.Bool("dev", false, "a bool")
 	dockerEnv := flag.Bool("docker", false, "a bool")
 	langEnv := flag.String("lang", "", "a string")
+	logEnv := flag.String("logging", "", "a string")
 	flag.Parse()
 
 	modifySettings.SetLangEnv(*langEnv)
+	modifySettings.SetLoggingEnv(*logEnv)
 
 	if *devEnv {
 		return "."

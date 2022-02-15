@@ -138,6 +138,7 @@ type ServSetting struct {
 	Version  string `json:"version"`
 	Author   string `json:"author"`
 	Language string `json:"lang"`
+	Logging  string `json:"logging"`
 }
 
 // FullServSetting a struct to contain the standard ServSetting AND the hostname and OS
@@ -178,6 +179,12 @@ func ServSettingGetLang() string {
 	return srvStting.Language
 }
 
+// ServSettingGetLogging allows a simple interface that returns a string of the logging format specified.
+func ServSettingGetLogging() string {
+	srvStting := ServSettingGet()
+	return srvStting.Logging
+}
+
 // ServSettingSetLang is made to modify the server settings language value only
 func ServSettingSetLang(newLang string) (string, error) {
 	origFile, err := os.OpenFile(viper.GetString("directories.setting")+"/serverSettings.json", os.O_RDWR|os.O_APPEND, 0666)
@@ -208,6 +215,37 @@ func ServSettingSetLang(newLang string) (string, error) {
 	ioutil.WriteFile(viper.GetString("directories.setting")+"/serverSettings.json", newSrvStting, 0666)
 
 	return "Successfully Changed Server Language to: " + newLang, nil
+}
+
+// ServSettingSetLogging takes a string of the new logging format and write it to the file, returning a string message of the action or error
+func ServSettingSetLogging(newLogging string) (string, error) {
+	origFile, err := os.OpenFile(viper.GetString("directories.setting")+"/serverSettings.json", os.O_RDWR|os.O_APPEND, 0666)
+	if err != nil {
+		fmt.Println(err)
+		return "", err
+	}
+	origBytes, err := ioutil.ReadAll(origFile)
+	var origSrvStting ServSetting
+	json.Unmarshal(origBytes, &origSrvStting)
+	if err != nil {
+		fmt.Println(err)
+		return "", err
+	}
+
+	// then with the original file unpacked, we can modify the logging variable and write it back to its fiel
+	if origSrvStting.Logging != newLogging {
+		origSrvStting.Logging = newLogging
+	} else {
+		return "No Change Needed to Server Logging from: " + newLogging, nil
+	}
+
+	newSrvStting, err := json.MarshalIndent(&origSrvStting, "", "")
+	if err != nil {
+		fmt.Println(err)
+		return "", err
+	}
+	ioutil.WriteFile(viper.GetString("directories.setting")+"/serverSettings.json", newSrvStting, 0666)
+	return "Successfully Changed Server Logging to: " + newLogging, nil
 }
 
 // UserSetting struct is made to contain the JSON of User settings
@@ -244,6 +282,7 @@ func UserSettingGet() (au *UserSetting) {
 	return &usrStting
 }
 
+// HTTPReqInfo is used for the HTTP logging middleware as a simple struct to pack its logged info into for easy access 
 type HTTPReqInfo struct {
 	Method    string
 	Uri       string
@@ -253,4 +292,5 @@ type HTTPReqInfo struct {
 	Size      int64
 	Duration  time.Duration
 	UserAgent string
+	Protocol  string
 }

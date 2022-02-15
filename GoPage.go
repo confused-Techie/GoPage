@@ -94,6 +94,7 @@ func logRequestHandler(h http.Handler) http.Handler {
 			Uri:       r.URL.String(),
 			Referer:   r.Header.Get("Referer"),
 			UserAgent: r.Header.Get("User-Agent"),
+			Protocol:  r.Proto,
 			Ipaddr:    requestGetRemoteAddress(r),
 		}
 		// httpsnoop runs its own handler, so h.ServeHTTP(w, r) is no longer needed
@@ -102,7 +103,22 @@ func logRequestHandler(h http.Handler) http.Handler {
 		ri.Size = snoop.Written
 		ri.Duration = snoop.Duration
 
-		log.Printf("'%s %s' from %s - %d %dB in %v\n", ri.Method, ri.Uri, ri.Ipaddr, ri.Code, ri.Size, ri.Duration)
+		logMethod := model.ServSettingGetLogging()
+
+		const (
+			NCSACommonFormat = "02/Jan/2006:15:04:05 -0700"
+		)
+		date := time.Now()
+
+		if logMethod == "combined" {
+			fmt.Printf("%s  - - [%s] '%s %s %s' %d %d '%s' '%s'\n", ri.Ipaddr, date.Format(NCSACommonFormat), ri.Method, ri.Uri, ri.Protocol, ri.Code, ri.Size, ri.Referer, ri.UserAgent)
+		}
+		if logMethod == "common" {
+			fmt.Printf("%s - - [%s] '%s %s %s' %d %d\n", ri.Ipaddr, date.Format(NCSACommonFormat), ri.Method, ri.Uri, ri.Protocol, ri.Code, ri.Size)
+		}
+		if logMethod == "custom" {
+			log.Printf("'%s %s' from %s - %d %dB in %v\n", ri.Method, ri.Uri, ri.Ipaddr, ri.Code, ri.Size, ri.Duration)
+		}
 	})
 
 }
@@ -142,6 +158,12 @@ func main() {
 		log.Fatal("Cannot Determine Server Language: ", err)
 	}
 	fmt.Println(universalMethods.LogInjectionAvoidance(langEnv))
+
+	logEnv, err := modifySettings.DetermineLogging()
+	if err != nil {
+		log.Fatal("Cannot Determine")
+	}
+	fmt.Println(universalMethods.LogInjectionAvoidance(logEnv))
 
 	// Reading variables using the model. This is for dev purposes
 	fmt.Println("Server Port: \t", config.Server.Port)
