@@ -111,7 +111,7 @@ func SettingsPageHandler(w http.ResponseWriter, r *http.Request) {
 		Title:          "GoPage - Settings",
 		Theme:          "/assets/css/theme-dark.css",
 		CSS:            []string{"/assets/css/dist/universal.min.css", "/assets/css/dist/settings.min.css"},
-		JS:             []string{"/assets/js/universal.js", "/assets/js/langHandler.js"},
+		JS:             []string{"/assets/js/universal.js", "/assets/js/langHandler.js", "/assets/js/settings.js", "/assets/js/universe.js"},
 		Data:           au,
 		TargetStrings:  returnTargetStrings(),
 		DefaultStrings: returnDefaultStrings(),
@@ -124,6 +124,9 @@ func SettingsPageHandler(w http.ResponseWriter, r *http.Request) {
 		returnDynamicSubTemplate("footer.gohtml"),
 		returnDynamicSubTemplate("head.gohtml"),
 		returnDynamicSubTemplate("noscript.gohtml"),
+		returnDynamicSubTemplate("snackbar.gohtml"),
+		returnDynamicSubTemplate("modal.gohtml"),
+		returnDynamicSubTemplate("returnsGlobalJS.gohtml"),
 	}
 
 	tmpl["settings.html"] = template.Must(template.ParseFiles(templateArray...))
@@ -247,7 +250,7 @@ func LinkHealthPageHandler(w http.ResponseWriter, r *http.Request) {
 	errorHandler.StandardError(templateError)
 }
 
-// NotFoundHandler is the HTTP handler for a NotFound resource, directed to by the notFoundHandler middleware 
+// NotFoundHandler is the HTTP handler for a NotFound resource, directed to by the notFoundHandler middleware
 func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
 
 	data := model.PageTemplate{

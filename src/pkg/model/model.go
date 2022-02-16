@@ -282,7 +282,7 @@ func UserSettingGet() (au *UserSetting) {
 	return &usrStting
 }
 
-// HTTPReqInfo is used for the HTTP logging middleware as a simple struct to pack its logged info into for easy access 
+// HTTPReqInfo is used for the HTTP logging middleware as a simple struct to pack its logged info into for easy access
 type HTTPReqInfo struct {
 	Method    string
 	Uri       string

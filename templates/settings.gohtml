@@ -63,6 +63,79 @@
         </div>
       </div>
 
+      <div class="settingsContainerOptions bar-list-bars">
+        <div class="server-settings">
+          <label>
+            <h3>
+              {{ or
+                (index .TargetStrings "i18n-serverSummaryServerLanguage")
+                (index .DefaultStrings "i18n-serverSummaryServerLanguage")
+              }}:
+            </h3>
+          </label>
+          <input type="text" list="changeLang" autocomplete="off" value=" {{ .TargetLanguage }}" id="changeLangInput"/>
+          <datalist id="changeLang">
+            <option value="ar">Arabic</option>
+            <option value="de">German</option>
+            <option value="en">English</option>
+            <option value="es">Spanish</option>
+            <option value="fr">French</option>
+            <option value="ja">Japanese</option>
+            <option value="ko">Korean</option>
+            <option value="zh">Chinese - Traditional</option>
+            <option value="ru">Russian</option>
+          </datalist>
+          <button class="hover-shadow-radial grow-shadow-hover simple-button btn-create" id="submitLangBtn">
+            {{ or
+              (index .TargetStrings "i18n-modalFirstTimeLangSubmit")
+              (index .DefaultStrings "i18n-modalFirstTimeLangSubmit")
+            }}
+          </button>
+          <br/>
+          <label><h3>Logging:</h3></label>
+          <input type="text" value="In Progress"/>
+          <br/>
+          <label><h3>Robots:</h3></label>
+          <input type="text" value="In Progress"/>
+          <br/>
+        </div>
+        <div class="host-settings">
+          <label>
+            <h3>
+              {{ or
+                (index .TargetStrings "i18n-toolNameBackgroundImage")
+                (index .DefaultStrings "i18n-toolNameBackgroundImage")
+              }}:
+            </h3>
+          </label>
+          <button class="hover-shadow-radial grow-shadow-hover simple-button btn-create" href="/uploadpage">
+            {{ or
+              (index .TargetStrings "i18n-toolNameBackgroundImage")
+              (index .DefaultStrings "i18n-toolNameBackgroundImage")
+            }}
+          </button>
+          <br/>
+          <label>
+            <h3>
+              {{or
+                (index .TargetStrings "i18n-modalHeaderPlugin")
+                (index .DefaultStrings "i18n-modalHeaderPlugin")
+              }}:
+            </h3>
+          </label>
+          <button class="hover-shadow-radial grow-shadow-hover simple-button btn-destroy" id="removeLeftHeaderPluginBtn">
+            Remove Left Header Plugin
+          </button>
+          <button class="hover-shadow-radial grow-shadow-hover simple-button btn-destroy" id="removeRightHheaderPluginBtn">
+            Remove Right Header Plugin
+          </button>
+          <br/>
+          <label><h3>Active Theme:</h3></label>
+          <input type="text" value="In Progress"/>
+          <br/>
+        </div>
+      </div>
+
       <div class="seperator">
         <h2>{{ or
               (index .TargetStrings "i18n-headerTools")
@@ -153,6 +226,12 @@
         </div>
       </div>
     </div>
+
+    {{ template "snackbar" . }}
+
+    {{ template "returnsGlobalJS" . }}
+
+    {{ template "modal" . }}
 
     {{template "footer" .}}
 

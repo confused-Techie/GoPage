@@ -27,7 +27,7 @@ func DetermineLang() (string, error) {
 }
 
 // DetermineLogging takes no arguments, which invokes model.ServSettingSetLogging with the scoped global variable
-// commandLineLogging to set that variable as the saved one, or continue with the default logging method 
+// commandLineLogging to set that variable as the saved one, or continue with the default logging method
 func DetermineLogging() (string, error) {
 	if commandLineLogging != "" {
 		fmt.Println("Checking Declared Logging against default.")
