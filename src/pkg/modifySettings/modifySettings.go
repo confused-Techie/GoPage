@@ -7,6 +7,7 @@ import (
 
 var commandLineString string
 var commandLineLogging string
+var commandLineRobots string
 
 // DetermineLang is called by Main() in GoPage.go to check the global var commandLineString in modifySettings and
 // if defined pass it to model.go
@@ -23,7 +24,7 @@ func DetermineLang() (string, error) {
 		return resp, nil
 	}
 
-	return "Server Language Not Specified, Defaulting to English", nil
+	return "Server Language Not Specified, Defaulting to Config", nil
 }
 
 // DetermineLogging takes no arguments, which invokes model.ServSettingSetLogging with the scoped global variable
@@ -38,7 +39,19 @@ func DetermineLogging() (string, error) {
 		return resp, nil
 	}
 
-	return "Server Logging Not Specified, Defaulting to Custom", nil
+	return "Server Logging Not Specified, Defaulting to Config", nil
+}
+
+func DetermineRobots() (string, error) {
+	if commandLineRobots != "" {
+		fmt.Println("Checking Declared Robots against the default.")
+		resp, err := model.ServSettingSetRobots(commandLineRobots)
+		if err != nil {
+			return "", err
+		}
+		return resp, nil
+	}
+	return "Server Robots Setting Not Specified, Defaulting to Config", nil
 }
 
 // SetLangEnv is to receive the command line specified language from config.go
@@ -49,4 +62,9 @@ func SetLangEnv(provided string) {
 // SetLoggingEnv receives the command line string from config.go DetermineEnv
 func SetLoggingEnv(provided string) {
 	commandLineLogging = provided
+}
+
+// SetRobotsEnv receives the commmand line string from config.go DetermineEnv
+func SetRobotsEnv(provided string) {
+	commandLineRobots = provided
 }

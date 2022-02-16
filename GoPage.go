@@ -165,6 +165,13 @@ func main() {
 	}
 	fmt.Println(universalMethods.LogInjectionAvoidance(logEnv))
 
+	// this is used to cause a startup check for the robots method
+	robotsEnv, err := modifySettings.DetermineRobots()
+	if err != nil {
+		log.Fatal("Cannot Determine Robots Setting: ", err)
+	}
+	fmt.Println(universalMethods.LogInjectionAvoidance(robotsEnv))
+
 	// Reading variables using the model. This is for dev purposes
 	fmt.Println("Server Port: \t", config.Server.Port)
 

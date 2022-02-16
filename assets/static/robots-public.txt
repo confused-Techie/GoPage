@@ -1,0 +1,11 @@
+# Setting a static User-agent: * doesn't apply to the various AdsBot Crawlers, which need to be named explicitly
+User-agent: *
+# Below is a list of Crawler User-Agents that must be named explicitly
+User-agent: AdsBot-Google-Mobile
+User-agent: AdsBot-Google
+User-agent: Mediapartners-Google
+User-agent: AdsBot-Google-Mobile-Apps
+Allow: /
+# If planning to use this as a public facing site, and allowing certain user-agents to crawl,
+# keep in mind the sitemap MUST be a fully qualified domain.
+Sitemap: http://localhost:8080/sitemap.xml

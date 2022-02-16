@@ -3,5 +3,6 @@
   "version": "0.4",
   "author": "confused-Techie",
   "lang": "en",
-  "logging": "custom"
+  "logging": "custom",
+  "robots": "private"
 }

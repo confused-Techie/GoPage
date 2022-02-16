@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	apiFunc "github.com/confused-Techie/GoPage/src/pkg/apiFunc"
+	diskhandles "github.com/confused-Techie/GoPage/src/pkg/diskhandles"
 	universalMethods "github.com/confused-Techie/GoPage/src/pkg/universalMethods"
 	"github.com/spf13/viper"
 	"io/ioutil"
@@ -139,6 +140,7 @@ type ServSetting struct {
 	Author   string `json:"author"`
 	Language string `json:"lang"`
 	Logging  string `json:"logging"`
+	Robots   string `json:"robots"`
 }
 
 // FullServSetting a struct to contain the standard ServSetting AND the hostname and OS
@@ -163,12 +165,10 @@ func FullServSettingGet() (au *FullServSetting) {
 
 // ServSettingGet returns the item of Server Settings to allow templating
 func ServSettingGet() (au *ServSetting) {
-	file, err := os.OpenFile(viper.GetString("directories.setting")+"/serverSettings.json", os.O_RDWR|os.O_APPEND, 0666)
+	b, err := diskhandles.ReadFromDiskToBytes(viper.GetString("directories.setting") + "/serverSettings.json")
 	checkError(err)
-	b, err := ioutil.ReadAll(file)
 	var srvStting ServSetting
 	json.Unmarshal(b, &srvStting)
-	checkError(err)
 	return &srvStting
 }
 
@@ -179,6 +179,12 @@ func ServSettingGetLang() string {
 	return srvStting.Language
 }
 
+// ServSettingGetRobots returns the string of whichh method of robots file to use.
+func ServSettingGetRobots() string {
+	srvStting := ServSettingGet()
+	return srvStting.Robots
+}
+
 // ServSettingGetLogging allows a simple interface that returns a string of the logging format specified.
 func ServSettingGetLogging() string {
 	srvStting := ServSettingGet()
@@ -187,12 +193,8 @@ func ServSettingGetLogging() string {
 
 // ServSettingSetLang is made to modify the server settings language value only
 func ServSettingSetLang(newLang string) (string, error) {
-	origFile, err := os.OpenFile(viper.GetString("directories.setting")+"/serverSettings.json", os.O_RDWR|os.O_APPEND, 0666)
-	if err != nil {
-		fmt.Println(err)
-		return "", err
-	}
-	origBytes, err := ioutil.ReadAll(origFile)
+
+	origBytes, err := diskhandles.ReadFromDiskToBytes(viper.GetString("directories.setting") + "/serverSettings.json")
 	var origSrvStting ServSetting
 	json.Unmarshal(origBytes, &origSrvStting)
 	if err != nil {
@@ -207,14 +209,35 @@ func ServSettingSetLang(newLang string) (string, error) {
 		return "No Change Needed to Server Language from: " + newLang, nil
 	}
 
-	newSrvStting, err := json.MarshalIndent(&origSrvStting, "", "")
+	_, err = diskhandles.WriteToDiskFromUnmarshal(&origSrvStting, viper.GetString("directories.setting")+"/serverSettings.json")
 	if err != nil {
 		fmt.Println(err)
 		return "", err
 	}
-	ioutil.WriteFile(viper.GetString("directories.setting")+"/serverSettings.json", newSrvStting, 0666)
 
 	return "Successfully Changed Server Language to: " + newLang, nil
+}
+
+func ServSettingSetRobots(newRobots string) (string, error) {
+	origBytes, err := diskhandles.ReadFromDiskToBytes(viper.GetString("directories.setting") + "/serverSettings.json")
+	var origSrvStting ServSetting
+	json.Unmarshal(origBytes, &origSrvStting)
+	if err != nil {
+		fmt.Println(err)
+		return "", err
+	}
+	if origSrvStting.Robots != newRobots {
+		origSrvStting.Robots = newRobots
+	} else {
+		return "No Change Needed to Robots Setting from: " + newRobots, nil
+	}
+
+	_, err = diskhandles.WriteToDiskFromUnmarshal(&origSrvStting, viper.GetString("directories.setting")+"/serverSettings.json")
+	if err != nil {
+		fmt.Println(err)
+		return "", err
+	}
+	return "Successfully Changed Server Robots Settings to: " + newRobots, nil
 }
 
 // ServSettingSetLogging takes a string of the new logging format and write it to the file, returning a string message of the action or error

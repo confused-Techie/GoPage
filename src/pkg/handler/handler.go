@@ -315,7 +315,11 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 
 // RobotsHandler is a simple static file server for a robots file, if this happens to exposed to the internet
 func RobotsHandler(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, viper.GetString("directories.staticAssets")+"static/robots.txt")
+	if model.ServSettingGetRobots() == "public" {
+		http.ServeFile(w, r, viper.GetString("directories.staticAssets")+"static/robots-public.txt")
+	} else {
+		http.ServeFile(w, r, viper.GetString("directories.staticAssets")+"static/robots-private.txt")
+	}
 }
 
 // SitemapHandler is a simple static file server for the sitemap at the root
