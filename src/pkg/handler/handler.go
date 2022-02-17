@@ -14,6 +14,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+	"regexp"
 	"strconv"
 )
 
@@ -376,6 +377,7 @@ func ChangeLang(w http.ResponseWriter, r *http.Request) {
 	if !ok || len(keys[0]) < 1 {
 		fmt.Println("URL Param 'lang' is missing")
 		json.NewEncoder(w).Encode("URL Param 'lang' is missing")
+		return
 	}
 	newLang := keys[0]
 
@@ -385,8 +387,60 @@ func ChangeLang(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println("Error Occurred when setting Lang: ", err)
 		json.NewEncoder(w).Encode("Error Occurred when setting Lang")
+		return
 	}
 	json.NewEncoder(w).Encode(html.EscapeString(resp))
+}
+
+func ChangeMany(w http.ResponseWriter, r *http.Request) {
+	// ?id={OPTION_NAME}&value={VALUE}
+	id := r.URL.Query().Get("id")
+	idReg, err := regexp.MatchString(`^\w+`, id)
+	if err != nil {
+		fmt.Println("Error with Regex in ID URL Parameter Check: ", err)
+		json.NewEncoder(w).Encode(html.EscapeString("Error Occured Checking ID URL Parameter"))
+		return
+	}
+	if !idReg {
+		fmt.Println("Error Occured getting ID URL Parameter: ", err)
+		json.NewEncoder(w).Encode(html.EscapeString("Error Occured Getting ID URL Parameter"))
+		return
+	}
+	value := r.URL.Query().Get("value")
+	valueReg, err := regexp.MatchString(`^\w+`, value)
+	if err != nil {
+		fmt.Println("Error with Regex in Value URL Parameter Check: ", err)
+		json.NewEncoder(w).Encode(html.EscapeString("Error Occured Checking Value URL Parameter"))
+		return
+	}
+	if !valueReg {
+		fmt.Println("Error Occured getting Value URL Paremeter: ", err)
+		json.NewEncoder(w).Encode(html.EscapeString("Error Occured Getting Value URL Parameter"))
+		return
+	}
+
+	if id == "logging" {
+		modifySettings.SetLoggingEnv(value)
+		resp, err := modifySettings.DetermineLogging()
+		if err != nil {
+			fmt.Println("Error Occured Setting Logging: ", err)
+			json.NewEncoder(w).Encode("Error Occured when setting Logging")
+			return
+		}
+		json.NewEncoder(w).Encode(html.EscapeString(resp))
+		return
+	}
+	if id == "robots" {
+		modifySettings.SetRobotsEnv(value)
+		resp, err := modifySettings.DetermineRobots()
+		if err != nil {
+			fmt.Println("Error Occured Setting Robots: ", err)
+			json.NewEncoder(w).Encode("Error Occured when setting Robots")
+			return
+		}
+		json.NewEncoder(w).Encode(html.EscapeString(resp))
+		return
+	}
 }
 
 // ---------------- Link Item Handlers

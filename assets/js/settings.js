@@ -10,6 +10,8 @@ function onclickHandlers() {
   var removeRightHheaderPluginBtn = document.getElementById(
     "removeRightHheaderPluginBtn"
   );
+  var submitLoggingBtn = document.getElementById("submitLoggingBtn");
+  var submitRobotsBtn = document.getElementById("submitRobotsBtn");
 
   submitLangBtn.onclick = function () {
     var chosenLang = document.getElementById("changeLangInput").value;
@@ -37,6 +39,16 @@ function onclickHandlers() {
 
   removeRightHheaderPluginBtn.onclick = function () {
     removeHeaderPlugin("right");
+  };
+
+  submitLoggingBtn.onclick = function () {
+    var chosenLogging = document.getElementById("changeLoggingInput").value;
+    changeOptionsAPI("logging", chosenLogging);
+  };
+
+  submitRobotsBtn.onclick = function () {
+    var chosenRobots = document.getElementById("changeRobotsInput").value;
+    changeOptionsAPI("robots", chosenRobots);
   };
 }
 
@@ -70,4 +82,40 @@ function removeHeaderPlugin(side) {
           }
         });
     });
+}
+
+function changeOptionsAPI(item, value) {
+  console.log(value);
+  fetch(`/api/change?id=${item}&value=${value.trim()}`)
+    .then((res) => {
+      if (doesJSONParse(res)) {
+        return res.json();
+      } else {
+        return res.text();
+      }
+    })
+    .then((data) => {
+      if (data.includes("Error")) {
+        universe.SnackbarError(
+          "snackbar",
+          i18n_returnValueGenericError,
+          false,
+          data
+        );
+      } else {
+        universe.SnackbarCommon(
+          "snackbar",
+          langHandler.UnicornComposite(i18n_returnsSuccessUpdate, item)
+        );
+      }
+    });
+}
+
+function doesJSONParse(data) {
+  try {
+    JSON.parse(data);
+    return true;
+  } catch (err) {
+    return false;
+  }
 }

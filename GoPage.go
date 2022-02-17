@@ -225,6 +225,8 @@ func main() {
 	mux.Handle("/api/items", http.HandlerFunc(handler.APIItemsHandler))
 	mux.Handle("/api/serversettings", http.HandlerFunc(handler.APIServerSettingsGet))
 	mux.Handle("/api/changelang", http.HandlerFunc(handler.ChangeLang)) // /api/changelang?lang=en
+	mux.Handle("/api/change", http.HandlerFunc(handler.ChangeMany))     // Used to change many different settings
+	// ^^ /api/change?id=logging&value=custom /api/change?id=robots&value=private
 	mux.Handle("/api/usersettings", http.HandlerFunc(handler.APIUserSettingGet))
 	mux.Handle("/api/usersettingswrite", http.HandlerFunc(handler.UserSettingSet))
 

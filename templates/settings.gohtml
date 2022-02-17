@@ -93,10 +93,31 @@
           </button>
           <br/>
           <label><h3>Logging:</h3></label>
-          <input type="text" value=" {{ .Data.ServerSettings.Logging }} "/>
+          <input type="text" value="{{ .Data.ServerSettings.Logging }}" list="changeLogging" id="changeLoggingInput" autocomplete="off"/>
+          <datalist id="changeLogging">
+            <option value="common"/>
+            <option value="custom"/>
+            <option value="combined"/>
+          </datalist>
+          <button class="hover-shadow-radial grow-shadow-hover simple-button btn-create" id="submitLoggingBtn">
+            {{ or
+              (index .TargetStrings "i18n-modalFirstTimeLangSubmit")
+              (index .DefaultStrings "i18n-modalFirstTimeLangSubmit")
+            }}
+          </button>
           <br/>
           <label><h3>Robots:</h3></label>
-          <input type="text" value=" {{ .Data.ServerSettings.Robots }} "/>
+          <input type="text" value="{{ .Data.ServerSettings.Robots }}" list="changeRobots" id="changeRobotsInput" autocomplete="off"/>
+          <datalist id="changeRobots">
+            <option value="public"/>
+            <option value="private"/>
+          </datalist>
+          <button class="hover-shadow-radial grow-shadow-hover simple-button btn-create" id="submitRobotsBtn">
+            {{ or
+              (index .TargetStrings "i18n-modalFirstTimeLangSubmit")
+              (index .DefaultStrings "i18n-modalFirstTimeLangSubmit")
+            }}
+          </button>
           <br/>
         </div>
         <div class="host-settings">
@@ -131,7 +152,7 @@
           </button>
           <br/>
           <label><h3>Active Theme:</h3></label>
-          <input type="text" value="In Progress"/>
+          <input type="text" value="In Progress" disabled/>
           <br/>
         </div>
       </div>
