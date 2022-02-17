@@ -43,12 +43,12 @@ function onclickHandlers() {
 
   submitLoggingBtn.onclick = function () {
     var chosenLogging = document.getElementById("changeLoggingInput").value;
-    changeOptionsAPI("logging", chosenLogging);
+    changeOptionsAPI(i18n_returnValueLogging, chosenLogging);
   };
 
   submitRobotsBtn.onclick = function () {
     var chosenRobots = document.getElementById("changeRobotsInput").value;
-    changeOptionsAPI("robots", chosenRobots);
+    changeOptionsAPI(i18n_returnValueRobots, chosenRobots);
   };
 }
 

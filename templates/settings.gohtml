@@ -92,7 +92,14 @@
             }}
           </button>
           <br/>
-          <label><h3>Logging:</h3></label>
+          <label>
+            <h3>
+              {{ or
+                (index .TargetStrings "i18n_returnValueLogging")
+                (index .DefaultStrings "i18n_returnValueLogging")
+              }}:
+            </h3>
+          </label>
           <input type="text" value="{{ .Data.ServerSettings.Logging }}" list="changeLogging" id="changeLoggingInput" autocomplete="off"/>
           <datalist id="changeLogging">
             <option value="common"/>
@@ -106,7 +113,14 @@
             }}
           </button>
           <br/>
-          <label><h3>Robots:</h3></label>
+          <label>
+            <h3>
+              {{ or
+                (index .TargetStrings "i18n_returnValueRobots")
+                (index .DefaultStrings "i18n_returnValueRobots")
+              }}:
+            </h3>
+          </label>
           <input type="text" value="{{ .Data.ServerSettings.Robots }}" list="changeRobots" id="changeRobotsInput" autocomplete="off"/>
           <datalist id="changeRobots">
             <option value="public"/>
@@ -145,10 +159,16 @@
             </h3>
           </label>
           <button class="hover-shadow-radial grow-shadow-hover simple-button btn-destroy" id="removeLeftHeaderPluginBtn">
-            Remove Left Header Plugin
+            {{ or
+              (index .TargetStrings "i18n-settingsRemoveLeftHeaderPlugin")
+              (index .DefaultStrings "i18n-settingsRemoveLeftHeaderPlugin")
+            }}
           </button>
           <button class="hover-shadow-radial grow-shadow-hover simple-button btn-destroy" id="removeRightHheaderPluginBtn">
-            Remove Right Header Plugin
+            {{ or
+              (index .TargetStrings "i18n-settingsRemoveRightHeaderPlugin")
+              (index .DefaultStrings "i18n-settingsRemoveLeftHeaderPlugin")
+            }}
           </button>
           <br/>
           <label><h3>Active Theme:</h3></label>
