@@ -76,5 +76,7 @@
   "i18n_returnValueAvailablePlugins": "Available Plugins",
   "i18n_returnValueLanguage": "Langauge",
   "i18n_returnValueLinkItem": "Link Item",
-  "i18n_returnValueHeaderPlugin": "Header Plugin"
+  "i18n_returnValueHeaderPlugin": "Header Plugin",
+  "i18n-settingsRemoveLeftHeaderPlugin": "Remove Left Header Plugin",
+  "i18n-settingsRemoveRightHeaderPlugin": "Remove Right Header Plugin"
 }
