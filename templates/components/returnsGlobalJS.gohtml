@@ -4,28 +4,113 @@
 // the amount of network requests needed, and clean up the code, this seems to balance, performance, and speed.
 
 // Generic Returns
-var i18n_returnsSuccessDelete = "Successfully Deleted '{0}'";
-var i18n_returnsFailureDelete = "Unsuccessfully Deleted '{0}'";
-var i18n_returnsSuccessInstall = "Successfully Installed '{0}'";
-var i18n_returnsFailureInstall = "Unsuccessfully Installed '{0}'";
-var i18n_returnsSuccessUpdate = "Successfully Updated '{0}'";
-var i18n_returnsFailureUpdate = "Unsuccessfully Updated '{0}'";
+var i18n_returnsSuccessDelete =
+  {{ or
+    (index .TargetStrings "i18n_returnsSuccessDelete")
+    (index .DefaultStrings "i18n_returnsSuccessDelete")
+  }};
+  
+var i18n_returnsFailureDelete =
+  {{ or
+    (index .TargetStrings "i18n_returnsFailureDelete")
+    (index .DefaultStrings "i18n_returnsFailureDelete")
+  }};
 
-var i18n_returnsSuccessAdd = "Successfully Added '{0}'";
-var i18n_returnsFailureAdd = "Unsuccessfully Added '{0}'";
+var i18n_returnsSuccessInstall =
+  {{ or
+    (index .TargetStrings "i18n_returnsSuccessInstall")
+    (index .DefaultStrings "i18n_returnsSuccessInstall")
+  }};
 
-var i18n_returnValueGenericError = "An Error Occured";
+var i18n_returnsFailureInstall =
+  {{ or
+    (index .TargetStrings "i18n_returnsFailureInstall")
+    (index .DefaultStrings "i18n_returnsFailureInstall")
+  }};
 
-var i18n_validateCategory = "Bad Category Value Entered.";
-var i18n_validateLink = "Bad Link Value Entered.";
-var i18n_validateName = "Bad Friendly Name Value Entered.";
+var i18n_returnsSuccessUpdate =
+  {{ or
+    (index .TargetStrings "i18n_returnsSuccessUpdate")
+    (index .DefaultStrings "i18n_returnsSuccessUpdate")
+  }};
 
-var i18n_returnValueAvailablePlugins = "Available Plugins";
-var i18n_returnValueLanguage = "Langauge";
-var i18n_returnValueLinkItem = "Link Item";
-var i18n_returnValueHeaderPlugin = "Header Plugin";
-var i18n_returnValueLogging = "Logging";
-var i18n_returnValueRobots = "Robots";
+var i18n_returnsFailureUpdate =
+  {{ or
+    (index .TargetStrings "i18n_returnsFailureUpdate")
+    (index .DefaultStrings "i18n_returnsFailureUpdate")
+  }};
+
+var i18n_returnsSuccessAdd =
+  {{ or
+    (index .TargetStrings "i18n_returnsSuccessAdd")
+    (index .DefaultStrings "i18n_returnsSuccessAdd")
+  }};
+
+var i18n_returnsFailureAdd =
+  {{ or
+    (index .TargetStrings "i18n_returnsFailureAdd")
+    (index .DefaultStrings "i18n_returnsFailureAdd")
+  }};
+
+var i18n_returnValueGenericError =
+  {{ or
+    (index .TargetStrings "i18n_returnValueGenericError")
+    (index .DefaultStrings "i18n_returnValueGenericError")
+  }};
+
+var i18n_validateCategory =
+  {{ or
+    (index .TargetStrings "i18n_validateCategory")
+    (index .DefaultStrings "i18n_validateCategory")
+  }};
+
+var i18n_validateLink =
+  {{ or
+    (index .TargetStrings "i18n_validateLink")
+    (index .DefaultStrings "i18n_validateLink")
+  }};
+
+var i18n_validateName =
+  {{ or
+    (index .TargetStrings "i18n_validateName")
+    (index .DefaultStrings "i18n_validateName")
+  }};
+
+var i18n_returnValueAvailablePlugins =
+  {{ or
+    (index .TargetStrings "i18n_returnValueAvailablePlugins")
+    (index .DefaultStrings "i18n_returnValueAvailablePlugins")
+  }};
+
+var i18n_returnValueLanguage =
+  {{ or
+    (index .TargetStrings "i18n_returnValueLanguage")
+    (index .DefaultStrings "i18n_returnValueLanguage")
+  }};
+
+var i18n_returnValueLinkItem =
+  {{ or
+    (index .TargetStrings "i18n_returnValueLinkItem")
+    (index .DefaultStrings "i18n_returnValueLinkItem")
+  }};
+
+var i18n_returnValueHeaderPlugin =
+  {{ or
+    (index .TargetStrings "i18n_returnValueHeaderPlugin")
+    (index .DefaultStrings "i18n_returnValueHeaderPlugin")
+  }};
+
+var i18n_returnValueLogging =
+  {{ or
+    (index .TargetStrings "i18n_returnValueLogging")
+    (index .DefaultStrings "i18n_returnValueLogging")
+  }};
+
+var i18n_returnValueRobots =
+  {{ or
+    (index .TargetStrings "i18n_returnValueRobots")
+    (index .DefaultStrings "i18n_returnValueRobots")
+  }};
 
 
 // Page Specific Strings

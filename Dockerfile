@@ -6,6 +6,8 @@ FROM golang:1.17
 
 # Set up environment variables with defaults that can be replacing during docker run
 ENV LANG="en"
+ENV ROBOTS="private"
+ENV LOGGING="custom"
 
 # Specify the default destination for all other commands
 WORKDIR /app
@@ -34,4 +36,4 @@ EXPOSE 8080
 
 # This tells docker what command to execute when our image is used to start a container
 # This had to be changed to invoke a shell to allow variable replacmeent, specifying a language
-CMD [ "sh", "-c", "/gopage -docker=true -lang=$LANG" ]
+CMD [ "sh", "-c", "/gopage -docker=true -lang=$LANG -logging=$LOGGING -robots=$ROBOTS" ]
