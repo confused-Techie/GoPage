@@ -41,13 +41,14 @@ function checkCustomBackgroundImage() {
         try {
           // It seems odly enough this wouldn't accept building this string as I normally would. But this does work
           document.body.style.backgroundImage = "url('" + locString + "')";
+          // The rest of these values should be ignored in the future, and left up to CSS to ensure a responsive image design.
           // the rest of these values should be taken from the JSON data
 
           // Valid Values: repeat, repeat-x, repeat-y, no-repeat, initial, inherit :: https://www.w3schools.com/jsref/prop_style_backgroundrepeat.asp
-          document.body.style.backgroundRepeat = data.customBackground.repeat;
+          //document.body.style.backgroundRepeat = data.customBackground.repeat;
 
           // Valid Values: auto, length, percentage, cover, contain, initial, inherit :: https://www.w3schools.com/jsref/prop_style_backgroundsize.asp
-          document.body.style.backgroundSize = data.customBackground.size;
+          //document.body.style.backgroundSize = data.customBackground.size;
         } catch (err) {
           //console.log(err);
         }

@@ -88,10 +88,12 @@ As to be honest I've hated CSS for years. */
   display: none;
   position: relative;
   border-bottom: 0.3rem solid var(--card-back-drop-colour-border);
+  border-top: 0.3rem solid transparent;
 }
 
 .filterDiv:hover {
   background-color: var(--card-back-drop-colour-hover);
+  border-top: 0.3rem solid var(--card-back-drop-colour-border);
 }
 
 @keyframes fadeEffect {

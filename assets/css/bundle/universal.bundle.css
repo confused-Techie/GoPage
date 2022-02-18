@@ -21,7 +21,7 @@
   min-width: 15%;
   min-height: 10%;
   margin-right: 5px;
-  margin-top: 5px;
+  margin-top: 15px;
 }
 
 .boxy-card-daily {
@@ -384,6 +384,9 @@ body {
   margin: 0 0 50px 0;
   background-image: none;
   font-family: "consolas", sans-serif;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 a {
