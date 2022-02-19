@@ -13,6 +13,10 @@ import (
 	"net/http"
 	"strings"
 	"time"
+	"compress/gzip"
+	"io"
+	"sync"
+	"io/ioutil"
 )
 
 // Below no caching mechanism borrowed from elithrar stackoverflow
@@ -84,6 +88,68 @@ func cacheControl(h http.Handler) http.Handler {
 		h.ServeHTTP(w, r)
 	}
 	return http.HandlerFunc(fn)
+}
+
+type gzipResponseWriter struct {
+	io.Writer
+	http.ResponseWriter
+}
+
+func CUSTOMgzipHandler(h http.Handler) http.Handler {
+	fn := func(w http.ResponseWriter, r *http.Request) {
+		// check if the client can accept gzip compressed content
+		if !strings.Contains(r.Header.Get("Accept-Encoding"), "gzip") {
+			// cannot accept
+			return
+		}
+		// can accept
+		// set HTTP header indicated encoding
+		w.Header().Set("Content-Encoding", "gzip")
+		gz := gzip.NewWriter(w)
+		defer gz.Close()
+		h.ServeHTTP(&gzipResponseWriter{Writer: gz, ResponseWriter: w}, r)
+		//return gzipResponseWriter{Writer: gz, ResponseWriter: w}
+	}
+	return http.HandlerFunc(fn)
+}
+
+var gzPool = sync.Pool{
+	New: func() interface{} {
+		w := gzip.NewWriter(ioutil.Discard)
+		gzip.NewWriterLevel(w, gzip.BestCompression)
+		//gzip.NewWriterLevel(w, gzip.BestSpeed)
+		return w
+	},
+}
+
+func (w *gzipResponseWriter) WriteHeader(status int) {
+	w.Header().Del("Content-Length")
+	w.ResponseWriter.WriteHeader(status)
+}
+
+func (w *gzipResponseWriter) Write(b []byte) (int, error) {
+	return w.Writer.Write(b)
+}
+
+func gzipHandler(h http.Handler) http.Handler {
+	//https://stackoverflow.com/a/64433192/12707685
+	return http.HandlerFunc(func (w http.ResponseWriter, r *http.Request) {
+		// check if the client can accept gzip compressed content
+		if !strings.Contains(r.Header.Get("Accept-Encoding"), "gzip") {
+			// cannot accept, return serving
+			h.ServeHTTP(w, r)
+			return
+		}
+		// can accept, set http headers
+		w.Header().Set("Content-Encoding", "gzip")
+		gz := gzPool.Get().(*gzip.Writer)
+		defer gzPool.Put(gz)
+
+		gz.Reset(w)
+		defer gz.Close()
+
+		h.ServeHTTP(&gzipResponseWriter{ResponseWriter: w, Writer: gz}, r)
+	})
 }
 
 func logRequestHandler(h http.Handler) http.Handler {
@@ -212,8 +278,8 @@ func main() {
 	// Static Directories Access
 
 	// CSS / JS / Language / Images Endpoints
-	fs := http.FileServer(http.Dir(viper.GetString("directories.staticAssets")))
-	mux.Handle("/assets/", cacheControl(http.StripPrefix("/assets/", fs)))
+	fs := gzipHandler(http.FileServer(http.Dir(viper.GetString("directories.staticAssets"))))
+	mux.Handle("/assets/", cacheControl(logRequestHandler(http.StripPrefix("/assets/", fs))))
 
 	// Plugins Folder: Installed/Available/Installed Plugins Data
 
