@@ -69,7 +69,7 @@
   "i18n_returnsFailureUpdate": "Unsuccessfully Updated '{0}'",
   "i18n_returnsSuccessAdd": "Successfully Added '{0}'",
   "i18n_returnsFailureAdd": "Unsuccessfully Added '{0}'",
-  "i18n_returnValueGenericError": "An Error Occured",
+  "i18n_returnValueGenericError": "An Error Occurred",
   "i18n_validateCategory": "Bad Category Value Entered.",
   "i18n_validateLink": "Bad Link Value Entered.",
   "i18n_validateName": "Bad Friendly Name Value Entered.",
