@@ -69,16 +69,16 @@
   "i18n_returnsFailureUpdate": "Unsuccessfully Updated '{0}'",
   "i18n_returnsSuccessAdd": "Successfully Added '{0}'",
   "i18n_returnsFailureAdd": "Unsuccessfully Added '{0}'",
-  "i18n_returnValueGenericError": "An Error Occurred",
+  "i18n_returnValueGenericError": "에러 발생",
   "i18n_validateCategory": "Bad Category Value Entered.",
   "i18n_validateLink": "Bad Link Value Entered.",
   "i18n_validateName": "Bad Friendly Name Value Entered.",
-  "i18n_returnValueAvailablePlugins": "Available Plugins",
-  "i18n_returnValueLanguage": "Langauge",
-  "i18n_returnValueLinkItem": "Link Item",
-  "i18n_returnValueHeaderPlugin": "Header Plugin",
+  "i18n_returnValueAvailablePlugins": "사용가능한 플러그인",
+  "i18n_returnValueLanguage": "언어 설정",
+  "i18n_returnValueLinkItem": "항목 링크",
+  "i18n_returnValueHeaderPlugin": "플러그인 제목",
   "i18n-settingsRemoveLeftHeaderPlugin": "Remove Left Header Plugin",
   "i18n-settingsRemoveRightHeaderPlugin": "Remove Right Header Plugin",
-  "i18n_returnValueLogging": "Logging",
-  "i18n_returnValueRobots": "Robots"
+  "i18n_returnValueLogging": "로그",
+  "i18n_returnValueRobots": "로봇"
 }
