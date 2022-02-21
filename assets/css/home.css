@@ -366,19 +366,6 @@ As to be honest I've hated CSS for years. */
   grid-row: 1;
 }
 
-.firstTimeModalItem .firstTimeModalItemButton {
-  grid-column: 2;
-  grid-row: 1;
-  background-color: var(--create-action-back-drop-colour);
-  color: var(--create-action-text-colour);
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  padding: 10px;
-  margin: 5px;
-  align-self: bottom;
-}
-
 .firstTimeModalItem .firstTimeModalItemLang {
   grid-template-columns: 50% 50%;
   display: grid;
@@ -402,16 +389,6 @@ As to be honest I've hated CSS for years. */
   margin: 5px;
   color: var(--create-action-text-colour);
   background-color: var(--create-action-back-drop-colour);
-}
-
-.modal-content .closeFirstTimeModal {
-  background-color: var(--undo-action-back-drop-colour);
-  color: var(--undo-action-text-colour);
-  border: none;
-  padding: 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  margin: 5px;
 }
 
 /* ================================= */

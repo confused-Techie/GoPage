@@ -1,6 +1,6 @@
 {{define "firstTimeSetup"}}
 <div id="firstTimeModal" class="modal">
-  <div class="modal-content">
+  <div class="modal-content polka-dots">
     <h2>
       {{ or
         (index .TargetStrings "i18n-modalFirstTimeWelcome")
@@ -17,7 +17,7 @@
             }}
           </h3>
         </div>
-        <a href="/new"><button class="firstTimeModalItemButton">
+        <a href="/new"><button class="simple-button btn-create grow-shadow-hover">
           <img src="/assets/images/external-link.svg" alt="External Link Icon to Open New Link Item" width="24" height="24">
         </button></a>
       </div>
@@ -32,7 +32,7 @@
             }}
           </h3>
         </div>
-        <a href="/pluginrepo"><button class="firstTimeModalItemButton">
+        <a href="/pluginrepo"><button class="simple-button btn-create grow-shadow-hover">
           <img src="/assets/images/external-link.svg" alt="External Link Icon to Open Plugin Repo" width="24" height="24">
         </button></a>
       </div>
@@ -50,6 +50,7 @@
         <div class="firstTimeModalItemLang">
           <div class="firstTimeModalLangChoice">
             <select name="changeLang" id="changeLang">
+              <option value="">Select a New Option</option>
               <option value="ar">Arabic</option>
               <option value="de">German</option>
               <option value="en">English</option>
@@ -62,7 +63,7 @@
             </select>
           </div>
           <div class="firstTimeModalLangSubmit">
-            <button class="firstTimeModalItemButton" id="firstTimeModalLangSubmit">
+            <button class="simple-button btn-create grow-shadow-hover" id="firstTimeModalLangSubmit">
               {{ or
                 (index .TargetStrings "i18n-modalFirstTimeLangSubmit")
                 (index .DefaultStrings "i18n-modalFirstTimeLangSubmit")
@@ -82,14 +83,14 @@
             }}
           </h3>
         </div>
-        <a href="https://github.com/confused-Techie/GoPage/blob/main/readme.md"><button class="firstTimeModalItemButton">
+        <a href="https://github.com/confused-Techie/GoPage/blob/main/readme.md"><button class="simple-button btn-create grow-shadow-hover">
           <img src="/assets/images/external-link.svg" alt="External Link Icon to Open GoPage Github documentation" width="24" height="24">
         </button></a>
       </div>
 
     </div>
 
-    <button id="closeFirstTimeModal" class="closeFirstTimeModal">
+    <button id="closeFirstTimeModal" class="simple-button btn-undo grow-shadow-hover">
       {{ or
         (index .TargetStrings "i18n-modalFirstTimeClose")
         (index .DefaultStrings "i18n-modalFirstTimeClose")

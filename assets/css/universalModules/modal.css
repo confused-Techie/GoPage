@@ -20,3 +20,9 @@
   border-radius: 5px;
   text-align: center;
 }
+
+.modal .modal-content.polka-dots {
+  background-image: radial-gradient(var(--modal-back-drop-colour), #212121 20%);
+  background-position: 0, 0;
+  background-size: 30px 30px;
+}
