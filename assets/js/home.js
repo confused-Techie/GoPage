@@ -131,6 +131,7 @@ function getLinkItemForm() {
     friendlyName: "",
     link: "",
     category: "",
+    colour: "",
     plugins: [],
   };
 
@@ -142,11 +143,13 @@ function getLinkItemForm() {
   var linkItemName$ = fullFormDATA.getAll("friendlyName");
   var linkItemLink$ = fullFormDATA.getAll("link");
   var linkItemCategory$ = fullFormDATA.getAll("category");
+  var linkItemColour$ = fullFormDATA.getAll("colour");
 
   returnJSONObj.id = staticID$[0];
   returnJSONObj.friendlyName = linkItemName$[0];
   returnJSONObj.link = linkItemLink$[0];
   returnJSONObj.category = linkItemCategory$[0];
+  returnJSONObj.colour = linkItemColour$[0];
 
   // with the required elements, we can do a validation check now
   // first will be valid form data gathered check
@@ -231,6 +234,7 @@ function setLinkItemForm(jsonObj) {
       jsonObj.friendlyName;
     fullFormDOM.querySelector(`[name="link"]`).value = jsonObj.link;
     fullFormDOM.querySelector(`[name="category"]`).value = jsonObj.category;
+    fullFormDOM.querySelector(`[name="colour"]`).value = jsonObj.colour;
 
     for (var i = 0; i < jsonObj.plugins.length; i++) {
       // firstly create the plugin item
@@ -263,6 +267,7 @@ function clearLinkItemForm() {
     fullFormDOM.querySelector(`[name="friendlyName"]`).value = "";
     fullFormDOM.querySelector(`[name="link"]`).value = "";
     fullFormDOM.querySelector(`[name="category"]`).value = "";
+    fullFormDOM.querySelector(`[name="colour"]`).value = "";
 
     while (document.getElementsByClassName("add-plugin-link").length > 1) {
       try {
@@ -413,6 +418,7 @@ function editItemModal(
   oldFriendlyName,
   oldLink,
   oldCategory,
+  oldColour,
   oldPlugins
 ) {
   clearLinkItemForm();
@@ -422,6 +428,7 @@ function editItemModal(
     friendlyName: oldFriendlyName,
     link: oldLink,
     category: oldCategory,
+    colour: oldColour,
     plugins: [],
   };
 
@@ -618,7 +625,6 @@ function modalDelete(id) {
     //window.location.href = `/delete/${id}`;
     // Instead of changing the window location to the delete post handler,
     // we will use the new api to delete this item
-
     fetch(`/api/deletelink/${id}`)
       .then((res) => res.json())
       .then((response) => {

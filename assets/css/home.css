@@ -58,23 +58,6 @@ As to be honest I've hated CSS for years. */
   padding-right: 10px; /* These give space for item listings from the top and sides of the category selector */
 }
 
-.filterDivOLD {
-  /* Targets the container for EACH Item listed */
-  background-color: var(--card-back-drop-colour);
-  text-align: center;
-  border-radius: 50px;
-  animation-name: fadeEffect;
-  animation-duration: 0.5s;
-  max-width: 30%;
-  min-width: 15%;
-  min-height: 10%; /* Set the min height and width, allowing them to grow, depnding on internal divs */
-  display: none; /* Ensures item is not visible, until changed by js when showing the item */
-  margin-right: 5px; /* spacing outside the element, to give item lisitngs space between each other */
-  margin-top: 5px;
-  position: relative; /* assigning this relative allows child elements positioned absolute to respect is boundries. */
-  opacity: 1;
-}
-
 .filterDiv {
   background-color: var(--card-back-drop-colour);
   background-image: linear-gradient(

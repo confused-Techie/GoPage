@@ -25,6 +25,7 @@ type ItemV2 struct {
 	FriendlyName string           `json:"friendlyName"`
 	Link         string           `json:"link"`
 	Category     string           `json:"category"`
+	Colour       string           `json:"colour"`
 	Plugins      []*ItemPluginsV2 `json:"plugins"`
 }
 

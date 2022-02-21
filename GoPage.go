@@ -271,7 +271,7 @@ func main() {
 	mux.Handle("/delete/", http.HandlerFunc(handler.DeleteHandler))
 
 	// API Endpoints for Modifying Link Items via JSON
-	mux.Handle("/api/deletelink", http.HandlerFunc(handler.DeleteLinkItem))
+	mux.Handle("/api/deletelink/", http.HandlerFunc(handler.DeleteLinkItem))
 	mux.Handle("/api/edit/", http.HandlerFunc(handler.EditLinkItem))
 	mux.Handle("/api/new/", http.HandlerFunc(handler.AddLinkItem))
 

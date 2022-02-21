@@ -524,6 +524,7 @@ func EditLinkItem(w http.ResponseWriter, r *http.Request) {
 				allItms.Items[i].FriendlyName = updateItem.FriendlyName
 				allItms.Items[i].Link = updateItem.Link
 				allItms.Items[i].Category = updateItem.Category
+				allItms.Items[i].Colour = updateItem.Colour
 				allItms.Items[i].Plugins = updateItem.Plugins
 			}
 		}
@@ -585,7 +586,6 @@ func DeleteLinkItem(w http.ResponseWriter, r *http.Request) {
 
 // DeleteHandler is an old carry-over to delete Items, this page could still work
 func DeleteHandler(w http.ResponseWriter, r *http.Request) {
-	// TODO: This is using the old struct for items and needs to be updated
 	id := r.URL.Path[len("/delete/"):]
 	i, err := strconv.Atoi(id)
 	if err != nil {
