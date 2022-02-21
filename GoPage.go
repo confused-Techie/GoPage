@@ -1,6 +1,7 @@
 package main
 
 import (
+	"compress/gzip"
 	"fmt"
 	config "github.com/confused-Techie/GoPage/src/pkg/config"
 	handler "github.com/confused-Techie/GoPage/src/pkg/handler"
@@ -9,14 +10,13 @@ import (
 	universalMethods "github.com/confused-Techie/GoPage/src/pkg/universalMethods"
 	httpsnoop "github.com/felixge/httpsnoop"
 	"github.com/spf13/viper"
+	"io"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"strings"
-	"time"
-	"compress/gzip"
-	"io"
 	"sync"
-	"io/ioutil"
+	"time"
 )
 
 // Below no caching mechanism borrowed from elithrar stackoverflow
@@ -133,7 +133,7 @@ func (w *gzipResponseWriter) Write(b []byte) (int, error) {
 
 func gzipHandler(h http.Handler) http.Handler {
 	//https://stackoverflow.com/a/64433192/12707685
-	return http.HandlerFunc(func (w http.ResponseWriter, r *http.Request) {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// check if the client can accept gzip compressed content
 		if !strings.Contains(r.Header.Get("Accept-Encoding"), "gzip") {
 			// cannot accept, return serving

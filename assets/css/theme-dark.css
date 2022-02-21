@@ -136,6 +136,7 @@ Background Colors
   --link-text-colour: white;
 
   --heading-back-drop-colour: #050505;
+  --heading-back-drop-colour-RGB: 5, 5, 5;
   --heading-back-drop-colour-grad: #202020;
   --heading-text-colour: white;
   --heading-hr-border: 2px solid black;
@@ -187,5 +188,5 @@ Background Colors
   /* Text styling Options */
   --text-style-issue-colour: red;
   --text-style-declare-colour: white;
-  --text-style-minor-colour: #8c4daf;
+  --text-style-minor-colour: #3091a1;
 }

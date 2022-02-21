@@ -255,6 +255,48 @@ function setLinkItemForm(jsonObj) {
   }
 }
 
+function clearLinkItemForm() {
+  try {
+    var fullFormDOM = document.getElementById("link-item-form");
+
+    fullFormDOM.querySelector(`[name="staticID"]`).value = "";
+    fullFormDOM.querySelector(`[name="friendlyName"]`).value = "";
+    fullFormDOM.querySelector(`[name="link"]`).value = "";
+    fullFormDOM.querySelector(`[name="category"]`).value = "";
+
+    while (document.getElementsByClassName("add-plugin-link").length > 1) {
+      try {
+        document
+          .getElementsByClassName("add-plugin-link")
+          [
+            document.getElementsByClassName("add-plugin-link").length - 1
+          ].parentNode.remove();
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    // ^^ The above while loop, will run until only 1 element remains for the add-plugin-link dom element
+    // each loop gets the HTMLCollection of the element, grabbing only the last one, then selects its parentNode (form-text)
+    // and removes it. Thiis should leave only the last dom element to add plugins as intended
+
+    // Now we just need to remove any data still present in that last element, and change its display
+
+    var htmlCollectionPlugin = fullFormDOM.querySelectorAll(
+      `[class="additional_info"]`
+    )[0].children[0];
+    htmlCollectionPlugin.querySelectorAll(`[name="pluginName"]`)[0].value = "";
+    htmlCollectionPlugin.querySelectorAll(`[name="pluginLocation"]`)[0].value =
+      "";
+    htmlCollectionPlugin.querySelectorAll(`[name="pluginOptions"]`)[0].value =
+      "";
+    htmlCollectionPlugin.querySelectorAll(`[name="pluginExample"]`)[0].value =
+      "";
+    htmlCollectionPlugin.parentElement.style.display = "none";
+  } catch (err) {
+    return err;
+  }
+}
+
 function stringValidityNotEmpty(string) {
   // this returns true if the passed string seems to be valid, false otherwise
   try {
@@ -325,6 +367,7 @@ function initInstalledPluginListToForm() {
 
 function newItemModal() {
   // TODO call setLinkItemForm with an empty JSON obj, to remove any previous values
+  clearLinkItemForm();
   universe.ShowModal("link-item-modal");
 
   var modalSubmit = document.getElementById("itemModalSubmit");
@@ -372,6 +415,7 @@ function editItemModal(
   oldCategory,
   oldPlugins
 ) {
+  clearLinkItemForm();
   // first lets make our JSON obj to pass
   var returnJSONObj = {
     id: parseInt(oldID),

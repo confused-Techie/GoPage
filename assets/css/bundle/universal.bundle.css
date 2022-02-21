@@ -120,13 +120,8 @@ input:focus {
   transform: scale(1.1);
 }
 .heading {
-  background-color: var(--heading-back-drop-colour);
-  background-image: linear-gradient(
-    360deg,
-    var(--heading-back-drop-colour),
-    var(--heading-back-drop-colour-grad)
-  );
-  color: var(--heading-text-colour);
+  border-bottom: 0.3rem solid var(--heading-back-drop-colour);
+  background-color: rgba(var(--heading-back-drop-colour-RGB), 0.6);
   text-align: center;
   display: grid;
   grid-template-columns: repeat(5, 8%) repeat(3, 1fr);
@@ -136,6 +131,22 @@ input:focus {
 
 hr.heading {
   border: var(--heading-hr-border);
+}
+
+.heading .headingBtn {
+  background-color: rgba(0, 0, 0, 0);
+  border-radius: 50px;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: background-color, border-radius;
+  transition-property: background-color, border-radius;
+}
+
+.heading .headingBtn:hover,
+.heading .headingBtn:focus,
+.heading .headingBtn:active {
+  border-radius: 16px;
+  background-color: var(--create-action-back-drop-colour);
 }
 
 .heading .titleCard {
