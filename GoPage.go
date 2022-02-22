@@ -95,7 +95,7 @@ type gzipResponseWriter struct {
 	http.ResponseWriter
 }
 
-func CUSTOMgzipHandler(h http.Handler) http.Handler {
+func customgzipHandler(h http.Handler) http.Handler {
 	fn := func(w http.ResponseWriter, r *http.Request) {
 		// check if the client can accept gzip compressed content
 		if !strings.Contains(r.Header.Get("Accept-Encoding"), "gzip") {

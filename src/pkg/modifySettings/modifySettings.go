@@ -42,6 +42,7 @@ func DetermineLogging() (string, error) {
 	return "Server Logging Not Specified, Defaulting to Config", nil
 }
 
+// DetermineRobots returns the string value of robots from serverSettings.json
 func DetermineRobots() (string, error) {
 	if commandLineRobots != "" {
 		fmt.Println("Checking Declared Robots against the default.")

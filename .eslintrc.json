@@ -30,10 +30,12 @@
     "i18n_validateLink": "readonly",
     "i18n_validateName": "readonly",
     "i18n_returnValueAvailablePlugins": "readonly",
-    "i18n_returnValueLangauge": "readonly",
+    "i18n_returnValueLanguage": "readonly",
     "i18n_returnValueLinkItem": "readonly",
     "i18n_returnValueHeaderPlugin": "readonly",
     "i18n_generatedUploadSuccessSnackbar": "readonly",
-    "i18n_generatedRemoveImageSuccess": "readonly"
+    "i18n_generatedRemoveImageSuccess": "readonly",
+    "i18n_returnValueLogging": "readonly",
+    "i18n_returnValueRobots": "readonly"
   }
 }

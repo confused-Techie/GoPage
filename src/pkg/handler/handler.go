@@ -392,6 +392,8 @@ func ChangeLang(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(html.EscapeString(resp))
 }
 
+// ChangeMany is an HTTP Handler, thhat expects a URL query of id to specify thhe setting being modifyied.
+// URL query of value to say what value is being chhanged. To change settings from the serverSettings.json file.
 func ChangeMany(w http.ResponseWriter, r *http.Request) {
 	// ?id={OPTION_NAME}&value={VALUE}
 	id := r.URL.Query().Get("id")

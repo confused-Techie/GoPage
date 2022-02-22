@@ -219,6 +219,7 @@ func ServSettingSetLang(newLang string) (string, error) {
 	return "Successfully Changed Server Language to: " + newLang, nil
 }
 
+// ServSettingSetRobots can take a new robots value and save it to the serverSettings.json fiile.
 func ServSettingSetRobots(newRobots string) (string, error) {
 	origBytes, err := diskhandles.ReadFromDiskToBytes(viper.GetString("directories.setting") + "/serverSettings.json")
 	var origSrvStting ServSetting
