@@ -61,7 +61,7 @@
   "i18n-uploadPromptButton": "رفع صورة",
   "i18n-unsetImagePrompt": "استخدام أي صورة خلفية",
   "i18n-unsetImageButton": "إزالة الصورة",
-  "i18n-returnsSuccessDelete": "Successfully Deleted '{0}'",
+  "i18n-returnsSuccessDelete": "تم الحذف بنجاح '{0}'",
   "i18n_returnsFailureDelete": "Unsuccessfully Deleted '{0}'",
   "i18n_returnsSuccessInstall": "Successfully Installed '{0}'",
   "i18n_returnsFailureInstall": "Unsuccessfully Installed '{0}'",
