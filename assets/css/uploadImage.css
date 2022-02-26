@@ -5,7 +5,7 @@
 .uploadImageContainer button {
   background-color: var(--create-action-back-drop-colour);
   color: var(--create-action-text-colour);
-  border: noe;
+  border: none;
 }
 
 input[type="submit"] {

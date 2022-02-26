@@ -195,7 +195,8 @@ function getLinkItemForm() {
       pluginLocation$.length > 1 ||
       pluginOptions$.length > 1
     ) {
-      return "why so many values!";
+      console.log("To many values retreived from DOM");
+      return i18n_returnValueGenericError;
     }
     // check that it has a value, otherwise we know its empty and we can skip applying this plugin at all
     if (!stringValidityNotEmpty(pluginName$[0].value)) {
@@ -203,7 +204,7 @@ function getLinkItemForm() {
     }
     // although if the name is valid, but hhas no location that should through an error
     if (!stringValidityNotEmpty(pluginLocation$[0].value)) {
-      return "wheres the damn plugin location!";
+      return i18n_validatePluginLocation;
     }
 
     // but if all is well we can create a temporary json object to push into the plugins array of the return json object
