@@ -12,19 +12,6 @@ input[type="submit"] {
   display: none;
 }
 
-input[type="file"]::file-selector-button {
-  /* Since we want to use our custom styling here we can hide the element, and style the label only */
-
-  /* Or we can use the pseudo-element introduced in CSS Pseudo-Elements Module Level 4 */
-
-  background-color: var(--create-action-back-drop-colour);
-  color: var(--create-action-text-colour);
-  border: none;
-  padding: 10px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
 .unsetImageContainer {
   text-align: center;
 }

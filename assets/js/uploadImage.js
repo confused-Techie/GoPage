@@ -61,6 +61,8 @@ function setImage(name) {
             name
           )
         );
+        checkCustomBackgroundImage();
+        // this shhould call the function from universal.js
       };
 
       universe.WriteUserSettings(
@@ -95,6 +97,7 @@ function unsetImage() {
 
       var successHandler = function () {
         universe.SnackbarCommon("snackbar", i18n_generatedRemoveImageSuccess);
+        checkCustomBackgroundImage();
       };
 
       universe.WriteUserSettings(

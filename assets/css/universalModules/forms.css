@@ -15,3 +15,12 @@ input {
 input:focus {
   outline: none;
 }
+
+input[type="file"]::file-selector-button {
+  background-color: var(--create-action-back-drop-colour);
+  color: var(--create-action-text-colour);
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}

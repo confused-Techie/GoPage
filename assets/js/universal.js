@@ -50,8 +50,16 @@ function checkCustomBackgroundImage() {
           // Valid Values: auto, length, percentage, cover, contain, initial, inherit :: https://www.w3schools.com/jsref/prop_style_backgroundsize.asp
           //document.body.style.backgroundSize = data.customBackground.size;
         } catch (err) {
-          //console.log(err);
+          console.log(err);
         }
-      } // else image is not set
+      } else {
+        // image is not set
+        // but since this will be called to hotreload the visible background image, this will also remove any url there.
+        try {
+          document.body.style.backgroundImage = "";
+        } catch (err) {
+          console.log(err);
+        }
+      }
     });
 }
