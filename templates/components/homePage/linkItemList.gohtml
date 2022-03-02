@@ -34,7 +34,7 @@
       <div class="filterDiv bubble-card-daily {{.Category}}"
         {{ if ne .Colour "" }} style="background-color: {{ .Colour }}; " {{end}}
         >
-        <div class="item hover-shadow-radial">
+        <div class="item hover-shadow-radial {{.Style}}">
           <a href="{{.Link}}">
             <div class="itemName grow-shadow-hover">{{.FriendlyName}}</div>
           </a>
@@ -85,7 +85,7 @@
             <img src="/assets/images/more-vertical-white.svg" alt="Three Vertical Dots to indicate additional options" width="24" height="24">
             <div class="optionsContent">
               <div class="optionsContent-Edit grow-shadow-hover">
-                <a onclick="editItemModal( {{.ID}}, {{.FriendlyName}}, {{.Link}}, {{.Category}}, {{.Colour}}, {{.Plugins}} );return false;">
+                <a onclick="editItemModal( {{.ID}}, {{.FriendlyName}}, {{.Link}}, {{.Category}}, {{.Colour}}, {{.Style}}, {{.Plugins}} );return false;">
                   {{ or
                     (index $scopedTargetStrings "i18n-genericEdit")
                     (index $scopedDefaultStrings "i18n-genericEdit")

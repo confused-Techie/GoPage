@@ -132,6 +132,7 @@ function getLinkItemForm() {
     link: "",
     category: "",
     colour: "",
+    style: "",
     plugins: [],
   };
 
@@ -144,12 +145,14 @@ function getLinkItemForm() {
   var linkItemLink$ = fullFormDATA.getAll("link");
   var linkItemCategory$ = fullFormDATA.getAll("category");
   var linkItemColour$ = fullFormDATA.getAll("colour");
+  var linkItemStyle$ = fullFormDATA.getAll("style");
 
   returnJSONObj.id = staticID$[0];
   returnJSONObj.friendlyName = linkItemName$[0];
   returnJSONObj.link = linkItemLink$[0];
   returnJSONObj.category = linkItemCategory$[0];
   returnJSONObj.colour = linkItemColour$[0];
+  returnJSONObj.style = linkItemStyle$[0];
 
   // with the required elements, we can do a validation check now
   // first will be valid form data gathered check
@@ -236,6 +239,7 @@ function setLinkItemForm(jsonObj) {
     fullFormDOM.querySelector(`[name="link"]`).value = jsonObj.link;
     fullFormDOM.querySelector(`[name="category"]`).value = jsonObj.category;
     fullFormDOM.querySelector(`[name="colour"]`).value = jsonObj.colour;
+    fullFormDOM.querySelector(`[name="style"]`).value = jsonObj.style;
 
     for (var i = 0; i < jsonObj.plugins.length; i++) {
       // firstly create the plugin item
@@ -269,6 +273,7 @@ function clearLinkItemForm() {
     fullFormDOM.querySelector(`[name="link"]`).value = "";
     fullFormDOM.querySelector(`[name="category"]`).value = "";
     fullFormDOM.querySelector(`[name="colour"]`).value = "";
+    fullFormDOM.querySelector(`[name="style"]`).value = "";
 
     while (document.getElementsByClassName("add-plugin-link").length > 1) {
       try {
@@ -420,6 +425,7 @@ function editItemModal(
   oldLink,
   oldCategory,
   oldColour,
+  oldStyle,
   oldPlugins
 ) {
   clearLinkItemForm();
@@ -430,6 +436,7 @@ function editItemModal(
     link: oldLink,
     category: oldCategory,
     colour: oldColour,
+    style: oldStyle,
     plugins: [],
   };
 

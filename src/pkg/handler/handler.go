@@ -527,6 +527,7 @@ func EditLinkItem(w http.ResponseWriter, r *http.Request) {
 				allItms.Items[i].Link = updateItem.Link
 				allItms.Items[i].Category = updateItem.Category
 				allItms.Items[i].Colour = updateItem.Colour
+				allItms.Items[i].Style = updateItem.Style
 				allItms.Items[i].Plugins = updateItem.Plugins
 			}
 		}

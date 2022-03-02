@@ -313,6 +313,13 @@ hr.heading {
 .hover-shadow-radial:active::after {
   opacity: 1;
 }
+.bubble-card-daily,
+.adamantium:hover {
+  border-radius: 30px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 50px;
+}
+
 .adamantium:hover {
   --ada-colour-hvr: #2b2b2b;
   --ada-colour-hvr-grad: #464646;
