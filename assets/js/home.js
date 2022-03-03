@@ -521,12 +521,15 @@ function saveLinkItemModal(endpoint, data, string) {
     });
 }
 
-function firstTimeSetup() {
+function firstTimeSetup(dev) {
+  if (typeof dev !== "boolean") {
+    dev = false;
+  }
   // this will check for any saved items, and if there are none, will display a helpful modal of options to get started.
   fetch("/api/items")
     .then((res) => res.json())
     .then((response) => {
-      if (response.length === 0) {
+      if (response.length === 0 || dev) {
         universe.ShowModal("firstTimeModal");
 
         // once visible we want to register an onclick handler with the now visible close button

@@ -103,6 +103,10 @@ input:focus {
   outline: none;
 }
 
+input[type="file"] {
+  text-align-last: center;
+}
+
 input[type="file"]::file-selector-button {
   background-color: var(--create-action-back-drop-colour);
   color: var(--create-action-text-colour);
