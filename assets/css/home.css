@@ -229,8 +229,8 @@ As to be honest I've hated CSS for years. */
 }
 
 .new-button-container-gen2 {
-  display: inline;
-  vertical-align: bottom;
+  display: inline-block;
+  vertical-align: text-bottom;
 }
 
 .new-button-container button {

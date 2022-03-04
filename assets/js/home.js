@@ -36,6 +36,11 @@ function homePageInit(type) {
       reloadPluginJS();
     }
   }
+
+  // now we want to also listen on the search bar
+  const searchBar = document.getElementById("searchBar");
+
+  searchBar.addEventListener("input", searchBarUpdate);
 }
 
 function reloadPluginJS() {
@@ -98,6 +103,29 @@ function addClass(element, name) {
       element.className += " " + provNames[i];
     }
   }
+}
+
+function searchBarUpdate(e) {
+  console.log(e.target.value);
+  fetch(`/api/search?source='home'&term='${e.target.value}'`)
+    .then((res) => res.json())
+    .then((result) => {
+      try {
+        var searchResults = document.getElementById("searchResult");
+        // first we want to remove all previous search results
+        while (searchResults.firstChild) {
+          searchResults.removeChild(searchResults.lastChild);
+        }
+
+        for (let i = 0; i < result.Results.length; i++) {
+          var tmpHTML = `<p><a href="${result.Results[i].Link}">${result.Results[i].FriendlyName} #Category: ${result.Results[i].Category}</a></p>`;
+          searchResults.insertAdjacentHTML("beforeend", tmpHTML);
+        }
+        //searchBar.insertAdjacentHTML("afterend", )
+      } catch (err) {
+        console.log(`Error Occured crafting Search Results: ${err}`);
+      }
+    });
 }
 
 function addPluginToFormV2() {

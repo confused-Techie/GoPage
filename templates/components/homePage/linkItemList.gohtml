@@ -27,11 +27,17 @@
     {{end}}
   </div>
 
+  <div class="searchContainer">
+    <input type="text" name="homePageSearch" autocomplete="off" placeholder="Search..." id="searchBar"/>
+    <div class="searchResult" id="searchResult">
+    </div>
+  </div>
+
   <div class="itemContainer">
     {{range .Data.Items}}
     {{/* To make some data available within the range of plugins, we can assign variables here for use */}}
     {{ $itemLink := .Link }}
-      <div class="filterDiv bubble-card-daily {{.Category}}"
+      <div class="filterDiv bubble-card-daily {{.Category}}" data-itemid="{{.ID}}"
         {{ if ne .Colour "" }} style="background-color: {{ .Colour }}; " {{end}}
         >
         <div class="item hover-shadow-radial {{.Style}}">

@@ -7,6 +7,7 @@ import (
 	handler "github.com/confused-Techie/GoPage/src/pkg/handler"
 	model "github.com/confused-Techie/GoPage/src/pkg/model"
 	modifySettings "github.com/confused-Techie/GoPage/src/pkg/modifySettings"
+	searchfeatures "github.com/confused-Techie/GoPage/src/pkg/searchfeatures"
 	universalMethods "github.com/confused-Techie/GoPage/src/pkg/universalMethods"
 	httpsnoop "github.com/felixge/httpsnoop"
 	"github.com/spf13/viper"
@@ -241,6 +242,9 @@ func main() {
 	// Reading variables using the model. This is for dev purposes
 	fmt.Println("Server Port: \t", config.Server.Port)
 
+	// Start the search Index
+	searchfeatures.BuildIndex()
+
 	// Basic Page Handles: For the standard user pages
 
 	mux := http.NewServeMux()
@@ -295,6 +299,7 @@ func main() {
 	// ^^ /api/change?id=logging&value=custom /api/change?id=robots&value=private
 	mux.Handle("/api/usersettings", http.HandlerFunc(handler.APIUserSettingGet))
 	mux.Handle("/api/usersettingswrite", http.HandlerFunc(handler.UserSettingSet))
+	mux.Handle("/api/search", http.HandlerFunc(handler.Search))
 
 	// API Declarations used for plugins
 	mux.Handle("/api/ping", http.HandlerFunc(handler.APIPingHandler))

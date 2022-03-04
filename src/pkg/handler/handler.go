@@ -7,6 +7,7 @@ import (
 	errorHandler "github.com/confused-Techie/GoPage/src/pkg/errorHandler"
 	model "github.com/confused-Techie/GoPage/src/pkg/model"
 	modifySettings "github.com/confused-Techie/GoPage/src/pkg/modifySettings"
+	searchfeatures "github.com/confused-Techie/GoPage/src/pkg/searchfeatures"
 	universalMethods "github.com/confused-Techie/GoPage/src/pkg/universalMethods"
 	"github.com/spf13/viper"
 	"html"
@@ -729,4 +730,14 @@ func APIHostOSHandler(w http.ResponseWriter, r *http.Request) {
 func APIInstalledPluginsHandler(w http.ResponseWriter, r *http.Request) {
 	resp := "NO LONGER IMPLEMENTED"
 	json.NewEncoder(w).Encode(resp)
+}
+
+//Search will be the API Endpoint for search functionality.
+func Search(w http.ResponseWriter, r *http.Request) {
+	// First lets get all the values we care about
+	source := r.URL.Query().Get("source")
+	term := r.URL.Query().Get("term")
+
+	fmt.Println(source + " : " + term)
+	json.NewEncoder(w).Encode(searchfeatures.SearchIndexLinkItem(term))
 }
