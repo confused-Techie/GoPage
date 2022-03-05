@@ -129,15 +129,6 @@ function searchBarUpdate(e) {
 }
 
 class LinkItemDOM {
-  _jsonObjTemplate = {
-    id: 0,
-    friendlyName: "",
-    link: "",
-    category: "",
-    colour: "",
-    style: "",
-    plugins: [],
-  };
 
   constructor() {
     // for non-plugin data we can use the FormData Object Constructor
@@ -147,11 +138,20 @@ class LinkItemDOM {
   }
 
   get jsonObjTemplate() {
-    return this._jsonObjTemplate;
+    var _jsonObjTemplate = {
+      id: 0,
+      friendlyName: "",
+      link: "",
+      category: "",
+      colour: "",
+      style: "",
+      plugins: [],
+    }
+    return _jsonObjTemplate;
   }
 
   get jsonObjFilled() {
-    var tmpObj = this._jsonObjTemplate;
+    var tmpObj = this.jsonObjTemplate;
 
     tmpObj.id = this.staticIDField;
     tmpObj.friendlyName = this.friendlyNameField;
@@ -284,9 +284,9 @@ function addPluginToFormV2() {
 function getLinkItemForm() {
   // --------
   // Cyclomatic Complexity Pre-Class: 14
-  // Cyclomatic Complexity Post-Class:
+  // Cyclomatic Complexity Post-Class: 6
   // -------
-  
+
   // parseLinkItemForm will either return an object of JSON, or a string, containing an error message that is safe to display to the user.
 
   let linkObj = new LinkItemDOM();

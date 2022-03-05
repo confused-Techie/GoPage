@@ -1,11 +1,32 @@
-Mean per-function logical LOC: 3.075137637637638
-Mean per-function parameter count: 0.7048611111111112
-Mean per-function cyclomatic complexity: 1.3346471471471473
-Mean per-function Halstead effort: 568.2215975526822
-Mean per-module maintainability index: 135.0732796108119
+Mean per-function logical LOC: 3.401923076923077
+Mean per-function parameter count: 0.7480769230769231
+Mean per-function cyclomatic complexity: 1.4525641025641025
+Mean per-function Halstead effort: 729.6895069369584
+Mean per-module maintainability index: 134.03170169399027
 First-order density: 0%
-Change cost: 8.333333333333332%
+Change cost: 7.6923076923076925%
 Core size: 0%
+
+D:\Personal Documents\GitHub Repositories\GoPage\gulpfile.js
+
+  Physical LOC: 9
+  Logical LOC: 4
+  Mean parameter count: 0
+  Cyclomatic complexity: 1
+  Cyclomatic complexity density: 25%
+  Maintainability index: 154.36017729123253
+  Dependency count: 2
+
+  Function: <anonymous>
+    Line No.: 4
+    Physical LOC: 6
+    Logical LOC: 1
+    Parameter count: 0
+    Cyclomatic complexity: 1
+    Cyclomatic complexity density: 100%
+    Halstead difficulty: 1.875
+    Halstead volume: 69.18863237274596
+    Halstead effort: 129.72868569889866
 
 D:\Personal Documents\GitHub Repositories\GoPage\postcss.config.js
 
@@ -73,17 +94,17 @@ D:\Personal Documents\GitHub Repositories\GoPage\depreciated\form.js
 
 D:\Personal Documents\GitHub Repositories\GoPage\assets\js\home.js
 
-  Physical LOC: 735
-  Logical LOC: 156
+  Physical LOC: 841
+  Logical LOC: 253
   Mean parameter count: 1
-  Cyclomatic complexity: 18
-  Cyclomatic complexity density: 11.538461538461538%
-  Maintainability index: 127.39277213213698
+  Cyclomatic complexity: 29
+  Cyclomatic complexity density: 11.462450592885375%
+  Maintainability index: 117.62548061768538
   Dependency count: 0
 
   Function: window.onload
     Line No.: 1
-    Physical LOC: 13
+    Physical LOC: 14
     Logical LOC: 4
     Parameter count: 0
     Cyclomatic complexity: 1
@@ -92,30 +113,41 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\home.js
     Halstead volume: 18.575424759098897
     Halstead effort: 9.287712379549449
 
-  Function: <anonymous>.onclick
+  Function: homePageInit
     Line No.: 16
-    Physical LOC: 3
-    Logical LOC: 1
-    Parameter count: 0
-    Cyclomatic complexity: 1
-    Cyclomatic complexity density: 100%
-    Halstead difficulty: 0.5
-    Halstead volume: 4.754887502163468
-    Halstead effort: 2.377443751081734
+    Physical LOC: 29
+    Logical LOC: 11
+    Parameter count: 1
+    Cyclomatic complexity: 4
+    Cyclomatic complexity density: 36.36363636363637%
+    Halstead difficulty: 9.891304347826088
+    Halstead volume: 341.2150500951926
+    Halstead effort: 3375.0619085502753
 
-  Function: onPageLoad
-    Line No.: 20
-    Physical LOC: 33
-    Logical LOC: 2
+  Function: <anonymous>
+    Line No.: 24
+    Physical LOC: 5
+    Logical LOC: 3
     Parameter count: 0
     Cyclomatic complexity: 1
-    Cyclomatic complexity density: 50%
-    Halstead difficulty: 1.2
-    Halstead volume: 33.68825906469125
-    Halstead effort: 40.4259108776295
+    Cyclomatic complexity density: 33.33333333333333%
+    Halstead difficulty: 4
+    Halstead volume: 113.29982727264704
+    Halstead effort: 453.19930909058814
+
+  Function: reloadPluginJS
+    Line No.: 46
+    Physical LOC: 25
+    Logical LOC: 13
+    Parameter count: 0
+    Cyclomatic complexity: 3
+    Cyclomatic complexity density: 23.076923076923077%
+    Halstead difficulty: 10.17391304347826
+    Halstead volume: 500
+    Halstead effort: 5086.95652173913
 
   Function: filterSelection
-    Line No.: 54
+    Line No.: 72
     Physical LOC: 14
     Logical LOC: 8
     Parameter count: 1
@@ -126,7 +158,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\home.js
     Halstead effort: 2512.2150937211804
 
   Function: removeClass
-    Line No.: 69
+    Line No.: 87
     Physical LOC: 10
     Logical LOC: 7
     Parameter count: 2
@@ -137,7 +169,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\home.js
     Halstead effort: 3563.170857703299
 
   Function: addClass
-    Line No.: 80
+    Line No.: 98
     Physical LOC: 9
     Logical LOC: 6
     Parameter count: 2
@@ -147,31 +179,97 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\home.js
     Halstead volume: 238.41805003750017
     Halstead effort: 3218.6436755062523
 
-  Function: <anonymous>
-    Line No.: 95
-    Physical LOC: 5
-    Logical LOC: 3
+  Function: searchBarUpdate
+    Line No.: 108
+    Physical LOC: 22
+    Logical LOC: 2
+    Parameter count: 1
+    Cyclomatic complexity: 1
+    Cyclomatic complexity density: 50%
+    Halstead difficulty: 1.2857142857142858
+    Halstead volume: 57.058650025961626
+    Halstead effort: 73.36112146195067
+
+  Function: addPluginToFormV2
+    Line No.: 261
+    Physical LOC: 22
+    Logical LOC: 5
     Parameter count: 0
     Cyclomatic complexity: 1
-    Cyclomatic complexity density: 33.33333333333333%
-    Halstead difficulty: 4
-    Halstead volume: 113.29982727264704
-    Halstead effort: 453.19930909058814
+    Cyclomatic complexity density: 20%
+    Halstead difficulty: 4.027777777777778
+    Halstead volume: 248.79590758313572
+    Halstead effort: 1002.0946277654077
 
-  Function: generatedEventListener
-    Line No.: 102
-    Physical LOC: 9
-    Logical LOC: 7
+  Function: getLinkItemForm
+    Line No.: 284
+    Physical LOC: 30
+    Logical LOC: 15
+    Parameter count: 0
+    Cyclomatic complexity: 6
+    Cyclomatic complexity density: 40%
+    Halstead difficulty: 11.852941176470589
+    Halstead volume: 338.57545109698776
+    Halstead effort: 4013.1149056495906
+
+  Function: setLinkItemForm
+    Line No.: 315
+    Physical LOC: 38
+    Logical LOC: 19
     Parameter count: 1
     Cyclomatic complexity: 2
-    Cyclomatic complexity density: 28.57142857142857%
-    Halstead difficulty: 6.888888888888889
-    Halstead volume: 272.6255036521834
-    Halstead effort: 1878.0868029372634
+    Cyclomatic complexity density: 10.526315789473683%
+    Halstead difficulty: 13
+    Halstead volume: 806.5083002250007
+    Halstead effort: 10484.607902925009
 
-  Function: firstTimeSetup
-    Line No.: 112
-    Physical LOC: 32
+  Function: clearLinkItemForm
+    Line No.: 354
+    Physical LOC: 43
+    Logical LOC: 21
+    Parameter count: 0
+    Cyclomatic complexity: 2
+    Cyclomatic complexity density: 9.523809523809524%
+    Halstead difficulty: 15
+    Halstead volume: 802.0586649779941
+    Halstead effort: 12030.879974669911
+
+  Function: stringValidityNotEmpty
+    Line No.: 398
+    Physical LOC: 16
+    Logical LOC: 10
+    Parameter count: 1
+    Cyclomatic complexity: 3
+    Cyclomatic complexity density: 30%
+    Halstead difficulty: 5.833333333333334
+    Halstead volume: 81.40967379910403
+    Halstead effort: 474.8897638281069
+
+  Function: disablePluginLocation
+    Line No.: 416
+    Physical LOC: 6
+    Logical LOC: 1
+    Parameter count: 1
+    Cyclomatic complexity: 1
+    Cyclomatic complexity density: 100%
+    Halstead difficulty: 1
+    Halstead volume: 46.50699332842308
+    Halstead effort: 46.50699332842308
+
+  Function: addPluginOptions
+    Line No.: 423
+    Physical LOC: 22
+    Logical LOC: 5
+    Parameter count: 1
+    Cyclomatic complexity: 1
+    Cyclomatic complexity density: 20%
+    Halstead difficulty: 3.4545454545454546
+    Halstead volume: 156.27562382434076
+    Halstead effort: 539.8612459386317
+
+  Function: initInstalledPluginListToForm
+    Line No.: 446
+    Physical LOC: 19
     Logical LOC: 1
     Parameter count: 0
     Cyclomatic complexity: 1
@@ -180,30 +278,96 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\home.js
     Halstead volume: 20.89735285398626
     Halstead effort: 27.863137138648344
 
-  Function: addFormCategory
-    Line No.: 147
-    Physical LOC: 40
-    Logical LOC: 2
+  Function: newItemModal
+    Line No.: 466
+    Physical LOC: 41
+    Logical LOC: 6
     Parameter count: 0
     Cyclomatic complexity: 1
-    Cyclomatic complexity density: 50%
-    Halstead difficulty: 2
-    Halstead volume: 46.529325012980806
-    Halstead effort: 93.05865002596161
+    Cyclomatic complexity density: 16.666666666666664%
+    Halstead difficulty: 3.75
+    Halstead volume: 143.0611994437619
+    Halstead effort: 536.4794979141071
 
-  Function: dataListInputV2
-    Line No.: 189
-    Physical LOC: 139
+  Function: modalClose.onclick
+    Line No.: 473
+    Physical LOC: 3
     Logical LOC: 1
-    Parameter count: 2
+    Parameter count: 0
     Cyclomatic complexity: 1
     Cyclomatic complexity density: 100%
-    Halstead difficulty: 1.2
-    Halstead volume: 30.880904142633646
-    Halstead effort: 37.05708497116037
+    Halstead difficulty: 1
+    Halstead volume: 11.60964047443681
+    Halstead effort: 11.60964047443681
+
+  Function: modalSubmit.onclick
+    Line No.: 477
+    Physical LOC: 29
+    Logical LOC: 11
+    Parameter count: 0
+    Cyclomatic complexity: 3
+    Cyclomatic complexity density: 27.27272727272727%
+    Halstead difficulty: 9.3
+    Halstead volume: 243.00301253822133
+    Halstead effort: 2259.9280166054587
+
+  Function: editItemModal
+    Line No.: 508
+    Physical LOC: 69
+    Logical LOC: 22
+    Parameter count: 7
+    Cyclomatic complexity: 2
+    Cyclomatic complexity density: 9.090909090909092%
+    Halstead difficulty: 10.108108108108109
+    Halstead volume: 664.6105375858176
+    Halstead effort: 6717.955163705292
+
+  Function: modalClose.onclick
+    Line No.: 545
+    Physical LOC: 3
+    Logical LOC: 1
+    Parameter count: 0
+    Cyclomatic complexity: 1
+    Cyclomatic complexity density: 100%
+    Halstead difficulty: 1
+    Halstead volume: 11.60964047443681
+    Halstead effort: 11.60964047443681
+
+  Function: modalSubmit.onclick
+    Line No.: 549
+    Physical LOC: 27
+    Logical LOC: 11
+    Parameter count: 0
+    Cyclomatic complexity: 3
+    Cyclomatic complexity density: 27.27272727272727%
+    Halstead difficulty: 7.764705882352941
+    Halstead volume: 264.6998028171593
+    Halstead effort: 2055.3161159920605
+
+  Function: saveLinkItemModal
+    Line No.: 578
+    Physical LOC: 31
+    Logical LOC: 3
+    Parameter count: 3
+    Cyclomatic complexity: 1
+    Cyclomatic complexity density: 33.33333333333333%
+    Halstead difficulty: 2.909090909090909
+    Halstead volume: 113.29982727264704
+    Halstead effort: 329.59949752042775
+
+  Function: firstTimeSetup
+    Line No.: 610
+    Physical LOC: 46
+    Logical LOC: 3
+    Parameter count: 1
+    Cyclomatic complexity: 2
+    Cyclomatic complexity density: 66.66666666666666%
+    Halstead difficulty: 4.5
+    Halstead volume: 64.52932501298082
+    Halstead effort: 290.3819625584137
 
   Function: dataListInputHeader
-    Line No.: 330
+    Line No.: 658
     Physical LOC: 20
     Logical LOC: 1
     Parameter count: 1
@@ -214,7 +378,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\home.js
     Halstead effort: 32.312031259014454
 
   Function: dataListInputCaller
-    Line No.: 351
+    Line No.: 679
     Physical LOC: 11
     Logical LOC: 3
     Parameter count: 5
@@ -225,7 +389,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\home.js
     Halstead effort: 41.20902501875006
 
   Function: dataListInputChangeView
-    Line No.: 363
+    Line No.: 691
     Physical LOC: 4
     Logical LOC: 2
     Parameter count: 1
@@ -236,7 +400,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\home.js
     Halstead effort: 142.3309008810774
 
   Function: dataListInputChangeExplain
-    Line No.: 368
+    Line No.: 696
     Physical LOC: 4
     Logical LOC: 2
     Parameter count: 2
@@ -247,7 +411,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\home.js
     Halstead effort: 149.4867642699313
 
   Function: dataListInputChangeAutofill
-    Line No.: 373
+    Line No.: 701
     Physical LOC: 6
     Logical LOC: 4
     Parameter count: 2
@@ -258,8 +422,8 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\home.js
     Halstead effort: 306.86849769143276
 
   Function: modalDelete
-    Line No.: 384
-    Physical LOC: 42
+    Line No.: 712
+    Physical LOC: 52
     Logical LOC: 6
     Parameter count: 1
     Cyclomatic complexity: 1
@@ -269,8 +433,8 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\home.js
     Halstead effort: 673.6032694637581
 
   Function: modalDeleteBtn.onclick
-    Line No.: 393
-    Physical LOC: 22
+    Line No.: 721
+    Physical LOC: 32
     Logical LOC: 1
     Parameter count: 0
     Cyclomatic complexity: 1
@@ -280,7 +444,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\home.js
     Halstead effort: 24
 
   Function: modalNotDeleteBtn.onclick
-    Line No.: 416
+    Line No.: 754
     Physical LOC: 3
     Logical LOC: 1
     Parameter count: 0
@@ -291,7 +455,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\home.js
     Halstead effort: 11.60964047443681
 
   Function: window.onclick
-    Line No.: 420
+    Line No.: 758
     Physical LOC: 5
     Logical LOC: 2
     Parameter count: 1
@@ -301,119 +465,9 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\home.js
     Halstead volume: 39.863137138648355
     Halstead effort: 93.01398665684617
 
-  Function: newItemModal
-    Line No.: 428
-    Physical LOC: 81
-    Logical LOC: 5
-    Parameter count: 0
-    Cyclomatic complexity: 1
-    Cyclomatic complexity density: 20%
-    Halstead difficulty: 3.8636363636363633
-    Halstead volume: 132
-    Halstead effort: 509.99999999999994
-
-  Function: modalNotNewBtn.onclick
-    Line No.: 435
-    Physical LOC: 3
-    Logical LOC: 1
-    Parameter count: 0
-    Cyclomatic complexity: 1
-    Cyclomatic complexity density: 100%
-    Halstead difficulty: 1
-    Halstead volume: 11.60964047443681
-    Halstead effort: 11.60964047443681
-
-  Function: modalSubmit.onclick
-    Line No.: 439
-    Physical LOC: 69
-    Logical LOC: 2
-    Parameter count: 0
-    Cyclomatic complexity: 1
-    Cyclomatic complexity density: 50%
-    Halstead difficulty: 2.3333333333333335
-    Halstead volume: 46.50699332842308
-    Halstead effort: 108.51631776632053
-
-  Function: validateLinkItemData
-    Line No.: 510
-    Physical LOC: 43
-    Logical LOC: 1
-    Parameter count: 1
-    Cyclomatic complexity: 1
-    Cyclomatic complexity density: 100%
-    Halstead difficulty: 1.5
-    Halstead volume: 15.509775004326936
-    Halstead effort: 23.264662506490403
-
-  Function: <anonymous>
-    Line No.: 512
-    Physical LOC: 40
-    Logical LOC: 15
-    Parameter count: 2
-    Cyclomatic complexity: 4
-    Cyclomatic complexity density: 26.666666666666668%
-    Halstead difficulty: 9.473684210526315
-    Halstead volume: 355.74426423226265
-    Halstead effort: 3370.208819042488
-
-  Function: checkString
-    Line No.: 514
-    Physical LOC: 7
-    Logical LOC: 4
-    Parameter count: 1
-    Cyclomatic complexity: 2
-    Cyclomatic complexity density: 50%
-    Halstead difficulty: 5.333333333333333
-    Halstead volume: 64.72503367497926
-    Halstead effort: 345.20017959988934
-
-  Function: buildValidObj
-    Line No.: 529
-    Physical LOC: 5
-    Logical LOC: 3
-    Parameter count: 2
-    Cyclomatic complexity: 1
-    Cyclomatic complexity density: 33.33333333333333%
-    Halstead difficulty: 2.7
-    Halstead volume: 42
-    Halstead effort: 113.4
-
-  Function: editItemModalV2
-    Line No.: 555
-    Physical LOC: 111
-    Logical LOC: 17
-    Parameter count: 5
-    Cyclomatic complexity: 4
-    Cyclomatic complexity density: 23.52941176470588%
-    Halstead difficulty: 14.625
-    Halstead volume: 807.99587955832
-    Halstead effort: 11816.93973854043
-
-  Function: modalNotEditBtn.onclick
-    Line No.: 597
-    Physical LOC: 3
-    Logical LOC: 1
-    Parameter count: 0
-    Cyclomatic complexity: 1
-    Cyclomatic complexity density: 100%
-    Halstead difficulty: 1
-    Halstead volume: 11.60964047443681
-    Halstead effort: 11.60964047443681
-
-  Function: modalSubmit.onclick
-    Line No.: 601
-    Physical LOC: 64
-    Logical LOC: 2
-    Parameter count: 0
-    Cyclomatic complexity: 1
-    Cyclomatic complexity density: 50%
-    Halstead difficulty: 2.3333333333333335
-    Halstead volume: 46.50699332842308
-    Halstead effort: 108.51631776632053
-
   Function: headerPlugins
-    Line No.: 667
-    Physical LOC: 69
+    Line No.: 765
+    Physical LOC: 77
     Logical LOC: 6
     Parameter count: 0
     Cyclomatic complexity: 1
@@ -423,8 +477,8 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\home.js
     Halstead effort: 820.8000000000001
 
   Function: changeHeaderSettings
-    Line No.: 671
-    Physical LOC: 36
+    Line No.: 769
+    Physical LOC: 44
     Logical LOC: 1
     Parameter count: 4
     Cyclomatic complexity: 1
@@ -434,7 +488,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\home.js
     Halstead effort: 47.09602859285721
 
   Function: handlePluginHeader
-    Line No.: 708
+    Line No.: 814
     Physical LOC: 19
     Logical LOC: 5
     Parameter count: 1
@@ -445,7 +499,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\home.js
     Halstead effort: 521.1515122594184
 
   Function: backBtn.onclick
-    Line No.: 712
+    Line No.: 818
     Physical LOC: 3
     Logical LOC: 1
     Parameter count: 0
@@ -456,7 +510,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\home.js
     Halstead effort: 11.60964047443681
 
   Function: submitBtn.onclick
-    Line No.: 718
+    Line No.: 824
     Physical LOC: 8
     Logical LOC: 1
     Parameter count: 0
@@ -467,7 +521,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\home.js
     Halstead effort: 82.21772034846222
 
   Function: headerPluginLeft.onclick
-    Line No.: 728
+    Line No.: 834
     Physical LOC: 3
     Logical LOC: 1
     Parameter count: 0
@@ -478,7 +532,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\home.js
     Halstead effort: 2.377443751081734
 
   Function: headerPluginRight.onclick
-    Line No.: 732
+    Line No.: 838
     Physical LOC: 3
     Logical LOC: 1
     Parameter count: 0
@@ -490,16 +544,16 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\home.js
 
 D:\Personal Documents\GitHub Repositories\GoPage\assets\js\langHandler.js
 
-  Physical LOC: 201
-  Logical LOC: 32
+  Physical LOC: 203
+  Logical LOC: 33
   Mean parameter count: 0.875
   Cyclomatic complexity: 5
-  Cyclomatic complexity density: 15.625%
+  Cyclomatic complexity density: 15.151515151515152%
   Maintainability index: 130.68555897715038
   Dependency count: 0
 
   Function: ProvideString
-    Line No.: 9
+    Line No.: 11
     Physical LOC: 45
     Logical LOC: 2
     Parameter count: 2
@@ -510,7 +564,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\langHandler.js
     Halstead effort: 63.39850002884625
 
   Function: InsertLangMetered
-    Line No.: 54
+    Line No.: 56
     Physical LOC: 36
     Logical LOC: 3
     Parameter count: 0
@@ -521,7 +575,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\langHandler.js
     Halstead effort: 124.01864887579488
 
   Function: ProvideStringRaw
-    Line No.: 90
+    Line No.: 92
     Physical LOC: 42
     Logical LOC: 1
     Parameter count: 1
@@ -532,7 +586,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\langHandler.js
     Halstead effort: 23.264662506490403
 
   Function: <anonymous>
-    Line No.: 92
+    Line No.: 94
     Physical LOC: 39
     Logical LOC: 2
     Parameter count: 2
@@ -543,7 +597,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\langHandler.js
     Halstead effort: 63.39850002884625
 
   Function: DetermineLang
-    Line No.: 132
+    Line No.: 134
     Physical LOC: 26
     Logical LOC: 1
     Parameter count: 0
@@ -554,7 +608,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\langHandler.js
     Halstead effort: 17.414460711655217
 
   Function: <anonymous>
-    Line No.: 133
+    Line No.: 135
     Physical LOC: 24
     Logical LOC: 4
     Parameter count: 2
@@ -565,7 +619,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\langHandler.js
     Halstead effort: 114.11730005192325
 
   Function: InsertLang
-    Line No.: 158
+    Line No.: 160
     Physical LOC: 13
     Logical LOC: 1
     Parameter count: 0
@@ -576,7 +630,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\langHandler.js
     Halstead effort: 27.863137138648344
 
   Function: UnicornComposite
-    Line No.: 171
+    Line No.: 173
     Physical LOC: 33
     Logical LOC: 10
     Parameter count: 0
@@ -631,7 +685,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\linkhealth.js
 
 D:\Personal Documents\GitHub Repositories\GoPage\assets\js\pluginLoad.js
 
-  Physical LOC: 74
+  Physical LOC: 75
   Logical LOC: 13
   Mean parameter count: 1.6666666666666667
   Cyclomatic complexity: 2
@@ -641,7 +695,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\pluginLoad.js
 
   Function: checkPlugins
     Line No.: 1
-    Physical LOC: 53
+    Physical LOC: 54
     Logical LOC: 1
     Parameter count: 0
     Cyclomatic complexity: 1
@@ -651,7 +705,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\pluginLoad.js
     Halstead effort: 27.863137138648344
 
   Function: headerPluginAssignment
-    Line No.: 57
+    Line No.: 58
     Physical LOC: 11
     Logical LOC: 4
     Parameter count: 3
@@ -662,7 +716,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\pluginLoad.js
     Halstead effort: 542.7311586606936
 
   Function: loadJS
-    Line No.: 69
+    Line No.: 70
     Physical LOC: 6
     Logical LOC: 4
     Parameter count: 2
@@ -674,71 +728,60 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\pluginLoad.js
 
 D:\Personal Documents\GitHub Repositories\GoPage\assets\js\pluginRepo.js
 
-  Physical LOC: 90
-  Logical LOC: 23
-  Mean parameter count: 1.1666666666666667
-  Cyclomatic complexity: 3
-  Cyclomatic complexity density: 13.043478260869565%
-  Maintainability index: 131.59872527421925
+  Physical LOC: 144
+  Logical LOC: 37
+  Mean parameter count: 1.8333333333333333
+  Cyclomatic complexity: 7
+  Cyclomatic complexity density: 18.91891891891892%
+  Maintainability index: 119.49769308361425
   Dependency count: 0
 
   Function: installPlugin
     Line No.: 4
-    Physical LOC: 3
-    Logical LOC: 1
+    Physical LOC: 9
+    Logical LOC: 2
     Parameter count: 2
     Cyclomatic complexity: 1
-    Cyclomatic complexity density: 100%
-    Halstead difficulty: 0.5
-    Halstead volume: 8
-    Halstead effort: 4
+    Cyclomatic complexity density: 50%
+    Halstead difficulty: 1.1428571428571428
+    Halstead volume: 34.86917501586544
+    Halstead effort: 39.85048573241764
 
   Function: uninstallPlugin
-    Line No.: 9
-    Physical LOC: 3
-    Logical LOC: 1
+    Line No.: 15
+    Physical LOC: 9
+    Logical LOC: 2
     Parameter count: 1
     Cyclomatic complexity: 1
-    Cyclomatic complexity density: 100%
-    Halstead difficulty: 0.5
-    Halstead volume: 4.754887502163468
-    Halstead effort: 2.377443751081734
+    Cyclomatic complexity density: 50%
+    Halstead difficulty: 1.1666666666666667
+    Halstead volume: 30
+    Halstead effort: 35
 
   Function: updatePlugin
-    Line No.: 14
-    Physical LOC: 3
-    Logical LOC: 1
+    Line No.: 26
+    Physical LOC: 9
+    Logical LOC: 2
     Parameter count: 0
     Cyclomatic complexity: 1
-    Cyclomatic complexity density: 100%
-    Halstead difficulty: 0.5
-    Halstead volume: 4.754887502163468
-    Halstead effort: 2.377443751081734
+    Cyclomatic complexity density: 50%
+    Halstead difficulty: 1
+    Halstead volume: 31.699250014423125
+    Halstead effort: 31.699250014423125
 
-  Function: pluginFetchWrapper
-    Line No.: 18
-    Physical LOC: 36
+  Function: pluginFetchWrapperNonBlocking
+    Line No.: 36
+    Physical LOC: 39
     Logical LOC: 1
-    Parameter count: 1
+    Parameter count: 3
     Cyclomatic complexity: 1
     Cyclomatic complexity density: 100%
-    Halstead difficulty: 1.5
-    Halstead volume: 33.60451250937503
-    Halstead effort: 50.40676876406254
-
-  Function: modalResults
-    Line No.: 55
-    Physical LOC: 24
-    Logical LOC: 3
-    Parameter count: 2
-    Cyclomatic complexity: 1
-    Cyclomatic complexity density: 33.33333333333333%
-    Halstead difficulty: 2
-    Halstead volume: 88
-    Halstead effort: 176
+    Halstead difficulty: 1.3333333333333333
+    Halstead volume: 45
+    Halstead effort: 60
 
   Function: formatModalContent
-    Line No.: 80
+    Line No.: 76
     Physical LOC: 14
     Logical LOC: 10
     Parameter count: 1
@@ -747,6 +790,17 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\pluginRepo.js
     Halstead difficulty: 14.392857142857144
     Halstead volume: 280.5383626276447
     Halstead effort: 4037.7485763907434
+
+  Function: returnData
+    Line No.: 91
+    Physical LOC: 57
+    Logical LOC: 14
+    Parameter count: 4
+    Cyclomatic complexity: 5
+    Cyclomatic complexity density: 35.714285714285715%
+    Halstead difficulty: 8.458333333333332
+    Halstead volume: 485.51123841791383
+    Halstead effort: 4106.615891618188
 
 D:\Personal Documents\GitHub Repositories\GoPage\assets\js\pluginhandler.js
 
@@ -782,28 +836,127 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\pluginhandler.js
 
 D:\Personal Documents\GitHub Repositories\GoPage\assets\js\settings.js
 
-  Physical LOC: 43
-  Logical LOC: 6
-  Mean parameter count: 0
+  Physical LOC: 121
+  Logical LOC: 32
+  Mean parameter count: 0.4
   Cyclomatic complexity: 1
-  Cyclomatic complexity density: 16.666666666666664%
-  Maintainability index: 130.92396363055107
+  Cyclomatic complexity density: 3.125%
+  Maintainability index: 136.14665905585792
   Dependency count: 0
 
-  Function: initHostSummary
-    Line No.: 3
-    Physical LOC: 41
-    Logical LOC: 4
+  Function: window.onload
+    Line No.: 1
+    Physical LOC: 3
+    Logical LOC: 1
     Parameter count: 0
     Cyclomatic complexity: 1
-    Cyclomatic complexity density: 25%
-    Halstead difficulty: 2.2222222222222223
-    Halstead volume: 77.70923408096293
-    Halstead effort: 172.6871868465843
+    Cyclomatic complexity density: 100%
+    Halstead difficulty: 0.5
+    Halstead volume: 2
+    Halstead effort: 1
+
+  Function: onclickHandlers
+    Line No.: 5
+    Physical LOC: 49
+    Logical LOC: 10
+    Parameter count: 0
+    Cyclomatic complexity: 1
+    Cyclomatic complexity density: 10%
+    Halstead difficulty: 6.25
+    Halstead volume: 297.35492594105096
+    Halstead effort: 1858.4682871315686
+
+  Function: submitLangBtn.onclick
+    Line No.: 16
+    Physical LOC: 19
+    Logical LOC: 2
+    Parameter count: 0
+    Cyclomatic complexity: 1
+    Cyclomatic complexity density: 50%
+    Halstead difficulty: 2.2857142857142856
+    Halstead volume: 62.26976913547136
+    Halstead effort: 142.33090088107738
+
+  Function: removeLeftHeaderPluginBtn.onclick
+    Line No.: 36
+    Physical LOC: 3
+    Logical LOC: 1
+    Parameter count: 0
+    Cyclomatic complexity: 1
+    Cyclomatic complexity density: 100%
+    Halstead difficulty: 0.5
+    Halstead volume: 4.754887502163468
+    Halstead effort: 2.377443751081734
+
+  Function: removeRightHheaderPluginBtn.onclick
+    Line No.: 40
+    Physical LOC: 3
+    Logical LOC: 1
+    Parameter count: 0
+    Cyclomatic complexity: 1
+    Cyclomatic complexity density: 100%
+    Halstead difficulty: 0.5
+    Halstead volume: 4.754887502163468
+    Halstead effort: 2.377443751081734
+
+  Function: submitLoggingBtn.onclick
+    Line No.: 44
+    Physical LOC: 4
+    Logical LOC: 2
+    Parameter count: 0
+    Cyclomatic complexity: 1
+    Cyclomatic complexity density: 50%
+    Halstead difficulty: 2.2857142857142856
+    Halstead volume: 48.43204266092217
+    Halstead effort: 110.70181179639353
+
+  Function: submitRobotsBtn.onclick
+    Line No.: 49
+    Physical LOC: 4
+    Logical LOC: 2
+    Parameter count: 0
+    Cyclomatic complexity: 1
+    Cyclomatic complexity density: 50%
+    Halstead difficulty: 2.2857142857142856
+    Halstead volume: 48.43204266092217
+    Halstead effort: 110.70181179639353
+
+  Function: removeHeaderPlugin
+    Line No.: 55
+    Physical LOC: 31
+    Logical LOC: 1
+    Parameter count: 1
+    Cyclomatic complexity: 1
+    Cyclomatic complexity density: 100%
+    Halstead difficulty: 1.25
+    Halstead volume: 25.84962500721156
+    Halstead effort: 32.312031259014454
+
+  Function: changeOptionsAPI
+    Line No.: 87
+    Physical LOC: 26
+    Logical LOC: 2
+    Parameter count: 2
+    Cyclomatic complexity: 1
+    Cyclomatic complexity density: 50%
+    Halstead difficulty: 1.3333333333333333
+    Halstead volume: 45
+    Halstead effort: 60
+
+  Function: doesJSONParse
+    Line No.: 114
+    Physical LOC: 8
+    Logical LOC: 5
+    Parameter count: 1
+    Cyclomatic complexity: 1
+    Cyclomatic complexity density: 20%
+    Halstead difficulty: 2.3333333333333335
+    Halstead volume: 39.863137138648355
+    Halstead effort: 93.01398665684617
 
 D:\Personal Documents\GitHub Repositories\GoPage\assets\js\universal.js
 
-  Physical LOC: 53
+  Physical LOC: 63
   Logical LOC: 12
   Mean parameter count: 0
   Cyclomatic complexity: 2
@@ -834,8 +987,8 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\universal.js
     Halstead effort: 4
 
   Function: checkCustomBackgroundImage
-    Line No.: 32
-    Physical LOC: 24
+    Line No.: 33
+    Physical LOC: 33
     Logical LOC: 1
     Parameter count: 0
     Cyclomatic complexity: 1
@@ -846,49 +999,60 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\universal.js
 
 D:\Personal Documents\GitHub Repositories\GoPage\assets\js\universe.js
 
-  Physical LOC: 80
-  Logical LOC: 37
-  Mean parameter count: 1.6666666666666667
-  Cyclomatic complexity: 4
-  Cyclomatic complexity density: 10.81081081081081%
-  Maintainability index: 132.35885471838986
+  Physical LOC: 247
+  Logical LOC: 107
+  Mean parameter count: 1.8666666666666667
+  Cyclomatic complexity: 20
+  Cyclomatic complexity density: 18.69158878504673%
+  Maintainability index: 116.17707239903748
   Dependency count: 0
 
   Function: SnackbarCommon
     Line No.: 7
-    Physical LOC: 24
-    Logical LOC: 6
-    Parameter count: 4
-    Cyclomatic complexity: 2
-    Cyclomatic complexity density: 33.33333333333333%
-    Halstead difficulty: 7.071428571428571
-    Halstead volume: 167.37179237410948
-    Halstead effort: 1183.5576746454883
+    Physical LOC: 75
+    Logical LOC: 19
+    Parameter count: 7
+    Cyclomatic complexity: 5
+    Cyclomatic complexity density: 26.31578947368421%
+    Halstead difficulty: 11.970588235294116
+    Halstead volume: 746.8920211008358
+    Halstead effort: 8940.73684082471
 
-  Function: <anonymous>
-    Line No.: 21
-    Physical LOC: 9
-    Logical LOC: 5
-    Parameter count: 0
-    Cyclomatic complexity: 3
-    Cyclomatic complexity density: 60%
-    Halstead difficulty: 6.333333333333334
-    Halstead volume: 140.64806144190666
-    Halstead effort: 890.7710557987423
-
-  Function: SnackbarError
-    Line No.: 31
-    Physical LOC: 4
+  Function: snackbarIcon.onclick
+    Line No.: 50
+    Physical LOC: 3
     Logical LOC: 1
-    Parameter count: 3
+    Parameter count: 0
     Cyclomatic complexity: 1
     Cyclomatic complexity density: 100%
-    Halstead difficulty: 1.5
-    Halstead volume: 33
-    Halstead effort: 49.5
+    Halstead difficulty: 0.5
+    Halstead volume: 2
+    Halstead effort: 1
+
+  Function: <anonymous>
+    Line No.: 64
+    Physical LOC: 17
+    Logical LOC: 8
+    Parameter count: 1
+    Cyclomatic complexity: 5
+    Cyclomatic complexity density: 62.5%
+    Halstead difficulty: 8
+    Halstead volume: 263.53904536672565
+    Halstead effort: 2108.312362933805
+
+  Function: SnackbarError
+    Line No.: 82
+    Physical LOC: 12
+    Logical LOC: 1
+    Parameter count: 4
+    Cyclomatic complexity: 1
+    Cyclomatic complexity density: 100%
+    Halstead difficulty: 1.4444444444444444
+    Halstead volume: 51.89147427955947
+    Halstead effort: 74.95435173714145
 
   Function: ReloadCallback
-    Line No.: 35
+    Line No.: 94
     Physical LOC: 6
     Logical LOC: 1
     Parameter count: 0
@@ -899,7 +1063,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\universe.js
     Halstead effort: 75.79858289555531
 
   Function: CreateJSONPOSTHeaders
-    Line No.: 41
+    Line No.: 100
     Physical LOC: 16
     Logical LOC: 8
     Parameter count: 1
@@ -910,7 +1074,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\universe.js
     Halstead effort: 710.9608123427463
 
   Function: ShowModal
-    Line No.: 57
+    Line No.: 116
     Physical LOC: 5
     Logical LOC: 2
     Parameter count: 1
@@ -921,7 +1085,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\universe.js
     Halstead effort: 142.3309008810774
 
   Function: CloseModal
-    Line No.: 62
+    Line No.: 121
     Physical LOC: 5
     Logical LOC: 2
     Parameter count: 1
@@ -931,8 +1095,30 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\universe.js
     Halstead volume: 55.350905898196764
     Halstead effort: 142.3309008810774
 
+  Function: ShowTemplateModal
+    Line No.: 126
+    Physical LOC: 20
+    Logical LOC: 7
+    Parameter count: 1
+    Cyclomatic complexity: 1
+    Cyclomatic complexity density: 14.285714285714285%
+    Halstead difficulty: 3.6764705882352944
+    Halstead volume: 214.05271769459029
+    Halstead effort: 786.9585209359938
+
+  Function: clearModalBtn.onclick
+    Line No.: 140
+    Physical LOC: 3
+    Logical LOC: 1
+    Parameter count: 0
+    Cyclomatic complexity: 1
+    Cyclomatic complexity density: 100%
+    Halstead difficulty: 0.5
+    Halstead volume: 2
+    Halstead effort: 1
+
   Function: WriteUserSettings
-    Line No.: 67
+    Line No.: 146
     Physical LOC: 12
     Logical LOC: 1
     Parameter count: 3
@@ -943,8 +1129,8 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\universe.js
     Halstead effort: 52
 
   Function: GenericErrorHandler
-    Line No.: 79
-    Physical LOC: 6
+    Line No.: 158
+    Physical LOC: 8
     Logical LOC: 2
     Parameter count: 2
     Cyclomatic complexity: 1
@@ -953,9 +1139,42 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\universe.js
     Halstead volume: 36
     Halstead effort: 48
 
+  Function: FindReturnsString
+    Line No.: 166
+    Physical LOC: 32
+    Logical LOC: 25
+    Parameter count: 2
+    Cyclomatic complexity: 9
+    Cyclomatic complexity density: 36%
+    Halstead difficulty: 12
+    Halstead volume: 463.0812125728369
+    Halstead effort: 5556.9745508740425
+
+  Function: HotReload
+    Line No.: 198
+    Physical LOC: 38
+    Logical LOC: 8
+    Parameter count: 4
+    Cyclomatic complexity: 2
+    Cyclomatic complexity density: 25%
+    Halstead difficulty: 8.666666666666666
+    Halstead volume: 250.25142037603445
+    Halstead effort: 2168.845643258965
+
+  Function: Loader
+    Line No.: 236
+    Physical LOC: 16
+    Logical LOC: 8
+    Parameter count: 1
+    Cyclomatic complexity: 3
+    Cyclomatic complexity density: 37.5%
+    Halstead difficulty: 5.714285714285714
+    Halstead volume: 173.9178331268546
+    Halstead effort: 993.8161892963119
+
 D:\Personal Documents\GitHub Repositories\GoPage\assets\js\uploadImage.js
 
-  Physical LOC: 111
+  Physical LOC: 118
   Logical LOC: 10
   Mean parameter count: 0.5
   Cyclomatic complexity: 1
@@ -987,7 +1206,7 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\uploadImage.js
 
   Function: setImage
     Line No.: 48
-    Physical LOC: 34
+    Physical LOC: 39
     Logical LOC: 1
     Parameter count: 1
     Cyclomatic complexity: 1
@@ -997,8 +1216,8 @@ D:\Personal Documents\GitHub Repositories\GoPage\assets\js\uploadImage.js
     Halstead effort: 32.312031259014454
 
   Function: unsetImage
-    Line No.: 84
-    Physical LOC: 26
+    Line No.: 89
+    Physical LOC: 28
     Logical LOC: 1
     Parameter count: 0
     Cyclomatic complexity: 1
