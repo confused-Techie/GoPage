@@ -171,7 +171,12 @@
             }}
           </button>
           <br/>
-          <label><h3>Active Theme:</h3></label>
+          <label><h3>
+            {{ or
+              (index .TargetStrings "i18n-activeTheme")
+              (index .DefaultStrings "i18n-activeTheme")
+            }}:
+          </h3></label>
           <input type="text" value="In Progress" disabled/>
           <br/>
         </div>
