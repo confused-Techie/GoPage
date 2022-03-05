@@ -80,5 +80,8 @@
   "i18n-settingsRemoveLeftHeaderPlugin": "إزالة البرنامج المساعد للرأس الأيسر",
   "i18n-settingsRemoveRightHeaderPlugin": "إزالة إضافة الترويسة اليمنى",
   "i18n_returnValueLogging": "تسجيل الدخول",
-  "i18n_returnValueRobots": "المحرك الآلي"
+  "i18n_returnValueRobots": "المحرك الآلي",
+  "i18n-activeTheme": "Active Theme",
+  "i18n-labelCustomColour": "Optional Custom Colour:",
+  "i18n-labelCustomStyle": "Optional Custom Style:"
 }
