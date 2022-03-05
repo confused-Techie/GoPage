@@ -138,11 +138,21 @@
 
         <div class="form-row">
           <div class="form-group">
-            <label>Optional Custom Colour:</label>
+            <label>
+              {{ or
+                (index .TargetStrings "i18n-labelCustomColour")
+                (index .DefaultStrings "i18n-labelCustomColour")
+              }}
+            </label>
             <input type="text" name="colour" required="false" autocomplete="off"/>
           </div>
           <div class="form-group">
-            <label>Optional Custom Style:</label>
+            <label>
+              {{ or
+                (index .TargetStrings "i18n-labelCustomStyle")
+                (index .DefaultStrings "i18n-labelCustomStyle")
+              }}
+            </label>
             <input type="text" list="styleOptions" name="style" required="false" autocomplete="off"/>
             <datalist id="styleOptions">
               <option value="adamantium">Adamantium</option>
