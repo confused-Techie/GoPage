@@ -81,7 +81,7 @@
   "i18n-settingsRemoveRightHeaderPlugin": "Eliminar complemento de cabecera derecha",
   "i18n_returnValueLogging": "Registro",
   "i18n_returnValueRobots": "Robots",
-  "i18n-activeTheme": "Active Theme",
-  "i18n-labelCustomColour": "Optional Custom Colour:",
-  "i18n-labelCustomStyle": "Optional Custom Style:"
+  "i18n-activeTheme": "Tema activo",
+  "i18n-labelCustomColour": "Color personalizado opcional:",
+  "i18n-labelCustomStyle": "Estilo personalizado opcional:"
 }
