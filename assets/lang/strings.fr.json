@@ -81,7 +81,7 @@
   "i18n-settingsRemoveRightHeaderPlugin": "Supprimer le plugin d'en-tête droit",
   "i18n_returnValueLogging": "Journalisation",
   "i18n_returnValueRobots": "Des robots",
-  "i18n-activeTheme": "Active Theme",
-  "i18n-labelCustomColour": "Optional Custom Colour:",
-  "i18n-labelCustomStyle": "Optional Custom Style:"
+  "i18n-activeTheme": "Thème actif",
+  "i18n-labelCustomColour": "Couleur optionnelle personnalisée :",
+  "i18n-labelCustomStyle": "Style personnalisé optionnel :"
 }
