@@ -81,7 +81,7 @@
   "i18n-settingsRemoveRightHeaderPlugin": "Удалить плагин правого заголовка",
   "i18n_returnValueLogging": "Журналирование",
   "i18n_returnValueRobots": "Роботы",
-  "i18n-activeTheme": "Active Theme",
-  "i18n-labelCustomColour": "Optional Custom Colour:",
-  "i18n-labelCustomStyle": "Optional Custom Style:"
+  "i18n-activeTheme": "Активная тема",
+  "i18n-labelCustomColour": "Необязательный пользовательский цвет:",
+  "i18n-labelCustomStyle": "Дополнительный пользовательский стиль:"
 }
