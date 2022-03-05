@@ -146,7 +146,8 @@ class LinkItemDOM {
       colour: "",
       style: "",
       plugins: [],
-    }
+    };
+
     return _jsonObjTemplate;
   }
 
@@ -164,36 +165,77 @@ class LinkItemDOM {
     return tmpObj;
   }
 
+  set jsonObjFill(input) {
+    this.staticIDField = input.id;
+    this.friendlyNameField = input.friendlyName;
+    this.linkField = input.link;
+    this.categoryField = input.category;
+    this.colourField = input.colour;
+    this.styleField = input.style;
+    this.pluginField = input.plugins;
+  }
+
+  jsonObjClear() {
+    try {
+      this.staticIDField = "";
+      this.friendlyNameField = "";
+      this.linkField = "";
+      this.categoryField = "";
+      this.colourField = "";
+      this.styleField = "";
+      this.emptyPlugins();
+
+    } catch(err) {
+      throw err;
+    }
+  }
+
   get staticIDField() {
     return this.FormData.getAll("staticID")[0];
   }
 
   set staticIDField(input) {
-    if (notEmpty(input)) {
-      this.FormDom.querySelector(`[name="staticID"]`).value = input;
-    } else {
-      throw "The Static ID cannot be empty during setting.";
-    }
+    this.FormDom.querySelector(`[name="staticID"]`).value = input;
   }
 
   get friendlyNameField() {
     return this.FormData.getAll("friendlyName")[0];
   }
 
+  set friendlyNameField(input) {
+    this.FormDom.querySelector(`[name="friendlyName"]`).value = input;
+  }
+
   get linkField() {
     return this.FormData.getAll("link")[0];
+  }
+
+  set linkField(input) {
+    this.FormDom.querySelector(`[name="link"]`).value = input;
   }
 
   get categoryField() {
     return this.FormData.getAll("category")[0];
   }
 
+  set categoryField(input) {
+    this.FormDom.querySelector(`[name="category"]`).value = input;
+  }
+
   get colourField() {
     return this.FormData.getAll("colour")[0];
   }
 
+  set colourField(input) {
+    this.FormDom.querySelector(`[name="colour"]`).value = input;
+  }
+
   get styleField() {
     return this.FormData.getAll("style")[0];
+  }
+
+  set styleField(input) {
+    this.FormDom.querySelector(`[name="style"]`).value = input;
   }
 
   get pluginField() {
@@ -228,6 +270,40 @@ class LinkItemDOM {
     }
 
     return psuedoPluginArray;
+  }
+
+  set pluginField(input) {
+    // pluginField expects an input of only plugin array
+    for (var i = 0; i < input.length; i++) {
+      //firstly create the plugin item
+      addPluginToFormV2();
+      var pluginNodeList = this.FormDom.querySelectorAll(`[class="additional_info"]`);
+      var htmlCollectionPlugin = pluginNodeList[i].children[0];
+      htmlCollectionPlugin.querySelectorAll(`[name="pluginName"]`)[0].value = input[i].name;
+      htmlCollectionPlugin.querySelectorAll(`[name="pluginLocation"]`)[0].value = input[i].location;
+      htmlCollectionPlugin.querySelectorAll(`[name="pluginOptions"]`)[0].value = input[i].options;
+    }
+  }
+
+  emptyPlugins() {
+    while (document.getElementsByClassName("add-plugin-link").length > 1) {
+      try {
+        document.getElementsByClassName("add-plugin-link")[document.getElementsByClassName("add-plugin-link").length -1].parentNode.remove();
+      } catch(err) {
+        throw err;
+      }
+    }
+    // ^^ The above while loop, will run until only 1 elemenet remains for the add-plugin-link dom element
+    // each loop gets the HTMLCollection of the element, grabbing only the last one, then selects its parentNode (form-text)
+    // and removes it. This should onyl leave the last dom element to add plugins as intended
+
+    // Now we just need to remove any data still present in that last element, and change its display
+    var htmlCollectionPlugin = this.FormDom.querySelectorAll(`[class="additional_info"]`)[0].children[0];
+    htmlCollectionPlugin.querySelectorAll(`[name="pluginName"]`)[0].value = "";
+    htmlCollectionPlugin.querySelectorAll(`[name="pluginLocation"]`)[0].value = "";
+    htmlCollectionPlugin.querySelectorAll(`[name="pluginOptions"]`)[0].value = "";
+    htmlCollectionPlugin.querySelectorAll(`[name="pluginExample"]`)[0].value = "";
+    htmlCollectionPlugin.parentElement.style.display = "none";
   }
 
   notEmpty(input) {
@@ -312,87 +388,14 @@ function getLinkItemForm() {
   return linkObjData;
 }
 
-function setLinkItemForm(jsonObj) {
-  // this expects a valid JSON object.
-  // { name: 'linkItemName', link: 'linkItemLink', category: 'linkItemCategory', plugins: [ name: '', location: '', options: ''] }
-
-  // for documentation on why methods are used, or the logic behind thhe scenes here, look at getLinkItemForm()
-  try {
-    var fullFormDOM = document.getElementById("link-item-form");
-
-    fullFormDOM.querySelector(`[name="staticID"]`).value = jsonObj.id;
-    fullFormDOM.querySelector(`[name="friendlyName"]`).value =
-      jsonObj.friendlyName;
-    fullFormDOM.querySelector(`[name="link"]`).value = jsonObj.link;
-    fullFormDOM.querySelector(`[name="category"]`).value = jsonObj.category;
-    fullFormDOM.querySelector(`[name="colour"]`).value = jsonObj.colour;
-    fullFormDOM.querySelector(`[name="style"]`).value = jsonObj.style;
-
-    for (var i = 0; i < jsonObj.plugins.length; i++) {
-      // firstly create the plugin item
-      addPluginToFormV2();
-      var pluginNodeList = fullFormDOM.querySelectorAll(
-        `[class="additional_info"]`
-      );
-      var htmlCollectionPlugin = pluginNodeList[i].children[0];
-
-      htmlCollectionPlugin.querySelectorAll(`[name="pluginName"]`)[0].value =
-        jsonObj.plugins[i].name;
-      htmlCollectionPlugin.querySelectorAll(
-        `[name="pluginLocation"]`
-      )[0].value = jsonObj.plugins[i].location;
-      htmlCollectionPlugin.querySelectorAll(`[name="pluginOptions"]`)[0].value =
-        jsonObj.plugins[i].options;
-    }
-    return true;
-    // return true at the end just in case to indicate valid data.
-  } catch (err) {
-    return err;
-  }
-}
-
 function clearLinkItemForm() {
-  try {
-    var fullFormDOM = document.getElementById("link-item-form");
+  // --------
+  // Cyclomatic Complexity Pre-Class: 2
+  // Cyclomatic Complexity Post-Class: 1
+  // -------
 
-    fullFormDOM.querySelector(`[name="staticID"]`).value = "";
-    fullFormDOM.querySelector(`[name="friendlyName"]`).value = "";
-    fullFormDOM.querySelector(`[name="link"]`).value = "";
-    fullFormDOM.querySelector(`[name="category"]`).value = "";
-    fullFormDOM.querySelector(`[name="colour"]`).value = "";
-    fullFormDOM.querySelector(`[name="style"]`).value = "";
-
-    while (document.getElementsByClassName("add-plugin-link").length > 1) {
-      try {
-        document
-          .getElementsByClassName("add-plugin-link")
-          [
-            document.getElementsByClassName("add-plugin-link").length - 1
-          ].parentNode.remove();
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    // ^^ The above while loop, will run until only 1 element remains for the add-plugin-link dom element
-    // each loop gets the HTMLCollection of the element, grabbing only the last one, then selects its parentNode (form-text)
-    // and removes it. Thiis should leave only the last dom element to add plugins as intended
-
-    // Now we just need to remove any data still present in that last element, and change its display
-
-    var htmlCollectionPlugin = fullFormDOM.querySelectorAll(
-      `[class="additional_info"]`
-    )[0].children[0];
-    htmlCollectionPlugin.querySelectorAll(`[name="pluginName"]`)[0].value = "";
-    htmlCollectionPlugin.querySelectorAll(`[name="pluginLocation"]`)[0].value =
-      "";
-    htmlCollectionPlugin.querySelectorAll(`[name="pluginOptions"]`)[0].value =
-      "";
-    htmlCollectionPlugin.querySelectorAll(`[name="pluginExample"]`)[0].value =
-      "";
-    htmlCollectionPlugin.parentElement.style.display = "none";
-  } catch (err) {
-    return err;
-  }
+  let linkItemObj = new LinkItemDOM();
+  linkItemObj.jsonObjClear();
 }
 
 function stringValidityNotEmpty(string) {
@@ -515,16 +518,17 @@ function editItemModal(
   oldPlugins
 ) {
   clearLinkItemForm();
-  // first lets make our JSON obj to pass
-  var returnJSONObj = {
-    id: parseInt(oldID),
-    friendlyName: oldFriendlyName,
-    link: oldLink,
-    category: oldCategory,
-    colour: oldColour,
-    style: oldStyle,
-    plugins: [],
-  };
+  // with the class for the Link Item DOM, we can work with that directly here, rather than using a useless interface function
+  let linkItemObj = new LinkItemDOM();
+  var jsonTemplate = linkItemObj.jsonObjTemplate;
+
+  jsonTemplate.id = parseInt(oldID);
+  jsonTemplate.friendlyName = oldFriendlyName;
+  jsonTemplate.link = oldLink;
+  jsonTemplate.category = oldCategory;
+  jsonTemplate.colour = oldColour;
+  jsonTemplate.style = oldStyle;
+
 
   for (var i = 0; i < oldPlugins.length; i++) {
     var tmpPluginJSON = {
@@ -532,10 +536,11 @@ function editItemModal(
       location: oldPlugins[i].location,
       options: oldPlugins[i].options,
     };
-    returnJSONObj.plugins.push(tmpPluginJSON);
+    jsonTemplate.plugins.push(tmpPluginJSON);
   }
 
-  setLinkItemForm(returnJSONObj);
+  linkItemObj.jsonObjFill = jsonTemplate;
+
   // once the data is injected into the page, we can display the modal
   universe.ShowModal("link-item-modal");
 
