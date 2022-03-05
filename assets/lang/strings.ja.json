@@ -81,7 +81,7 @@
   "i18n-settingsRemoveRightHeaderPlugin": "右ヘッダープラグインを削除",
   "i18n_returnValueLogging": "ログ",
   "i18n_returnValueRobots": "ロボティクス",
-  "i18n-activeTheme": "Active Theme",
-  "i18n-labelCustomColour": "Optional Custom Colour:",
-  "i18n-labelCustomStyle": "Optional Custom Style:"
+  "i18n-activeTheme": "アクティブなテーマ",
+  "i18n-labelCustomColour": "オプションのカスタムカラー:",
+  "i18n-labelCustomStyle": "任意のカスタムスタイル:"
 }
