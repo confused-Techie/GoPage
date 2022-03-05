@@ -128,6 +128,136 @@ function searchBarUpdate(e) {
     });
 }
 
+class LinkItemDOM {
+  _jsonObjTemplate = {
+    id: 0,
+    friendlyName: "",
+    link: "",
+    category: "",
+    colour: "",
+    style: "",
+    plugins: [],
+  };
+
+  constructor() {
+    // for non-plugin data we can use the FormData Object Constructor
+    this.FormData = new FormData(document.getElementById("link-item-form"));
+    // An element object is needed to properly retreive some values.
+    this.FormDom = document.getElementById("link-item-form");
+  }
+
+  get jsonObjTemplate() {
+    return this._jsonObjTemplate;
+  }
+
+  get jsonObjFilled() {
+    var tmpObj = this._jsonObjTemplate;
+
+    tmpObj.id = this.staticIDField;
+    tmpObj.friendlyName = this.friendlyNameField;
+    tmpObj.link = this.linkField;
+    tmpObj.category = this.categoryField;
+    tmpObj.colour = this.colourField;
+    tmpObj.style = this.styleField;
+    tmpObj.plugins = this.pluginField;
+
+    return tmpObj;
+  }
+
+  get staticIDField() {
+    return this.FormData.getAll("staticID")[0];
+  }
+
+  set staticIDField(input) {
+    if (notEmpty(input)) {
+      this.FormDom.querySelector(`[name="staticID"]`).value = input;
+    } else {
+      throw "The Static ID cannot be empty during setting.";
+    }
+  }
+
+  get friendlyNameField() {
+    return this.FormData.getAll("friendlyName")[0];
+  }
+
+  get linkField() {
+    return this.FormData.getAll("link")[0];
+  }
+
+  get categoryField() {
+    return this.FormData.getAll("category")[0];
+  }
+
+  get colourField() {
+    return this.FormData.getAll("colour")[0];
+  }
+
+  get styleField() {
+    return this.FormData.getAll("style")[0];
+  }
+
+  get pluginField() {
+    // Using the Element Method querySelectorAll list to get an array of Plugin Form NodeLists
+    var pluginNodeList = this.FormDom.querySelectorAll(`[class="additional_info"]`);
+    var psuedoPluginArray = [];
+
+    for (var i = 0; i < pluginNodeList.length; i++) {
+      // with our []NodeLists we will first take the child section of pluginAddContainer
+      var htmlCollectionPlugin = pluginNodeList[i].children[0];
+
+      var tmpObjPlugin = {
+        name: "",
+        location: "",
+        options: "",
+      };
+      // while this was originally a public field, there was an issue of what seemed to be desctructuring of the object, once added to the array.
+      // where the length of the array was correct, but all values would be the last item added. Meaning the public field
+      // seems to create a reference when instiated as a variable, rather than a new declaration.
+
+      tmpObjPlugin.name = htmlCollectionPlugin.querySelectorAll(`[name="pluginName"]`)[0].value;
+      tmpObjPlugin.location = htmlCollectionPlugin.querySelectorAll(`[name="pluginLocation"]`)[0].value;
+      tmpObjPlugin.options = htmlCollectionPlugin.querySelectorAll(`[name="pluginOptions"]`)[0].value;
+
+      // now before we push we want to do simple validation on this data.
+      if (!this.notEmpty(tmpObjPlugin.name)) {
+        // if no name is assigned, we can skip adding the plugin completely
+        continue;
+      }
+
+      psuedoPluginArray.push(tmpObjPlugin);
+    }
+
+    return psuedoPluginArray;
+  }
+
+  notEmpty(input) {
+    if (typeof input === "string") {
+      if (input === "" || input === " ") {
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      // TODO: add support for other types, but this will fail open for now
+      return true;
+    }
+  }
+
+  extraValues(input) {
+    try {
+      if (input.length > 1) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch(err) {
+      // if the length method fails, we can safely assume its not valid, and there are no extra values.
+      return false;
+    }
+  }
+
+}
+
 function addPluginToFormV2() {
   var lastAddPluginItem =
     document.getElementsByClassName("add-plugin-link")[
@@ -152,105 +282,34 @@ function addPluginToFormV2() {
 }
 
 function getLinkItemForm() {
+  // --------
+  // Cyclomatic Complexity Pre-Class: 14
+  // Cyclomatic Complexity Post-Class:
+  // -------
+  
   // parseLinkItemForm will either return an object of JSON, or a string, containing an error message that is safe to display to the user.
 
-  var returnJSONObj = {
-    id: 0,
-    friendlyName: "",
-    link: "",
-    category: "",
-    colour: "",
-    style: "",
-    plugins: [],
-  };
+  let linkObj = new LinkItemDOM();
+  // We can ask for the filled template from the class
+  var linkObjData = linkObj.jsonObjFilled;
 
-  var fullFormDOM = document.getElementById("link-item-form");
-  // since getElementById returns an element object, we need to ensure we only use methods available to access values.
-  // but to make life slightly easier, for non-plugin data, we can use the FomrData Object Constructor
-  var fullFormDATA = new FormData(document.getElementById("link-item-form"));
-  var staticID$ = fullFormDATA.getAll("staticID");
-  var linkItemName$ = fullFormDATA.getAll("friendlyName");
-  var linkItemLink$ = fullFormDATA.getAll("link");
-  var linkItemCategory$ = fullFormDATA.getAll("category");
-  var linkItemColour$ = fullFormDATA.getAll("colour");
-  var linkItemStyle$ = fullFormDATA.getAll("style");
-
-  returnJSONObj.id = staticID$[0];
-  returnJSONObj.friendlyName = linkItemName$[0];
-  returnJSONObj.link = linkItemLink$[0];
-  returnJSONObj.category = linkItemCategory$[0];
-  returnJSONObj.colour = linkItemColour$[0];
-  returnJSONObj.style = linkItemStyle$[0];
-
-  // with the required elements, we can do a validation check now
-  // first will be valid form data gathered check
-  if (
-    linkItemName$.length > 1 ||
-    linkItemLink$.length > 1 ||
-    linkItemCategory$.length > 1
-  ) {
-    // Why so many values
-    return i18n_returnValueGenericError;
-  }
-  // then check validity of entered values
-  // TODO fix the returns here
-  if (!stringValidityNotEmpty(returnJSONObj.friendlyName)) {
+  // now lets check the validity of the data gathered and react accordingly
+  if (!stringValidityNotEmpty(linkObjData.friendlyName)) {
     return i18n_validateName;
-  } else if (!stringValidityNotEmpty(returnJSONObj.link)) {
+  } else if (!stringValidityNotEmpty(linkObjData.link)) {
     return i18n_validateLink;
-  } else if (!stringValidityNotEmpty(returnJSONObj.category)) {
+  } else if (!stringValidityNotEmpty(linkObjData.category)) {
     return i18n_validateCategory;
   }
 
-  // after checking the required data, we can use an element method querySelectorAll list to get an array of plugin form NodeList's
-  var pluginNodeList = fullFormDOM.querySelectorAll(
-    `[class="additional_info"]`
-  );
-
-  for (var i = 0; i < pluginNodeList.length; i++) {
-    // with our []NodeLists we will first take the child section of pluginAddContainer
-    var htmlCollectionPlugin = pluginNodeList[i].children[0];
-
-    var pluginName$ =
-      htmlCollectionPlugin.querySelectorAll(`[name="pluginName"]`);
-    var pluginLocation$ = htmlCollectionPlugin.querySelectorAll(
-      `[name="pluginLocation"]`
-    );
-    var pluginOptions$ = htmlCollectionPlugin.querySelectorAll(
-      `[name="pluginOptions"]`
-    );
-
-    // check that only one item of this name is available
-    if (
-      pluginName$.length > 1 ||
-      pluginLocation$.length > 1 ||
-      pluginOptions$.length > 1
-    ) {
-      console.log("To many values retreived from DOM");
-      return i18n_returnValueGenericError;
-    }
-    // check that it has a value, otherwise we know its empty and we can skip applying this plugin at all
-    if (!stringValidityNotEmpty(pluginName$[0].value)) {
-      continue;
-    }
-    // although if the name is valid, but hhas no location that should through an error
-    if (!stringValidityNotEmpty(pluginLocation$[0].value)) {
+  // then to check the plugin data validity
+  for (var i = 0; i < linkObjData.plugins.length; i++) {
+    if (!stringValidityNotEmpty(linkObjData.plugins[i].location)) {
       return i18n_validatePluginLocation;
     }
-
-    // but if all is well we can create a temporary json object to push into the plugins array of the return json object
-    var tmpPluginJSON = {
-      name: pluginName$[0].value,
-      location: pluginLocation$[0].value,
-      options: !stringValidityNotEmpty(pluginOptions$[0].value)
-        ? ""
-        : pluginOptions$[0].value,
-    };
-
-    returnJSONObj.plugins.push(tmpPluginJSON);
   }
 
-  return returnJSONObj;
+  return linkObjData;
 }
 
 function setLinkItemForm(jsonObj) {
@@ -405,7 +464,6 @@ function initInstalledPluginListToForm() {
 }
 
 function newItemModal() {
-  // TODO call setLinkItemForm with an empty JSON obj, to remove any previous values
   clearLinkItemForm();
   universe.ShowModal("link-item-modal");
 

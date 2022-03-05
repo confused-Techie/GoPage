@@ -35,6 +35,7 @@ type resultSlice struct {
 
 var globalLinkItems documentSlice
 
+// BuildIndex needs to be called before making any requests for data, as it will build the index of searchable data.
 func BuildIndex() {
 	start := time.Now()
 	// build index instead will handle grabbing the data it needs.
@@ -44,10 +45,12 @@ func BuildIndex() {
 	fmt.Println("Done Building Search Index in:", duration, "-", duration.Nanoseconds(), "ns")
 }
 
+// GetIndex just returns abitrary return data, intended to help test that the index has been initialized properly
 func GetIndex() []string {
 	return globalLinkItems.Docs[1].Tokens
 }
 
+// SearchIndexLinkItem takes a search string and returns matching result structs if any for the search
 func SearchIndexLinkItem(search string) resultSlice {
 	start := time.Now()
 

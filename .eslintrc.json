@@ -17,6 +17,7 @@
     "universe": "readonly",
     "module": "readonly",
     "require": "readonly",
+    "checkCustomBackgroundImage": "readonly",
     "i18n_returnsSuccessDelete": "readonly",
     "i18n_returnsFailureDelete": "readonly",
     "i18n_returnsSuccessInstall": "readonly",
