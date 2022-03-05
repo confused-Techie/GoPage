@@ -364,10 +364,7 @@ hr.heading {
 }
 
 .loader img {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: auto;
-  margin-bottom: auto;
+  margin: auto;
 }
 .modal {
   display: none;
@@ -447,15 +444,7 @@ a:active {
   vertical-align: top;
 }
 
-.searchContainer:hover > input,
-.searchContainer input:active,
-.searchContainer input:focus {
-  width: 100%;
-  padding: 3px 15px;
-}
-
 .searchContainer input {
-  border: none;
   background: none;
   outline: none;
   padding: 3px;
@@ -467,11 +456,18 @@ a:active {
   background-color: white;
 }
 
+.searchContainer:hover > input,
+.searchContainer input:active,
+.searchContainer input:focus {
+  width: 100%;
+  padding: 3px 15px;
+}
+
 .searchContainer .searchResult {
   position: absolute;
   background-color: var(--category-selector-back-drop-colour);
   width: 18%;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   z-index: 1;
   text-align: center;
   margin-right: auto;

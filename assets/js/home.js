@@ -129,7 +129,6 @@ function searchBarUpdate(e) {
 }
 
 class LinkItemDOM {
-
   constructor() {
     // for non-plugin data we can use the FormData Object Constructor
     this.FormData = new FormData(document.getElementById("link-item-form"));
@@ -176,18 +175,13 @@ class LinkItemDOM {
   }
 
   jsonObjClear() {
-    try {
-      this.staticIDField = "";
-      this.friendlyNameField = "";
-      this.linkField = "";
-      this.categoryField = "";
-      this.colourField = "";
-      this.styleField = "";
-      this.emptyPlugins();
-
-    } catch(err) {
-      throw err;
-    }
+    this.staticIDField = "";
+    this.friendlyNameField = "";
+    this.linkField = "";
+    this.categoryField = "";
+    this.colourField = "";
+    this.styleField = "";
+    this.emptyPlugins();
   }
 
   get staticIDField() {
@@ -240,7 +234,9 @@ class LinkItemDOM {
 
   get pluginField() {
     // Using the Element Method querySelectorAll list to get an array of Plugin Form NodeLists
-    var pluginNodeList = this.FormDom.querySelectorAll(`[class="additional_info"]`);
+    var pluginNodeList = this.FormDom.querySelectorAll(
+      `[class="additional_info"]`
+    );
     var psuedoPluginArray = [];
 
     for (var i = 0; i < pluginNodeList.length; i++) {
@@ -256,9 +252,14 @@ class LinkItemDOM {
       // where the length of the array was correct, but all values would be the last item added. Meaning the public field
       // seems to create a reference when instiated as a variable, rather than a new declaration.
 
-      tmpObjPlugin.name = htmlCollectionPlugin.querySelectorAll(`[name="pluginName"]`)[0].value;
-      tmpObjPlugin.location = htmlCollectionPlugin.querySelectorAll(`[name="pluginLocation"]`)[0].value;
-      tmpObjPlugin.options = htmlCollectionPlugin.querySelectorAll(`[name="pluginOptions"]`)[0].value;
+      tmpObjPlugin.name =
+        htmlCollectionPlugin.querySelectorAll(`[name="pluginName"]`)[0].value;
+      tmpObjPlugin.location = htmlCollectionPlugin.querySelectorAll(
+        `[name="pluginLocation"]`
+      )[0].value;
+      tmpObjPlugin.options = htmlCollectionPlugin.querySelectorAll(
+        `[name="pluginOptions"]`
+      )[0].value;
 
       // now before we push we want to do simple validation on this data.
       if (!this.notEmpty(tmpObjPlugin.name)) {
@@ -277,19 +278,29 @@ class LinkItemDOM {
     for (var i = 0; i < input.length; i++) {
       //firstly create the plugin item
       addPluginToFormV2();
-      var pluginNodeList = this.FormDom.querySelectorAll(`[class="additional_info"]`);
+      var pluginNodeList = this.FormDom.querySelectorAll(
+        `[class="additional_info"]`
+      );
       var htmlCollectionPlugin = pluginNodeList[i].children[0];
-      htmlCollectionPlugin.querySelectorAll(`[name="pluginName"]`)[0].value = input[i].name;
-      htmlCollectionPlugin.querySelectorAll(`[name="pluginLocation"]`)[0].value = input[i].location;
-      htmlCollectionPlugin.querySelectorAll(`[name="pluginOptions"]`)[0].value = input[i].options;
+      htmlCollectionPlugin.querySelectorAll(`[name="pluginName"]`)[0].value =
+        input[i].name;
+      htmlCollectionPlugin.querySelectorAll(
+        `[name="pluginLocation"]`
+      )[0].value = input[i].location;
+      htmlCollectionPlugin.querySelectorAll(`[name="pluginOptions"]`)[0].value =
+        input[i].options;
     }
   }
 
   emptyPlugins() {
     while (document.getElementsByClassName("add-plugin-link").length > 1) {
       try {
-        document.getElementsByClassName("add-plugin-link")[document.getElementsByClassName("add-plugin-link").length -1].parentNode.remove();
-      } catch(err) {
+        document
+          .getElementsByClassName("add-plugin-link")
+          [
+            document.getElementsByClassName("add-plugin-link").length - 1
+          ].parentNode.remove();
+      } catch (err) {
         throw err;
       }
     }
@@ -298,11 +309,16 @@ class LinkItemDOM {
     // and removes it. This should onyl leave the last dom element to add plugins as intended
 
     // Now we just need to remove any data still present in that last element, and change its display
-    var htmlCollectionPlugin = this.FormDom.querySelectorAll(`[class="additional_info"]`)[0].children[0];
+    var htmlCollectionPlugin = this.FormDom.querySelectorAll(
+      `[class="additional_info"]`
+    )[0].children[0];
     htmlCollectionPlugin.querySelectorAll(`[name="pluginName"]`)[0].value = "";
-    htmlCollectionPlugin.querySelectorAll(`[name="pluginLocation"]`)[0].value = "";
-    htmlCollectionPlugin.querySelectorAll(`[name="pluginOptions"]`)[0].value = "";
-    htmlCollectionPlugin.querySelectorAll(`[name="pluginExample"]`)[0].value = "";
+    htmlCollectionPlugin.querySelectorAll(`[name="pluginLocation"]`)[0].value =
+      "";
+    htmlCollectionPlugin.querySelectorAll(`[name="pluginOptions"]`)[0].value =
+      "";
+    htmlCollectionPlugin.querySelectorAll(`[name="pluginExample"]`)[0].value =
+      "";
     htmlCollectionPlugin.parentElement.style.display = "none";
   }
 
@@ -326,12 +342,11 @@ class LinkItemDOM {
       } else {
         return false;
       }
-    } catch(err) {
+    } catch (err) {
       // if the length method fails, we can safely assume its not valid, and there are no extra values.
       return false;
     }
   }
-
 }
 
 function addPluginToFormV2() {
@@ -528,7 +543,6 @@ function editItemModal(
   jsonTemplate.category = oldCategory;
   jsonTemplate.colour = oldColour;
   jsonTemplate.style = oldStyle;
-
 
   for (var i = 0; i < oldPlugins.length; i++) {
     var tmpPluginJSON = {

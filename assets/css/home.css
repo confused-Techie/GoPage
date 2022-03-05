@@ -233,10 +233,6 @@ As to be honest I've hated CSS for years. */
   vertical-align: text-bottom;
 }
 
-.new-button-container button {
-  /* Button element in the New Item Button */
-}
-
 /* ============ */
 
 /* CSS for form elements carried over from new/edit items */
@@ -380,22 +376,24 @@ As to be honest I've hated CSS for years. */
 
 .form {
   display: block;
-  margin-top: 0em;
-  padding: 15px 50px 0px 50px;
+  padding: 15px 50px 0 50px;
   overflow-y: auto;
 }
 .form-row {
   margin: 0 -11px;
   display: -webkit-flex;
 }
-.form-row .form-group {
-  width: 50%;
-  padding: 0 11px;
-}
+
 .form-group {
   margin-bottom: 30px;
   position: relative;
 }
+
+.form-row .form-group {
+  width: 50%;
+  padding: 0 11px;
+}
+
 .form-row-btn {
   width: 50%;
   padding: 0 10px;
