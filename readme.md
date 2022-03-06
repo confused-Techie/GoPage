@@ -107,7 +107,7 @@ Many Plugins have already been created for GoPage and are available by default a
   * Exaggerator Theme: Exaggerator Theme... Just Colourful.
   * AQI Current: Get Air Quality Information at a glance. Via AirNow.gov.
 
-## [Contribute](docs/contribute.md)
+## [Contribute](docs/CONTRIBUTING.md)
 
 ## Learning More
 

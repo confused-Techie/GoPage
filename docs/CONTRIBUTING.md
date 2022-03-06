@@ -2,6 +2,16 @@
 
 There are many ways to help GoPage, some don't even require any knowledge of programming.
 
+### Programming
+
+Much work has been done to make contributing to GoPage as easy as possible.
+
+With as much of the program as documented as possible, and if documentation is poor in any place feel free to open an issue for the feature that you plan to add, and I can help point in the right direction.
+
+The [JavaScript](devDocs/JavaScript.md) in the project is being documented with JSDoc2MD using JSDoc style tags.
+
+Currently the [CSS])devDocs/css.md) of the project is being documented manually, but is still available, although may be slightly out of date.
+
 ### Plugins
 
 While Plugins do come in different shapes and sizes this refers to specifically [Item](pluginDevDocs/types.md) Type Plugins.
@@ -24,7 +34,7 @@ Themes are a type of Plugin so do require the creation of a `package.json` is ne
 
 One of the example Themes or the default `theme-dark.css` file can be copied and modified as needed.
 
-Or for the simplest starting point there is an [example](pluginDevDocs/themeExample.css) of a CSS Theme that can be copied to create a new theme. 
+Or for the simplest starting point there is an [example](pluginDevDocs/themeExample.css) of a CSS Theme that can be copied to create a new theme.
 
 Some plugins that can example a valid theme are below:
 
