@@ -10,7 +10,7 @@ With as much of the program as documented as possible, and if documentation is p
 
 The [JavaScript](devDocs/JavaScript.md) in the project is being documented with JSDoc2MD using JSDoc style tags.
 
-Currently the [CSS])devDocs/css.md) of the project is being documented manually, but is still available, although may be slightly out of date.
+Currently the [CSS](devDocs/css.md) of the project is being documented manually, but is still available, although may be slightly out of date.
 
 ### Plugins
 

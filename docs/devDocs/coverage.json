@@ -1,7 +1,7 @@
 {
-  "coverage": "14.47%",
+  "coverage": "23.68%",
   "expectCount": 76,
-  "actualCount": 11,
+  "actualCount": 18,
   "files": {
     "js/home.js": {
       "expectCount": 48,
@@ -72,18 +72,15 @@
     },
     "js/pluginhandler.js": {
       "expectCount": 1,
-      "actualCount": 0,
-      "undocumentLines": [
-        3
-      ]
+      "actualCount": 1,
+      "undocumentLines": []
     },
     "js/pluginLoad.js": {
       "expectCount": 3,
-      "actualCount": 0,
+      "actualCount": 1,
       "undocumentLines": [
-        1,
-        58,
-        70
+        63,
+        75
       ]
     },
     "js/pluginRepo.js": {
@@ -100,14 +97,8 @@
     },
     "js/settings.js": {
       "expectCount": 5,
-      "actualCount": 0,
-      "undocumentLines": [
-        1,
-        5,
-        55,
-        87,
-        114
-      ]
+      "actualCount": 5,
+      "undocumentLines": []
     },
     "js/universal.js": {
       "expectCount": 3,
