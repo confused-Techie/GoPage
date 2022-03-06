@@ -1,10 +1,15 @@
+/**
+* @member {File} LinkHealthJS
+* @desc The JavaScript file loaded with the Link Health Page.
+*/
 window.onload = function () {
   onPageLoad();
 };
 
 /**
-* @desc onPageLoad builds the main content of the LinkHealth page. By checking all saved links for any errors and outputting them in proper HTML.
+* @desc Builds the main content of the LinkHealth page. By checking all saved links for any errors and outputting them in proper HTML.
 * @todo Inline with the Neuter JavaScript Initiative, this should be done in Golang, and injected into the template.
+* @memberof LinkHealthJS
 */
 function onPageLoad() {
   // This will be called when the page first loads and we can begin our check.
@@ -89,9 +94,10 @@ function onPageLoad() {
 }
 
 /**
-* @desc getHostname returns just the Hostname of a provided link
+* @desc Returns just the Hostname of a provided link
 * @param {string} url is the URL to get a Hostname of.
 * @return {string} Hostname only of the provided link.
+* @memberof LinkHealthJS
 * @example
 * let hostname = getHostname(link);
 */

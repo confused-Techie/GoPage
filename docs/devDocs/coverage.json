@@ -1,7 +1,7 @@
 {
-  "coverage": "2.63%",
+  "coverage": "14.47%",
   "expectCount": 76,
-  "actualCount": 2,
+  "actualCount": 11,
   "files": {
     "js/home.js": {
       "expectCount": 48,
@@ -67,10 +67,8 @@
     },
     "js/linkhealth.js": {
       "expectCount": 3,
-      "actualCount": 2,
-      "undocumentLines": [
-        1
-      ]
+      "actualCount": 3,
+      "undocumentLines": []
     },
     "js/pluginhandler.js": {
       "expectCount": 1,
@@ -113,29 +111,18 @@
     },
     "js/universal.js": {
       "expectCount": 3,
-      "actualCount": 0,
-      "undocumentLines": [
-        7,
-        16,
-        34
-      ]
+      "actualCount": 3,
+      "undocumentLines": []
     },
     "js/universe.js": {
       "expectCount": 1,
-      "actualCount": 0,
-      "undocumentLines": [
-        6
-      ]
+      "actualCount": 1,
+      "undocumentLines": []
     },
     "js/uploadImage.js": {
       "expectCount": 4,
-      "actualCount": 0,
-      "undocumentLines": [
-        1,
-        42,
-        48,
-        89
-      ]
+      "actualCount": 4,
+      "undocumentLines": []
     }
   }
 }

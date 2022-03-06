@@ -1,9 +1,30 @@
+/**
+* @member {File} UniverseJS
+* @desc Namespace of functions for easy access to repeatable actions.
+*/
 // This will be a namespace to handle common functions and features within GoPage
 // Aimed at reducing complexity, and duplicity
 
 // Since a global variable within eslint is defined here, we turn off the redeclare warning
-/*eslint-disable-next-line no-redeclare, no-unused-vars*/
-var universe = {
+/**
+* The namespace to access all internal functions.
+* @namespace
+* @memberof UniverseJS
+*/
+var universe = { /*eslint-disable-line no-redeclare, no-unused-vars*/
+  /**
+  * @desc Common method for creating Snackbars onscreen, usually not directly accessed, instead accessed through a higher level function.
+  * @implements {ShowTemplateModal()}
+  * @param {string} id Div ID of the Snackbar to target.
+  * @param {string} textToShow The Text that will appear within the Snackbar.
+  * @param {function} [callback] Optional function to execute after the Snackbar has disappeared.
+  * @param {string} [extraClass] Optional className to provide. Not needed to be set when accessing from a higher function.
+  * @param {string} [img] Optional Relative path to an Image Icon to display alongside the text.
+  * @param {string} [alt] Optional ALT tag for the Image thats being displayed.
+  * @param {string} [additionalDetails] Optional details that will show in a modal if the Snackbar image is clicked. Setting additional details also makes the Snackbar Image clickable.
+  * @example
+  * universe.SnackbarCommon("homePageSnackbar", "Success", universe.ReloadCallback())
+  */
   SnackbarCommon: function (
     id,
     textToShow,
@@ -79,6 +100,14 @@ var universe = {
       }
     });
   },
+  /**
+  * @desc Simple way to create an Error Snackbar, defaulting many values passed to SnackbarCommon.
+  * @implements {SnackbarCommon()}
+  * @param {string} id Div ID of Snackbar to target.
+  * @param {string} textToShow The Text that will appear within the Snackbar.
+  * @param {function} [callback] Optional function to execute after the Snackbar has disappeared.
+  * @param {string} [details] Optional details that will show in a modal if the Snackbar Image is clicked.
+  */
   SnackbarError: function (id, textToShow, callback, details) {
     // A simple way to invoke SnackbarCommon while assigning the error class to the snackbar
     this.SnackbarCommon(
@@ -91,6 +120,10 @@ var universe = {
       details
     );
   },
+  /**
+  * @desc Provides a simple way to reload the page within callbacks. Since the standard `location.reload()` losses scope inside a callback.
+  * @returns {function} Globally Scoped function to reload page: `window.location.reload.bind(window.location)`
+  */
   ReloadCallback: function () {
     // Since passing the standard location.reload() doesn't work within the callback as it losses the this scope
     // we can bind it to the window.location, but this is a tad verbose.
@@ -123,6 +156,9 @@ var universe = {
     var modal = document.getElementById(id);
     modal.style.display = "none";
   },
+  /**
+  * @desc Will show an onscreen modal assuming the Template Modal Page is used. And will handle the closing of said modal.
+  */
   ShowTemplateModal: function (text) {
     var modal = document.getElementById("modal");
     // since this is only for template modals, we can use a static ID
