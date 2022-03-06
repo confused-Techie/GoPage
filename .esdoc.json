@@ -1,0 +1,13 @@
+{
+  "source": "./assets/js/",
+  "destination": "./docs/devDocs/",
+  "plugins": [
+    {
+      "name": "esdoc-coverage-plugin",
+      "option": {
+        "enable": true,
+        "kind": ["class", "method", "memeber", "get", "set", "constructor", "function", "variable"]
+      }
+    }
+  ]
+}

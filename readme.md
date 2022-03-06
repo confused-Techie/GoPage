@@ -17,6 +17,7 @@
 [![Last Commit](https://img.shields.io/github/last-commit/confused-Techie/GoPage)](https://github.com/confused-Techie/GoPage/commits/main)
 
 [![Crowdin](https://badges.crowdin.net/gopage/localized.svg)](https://crowdin.com/project/gopage)
+[![Documentation](/docs/devDocs/badge.svg)](/docs/devDocs/JavaScript.md)
 
 GoPage has been made with the goal of extreme simplicity and convenient extensibility. Where standalone it's a simplistic way to store and manage Links to pages giving them unique user-defined categories, with easy ability to edit them down the line. And if you mix in the existing plugins and extreme ease of creating new ones gives life to these Links to show you the data needed at a moments glance.
 

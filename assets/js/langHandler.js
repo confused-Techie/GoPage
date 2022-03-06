@@ -1,3 +1,6 @@
+// UPDATE: Its worth noting that nearly nothing from this is in use after the migration to template based translations.
+// The only function still in use is UnicornComposite. Otherwise its no longer used.
+
 // This will be the namespace to handle returning of strings of language data to
 // build the pages and support multiple languages.
 

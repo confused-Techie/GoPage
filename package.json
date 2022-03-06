@@ -10,6 +10,8 @@
     "lint": "powershell scripts/linting.ps1",
     "complexity": "powershell scripts/complexity.ps1",
     "ignore": "compactignore .",
+    "esdoc": "./node_modules/.bin/esdoc",
+    "jsdoc-md": "./node_modules/.bin/jsdoc2md ./assets/js/*.js > ./docs/devDocs/JavaScript.md",
     "testGulp": "gulp default"
   },
   "repository": {
@@ -26,8 +28,12 @@
     "@confused-techie/compactignore": "^1.0.0",
     "complexity-report": "^2.0.0-alpha",
     "cssnano": "^5.0.16",
+    "esdoc": "^1.1.0",
+    "esdoc-coverage-plugin": "^1.1.0",
     "gulp": "^4.0.2",
     "gulp-concat-css": "^3.1.0",
+    "jsdoc": "^3.6.10",
+    "jsdoc-to-markdown": "^7.1.1",
     "postcss": "^8.4.5",
     "postcss-cli": "^9.1.0",
     "prettier": "^2.5.1",
@@ -36,5 +42,6 @@
   },
   "overrides": {
     "glob-parent": "^5.1.2"
-  }
+  },
+  "dependencies": {}
 }

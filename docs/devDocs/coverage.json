@@ -1,0 +1,141 @@
+{
+  "coverage": "2.63%",
+  "expectCount": 76,
+  "actualCount": 2,
+  "files": {
+    "js/home.js": {
+      "expectCount": 48,
+      "actualCount": 0,
+      "undocumentLines": [
+        1,
+        16,
+        46,
+        72,
+        87,
+        98,
+        108,
+        131,
+        132,
+        139,
+        153,
+        167,
+        177,
+        187,
+        191,
+        195,
+        199,
+        203,
+        207,
+        211,
+        215,
+        219,
+        223,
+        227,
+        231,
+        235,
+        276,
+        295,
+        325,
+        338,
+        352,
+        375,
+        406,
+        416,
+        434,
+        441,
+        464,
+        484,
+        526,
+        597,
+        629,
+        677,
+        698,
+        710,
+        715,
+        720,
+        731,
+        784
+      ]
+    },
+    "js/langHandler.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        7,
+        13
+      ]
+    },
+    "js/linkhealth.js": {
+      "expectCount": 3,
+      "actualCount": 2,
+      "undocumentLines": [
+        1
+      ]
+    },
+    "js/pluginhandler.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        3
+      ]
+    },
+    "js/pluginLoad.js": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        1,
+        58,
+        70
+      ]
+    },
+    "js/pluginRepo.js": {
+      "expectCount": 6,
+      "actualCount": 0,
+      "undocumentLines": [
+        4,
+        15,
+        26,
+        36,
+        76,
+        91
+      ]
+    },
+    "js/settings.js": {
+      "expectCount": 5,
+      "actualCount": 0,
+      "undocumentLines": [
+        1,
+        5,
+        55,
+        87,
+        114
+      ]
+    },
+    "js/universal.js": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        7,
+        16,
+        34
+      ]
+    },
+    "js/universe.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        6
+      ]
+    },
+    "js/uploadImage.js": {
+      "expectCount": 4,
+      "actualCount": 0,
+      "undocumentLines": [
+        1,
+        42,
+        48,
+        89
+      ]
+    }
+  }
+}

@@ -30,7 +30,7 @@ window.addEventListener("DOMContentLoaded", () => {
   // with translations now part of templating, we no longer need to do a lookup at page load.
 });
 
-/*eslint-disable-next-line no-unused-vars*/
+/*eslint-disable-next-line no-redeclare*/
 function checkCustomBackgroundImage() {
   // This will be used to see if a background image is set, and load it if it is
   fetch("/api/usersettings")

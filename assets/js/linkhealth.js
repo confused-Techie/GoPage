@@ -2,6 +2,10 @@ window.onload = function () {
   onPageLoad();
 };
 
+/**
+* @desc onPageLoad builds the main content of the LinkHealth page. By checking all saved links for any errors and outputting them in proper HTML.
+* @todo Inline with the Neuter JavaScript Initiative, this should be done in Golang, and injected into the template.
+*/
 function onPageLoad() {
   // This will be called when the page first loads and we can begin our check.
   // The divs should be filled in with a loading bar initially
@@ -84,6 +88,13 @@ function onPageLoad() {
     });
 }
 
+/**
+* @desc getHostname returns just the Hostname of a provided link
+* @param {string} url is the URL to get a Hostname of.
+* @return {string} Hostname only of the provided link.
+* @example
+* let hostname = getHostname(link);
+*/
 function getHostname(url) {
   // use URL constructor and return hostname
   return new URL(url).hostname;
