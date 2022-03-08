@@ -228,6 +228,9 @@ func PluginRepoPageHandler(w http.ResponseWriter, r *http.Request) {
 // LinkHealthPageHandler returns basic page data w/ no template. Page: linkhealth.html
 func LinkHealthPageHandler(w http.ResponseWriter, r *http.Request) {
 
+	au := model.DetermineLinkHealth()
+	fmt.Println(au)
+
 	data := model.PageTemplate{
 		Title:          "GoPage - Link Health",
 		Theme:          "/assets/css/theme-dark.css",

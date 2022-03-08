@@ -320,3 +320,53 @@ type HTTPReqInfo struct {
 	UserAgent string
 	Protocol  string
 }
+
+// HomeV2() returns all Link Items
+
+type LinkHealthStruct struct {
+	Type string
+	Friendly string
+	Item string
+}
+
+type LinkHealthStructSlice struct {
+	Matches []LinkHealthStruct
+}
+
+func (match *LinkHealthStructSlice) AddItem(item LinkHealthStruct) []LinkHealthStruct {
+	match.Matches = append(match.Matches, item)
+	return match.Matches
+}
+
+func DetermineLinkHealth() (LinkHealthStructSlice) {
+	allItems := HomeV2()
+
+	// To Prevent the previous issue of
+	// duplication on these check results, we will first loop through and
+	// push all values into an array
+
+	var allLinks []string
+	//var allHostname []string
+	var allMatches LinkHealthStructSlice
+
+	for _, itm := range allItems.Items {
+		// first we check if the link is already in the array.
+		// if not, we add it. If it is, we will add to the linkHealth results
+		if universalMethods.StringInSlice(itm.Link, allLinks) {
+			data := LinkHealthStruct{
+				Type: "exact",
+				Friendly: itm.FriendlyName,
+				Item: itm.Link,
+			}
+			//allMatches = append(allMatches.Matches, data)
+			//allMatches.AddItem(data)
+			allMatches.Matches = append(allMatches.Matches, data)
+		}
+		// if not we add it
+		allLinks = append(allLinks, itm.Link)
+
+		//and we do the same for Hostname after getting it.
+	}
+
+	return allMatches
+}
