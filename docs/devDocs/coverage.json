@@ -1,7 +1,7 @@
 {
-  "coverage": "23.68%",
-  "expectCount": 76,
-  "actualCount": 18,
+  "coverage": "20.54%",
+  "expectCount": 73,
+  "actualCount": 15,
   "files": {
     "js/home.js": {
       "expectCount": 48,
@@ -64,11 +64,6 @@
         7,
         13
       ]
-    },
-    "js/linkhealth.js": {
-      "expectCount": 3,
-      "actualCount": 3,
-      "undocumentLines": []
     },
     "js/pluginhandler.js": {
       "expectCount": 1,

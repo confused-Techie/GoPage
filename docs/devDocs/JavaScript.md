@@ -1,9 +1,6 @@
 ## Members
 
 <dl>
-<dt><a href="#LinkHealthJS">LinkHealthJS</a> : <code>File</code></dt>
-<dd><p>The JavaScript file loaded with the Link Health Page.</p>
-</dd>
 <dt><a href="#PluginHandlerJS">PluginHandlerJS</a> : <code>File</code></dt>
 <dd><p>The JavaScript file to assist installed Plugins</p>
 </dd>
@@ -24,43 +21,6 @@
 </dd>
 </dl>
 
-<a name="LinkHealthJS"></a>
-
-## LinkHealthJS : <code>File</code>
-The JavaScript file loaded with the Link Health Page.
-
-**Kind**: global variable  
-
-* [LinkHealthJS](#LinkHealthJS) : <code>File</code>
-    * [.onPageLoad()](#LinkHealthJS.onPageLoad)
-    * [.getHostname(url)](#LinkHealthJS.getHostname) ⇒ <code>string</code>
-
-<a name="LinkHealthJS.onPageLoad"></a>
-
-### LinkHealthJS.onPageLoad()
-Builds the main content of the LinkHealth page. By checking all saved links for any errors and outputting them in proper HTML.
-
-**Kind**: static method of [<code>LinkHealthJS</code>](#LinkHealthJS)  
-**Todo**
-
-- [ ] Inline with the Neuter JavaScript Initiative, this should be done in Golang, and injected into the template.
-
-<a name="LinkHealthJS.getHostname"></a>
-
-### LinkHealthJS.getHostname(url) ⇒ <code>string</code>
-Returns just the Hostname of a provided link
-
-**Kind**: static method of [<code>LinkHealthJS</code>](#LinkHealthJS)  
-**Returns**: <code>string</code> - Hostname only of the provided link.  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| url | <code>string</code> | is the URL to get a Hostname of. |
-
-**Example**  
-```js
-let hostname = getHostname(link);
-```
 <a name="PluginHandlerJS"></a>
 
 ## PluginHandlerJS : <code>File</code>
