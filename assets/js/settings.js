@@ -1,19 +1,19 @@
 /**
-* @member {File} SettingsJS
-* @desc The JavaScript file loaded with the Settings Page
-*/
+ * @member {File} SettingsJS
+ * @desc The JavaScript file loaded with the Settings Page
+ */
 window.onload = function () {
   onclickHandlers();
 };
 
 /**
-* @desc Registers `onclick` handlers wherever relavent within the page.
-* @memberof SettingsJS
-* @implements {universe.SnackbarCommon()}
-* @implements {langHandler.UnicornComposite()}
-* @implements {removeHeaderPlugin()}
-* @implements {changeOptionsAPI()}
-*/
+ * @desc Registers `onclick` handlers wherever relavent within the page.
+ * @memberof SettingsJS
+ * @implements {universe.SnackbarCommon()}
+ * @implements {langHandler.UnicornComposite()}
+ * @implements {removeHeaderPlugin()}
+ * @implements {changeOptionsAPI()}
+ */
 function onclickHandlers() {
   var submitLangBtn = document.getElementById("submitLangBtn");
   var removeLeftHeaderPluginBtn = document.getElementById(
@@ -65,15 +65,15 @@ function onclickHandlers() {
 }
 
 /**
-* @desc Simplifies removing a Header Plugin from User Settings using GoPage APIs
-* @param {string} side Indicates the which Side the Header Plugin is being removed from.
-* Valid Values: "right", "left"
-* @memberof SettingsJS
-* @implements {universe.CreateJSONPOSTHeaders()}
-* @implements {universe.SnackbarCommon()}
-* @implements {langHandler.UnicornComposite()}
-* @implements {universe.SnackbarError()}
-*/
+ * @desc Simplifies removing a Header Plugin from User Settings using GoPage APIs
+ * @param {string} side Indicates the which Side the Header Plugin is being removed from.
+ * Valid Values: "right", "left"
+ * @memberof SettingsJS
+ * @implements {universe.CreateJSONPOSTHeaders()}
+ * @implements {universe.SnackbarCommon()}
+ * @implements {langHandler.UnicornComposite()}
+ * @implements {universe.SnackbarError()}
+ */
 function removeHeaderPlugin(side) {
   fetch("/api/usersettings")
     .then((res) => res.json())
@@ -107,15 +107,15 @@ function removeHeaderPlugin(side) {
 }
 
 /**
-* @desc Simplified method of making API Calls to GoPage API to change user settings.
-* @param {string} item The Identifier of the Item being changed.
-* @param {string} value The Value said Identifier is being changed to.
-* @memberof SettingsJS
-* @implements {doesJSONParse()}
-* @implements {universe.SnackbarError()}
-* @implements {universe.SnackbarCommon()}
-* @implements {langHandler.UnicornComposite()}
-*/
+ * @desc Simplified method of making API Calls to GoPage API to change user settings.
+ * @param {string} item The Identifier of the Item being changed.
+ * @param {string} value The Value said Identifier is being changed to.
+ * @memberof SettingsJS
+ * @implements {doesJSONParse()}
+ * @implements {universe.SnackbarError()}
+ * @implements {universe.SnackbarCommon()}
+ * @implements {langHandler.UnicornComposite()}
+ */
 function changeOptionsAPI(item, value) {
   console.log(value);
   fetch(`/api/change?id=${item}&value=${value.trim()}`)
@@ -144,11 +144,11 @@ function changeOptionsAPI(item, value) {
 }
 
 /**
-* @desc Method of checking if passed data will parse into JSON without any errors.
-* @returns {boolean} True if successfully parsed, false if it fails to parse.
-* @param {string} data The data to test against.
-* @memberof SettingsJS
-*/
+ * @desc Method of checking if passed data will parse into JSON without any errors.
+ * @returns {boolean} True if successfully parsed, false if it fails to parse.
+ * @param {string} data The data to test against.
+ * @memberof SettingsJS
+ */
 function doesJSONParse(data) {
   try {
     JSON.parse(data);

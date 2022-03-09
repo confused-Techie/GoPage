@@ -9,8 +9,8 @@ import (
 	"github.com/spf13/viper"
 	"io/ioutil"
 	"os"
-	"time"
 	"regexp"
+	"time"
 )
 
 // ItemPluginsV2 a struct dependency of ItemV2, for JSON Plugin Models
@@ -324,10 +324,10 @@ type HTTPReqInfo struct {
 
 // LinkHealthStruct is the baseline struct for the matches of Link Health, dependent on LinkHealthStructSlice
 type LinkHealthStruct struct {
-	Type string
-	Friendly string
+	Type          string
+	Friendly      string
 	FriendlyMatch string
-	Item string
+	Item          string
 }
 
 // LinkHealthStructSlice is the slice of LinkHealthStructs
@@ -349,8 +349,8 @@ func (match LinkHealthStructSlice) HasNoItems() bool {
 	return false
 }
 
-// DetermineLinkHealth is the function that returns the data portion of templating for LinkHealth.gohtml 
-func DetermineLinkHealth() (LinkHealthStructSlice) {
+// DetermineLinkHealth is the function that returns the data portion of templating for LinkHealth.gohtml
+func DetermineLinkHealth() LinkHealthStructSlice {
 	allItems := HomeV2()
 
 	// To Prevent the previous issue of
@@ -372,10 +372,10 @@ func DetermineLinkHealth() (LinkHealthStructSlice) {
 		// if not, we add it. If it is, we will add to the linkHealth results
 		if universalMethods.StringInSlice(itm.Link, allLinks) {
 			data := LinkHealthStruct{
-				Type: "exact",
-				Friendly: itm.FriendlyName,
+				Type:          "exact",
+				Friendly:      itm.FriendlyName,
 				FriendlyMatch: allLinksName[universalMethods.WhichStringInSlice(itm.Link, allLinks)],
-				Item: itm.Link,
+				Item:          itm.Link,
 			}
 
 			allMatches.Matches = append(allMatches.Matches, data)
@@ -389,10 +389,10 @@ func DetermineLinkHealth() (LinkHealthStructSlice) {
 
 		if universalMethods.StringInSlice(curLinkHostName, allHostName) {
 			data := LinkHealthStruct{
-				Type: "hostname",
-				Friendly: itm.FriendlyName,
+				Type:          "hostname",
+				Friendly:      itm.FriendlyName,
 				FriendlyMatch: allHostNameString[universalMethods.WhichStringInSlice(curLinkHostName, allHostName)],
-				Item: curLinkHostName,
+				Item:          curLinkHostName,
 			}
 
 			allMatches.Matches = append(allMatches.Matches, data)

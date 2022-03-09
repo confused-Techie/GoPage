@@ -1,24 +1,24 @@
 package apiFunc
 
 import (
-  "testing"
-  "os"
-  "reflect"
+	"os"
+	"reflect"
+	"testing"
 )
 
 func TestHostSettingGet(t *testing.T) {
-  want, error := os.Hostname()
-  if error != nil {
-    t.Fatalf("HostSettingGet: expected: --, got: %v", error)
-  }
-  
-  got, error := HostSettingGet()
+	want, error := os.Hostname()
+	if error != nil {
+		t.Fatalf("HostSettingGet: expected: --, got: %v", error)
+	}
 
-  if error != nil {
-    t.Fatalf("HostSettingGet: expected: %v, got: %v", want, error)
-  }
+	got, error := HostSettingGet()
 
-  if !reflect.DeepEqual(want, got) {
-    t.Fatalf("HostSettingGet: expected: %v, got: %v", want, got)
-  }
+	if error != nil {
+		t.Fatalf("HostSettingGet: expected: %v, got: %v", want, error)
+	}
+
+	if !reflect.DeepEqual(want, got) {
+		t.Fatalf("HostSettingGet: expected: %v, got: %v", want, got)
+	}
 }

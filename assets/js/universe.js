@@ -1,36 +1,37 @@
 /**
-* @member {File} UniverseJS
-* @desc Namespace of functions for easy access to repeatable actions.
-*/
+ * @member {File} UniverseJS
+ * @desc Namespace of functions for easy access to repeatable actions.
+ */
 // This will be a namespace to handle common functions and features within GoPage
 // Aimed at reducing complexity, and duplicity
 
 // Since a global variable within eslint is defined here, we turn off the redeclare warning
 /**
-* The namespace to access all internal functions.
-* @namespace
-* @memberof UniverseJS
-*/
-var universe = { /*eslint-disable-line no-redeclare, no-unused-vars*/
+ * The namespace to access all internal functions.
+ * @namespace
+ * @memberof UniverseJS
+ */
+var universe = {
+  /*eslint-disable-line no-redeclare, no-unused-vars*/
   /**
-  * @desc Common method for creating Snackbars onscreen, usually not directly accessed, instead accessed through a higher level function.
-  * @implements {ShowTemplateModal()}
-  * @param {string} id Div ID of the Snackbar to target.
-  * @param {string} textToShow The Text that will appear within the Snackbar.
-  * @param {function} [callback] Optional function to execute after the Snackbar has disappeared.
-  * @param {string} [extraClass] Optional className to provide. Not needed to be set when accessing from a higher function.
-  * @param {string} [img] Optional Relative path to an Image Icon to display alongside the text.
-  * @param {string} [alt] Optional ALT tag for the Image thats being displayed.
-  * @param {string} [additionalDetails] Optional details that will show in a modal if the Snackbar image is clicked. Setting additional details also makes the Snackbar Image clickable.
-  * @example
-  * universe.SnackbarCommon("homePageSnackbar", "Success", universe.ReloadCallback());
-  * @example <caption>A More Complex Example</caption>
-  * universe.SnackbarCommon(
-  *   "snackbar",
-  *   langHandler.UnicornComposite(string, i18n_returnValueLinkItem),
-  *   universe.HotReload("linkItemList", "/", homePageInit, "reload")
-  *   );
-  */
+   * @desc Common method for creating Snackbars onscreen, usually not directly accessed, instead accessed through a higher level function.
+   * @implements {ShowTemplateModal()}
+   * @param {string} id Div ID of the Snackbar to target.
+   * @param {string} textToShow The Text that will appear within the Snackbar.
+   * @param {function} [callback] Optional function to execute after the Snackbar has disappeared.
+   * @param {string} [extraClass] Optional className to provide. Not needed to be set when accessing from a higher function.
+   * @param {string} [img] Optional Relative path to an Image Icon to display alongside the text.
+   * @param {string} [alt] Optional ALT tag for the Image thats being displayed.
+   * @param {string} [additionalDetails] Optional details that will show in a modal if the Snackbar image is clicked. Setting additional details also makes the Snackbar Image clickable.
+   * @example
+   * universe.SnackbarCommon("homePageSnackbar", "Success", universe.ReloadCallback());
+   * @example <caption>A More Complex Example</caption>
+   * universe.SnackbarCommon(
+   *   "snackbar",
+   *   langHandler.UnicornComposite(string, i18n_returnValueLinkItem),
+   *   universe.HotReload("linkItemList", "/", homePageInit, "reload")
+   *   );
+   */
   SnackbarCommon: function (
     id,
     textToShow,
@@ -107,13 +108,13 @@ var universe = { /*eslint-disable-line no-redeclare, no-unused-vars*/
     });
   },
   /**
-  * @desc Simple way to create an Error Snackbar, defaulting many values passed to SnackbarCommon.
-  * @implements {SnackbarCommon()}
-  * @param {string} id Div ID of Snackbar to target.
-  * @param {string} textToShow The Text that will appear within the Snackbar.
-  * @param {function} [callback] Optional function to execute after the Snackbar has disappeared.
-  * @param {string} [details] Optional details that will show in a modal if the Snackbar Image is clicked.
-  */
+   * @desc Simple way to create an Error Snackbar, defaulting many values passed to SnackbarCommon.
+   * @implements {SnackbarCommon()}
+   * @param {string} id Div ID of Snackbar to target.
+   * @param {string} textToShow The Text that will appear within the Snackbar.
+   * @param {function} [callback] Optional function to execute after the Snackbar has disappeared.
+   * @param {string} [details] Optional details that will show in a modal if the Snackbar Image is clicked.
+   */
   SnackbarError: function (id, textToShow, callback, details) {
     // A simple way to invoke SnackbarCommon while assigning the error class to the snackbar
     this.SnackbarCommon(
@@ -127,9 +128,9 @@ var universe = { /*eslint-disable-line no-redeclare, no-unused-vars*/
     );
   },
   /**
-  * @desc Provides a simple way to reload the page within callbacks. Since the standard `location.reload()` losses scope inside a callback.
-  * @returns {function} Globally Scoped function to reload page: `window.location.reload.bind(window.location)`
-  */
+   * @desc Provides a simple way to reload the page within callbacks. Since the standard `location.reload()` losses scope inside a callback.
+   * @returns {function} Globally Scoped function to reload page: `window.location.reload.bind(window.location)`
+   */
   ReloadCallback: function () {
     // Since passing the standard location.reload() doesn't work within the callback as it losses the this scope
     // we can bind it to the window.location, but this is a tad verbose.
@@ -137,10 +138,10 @@ var universe = { /*eslint-disable-line no-redeclare, no-unused-vars*/
     return window.location.reload.bind(window.location);
   },
   /**
-  * @desc Provides a simple way to retreive POST JSON Headers for use with Fetch requests.
-  * @returns {Object} Fetch Request Options with provided data.
-  * @param {string} data JSON Object to set as the body of the Fetch details.
-  */
+   * @desc Provides a simple way to retreive POST JSON Headers for use with Fetch requests.
+   * @returns {Object} Fetch Request Options with provided data.
+   * @param {string} data JSON Object to set as the body of the Fetch details.
+   */
   CreateJSONPOSTHeaders: function (data) {
     // This will take a JSON object and return the headers for a fetch request
     // with the method being post, and providing json
@@ -158,29 +159,29 @@ var universe = { /*eslint-disable-line no-redeclare, no-unused-vars*/
     return requestOptions;
   },
   /**
-  * @desc Sets a Modal's Display to "block" to show it on the page.
-  * @param {string} id Is the DOM ID of the Modal to Display.
-  */
+   * @desc Sets a Modal's Display to "block" to show it on the page.
+   * @param {string} id Is the DOM ID of the Modal to Display.
+   */
   ShowModal: function (id) {
     // Used for displaying a modal, based on the provided id.
     var modal = document.getElementById(id);
     modal.style.display = "block";
   },
   /**
-  * @desc Sets a Modal's Display to "none" to remove it from the page.
-  * @param {string} id Is the DOM ID of the Modal to Remove.
-  */
+   * @desc Sets a Modal's Display to "none" to remove it from the page.
+   * @param {string} id Is the DOM ID of the Modal to Remove.
+   */
   CloseModal: function (id) {
     // Used to close a modal, based on the provided id
     var modal = document.getElementById(id);
     modal.style.display = "none";
   },
   /**
-  * @desc Will show an onscreen modal assuming the Template Modal Page is used. And will handle the closing of said modal.
-  * @param {string} text Is the Text to show within the Modal.
-  * @implements {CloseModal()}
-  * @implements {ShowModal()}
-  */
+   * @desc Will show an onscreen modal assuming the Template Modal Page is used. And will handle the closing of said modal.
+   * @param {string} text Is the Text to show within the Modal.
+   * @implements {CloseModal()}
+   * @implements {ShowModal()}
+   */
   ShowTemplateModal: function (text) {
     var modal = document.getElementById("modal");
     // since this is only for template modals, we can use a static ID
@@ -202,11 +203,11 @@ var universe = { /*eslint-disable-line no-redeclare, no-unused-vars*/
     this.ShowModal("modal");
   },
   /**
-  * @desc Uses GoPage APIs to set new UserSettings to the Server.
-  * @param {string} requestOptions Will be the Request Options passed to Fetch for the request
-  * @param {function} successCallback The function to execute if the query is successful.
-  * @param {function} errorCallback The function to execute if the query fails. The error callback is **REQUIRED** to accept a JSON Object of the error.
-  */
+   * @desc Uses GoPage APIs to set new UserSettings to the Server.
+   * @param {string} requestOptions Will be the Request Options passed to Fetch for the request
+   * @param {function} successCallback The function to execute if the query is successful.
+   * @param {function} errorCallback The function to execute if the query fails. The error callback is **REQUIRED** to accept a JSON Object of the error.
+   */
   WriteUserSettings: function (requestOptions, successCallback, errorCallback) {
     fetch("/api/usersettingswrite", requestOptions)
       .then((response) => response.json())
@@ -220,12 +221,12 @@ var universe = { /*eslint-disable-line no-redeclare, no-unused-vars*/
       });
   },
   /**
-  * @desc Intended to be a simple way to create an Error Snackbar that has now been superseded by SnackbarError.
-  * @param {string} snackbar DOM ID of the Snackbar to Target.
-  * @param {string} msg The Message to display in the text of the Snackbar and to output to the console.
-  * @implements {SnackbarError()}
-  * @todo Determine if this is still needed or in use.
-  */
+   * @desc Intended to be a simple way to create an Error Snackbar that has now been superseded by SnackbarError.
+   * @param {string} snackbar DOM ID of the Snackbar to Target.
+   * @param {string} msg The Message to display in the text of the Snackbar and to output to the console.
+   * @implements {SnackbarError()}
+   * @todo Determine if this is still needed or in use.
+   */
   GenericErrorHandler: function (snackbar, msg) {
     // For a generic error we want to do two things.
     // Log the error to console, and then create the snackbar.
@@ -235,13 +236,13 @@ var universe = { /*eslint-disable-line no-redeclare, no-unused-vars*/
     // TODO: This method is outdated
   },
   /**
-  * @desc Can be used to help determine the right translated message.
-  * This does require that returnGlobalJS template is in use on the page.
-  * This will use the Global Strings to attempt to return the right action that has been preformed.
-  * @param {string} action Is the action that has occured. Valid values: "delete", "install", "update"
-  * @param {string} status Is the status of said action. Valid Values: "pass", "fail"
-  * @returns {string} The translated string needed, **Remember** this will likely be a Composite String and shouldn't be displayed as is.
-  */
+   * @desc Can be used to help determine the right translated message.
+   * This does require that returnGlobalJS template is in use on the page.
+   * This will use the Global Strings to attempt to return the right action that has been preformed.
+   * @param {string} action Is the action that has occured. Valid values: "delete", "install", "update"
+   * @param {string} status Is the status of said action. Valid Values: "pass", "fail"
+   * @returns {string} The translated string needed, **Remember** this will likely be a Composite String and shouldn't be displayed as is.
+   */
   FindReturnsString: function (action, status) {
     // This requires that the returnsGlobalJS template is used.
     // this will use the global translated strings, to help find the right return action string
@@ -275,14 +276,14 @@ var universe = { /*eslint-disable-line no-redeclare, no-unused-vars*/
     }
   },
   /**
-  * @desc Adds an easy way to Hot-Reload pages that are capable of doing so server side.
-  * @param {string} elementID The DOM ID of the element to replace in the Hot-Reload Action.
-  * @param {string} url The URL to query for Hot-Reloading page data.
-  * @param {function} callback Function to execute after the Hot-Reload is finished. Useful for calling any functions needed to add Event Handlers or process data on the page.
-  * @param {string} callbackArg Arguments to pass to the callback function, useful if the callback needs to identify that its a callback.
-  * @example
-  * universe.HotReload("linkItemList", "/", homePageInit, "reload");
-  */
+   * @desc Adds an easy way to Hot-Reload pages that are capable of doing so server side.
+   * @param {string} elementID The DOM ID of the element to replace in the Hot-Reload Action.
+   * @param {string} url The URL to query for Hot-Reloading page data.
+   * @param {function} callback Function to execute after the Hot-Reload is finished. Useful for calling any functions needed to add Event Handlers or process data on the page.
+   * @param {string} callbackArg Arguments to pass to the callback function, useful if the callback needs to identify that its a callback.
+   * @example
+   * universe.HotReload("linkItemList", "/", homePageInit, "reload");
+   */
   HotReload: function (elementID, url, callback, callbackArg) {
     // this is a function to add hot-reload capabilities to pages.
     // requiring both the ID of the element to replace, and the url to query
@@ -322,9 +323,9 @@ var universe = { /*eslint-disable-line no-redeclare, no-unused-vars*/
     }
   },
   /**
-  * @desc Simple method of injecting a Loading animation onto the center of the page.
-  * @param {boolean} shouldShow indicates if the loader is being turned off or on. True being on, and False being off.
-  */
+   * @desc Simple method of injecting a Loading animation onto the center of the page.
+   * @param {boolean} shouldShow indicates if the loader is being turned off or on. True being on, and False being off.
+   */
   Loader: function (shouldShow) {
     // 1st argument shouldShow = boolean specifying weather this is turning it off, or on
     var loaderEle = document.getElementsByClassName("loader")[0];

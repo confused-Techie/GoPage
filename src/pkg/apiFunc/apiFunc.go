@@ -12,6 +12,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"regexp"
 	"runtime"
 	"strings"
 	"time"
@@ -240,6 +241,15 @@ func InstallUniversal(src string) (string, error) {
 	}
 
 	// Get the data
+	urlCheckMatch := regexp.MustCompile(`^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?`)
+	urlGithubOnly := regexp.MustCompile(`^(w{3}\.github\.com)|(github\.com)`)
+
+	urlHostName := urlCheckMatch.FindStringSubmatch(src)[4]
+
+	if !urlGithubOnly.MatchString(urlHostName) {
+		return "Unable to Install. Only Github Sources allowed at this time.", nil
+	}
+
 	resp, err := http.Get(src)
 	if err != nil {
 		return "", err

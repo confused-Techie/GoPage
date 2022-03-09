@@ -1,7 +1,7 @@
 /**
-* @member {File} PluginLoadJS
-* @desc The JavaScript file that handles loading Plugin Scripts on page load.
-*/
+ * @member {File} PluginLoadJS
+ * @desc The JavaScript file that handles loading Plugin Scripts on page load.
+ */
 
 function checkPlugins() {
   fetch("/plugins/installedPlugins.json")

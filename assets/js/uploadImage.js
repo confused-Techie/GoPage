@@ -1,14 +1,14 @@
 /**
-* @member {File} UploadImageJS
-* @desc The JavaScript file loaded with the Upload Image Page.
-*/
+ * @member {File} UploadImageJS
+ * @desc The JavaScript file loaded with the Upload Image Page.
+ */
 
 /**
-* @desc Builds the main content of the UploadImage Page. By using GoPage API's to check saved images, and display them.
-* @todo Inline with the Neutuer JavaScript Initiative, this should be done in Golang, and injected into the template.
-* @memberof UploadImageJS
-* @kind function
-*/
+ * @desc Builds the main content of the UploadImage Page. By using GoPage API's to check saved images, and display them.
+ * @todo Inline with the Neutuer JavaScript Initiative, this should be done in Golang, and injected into the template.
+ * @memberof UploadImageJS
+ * @kind function
+ */
 function loadAvailableImages() {
   // first we want to grab the list of all images in the userImages dir
   fetch("/userimages")
@@ -51,22 +51,23 @@ function loadAvailableImages() {
 }
 
 /**
-* @desc Helps loadAvailableImages to build the page, by returned an HTML string
-* @returns {string} HTML typed string, containing an IMG DOM Element
-* @param {string} imageLoc is the URL to access the image.
-* @memberof UploadImageJS
-*/
+ * @desc Helps loadAvailableImages to build the page, by returned an HTML string
+ * @returns {string} HTML typed string, containing an IMG DOM Element
+ * @param {string} imageLoc is the URL to access the image.
+ * @memberof UploadImageJS
+ */
 function insertImg(imageLoc) {
   var imgSrc = `/assets/userImages/${imageLoc}`;
   return `<img src="${imgSrc}" onclick="setImage('${imageLoc}');">`;
 }
 
 /**
-* @desc Will attempt to save the specified image as the Users background image.
-* @param {string} name is the name of the image you want to set as the background image.
-* @memberof UploadImageJS
-*/
-function setImage(name) { /*eslint-disable-line no-unused-vars*/
+ * @desc Will attempt to save the specified image as the Users background image.
+ * @param {string} name is the name of the image you want to set as the background image.
+ * @memberof UploadImageJS
+ */
+function setImage(name) {
+  /*eslint-disable-line no-unused-vars*/
   fetch("/api/usersettings")
     .then((res) => res.json())
     .then((data) => {
@@ -107,10 +108,11 @@ function setImage(name) { /*eslint-disable-line no-unused-vars*/
 }
 
 /**
-* @desc Will query GoPage API's to remove whatever is currently set as the User Image
-* @memberof UploadImageJS
-*/
-function unsetImage() { /*eslint-disable-line no-unused-vars*/
+ * @desc Will query GoPage API's to remove whatever is currently set as the User Image
+ * @memberof UploadImageJS
+ */
+function unsetImage() {
+  /*eslint-disable-line no-unused-vars*/
   fetch("/api/usersettings")
     .then((res) => res.json())
     .then((data) => {

@@ -1,18 +1,18 @@
 // Stored only for functions used on every page or nearly every page
 
 /**
-* @member {File} UniversalJS
-* @desc JavaScript file loaded with every single page for Universal Functions
-*/
+ * @member {File} UniversalJS
+ * @desc JavaScript file loaded with every single page for Universal Functions
+ */
 
 loadTimeStamp();
 updaterTimeStamp();
 checkCustomBackgroundImage();
 
 /**
-* @desc Loads the TimeStamp and modifies the HTML to reflect the current time.
-* @memberof UniversalJS
-*/
+ * @desc Loads the TimeStamp and modifies the HTML to reflect the current time.
+ * @memberof UniversalJS
+ */
 function loadTimeStamp() {
   if (document.getElementById("timeStamp") != null) {
     const dateToDisplay = new Date();
@@ -23,10 +23,10 @@ function loadTimeStamp() {
 }
 
 /**
-* @desc Uses `setInterval` to call `loadTimeStamp()` every 1000 milliseconds (1 Second)
-* @memberof UniversalJS
-* @implements {loadTimeStamp()}
-*/
+ * @desc Uses `setInterval` to call `loadTimeStamp()` every 1000 milliseconds (1 Second)
+ * @memberof UniversalJS
+ * @implements {loadTimeStamp()}
+ */
 function updaterTimeStamp() {
   // This function is purely for making any updates as needed.
 
@@ -45,10 +45,11 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 /**
-* @desc Queries GoPage APIs to determine and set a background image if needed, injecting it into the DOM.
-* @memberof UniversalJS
-*/
-function checkCustomBackgroundImage() { /*eslint-disable-line no-redeclare*/
+ * @desc Queries GoPage APIs to determine and set a background image if needed, injecting it into the DOM.
+ * @memberof UniversalJS
+ */
+function checkCustomBackgroundImage() {
+  /*eslint-disable-line no-redeclare*/
   // This will be used to see if a background image is set, and load it if it is
   fetch("/api/usersettings")
     .then((res) => res.json())

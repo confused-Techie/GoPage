@@ -1,27 +1,28 @@
 /**
-* @member {File} PluginHandlerJS
-* @desc The JavaScript file to assist installed Plugins
-*/
+ * @member {File} PluginHandlerJS
+ * @desc The JavaScript file to assist installed Plugins
+ */
 
 /**
-* The namespace to access all PluginHandler internal functions
-* @memberof PluginHandlerJS
-* @namespace
-*/
-var pluginAPI = { /*eslint-disable-lin no-redeclare, no-unused-vars*/
+ * The namespace to access all PluginHandler internal functions
+ * @memberof PluginHandlerJS
+ * @namespace
+ */
+var pluginAPI = {
+  /*eslint-disable-lin no-redeclare, no-unused-vars*/
   /**
-  * @desc Returns a live HTMLCollection that use the specified plugin.
-  * @param {string} pluginName is the name of the Plugin to search for.
-  * @returns {Array.HTMLCollection} Live array of the DOM Element using the plugin.
-  */
+   * @desc Returns a live HTMLCollection that use the specified plugin.
+   * @param {string} pluginName is the name of the Plugin to search for.
+   * @returns {Array.HTMLCollection} Live array of the DOM Element using the plugin.
+   */
   ReturnItems: function ReturnItems(pluginName) {
     return document.getElementsByClassName(pluginName);
   },
   /**
-  * @desc Parses saved configuration data for plugins.
-  * @param {string} rawConfig takes the raw string confiuration data.
-  * @returns {Object} A Parsed JSON Object of the configuration data.
-  */
+   * @desc Parses saved configuration data for plugins.
+   * @param {string} rawConfig takes the raw string confiuration data.
+   * @returns {Object} A Parsed JSON Object of the configuration data.
+   */
   ParseConfig: function ParseConfig(rawConfig) {
     // Will parse the generic or otherwise Rev1 config or option data for plugins
     // option=value;
