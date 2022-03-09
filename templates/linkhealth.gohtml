@@ -37,7 +37,12 @@
     <!-- Then account for the instance when this is empty with build in struct functions -->
     {{ if .Data.HasNoItems }}
       <div class="bar-list-bars">
-        <p>No offending Links Found</p>
+        <p>
+          {{or
+            (index $scopedTargetStrings "i18n-LHNoOffendingLinks")
+            (index $scopedDefaultStrings "i18n-LHNoOffendingLinks")
+          }}
+        </p>
       </div>
     {{end}}
   </div>
