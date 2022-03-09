@@ -322,8 +322,7 @@ type HTTPReqInfo struct {
 	Protocol  string
 }
 
-// HomeV2() returns all Link Items
-
+// LinkHealthStruct is the baseline struct for the matches of Link Health, dependent on LinkHealthStructSlice
 type LinkHealthStruct struct {
 	Type string
 	Friendly string
@@ -331,15 +330,18 @@ type LinkHealthStruct struct {
 	Item string
 }
 
+// LinkHealthStructSlice is the slice of LinkHealthStructs
 type LinkHealthStructSlice struct {
 	Matches []LinkHealthStruct
 }
 
+// AddItem is a method of LinkHealthStructSlice to add a new Item to the struct
 func (match *LinkHealthStructSlice) AddItem(item LinkHealthStruct) []LinkHealthStruct {
 	match.Matches = append(match.Matches, item)
 	return match.Matches
 }
 
+// HasNoItems is a method of LinkHealthStructSlice to determine if the slice is empty for templating ease
 func (match LinkHealthStructSlice) HasNoItems() bool {
 	if len(match.Matches) < 1 {
 		return true
@@ -347,6 +349,7 @@ func (match LinkHealthStructSlice) HasNoItems() bool {
 	return false
 }
 
+// DetermineLinkHealth is the function that returns the data portion of templating for LinkHealth.gohtml 
 func DetermineLinkHealth() (LinkHealthStructSlice) {
 	allItems := HomeV2()
 
