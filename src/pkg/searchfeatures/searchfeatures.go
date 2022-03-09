@@ -3,6 +3,7 @@ package searchfeatures
 import (
 	"fmt"
 	model "github.com/confused-Techie/GoPage/src/pkg/model"
+	universalMethods "github.com/confused-Techie/GoPage/src/pkg/universalMethods"
 	"strings"
 	"time"
 	"unicode"
@@ -61,7 +62,7 @@ func SearchIndexLinkItem(search string) resultSlice {
 		for _, char := range tokenSearch {
 			for _, token := range itm.Tokens {
 				if strings.Contains(token, char) {
-					fmt.Println("Match Found", itm.Dump, char)
+					fmt.Println("Match Found", itm.Dump, universalMethods.LogInjectionAvoidance(char))
 					var tmpRes result
 					tmpRes.FriendlyName = itm.FriendlyName
 					tmpRes.Link = itm.Link

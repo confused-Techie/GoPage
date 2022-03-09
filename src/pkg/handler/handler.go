@@ -738,6 +738,6 @@ func Search(w http.ResponseWriter, r *http.Request) {
 	source := r.URL.Query().Get("source")
 	term := r.URL.Query().Get("term")
 
-	fmt.Println(source + " : " + term)
+	fmt.Println(universalMethods.LogInjectionAvoidance(source) + " : " + universalMethods.LogInjectionAvoidance(term))
 	json.NewEncoder(w).Encode(searchfeatures.SearchIndexLinkItem(term))
 }

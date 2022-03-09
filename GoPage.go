@@ -178,13 +178,13 @@ func logRequestHandler(h http.Handler) http.Handler {
 		date := time.Now()
 
 		if logMethod == "combined" {
-			fmt.Printf("%s  - - [%s] '%s %s %s' %d %d '%s' '%s'\n", ri.Ipaddr, date.Format(NCSACommonFormat), ri.Method, ri.Uri, ri.Protocol, ri.Code, ri.Size, ri.Referer, ri.UserAgent)
+			fmt.Printf("%s  - - [%s] '%s %s %s' %d %d '%s' '%s'\n", universalMethods.LogInjectionAvoidance(ri.Ipaddr), date.Format(NCSACommonFormat), universalMethods.LogInjectionAvoidance(ri.Method), universalMethods.LogInjectionAvoidance(ri.Uri), universalMethods.LogInjectionAvoidance(ri.Protocol), ri.Code, ri.Size, universalMethods.LogInjectionAvoidance(ri.Referer), universalMethods.LogInjectionAvoidance(ri.UserAgent))
 		}
 		if logMethod == "common" {
-			fmt.Printf("%s - - [%s] '%s %s %s' %d %d\n", ri.Ipaddr, date.Format(NCSACommonFormat), ri.Method, ri.Uri, ri.Protocol, ri.Code, ri.Size)
+			fmt.Printf("%s - - [%s] '%s %s %s' %d %d\n", universalMethods.LogInjectionAvoidance(ri.Ipaddr), date.Format(NCSACommonFormat), universalMethods.LogInjectionAvoidance(ri.Method), universalMethods.LogInjectionAvoidance(ri.Uri), universalMethods.LogInjectionAvoidance(ri.Protocol), ri.Code, ri.Size)
 		}
 		if logMethod == "custom" {
-			log.Printf("'%s %s' from %s - %d %dB in %v\n", ri.Method, ri.Uri, ri.Ipaddr, ri.Code, ri.Size, ri.Duration)
+			log.Printf("'%s %s' from %s - %d %dB in %v\n", universalMethods.LogInjectionAvoidance(ri.Method), universalMethods.LogInjectionAvoidance(ri.Uri), universalMethods.LogInjectionAvoidance(ri.Ipaddr), ri.Code, ri.Size, ri.Duration)
 		}
 	})
 
