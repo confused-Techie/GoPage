@@ -80,5 +80,8 @@
   "i18n-settingsRemoveLeftHeaderPlugin": "Plugin für linke Kopfzeile entfernen",
   "i18n-settingsRemoveRightHeaderPlugin": "Plugin für rechte Kopfzeile entfernen",
   "i18n_returnValueLogging": "Protokollierung",
-  "i18n_returnValueRobots": "Roboter"
+  "i18n_returnValueRobots": "Roboter",
+  "i18n-activeTheme": "Aktives Theme",
+  "i18n-labelCustomColour": "Optionale Farbe:",
+  "i18n-labelCustomStyle": "Optionaler benutzerdefinierter Stil:"
 }
