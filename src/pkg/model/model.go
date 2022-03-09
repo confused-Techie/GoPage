@@ -10,6 +10,7 @@ import (
 	"io/ioutil"
 	"os"
 	"time"
+	"regexp"
 )
 
 // ItemPluginsV2 a struct dependency of ItemV2, for JSON Plugin Models
@@ -326,6 +327,7 @@ type HTTPReqInfo struct {
 type LinkHealthStruct struct {
 	Type string
 	Friendly string
+	FriendlyMatch string
 	Item string
 }
 
@@ -338,6 +340,13 @@ func (match *LinkHealthStructSlice) AddItem(item LinkHealthStruct) []LinkHealthS
 	return match.Matches
 }
 
+func (match LinkHealthStructSlice) HasNoItems() bool {
+	if len(match.Matches) < 1 {
+		return true
+	}
+	return false
+}
+
 func DetermineLinkHealth() (LinkHealthStructSlice) {
 	allItems := HomeV2()
 
@@ -346,8 +355,14 @@ func DetermineLinkHealth() (LinkHealthStructSlice) {
 	// push all values into an array
 
 	var allLinks []string
+	var allLinksName []string
 	//var allHostname []string
 	var allMatches LinkHealthStructSlice
+	var allHostNameString []string
+	var allHostName []string
+
+	hostNameMatch := regexp.MustCompile(`^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?`)
+	// Regex borrowed from RFC3986
 
 	for _, itm := range allItems.Items {
 		// first we check if the link is already in the array.
@@ -356,16 +371,34 @@ func DetermineLinkHealth() (LinkHealthStructSlice) {
 			data := LinkHealthStruct{
 				Type: "exact",
 				Friendly: itm.FriendlyName,
+				FriendlyMatch: allLinksName[universalMethods.WhichStringInSlice(itm.Link, allLinks)],
 				Item: itm.Link,
 			}
-			//allMatches = append(allMatches.Matches, data)
-			//allMatches.AddItem(data)
+
 			allMatches.Matches = append(allMatches.Matches, data)
 		}
 		// if not we add it
 		allLinks = append(allLinks, itm.Link)
-
+		allLinksName = append(allLinksName, itm.FriendlyName)
 		//and we do the same for Hostname after getting it.
+
+		curLinkHostName := hostNameMatch.FindStringSubmatch(itm.Link)[4]
+
+		if universalMethods.StringInSlice(curLinkHostName, allHostName) {
+			data := LinkHealthStruct{
+				Type: "hostname",
+				Friendly: itm.FriendlyName,
+				FriendlyMatch: allHostNameString[universalMethods.WhichStringInSlice(curLinkHostName, allHostName)],
+				Item: curLinkHostName,
+			}
+
+			allMatches.Matches = append(allMatches.Matches, data)
+		}
+
+		// if not matching we add it
+		allHostName = append(allHostName, curLinkHostName)
+		allHostNameString = append(allHostNameString, itm.FriendlyName)
+
 	}
 
 	return allMatches

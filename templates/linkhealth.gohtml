@@ -6,8 +6,40 @@
 
   {{template "heading" .}}
 
-  <div id="link-health" class="bar-list">
+  {{ $scopedTargetStrings := .TargetStrings }}
+  {{ $scopedDefaultStrings := .DefaultStrings }}
 
+  <div id="link-health-template" class="bar-list">
+    {{range .Data.Matches}}
+      <div class="bar-list-bars">
+        <p><span class="text-style-declare">
+          {{or
+            (index $scopedTargetStrings "i18n-generatedLHMatchType")
+            (index $scopedDefaultStrings "i18n-generatedLHMatchType")
+          }}:</span>
+        {{.Type}}:
+        <span class="text-style-declare">
+          {{or
+            (index $scopedTargetStrings "i18n-generatedLHMatchedItem")
+            (index $scopedDefaultStrings "i18n-generatedLHMatchedItem")
+          }}:</span>
+        {{.Item}}
+        <span class="text-style-declare">
+          {{or
+            (index $scopedTargetStrings "i18n-generatedLHLinkItem")
+            (index $scopedDefaultStrings "i18n-generatedLHLinkItem")
+          }}:</span>
+        {{.Friendly}} & {{.FriendlyMatch}}
+        </p>
+      </div>
+    {{end}}
+
+    <!-- Then account for the instance when this is empty with build in struct functions -->
+    {{ if .Data.HasNoItems }}
+      <div class="bar-list-bars">
+        <p>No offending Links Found</p>
+      </div>
+    {{end}}
   </div>
 
   {{template "footer" .}}

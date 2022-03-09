@@ -228,15 +228,12 @@ func PluginRepoPageHandler(w http.ResponseWriter, r *http.Request) {
 // LinkHealthPageHandler returns basic page data w/ no template. Page: linkhealth.html
 func LinkHealthPageHandler(w http.ResponseWriter, r *http.Request) {
 
-	au := model.DetermineLinkHealth()
-	fmt.Println(au)
-
 	data := model.PageTemplate{
 		Title:          "GoPage - Link Health",
 		Theme:          "/assets/css/theme-dark.css",
 		CSS:            []string{"/assets/css/dist/universal.min.css"},
-		JS:             []string{"/assets/js/universal.js", "/assets/js/langHandler.js", "/assets/js/linkhealth.js"},
-		Data:           "",
+		JS:             []string{"/assets/js/universal.js", "/assets/js/langHandler.js"},
+		Data:           model.DetermineLinkHealth(),
 		TargetStrings:  returnTargetStrings(),
 		DefaultStrings: returnDefaultStrings(),
 		TargetLanguage: model.ServSettingGetLang(),
