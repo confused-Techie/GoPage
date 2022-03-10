@@ -46,4 +46,4 @@ var langHandler = {
     }
     return str;
   },
-}
+};

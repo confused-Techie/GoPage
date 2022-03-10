@@ -61,7 +61,7 @@ function insertImg(imageLoc) {
   return `<img src="${imgSrc}" onclick="setImage('${imageLoc}');">`;
 }
 
-/*esliint-disable no-unused-vars*/
+/*eslint-disable no-unused-vars*/
 /**
  * @desc Will attempt to save the specified image as the Users background image.
  * @param {string} name is the name of the image you want to set as the background image.
