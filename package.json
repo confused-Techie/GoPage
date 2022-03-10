@@ -41,7 +41,10 @@
     "terser": "^5.10.0"
   },
   "overrides": {
-    "glob-parent": "^5.1.2"
+    "glob-parent": "^5.1.2",
+    "marked": "4.0.10",
+    "nth-check": "2.0.1",
+    "minimist": "1.2.3"
   },
   "dependencies": {}
 }
