@@ -44,12 +44,13 @@ window.addEventListener("DOMContentLoaded", () => {
   // with translations now part of templating, we no longer need to do a lookup at page load.
 });
 
+/*eslint-disable no-redeclare*/
 /**
  * @desc Queries GoPage APIs to determine and set a background image if needed, injecting it into the DOM.
  * @memberof UniversalJS
  */
 function checkCustomBackgroundImage() {
-  /*eslint-disable-line no-redeclare*/
+  /*eslint-enable no-redeclare*/
   // This will be used to see if a background image is set, and load it if it is
   fetch("/api/usersettings")
     .then((res) => res.json())

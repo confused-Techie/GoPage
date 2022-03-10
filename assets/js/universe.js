@@ -6,13 +6,14 @@
 // Aimed at reducing complexity, and duplicity
 
 // Since a global variable within eslint is defined here, we turn off the redeclare warning
+/*eslint-disable no-redeclare, no-unused-vars*/
 /**
  * The namespace to access all internal functions.
  * @namespace
  * @memberof UniverseJS
  */
 var universe = {
-  /*eslint-disable-line no-redeclare, no-unused-vars*/
+  /*eslint-enable no-redeclare, no-unused-vars*/
   /**
    * @desc Common method for creating Snackbars onscreen, usually not directly accessed, instead accessed through a higher level function.
    * @implements {ShowTemplateModal()}

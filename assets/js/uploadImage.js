@@ -61,13 +61,14 @@ function insertImg(imageLoc) {
   return `<img src="${imgSrc}" onclick="setImage('${imageLoc}');">`;
 }
 
+/*esliint-disable no-unused-vars*/
 /**
  * @desc Will attempt to save the specified image as the Users background image.
  * @param {string} name is the name of the image you want to set as the background image.
  * @memberof UploadImageJS
  */
 function setImage(name) {
-  /*eslint-disable-line no-unused-vars*/
+  /*eslint-enable no-unused-vars*/
   fetch("/api/usersettings")
     .then((res) => res.json())
     .then((data) => {
@@ -107,12 +108,13 @@ function setImage(name) {
     });
 }
 
+/*eslint-disable no-unused-vars*/
 /**
  * @desc Will query GoPage API's to remove whatever is currently set as the User Image
  * @memberof UploadImageJS
  */
 function unsetImage() {
-  /*eslint-disable-line no-unused-vars*/
+  /*eslint-enable no-unused-vars*/
   fetch("/api/usersettings")
     .then((res) => res.json())
     .then((data) => {

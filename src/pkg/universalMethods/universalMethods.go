@@ -83,7 +83,7 @@ func StringInSlice(a string, list []string) bool {
 	return false
 }
 
-// WhichhStringInSlice is a simple methhod to implement JS Array.prototype.findIndex() which will also return -1 if not found
+// WhichStringInSlice is a simple methhod to implement JS Array.prototype.findIndex() which will also return -1 if not found
 func WhichStringInSlice(a string, list []string) int {
 	for i, b := range list {
 		if b == a {

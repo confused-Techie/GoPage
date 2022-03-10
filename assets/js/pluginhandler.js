@@ -3,13 +3,14 @@
  * @desc The JavaScript file to assist installed Plugins
  */
 
+/*eslint-disable no-redeclare, no-unused-vars*/
 /**
  * The namespace to access all PluginHandler internal functions
  * @memberof PluginHandlerJS
  * @namespace
  */
 var pluginAPI = {
-  /*eslint-disable-lin no-redeclare, no-unused-vars*/
+  /*eslint-enable no-redeclare, no-unused-vars*/
   /**
    * @desc Returns a live HTMLCollection that use the specified plugin.
    * @param {string} pluginName is the name of the Plugin to search for.

@@ -30,7 +30,8 @@ type result struct {
 	Type         string
 }
 
-type resultSlice struct {
+// ResultSlice is an array container of results, exported to make life easier.
+type ResultSlice struct {
 	Results []*result
 }
 
@@ -52,11 +53,11 @@ func GetIndex() []string {
 }
 
 // SearchIndexLinkItem takes a search string and returns matching result structs if any for the search
-func SearchIndexLinkItem(search string) resultSlice {
+func SearchIndexLinkItem(search string) ResultSlice {
 	start := time.Now()
 
 	tokenSearch := stopwordFilter(lowercaseFilter(tokenize(search)))
-	var res resultSlice
+	var res ResultSlice
 
 	for _, itm := range globalLinkItems.Docs {
 		for _, char := range tokenSearch {
