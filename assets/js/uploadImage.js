@@ -88,23 +88,8 @@ function setImage(name) {
         // this shhould call the function from universal.js
       };
 
-      universe.WriteUserSettings(
-        universe.CreateJSONPOSTHeaders(JSON.stringify(data)),
-        successHandler,
-        function (err) {
-          universe.SnackbarError(
-            "snackbar",
-            i18n_returnValueGenericError,
-            false,
-            err
-          );
-        }
-      );
-      // The above is attempted to be simplified to the greatest extent.
-      // WriteUserSettings(requestOptions, successCallback, errorCallback)
-      // requestOptions: CreateJSONPOSTHeaders with the stringified Data.
-      // successCallback: The defined const successHandler. Which must be defined to contain logic of Composite String Method
-      // errorCallback: An inline function taking the err passed, and then passing that to the GenericErrorHandler with the proper snackbar id
+      writeUserSettings(data, successHandler);
+
     });
 }
 
@@ -128,19 +113,32 @@ function unsetImage() {
         checkCustomBackgroundImage();
       };
 
-      universe.WriteUserSettings(
-        universe.CreateJSONPOSTHeaders(JSON.stringify(data)),
-        successHandler,
-        function (err) {
-          universe.SnackbarError(
-            "snackbar",
-            i18n_returnValueGenericError,
-            false,
-            err
-          );
-        }
-      );
+      writeUserSettings(data, successHandler);
     });
+}
+
+/**
+* @desc Will allow an easy way of writing to user settings and setting up an error callback
+* @memberof UploadImageJS
+*/
+function writeUserSettings(data, successHandler) {
+  universe.WriteUserSettings(
+    universe.CreateJSONPOSTHeaders(JSON.stringify(data)),
+    successHandler,
+    function (err) {
+      universe.SnackbarError(
+        "snackbar",
+        i18n_returnValueGenericError,
+        false,
+        err
+      );
+    }
+  );
+  // The above is attempted to be simplified to the greatest extent.
+  // WriteUserSettings(requestOptions, successCallback, errorCallback)
+  // requestOptions: CreateJSONPOSTHeaders with the stringified Data.
+  // successCallback: The defined const successHandler. Which must be defined to contain logic of Composite String Method
+  // errorCallback: An inline function taking the err passed, and then passing that to the GenericErrorHandler with the proper snackbar id
 }
 
 loadAvailableImages();

@@ -343,4 +343,26 @@ var universe = {
       );
     }
   },
+  /**
+  * @desc Allowing easy universal access to the ChangeLangAPI, by just submitting the chosenLang
+  * @param {string} chosenLang The two digit language code that the server should save 
+  */
+  ChangeLangAPI: function(chosenLang) {
+    fetch(`/api/changelang?lang=${chosenLang}`)
+      .then((res) => res.json())
+      .then((response) => {
+        this.SnackbarCommon(
+          "snackbar",
+          langHandler.UnicornComposite(
+            i18n_returnsSuccessUpdate,
+            i18n_returnValueLanguage
+          ),
+          false,
+          false,
+          false,
+          false,
+          response
+        );
+      });
+  },
 };

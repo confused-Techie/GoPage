@@ -652,22 +652,7 @@ function firstTimeSetup(dev) {
         modalChangeLang.onclick = function () {
           var modalChosenLang = document.getElementById("changeLang");
           var chosenLang = modalChosenLang.value;
-          fetch(`/api/changelang?lang=${chosenLang}`)
-            .then((res) => res.json())
-            .then((response) => {
-              universe.SnackbarCommon(
-                "snackbar",
-                langHandler.UnicornComposite(
-                  i18n_returnsSuccessUpdate,
-                  i18n_returnValueLangauge
-                ),
-                false,
-                false,
-                false,
-                false,
-                response
-              );
-            });
+          universe.ChangeLangAPI(chosenLang);
         };
       }
     });

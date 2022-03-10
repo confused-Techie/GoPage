@@ -27,22 +27,7 @@ function onclickHandlers() {
 
   submitLangBtn.onclick = function () {
     var chosenLang = document.getElementById("changeLangInput").value;
-    fetch(`/api/changelang?lang=${chosenLang}`)
-      .then((res) => res.json())
-      .then((response) => {
-        universe.SnackbarCommon(
-          "snackbar",
-          langHandler.UnicornComposite(
-            i18n_returnsSuccessUpdate,
-            i18n_returnValueLanguage
-          ),
-          false,
-          false,
-          false,
-          false,
-          response
-        );
-      });
+    universe.ChangeLangAPI(chosenLang);
   };
 
   removeLeftHeaderPluginBtn.onclick = function () {
