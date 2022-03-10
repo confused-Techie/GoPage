@@ -3,9 +3,9 @@ package universalMethods
 import (
 	"fmt"
 	"os"
+	"regexp"
 	"strings"
 	"time"
-	"regexp"
 )
 
 // LogInjectionAvoidance will do basic sanitization of strings before being put into the log
@@ -19,19 +19,19 @@ func LogInjectionAvoidance(input string) string {
 // PathTraversalAvoidance will do basic sanitization of strings before returning for accessing the filesystem
 func PathTraversalAvoidance(input string) (bool, string) {
 	// define different regex matchers
-	unixBackNav := regexp.MustCompile(`(\.{2}\/)`) // ../
+	unixBackNav := regexp.MustCompile(`(\.{2}\/)`)        // ../
 	unixBackNavReverse := regexp.MustCompile(`(\.{2}\\)`) // ..\
-	unixParentCatchAll := regexp.MustCompile(`(\.{2})`) // anything with two dots (.) next to each other
+	unixParentCatchAll := regexp.MustCompile(`(\.{2})`)   // anything with two dots (.) next to each other
 	//fileNameTerminate := regexp.MustCompile(`(%0{2}).+`) // %00 terminates a filename. EX. ?file=secret.doc%00.pdf would get: secret.doc NOT .pdf
-	parentEncoding := regexp.MustCompile(`(?i)(\.{2}%c0%af)`) // ..%c0%af = ../
+	parentEncoding := regexp.MustCompile(`(?i)(\.{2}%c0%af)`)       // ..%c0%af = ../
 	parentEncodingReverse := regexp.MustCompile(`(?i)(\.{2}%c%9c)`) // ..%c1%9c = ..\
 	// To test against encoding or double encoding, this will fail close, testing individual encoding characters rather than strings
 	// since an attacker could use %2e%2e%2f = ../ OR ..%2f = ../ OR %2e%2e/ = ../ and so on
-	dotEncode := regexp.MustCompile(`(?i)%2e`) // %2e = .
-	dotDoubleEncode := regexp.MustCompile(`(?i)%252e`) // %252e = .
-	slashEncode := regexp.MustCompile(`(?i)(%2f)`) // %2f = /
-	slashDoubleEncode := regexp.MustCompile(`(?i)(%252F)`) // %252F = /
-	backslashEncode := regexp.MustCompile(`(?i)(%5c)`) // %5c = \
+	dotEncode := regexp.MustCompile(`(?i)%2e`)                 // %2e = .
+	dotDoubleEncode := regexp.MustCompile(`(?i)%252e`)         // %252e = .
+	slashEncode := regexp.MustCompile(`(?i)(%2f)`)             // %2f = /
+	slashDoubleEncode := regexp.MustCompile(`(?i)(%252F)`)     // %252F = /
+	backslashEncode := regexp.MustCompile(`(?i)(%5c)`)         // %5c = \
 	backslashDoubleEncode := regexp.MustCompile(`(?i)(%225c)`) // %225c = \
 
 	badReturnMsg := "Suspected Path Traversal Attack. Aborted."

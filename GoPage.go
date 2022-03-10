@@ -82,7 +82,7 @@ func requestGetRemoteAddress(r *http.Request) string {
 func cacheControl(h http.Handler) http.Handler {
 	fn := func(w http.ResponseWriter, r *http.Request) {
 		ptStatus, ptRes := universalMethods.PathTraversalAvoidance(r.URL.String())
-		
+
 		if ptStatus {
 			fmt.Println(ptRes)
 			return

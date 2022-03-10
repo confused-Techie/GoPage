@@ -1,6 +1,9 @@
 ## Members
 
 <dl>
+<dt><a href="#LangHandlerJS">LangHandlerJS</a> : <code>File</code></dt>
+<dd><p>Namespace of functions for easy access to Language actions.</p>
+</dd>
 <dt><a href="#PluginHandlerJS">PluginHandlerJS</a> : <code>File</code></dt>
 <dd><p>The JavaScript file to assist installed Plugins</p>
 </dd>
@@ -21,6 +24,46 @@
 </dd>
 </dl>
 
+<a name="LangHandlerJS"></a>
+
+## LangHandlerJS : <code>File</code>
+Namespace of functions for easy access to Language actions.
+
+**Kind**: global variable  
+
+* [LangHandlerJS](#LangHandlerJS) : <code>File</code>
+    * [.langHandler](#LangHandlerJS.langHandler)
+        * [.UnicornComposite(arg0, argN)](#LangHandlerJS.langHandler.UnicornComposite)
+
+<a name="LangHandlerJS.langHandler"></a>
+
+### LangHandlerJS.langHandler
+The namepsace to access all internal functions.
+
+**Kind**: static property of [<code>LangHandlerJS</code>](#LangHandlerJS)  
+**Namepspace**:   
+<a name="LangHandlerJS.langHandler.UnicornComposite"></a>
+
+#### langHandler.UnicornComposite(arg0, argN)
+Implementation of Composite Formatting from C#
+This is at its core based on the Stack Overflow Implementation found and reworked by Gabriel Nahmias.
+Which was agiain reworked by myself to work as a standalone method.
+https://stackoverflow.com/a/18234317/12707685
+This will accept a composite formatted string for ease of translations.
+
+**Kind**: static method of [<code>langHandler</code>](#LangHandlerJS.langHandler)  
+**Summary**: Implementation of Composite Formatting from C#.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| arg0 | <code>string</code> | The String to preform the method on. |
+| argN | <code>string</code> | All other arguments afterwards can be keys, with as many as needed to fill the string. Not enough or to many causing zero errors. |
+
+**Example**  
+```js
+langHandler.UnicornComposite("How is this for a {0}, I hope it {1}", "Test", "Works");
+// Outputs: "How is this for a Test, I hope it Works."
+```
 <a name="PluginHandlerJS"></a>
 
 ## PluginHandlerJS : <code>File</code>

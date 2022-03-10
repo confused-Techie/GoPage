@@ -1,7 +1,7 @@
 {
-  "coverage": "20.54%",
-  "expectCount": 73,
-  "actualCount": 15,
+  "coverage": "22.22%",
+  "expectCount": 72,
+  "actualCount": 16,
   "files": {
     "js/home.js": {
       "expectCount": 48,
@@ -58,12 +58,9 @@
       ]
     },
     "js/langHandler.js": {
-      "expectCount": 2,
-      "actualCount": 0,
-      "undocumentLines": [
-        7,
-        13
-      ]
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
     },
     "js/pluginhandler.js": {
       "expectCount": 1,
