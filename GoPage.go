@@ -81,7 +81,14 @@ func requestGetRemoteAddress(r *http.Request) string {
 
 func cacheControl(h http.Handler) http.Handler {
 	fn := func(w http.ResponseWriter, r *http.Request) {
-		modtime := universalMethods.LastModifiedTime(r.URL.String())
+		ptStatus, ptRes := universalMethods.PathTraversalAvoidance(r.URL.String())
+		
+		if ptStatus {
+			fmt.Println(ptRes)
+			return
+		}
+
+		modtime := universalMethods.LastModifiedTime(ptRes)
 
 		w.Header().Set("Cache-Control", "max-age=2592000") // 30 Days
 		w.Header().Set("Last-Modified", modtime)

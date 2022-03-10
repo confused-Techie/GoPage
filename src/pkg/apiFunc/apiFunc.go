@@ -139,11 +139,18 @@ func GetDualPluginList() (au *UniversalDualPluginList) {
 }
 
 // UninstallUniversal uses Go functions and libraries to uninstall plugins rather than powershell scripts and is the currently used method
-func UninstallUniversal(pluginName string) (string, error) {
+func UninstallUniversal(pluginNameRaw string) (string, error) {
 	var consoleData string
 	// We want to first remove the old files
-	fmt.Println("Uninstalling Plugin: " + universalMethods.LogInjectionAvoidance(pluginName))
-	consoleData = consoleData + "Uninstalling Plugin: " + pluginName + "... \n"
+	fmt.Println("Uninstalling Plugin: " + universalMethods.LogInjectionAvoidance(pluginNameRaw))
+	consoleData = consoleData + "Uninstalling Plugin: " + pluginNameRaw + "... \n"
+
+	ptStatus, pluginName := universalMethods.PathTraversalAvoidance(pluginNameRaw)
+
+	if ptStatus {
+		fmt.Println(pluginName)
+		return pluginName, nil
+	}
 
 	rmvPlg := os.RemoveAll(viper.GetString("directories.plugin") + pluginName)
 	if rmvPlg != nil {

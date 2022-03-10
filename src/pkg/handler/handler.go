@@ -290,8 +290,8 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	defer file.Close()
 	fmt.Printf("Uploaded File: %+v\n", universalMethods.LogInjectionAvoidance(handler.Filename))
-	fmt.Printf("File Size: %+v\n", handler.Size)
-	fmt.Printf("MIME Header: %+v\n", handler.Header)
+	fmt.Printf("File Size: %+v\n", universalMethods.LogInjectionAvoidance(handler.Size))
+	fmt.Printf("MIME Header: %+v\n", universalMethods.LogInjectionAvoidance(handler.Header))
 
 	// Create a temporary file within our temp-images directory that follows
 	// a particular naming pattern
