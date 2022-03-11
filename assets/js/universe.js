@@ -170,7 +170,8 @@ var universe = {
     // since this is only for template modals, we can use a static ID
     var modalText = modal.querySelector(".msg").querySelector("p");
 
-    modalText.innerText = text;
+    //modalText.innerText = text;
+    modalText.textContent = text;
 
     var clearModalBtn = document.getElementById("clearModal");
     // assigning as an anonymous arrow function since it seems that the this context is defined during the onclick
