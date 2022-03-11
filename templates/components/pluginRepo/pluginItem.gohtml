@@ -6,21 +6,15 @@
       {{/* But with the function attached to the template, we can use that to return the strings, in this scope as variables */}}
       {{ $subtemplateTargetStrings := ReturnTargetStrings }}
       {{ $subtemplateDefaultStrings := ReturnDefaultStrings }}
-      {{if .Icon.Available}}
-        {{if eq .Icon.Type "image"}}
-          <img src="{{.Icon.Src}}" alt="Icon specified by Plugin Creator to represent their Plugin" style="max-width: 600%">
-        {{end}}
-        {{if eq .Icon.Type "raw"}}
-          {{if eq .Icon.Style "GreenCircle"}}
-            <span style="height: 25px; width: 25px; border-radius: 50%; display: inline-block; background-color: green;">
-          {{else}}
-            <span>
-          {{end}}
-          {{if eq .Icon.Symbol "Checkmark"}}
-            &#10004;
-          {{end}}
-          </span>
-        {{end}}
+      {{/* Moving away from custom Icons. To Icons based on type */}}
+      {{if eq .Type "theme"}}
+        <img src="/assets/images/pen-tool.svg" title="Theme Plugin" alt="Pen Tool Tip Icon, indicating a Theme Plugin Type.">
+      {{end}}
+      {{if eq .Type "header"}}
+        <img src="/assets/images/arrow-up-circle.svg" title="Header Plugin" alt="Arrow Up within a Circle, indicating a Header Plugin Type.">
+      {{end}}
+      {{if eq .Type "item"}}
+        <img src="/assets/images/link-2.svg" title="Link Item Plugin" alt="Classical Link Icon, indicating a Link Item Plugin Type.">
       {{end}}
     </div>
     <div class="plugin-title">

@@ -781,24 +781,52 @@ function headerPlugins() {
   };
 
   const handlePluginHeader = function (side) {
-    universe.ShowModal("headerPluginModal");
+    fetch("/api/usersettings")
+      .then((response) => response.json())
+      .then((result) => {
+        var headerPluginData = document.getElementById("header-plugin-form");
 
-    var backBtn = document.getElementById("headerModalGoBack");
-    backBtn.onclick = function () {
-      universe.CloseModal("headerPluginModal");
-    };
+        console.log(typeof result.headerPlugins[side].name);
+        console.log(result.headerPlugins[side].name);
+        if (
+          typeof result.headerPlugins[side].name === "string" &&
+          result.headerPlugins[side].name != ""
+        ) {
+          headerPluginData.querySelector(`[name="header-plugin-name"]`).value =
+            result.headerPlugins[side].name;
+          headerPluginData.querySelector(
+            `[name="header-plugin-options"]`
+          ).value = result.headerPlugins[side].options;
+        } else {
+          // this else exists to be a simple way to clear data that may be in the modal from editing thhe previous side plugin.
+          headerPluginData.querySelector(`[name="header-plugin-name"]`).value =
+            "";
+          headerPluginData.querySelector(
+            `[name="header-plugin-options"]`
+          ).value = "";
+        }
 
-    var submitBtn = document.getElementById("headerModalSubmit");
+        universe.ShowModal("headerPluginModal");
 
-    submitBtn.onclick = function () {
-      var headerPluginForm = new FormData(
-        document.getElementById("header-plugin-form")
-      );
-      var pluginChosen = headerPluginForm.getAll("header-plugin-name")[0];
-      var pluginOptions = headerPluginForm.getAll("header-plugin-options")[0];
+        var backBtn = document.getElementById("headerModalGoBack");
+        backBtn.onclick = function () {
+          universe.CloseModal("headerPluginModal");
+        };
 
-      changeHeaderSettings(side, pluginChosen, pluginOptions);
-    };
+        var submitBtn = document.getElementById("headerModalSubmit");
+
+        submitBtn.onclick = function () {
+          var headerPluginForm = new FormData(
+            document.getElementById("header-plugin-form")
+          );
+          var pluginChosen = headerPluginForm.getAll("header-plugin-name")[0];
+          var pluginOptions = headerPluginForm.getAll(
+            "header-plugin-options"
+          )[0];
+
+          changeHeaderSettings(side, pluginChosen, pluginOptions);
+        };
+      });
   };
 
   headerPluginLeft.onclick = function () {
