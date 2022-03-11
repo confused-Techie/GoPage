@@ -84,5 +84,7 @@
   "i18n-activeTheme": "سمة نشطة",
   "i18n-labelCustomColour": "لون مخصص اختياري:",
   "i18n-labelCustomStyle": "نمط مخصص اختياري:",
-  "i18n-LHNoOffendingLinks": "No offending Links Found."
+  "i18n-LHNoOffendingLinks": "No offending Links Found.",
+  "i18n-labelPluginOptionsExample": "Plugin Options Example:",
+  "i18n-addPluginPrompt": "Add Plugin"
 }
