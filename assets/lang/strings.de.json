@@ -84,5 +84,7 @@
   "i18n-activeTheme": "Aktives Theme",
   "i18n-labelCustomColour": "Optionale Farbe:",
   "i18n-labelCustomStyle": "Optionaler benutzerdefinierter Stil:",
-  "i18n-LHNoOffendingLinks": "No offending Links Found."
+  "i18n-LHNoOffendingLinks": "No offending Links Found.",
+  "i18n-labelPluginOptionsExample": "Plugin Options Example:",
+  "i18n-addPluginPrompt": "Add Plugin"
 }
