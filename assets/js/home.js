@@ -6,7 +6,6 @@ window.onload = function () {
   firstTimeSetup();
 
   // Then functions to fill out data of the forms
-  //addFormCategory();
   initInstalledPluginListToForm();
 
   // Functions to allow setting and changing Header Plugins
@@ -461,6 +460,24 @@ function addPluginOptions(element) {
     });
 }
 
+function addPluginOptionsHeader(element) {
+  var pluginContainerParent = element.parentElement.parentElement.parentElement;
+  var pluginChosen = element.value;
+  var pluginOptions = pluginContainerParent.querySelector(`[name="header-plugin-options"]`);
+  var pluginExample = pluginContainerParent.querySelector(`[name="header-plugin-example"]`);
+
+  fetch("/plugins/installedPlugins.json")
+    .then((res) => res.json())
+    .then((data) => {
+      data.forEach((element) => {
+        if (pluginChosen == element.name) {
+          pluginOptions.value = element.options.autofill;
+          pluginExample.value = element.options.explain;
+        }
+      });
+    });
+}
+
 function initInstalledPluginListToForm() {
   fetch("/plugins/installedPlugins.json")
     .then((response) => response.json())
@@ -658,57 +675,6 @@ function firstTimeSetup(dev) {
     });
 }
 
-/*eslint disable-next-lin no-unused-vars*/
-function dataListInputHeader(ele) {
-  fetch("/plugins/installedPlugins.json")
-    .then((res) => res.json())
-    .then((data) => {
-      data.forEach((element) => {
-        if (ele.value == element.name) {
-          if (element.config) {
-            // since the header modal only allows modifying a signle item at once, we don't need any checking of the element
-            dataListInputCaller(
-              "header-plugin-label",
-              "header-plugin-example",
-              "header-plugin-options",
-              element.options.explain,
-              element.options.autofill
-            );
-          }
-        }
-      });
-    });
-}
-
-function dataListInputCaller(
-  view,
-  explain,
-  autofill,
-  explainData,
-  autofillData
-) {
-  dataListInputChangeView(view);
-  dataListInputChangeExplain(explain, explainData);
-  dataListInputChangeAutofill(autofill, autofillData);
-}
-
-function dataListInputChangeView(eleName) {
-  var ele = document.getElementById(eleName);
-  ele.classList.remove("readonly_id");
-}
-
-function dataListInputChangeExplain(eleName, explain) {
-  var ele = document.getElementById(eleName);
-  ele.innerHTML = explain;
-}
-
-function dataListInputChangeAutofill(eleName, autofill) {
-  var ele = document.getElementById(eleName);
-  ele.classList.remove("readonly_id");
-  ele.removeAttribute("readonly");
-  ele.value = autofill;
-}
-
 // Modal based JS
 
 // Previous links to delete in HTML: <div class="deleteItem"> <a href="/delete/{{.Id}}"> <img src="/assets/images/trash-2.svg"> </a> </div>
@@ -773,8 +739,7 @@ function headerPlugins() {
   const changeHeaderSettings = function (
     side,
     pluginName,
-    pluginOptions,
-    modal
+    pluginOptions
   ) {
     fetch("/api/usersettings")
       .then((res) => res.json())
@@ -818,20 +783,19 @@ function headerPlugins() {
   const handlePluginHeader = function (side) {
     universe.ShowModal("headerPluginModal");
 
-    var backBtn = document.getElementById("headerPlugin-goBack");
+    var backBtn = document.getElementById("headerModalGoBack");
     backBtn.onclick = function () {
       universe.CloseModal("headerPluginModal");
     };
 
-    var submitBtn = document.getElementById("headerPlugin-submit");
+    var submitBtn = document.getElementById("headerModalSubmit");
 
     submitBtn.onclick = function () {
-      changeHeaderSettings(
-        side,
-        document.getElementById("header-plugin-name").value,
-        document.getElementById("header-plugin-options").value,
-        modal
-      );
+      var headerPluginForm = new FormData(document.getElementById("header-plugin-form"));
+      var pluginChosen = headerPluginForm.getAll("header-plugin-name")[0];
+      var pluginOptions = headerPluginForm.getAll("header-plugin-options")[0];
+
+      changeHeaderSettings(side, pluginChosen, pluginOptions);
     };
   };
 

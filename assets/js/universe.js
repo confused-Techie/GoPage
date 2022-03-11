@@ -1,9 +1,7 @@
 /**
  * @member {File} UniverseJS
- * @desc Namespace of functions for easy access to repeatable actions.
+ * @desc Namespace of functions for easy access to repeatable actions. Aimed at reducing complexity, and duplicity.
  */
-// This will be a namespace to handle common functions and features within GoPage
-// Aimed at reducing complexity, and duplicity
 
 // Since a global variable within eslint is defined here, we turn off the redeclare warning
 /*eslint-disable no-redeclare, no-unused-vars*/
@@ -42,14 +40,6 @@ var universe = {
     alt,
     additionalDetails
   ) {
-    // EXAMPLE:: universe.SnackbarCommon("homePageSnackbar", "Success", universe.ReloadCallback())
-    // id = the div id of the snackbar to target, textToShow = the text that will appear within the div
-    // callback is an optional function to execute after the snackbar has disappeared.
-    // extraClass is an optional className to provide. Not needed to ever be set manually, with the snackbar Error function
-    // additionally contains img, a relative path to an image icon to display alongside the text
-    //    this is optional and will be set manually through use ot the SnackbarError
-    // the alt is a arg that should be filled automatically, but insures an equal experience no matter the user.
-
     var snackbar = document.getElementById(id);
 
     var snackbarMsg = snackbar.getElementsByClassName("msg")[0];
@@ -117,7 +107,6 @@ var universe = {
    * @param {string} [details] Optional details that will show in a modal if the Snackbar Image is clicked.
    */
   SnackbarError: function (id, textToShow, callback, details) {
-    // A simple way to invoke SnackbarCommon while assigning the error class to the snackbar
     this.SnackbarCommon(
       id,
       textToShow,
@@ -133,9 +122,6 @@ var universe = {
    * @returns {function} Globally Scoped function to reload page: `window.location.reload.bind(window.location)`
    */
   ReloadCallback: function () {
-    // Since passing the standard location.reload() doesn't work within the callback as it losses the this scope
-    // we can bind it to the window.location, but this is a tad verbose.
-    // So defining it here as a return variable allows easy access, to pass this as a callback to the snackbar
     return window.location.reload.bind(window.location);
   },
   /**
@@ -144,8 +130,6 @@ var universe = {
    * @param {string} data JSON Object to set as the body of the Fetch details.
    */
   CreateJSONPOSTHeaders: function (data) {
-    // This will take a JSON object and return the headers for a fetch request
-    // with the method being post, and providing json
     var newHeaders = new Headers();
 
     newHeaders.append("Content-Type", "application/json");
@@ -164,7 +148,6 @@ var universe = {
    * @param {string} id Is the DOM ID of the Modal to Display.
    */
   ShowModal: function (id) {
-    // Used for displaying a modal, based on the provided id.
     var modal = document.getElementById(id);
     modal.style.display = "block";
   },
@@ -173,7 +156,6 @@ var universe = {
    * @param {string} id Is the DOM ID of the Modal to Remove.
    */
   CloseModal: function (id) {
-    // Used to close a modal, based on the provided id
     var modal = document.getElementById(id);
     modal.style.display = "none";
   },
@@ -216,7 +198,6 @@ var universe = {
         if (result == "Success") {
           successCallback();
         } else {
-          // error occured
           errorCallback(result);
         }
       });
@@ -245,13 +226,6 @@ var universe = {
    * @returns {string} The translated string needed, **Remember** this will likely be a Composite String and shouldn't be displayed as is.
    */
   FindReturnsString: function (action, status) {
-    // This requires that the returnsGlobalJS template is used.
-    // this will use the global translated strings, to help find the right return action string
-    // made especially for use with the snackbar.
-    // Also note that likely anything returned here will be a composite string
-    // Valid Values:
-    //    action: delete, install, update
-    //    status: pass, fail
     if (status != "pass" && status != "fail") {
       console.log(`universe.FindReturnString: Invalid status: ${status}`);
       return false;
@@ -286,10 +260,6 @@ var universe = {
    * universe.HotReload("linkItemList", "/", homePageInit, "reload");
    */
   HotReload: function (elementID, url, callback, callbackArg) {
-    // this is a function to add hot-reload capabilities to pages.
-    // requiring both the ID of the element to replace, and the url to query
-    // for the hot reload data.
-    // now it also supports a callback if one is needed to initialize or reload parts of a page
     if (typeof elementID === "string" && typeof url === "string") {
       var newHeaders = new Headers();
 
@@ -328,7 +298,6 @@ var universe = {
    * @param {boolean} shouldShow indicates if the loader is being turned off or on. True being on, and False being off.
    */
   Loader: function (shouldShow) {
-    // 1st argument shouldShow = boolean specifying weather this is turning it off, or on
     var loaderEle = document.getElementsByClassName("loader")[0];
 
     if (typeof shouldShow === "boolean") {
@@ -345,7 +314,7 @@ var universe = {
   },
   /**
   * @desc Allowing easy universal access to the ChangeLangAPI, by just submitting the chosenLang
-  * @param {string} chosenLang The two digit language code that the server should save 
+  * @param {string} chosenLang The two digit language code that the server should save
   */
   ChangeLangAPI: function(chosenLang) {
     fetch(`/api/changelang?lang=${chosenLang}`)

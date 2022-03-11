@@ -32,43 +32,56 @@
     </div>
   </div>
 
-  <div id="headerPluginModal" class="modal">
-    <div class="modal-content">
+  <!-- This is the Header Modal -->
+  <div class="modal" id="headerPluginModal">
+    <div class="modal-content polka-dots">
       <h2>
         {{ or
           (index .TargetStrings "i18n-modalHeaderPlugin")
           (index .DefaultStrings "i18n-modalHeaderPlugin")
         }}
       </h2>
-      <form id="header-plugin-form">
-        <label>
-          {{ or
-            (index .TargetStrings "i18n-labelChoosePlugin")
-            (index .DefaultStrings "i18n-labelChoosePlugin")
-          }}
-        </label><br>
-        <input oninput="dataListInputHeader(this)" class="form-input" list="header-plugin-list" type="text" autocomplete="off" name="header-plugin-name" id="header-plugin-name"/><br><br>
-        <label class="readonly_id" id="header-plugin-label">
-          {{ or
-            (index .TargetStrings "i18n-labelPluginOptions")
-            (index .DefaultStrings "i18n-labelPluginOptions")
-          }}
-        </label><br>
-        <input class="readonly_id form-input" readonly type="text" name="header-plugin-options" id="header-plugin-options"/><br><br>
-        <div class="plugin-example" id="header-plugin-example"> </div>
-
-        <button id="headerPlugin-goBack" class="simple-button btn-undo grow-shadow-hover" type="button">
-          {{ or
-            (index .TargetStrings "i18n-buttonGoBack")
-            (index .DefaultStrings "i18n-buttonGoBack")
-          }}
-        </button>
-        <button id="headerPlugin-submit" class="simple-button btn-create grow-shadow-hover" type="button">
-          {{ or
-            (index .TargetStrings "i18n-modalFirstTimeLangSubmit")
-            (index .DefaultStrings "i18n-modalFirstTimeLangSubmit")
-          }}
-        </button>
+      <form id="header-plugin-form" class="form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>
+              {{ or
+                (index .TargetStrings "i18n-labelChoosePlugin")
+                (index .DefaultStrings "i18n-labelChoosePlugin")
+              }}
+            </label>
+            <input oninput="addPluginOptionsHeader(this);" list="header-plugin-list" type="text" autocomplete="off" name="header-plugin-name" />
+          </div>
+          <div class="form-group">
+            <label>
+              {{ or
+                (index .TargetStrings "i18n-labelPluginOptions")
+                (index .DefaultStrings "i18n-labelPluginOptions")
+              }}
+            </label>
+            <input type="text" name="header-plugin-options" autocomplete="off"/>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Plugin Options Example:</label>
+            <input type="text" readonly name="header-plugin-example">
+          </div>
+          <div class="form-row-btn">
+            <button id="headerModalGoBack" class="simple-button btn-undo grow-shadow-hover" type="button">
+              {{ or
+                (index .TargetStrings "i18n-buttonGoBack")
+                (index .DefaultStrings "i18n-buttonGoBack")
+              }}
+            </button>
+            <button id="headerModalSubmit" class="simple-button btn-create grow-shadow-hover" type="button">
+              {{ or
+                (index .TargetStrings "i18n-modalFirstTimeLangSubmit")
+                (index .DefaultStrings "i18n-modalFirstTimeLangSubmit")
+              }}
+            </button>
+          </div>
+        </div>
         <datalist id="header-plugin-list"> </datalist>
       </form>
     </div>
@@ -131,8 +144,18 @@
             <input type="text" name="category" required="true" list="plugin-category-list" autocomplete="off"/>
           </div>
           <div class="form-row-btn">
-            <button id="itemModalGoBack" class="simple-button btn-undo grow-shadow-hover" type="button">Go Back</button>
-            <button id="itemModalSubmit" class="simple-button btn-create grow-shadow-hover" type="button" onclick="parseLinkItemForm()">Submit</button>
+            <button id="itemModalGoBack" class="simple-button btn-undo grow-shadow-hover" type="button">
+              {{ or
+                (index .TargetStrings "i18n-buttonGoBack")
+                (index .DefaultStrings "i18n-buttonGoBack")
+              }}
+            </button>
+            <button id="itemModalSubmit" class="simple-button btn-create grow-shadow-hover" type="button" onclick="parseLinkItemForm()">
+              {{ or
+                (index .TargetStrings "i18n-modalFirstTimeLangSubmit")
+                (index .DefaultStrings "i18n-modalFirstTimeLangSubmit")
+              }}
+            </button>
           </div>
         </div>
 
