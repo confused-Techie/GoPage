@@ -84,5 +84,7 @@
   "i18n-activeTheme": "アクティブなテーマ",
   "i18n-labelCustomColour": "オプションのカスタムカラー:",
   "i18n-labelCustomStyle": "任意のカスタムスタイル:",
-  "i18n-LHNoOffendingLinks": "No offending Links Found."
+  "i18n-LHNoOffendingLinks": "No offending Links Found.",
+  "i18n-labelPluginOptionsExample": "Plugin Options Example:",
+  "i18n-addPluginPrompt": "Add Plugin"
 }
