@@ -83,5 +83,6 @@
   "i18n_returnValueRobots": "Des robots",
   "i18n-activeTheme": "Thème actif",
   "i18n-labelCustomColour": "Couleur optionnelle personnalisée :",
-  "i18n-labelCustomStyle": "Style personnalisé optionnel :"
+  "i18n-labelCustomStyle": "Style personnalisé optionnel :",
+  "i18n-LHNoOffendingLinks": "No offending Links Found."
 }

@@ -83,5 +83,6 @@
   "i18n_returnValueRobots": "Роботы",
   "i18n-activeTheme": "Активная тема",
   "i18n-labelCustomColour": "Необязательный пользовательский цвет:",
-  "i18n-labelCustomStyle": "Дополнительный пользовательский стиль:"
+  "i18n-labelCustomStyle": "Дополнительный пользовательский стиль:",
+  "i18n-LHNoOffendingLinks": "No offending Links Found."
 }
