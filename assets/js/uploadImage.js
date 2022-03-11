@@ -89,7 +89,6 @@ function setImage(name) {
       };
 
       writeUserSettings(data, successHandler);
-
     });
 }
 
@@ -118,9 +117,9 @@ function unsetImage() {
 }
 
 /**
-* @desc Will allow an easy way of writing to user settings and setting up an error callback
-* @memberof UploadImageJS
-*/
+ * @desc Will allow an easy way of writing to user settings and setting up an error callback
+ * @memberof UploadImageJS
+ */
 function writeUserSettings(data, successHandler) {
   universe.WriteUserSettings(
     universe.CreateJSONPOSTHeaders(JSON.stringify(data)),

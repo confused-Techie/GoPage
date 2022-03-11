@@ -463,8 +463,12 @@ function addPluginOptions(element) {
 function addPluginOptionsHeader(element) {
   var pluginContainerParent = element.parentElement.parentElement.parentElement;
   var pluginChosen = element.value;
-  var pluginOptions = pluginContainerParent.querySelector(`[name="header-plugin-options"]`);
-  var pluginExample = pluginContainerParent.querySelector(`[name="header-plugin-example"]`);
+  var pluginOptions = pluginContainerParent.querySelector(
+    `[name="header-plugin-options"]`
+  );
+  var pluginExample = pluginContainerParent.querySelector(
+    `[name="header-plugin-example"]`
+  );
 
   fetch("/plugins/installedPlugins.json")
     .then((res) => res.json())
@@ -736,11 +740,7 @@ function headerPlugins() {
   var headerPluginLeft = document.getElementById("headerPluginLeft");
   var headerPluginRight = document.getElementById("headerPluginRight");
 
-  const changeHeaderSettings = function (
-    side,
-    pluginName,
-    pluginOptions
-  ) {
+  const changeHeaderSettings = function (side, pluginName, pluginOptions) {
     fetch("/api/usersettings")
       .then((res) => res.json())
       .then((data) => {
@@ -791,7 +791,9 @@ function headerPlugins() {
     var submitBtn = document.getElementById("headerModalSubmit");
 
     submitBtn.onclick = function () {
-      var headerPluginForm = new FormData(document.getElementById("header-plugin-form"));
+      var headerPluginForm = new FormData(
+        document.getElementById("header-plugin-form")
+      );
       var pluginChosen = headerPluginForm.getAll("header-plugin-name")[0];
       var pluginOptions = headerPluginForm.getAll("header-plugin-options")[0];
 

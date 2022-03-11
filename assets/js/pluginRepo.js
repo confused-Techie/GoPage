@@ -74,7 +74,7 @@ function pluginFetchWrapperNonBlocking(target, action, targetItem) {
 }
 
 function formatModalContent(text) {
-  text = text.replace('"', '');
+  text = text.replace('"', "");
   var splitText = text.split("...");
   var newText = "";
   for (let i = 0; i < splitText.length; i++) {

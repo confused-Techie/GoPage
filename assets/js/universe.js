@@ -170,7 +170,6 @@ var universe = {
     // since this is only for template modals, we can use a static ID
     var modalText = modal.querySelector(".msg").querySelector("p");
 
-    //modalText.innerText = text;
     modalText.textContent = text;
 
     var clearModalBtn = document.getElementById("clearModal");
@@ -314,10 +313,10 @@ var universe = {
     }
   },
   /**
-  * @desc Allowing easy universal access to the ChangeLangAPI, by just submitting the chosenLang
-  * @param {string} chosenLang The two digit language code that the server should save
-  */
-  ChangeLangAPI: function(chosenLang) {
+   * @desc Allowing easy universal access to the ChangeLangAPI, by just submitting the chosenLang
+   * @param {string} chosenLang The two digit language code that the server should save
+   */
+  ChangeLangAPI: function (chosenLang) {
     fetch(`/api/changelang?lang=${chosenLang}`)
       .then((res) => res.json())
       .then((response) => {
