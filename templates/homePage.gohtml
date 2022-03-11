@@ -64,7 +64,12 @@
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label>Plugin Options Example:</label>
+            <label>
+              {{ or
+                (index .TargetStrings "i18n-labelPluginOptionsExample")
+                (index .DefaultStrings "i18n-labelPluginOptionsExample")
+              }}
+            </label>
             <input type="text" readonly name="header-plugin-example">
           </div>
           <div class="form-row-btn">
@@ -186,7 +191,10 @@
 
         <div class="form-text">
           <a href="#" class="add-plugin-link" onclick="addPluginToFormV2();">
-            Add Plugin
+            {{ or
+              (index .TargetStrings "i18n-addPluginPrompt")
+              (index .DefaultStrings "18n-addPluginPrompt")
+            }}
           </a>
 
           <div class="additional_info" style="display: none;">
@@ -223,7 +231,12 @@
                   <input type="text" name="pluginOptions">
                 </div>
                 <div class="form-group">
-                  <label>Plugin Options Example:</label>
+                  <label>
+                    {{ or
+                      (index .TargetStrings "i18n-labelPluginOptionsExample")
+                      (index .DefaultStrings "i18n-labelPluginOptionsExample")
+                    }}
+                  </label>
                   <input type="text" readonly name="pluginExample">
                 </div>
               </div>
