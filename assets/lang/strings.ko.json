@@ -84,5 +84,7 @@
   "i18n-activeTheme": "활성 테마",
   "i18n-labelCustomColour": "Optional Custom Colour:",
   "i18n-labelCustomStyle": "Optional Custom Style:",
-  "i18n-LHNoOffendingLinks": "No offending Links Found."
+  "i18n-LHNoOffendingLinks": "No offending Links Found.",
+  "i18n-labelPluginOptionsExample": "Plugin Options Example:",
+  "i18n-addPluginPrompt": "Add Plugin"
 }
