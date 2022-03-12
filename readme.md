@@ -32,28 +32,25 @@ GoPage has been made with the goal of extreme simplicity and convenient extensib
 
 ## Features
 
-* Full Theme Support from Installed Plugins
-* Custom Background Images
+* Install many plugins to expand the functionality of a saved Link Item.
+* Custom User-Defined categories for each Link Item.
+* Custom Background Images.
 * Searchable saved Link Items.
-* Filter saved Link Items based on user set categories.
-* Plugin Repo Page:
-  * Ability to update Available Plugins
-  * Install/Uninstall Existing Plugins
-* Link Health Page:
-  * Alerts of Exact Duplicate Links
-  * Alerts of Hostname Duplicate Links
+* Filter saved Link Item based on the category.
+* Link Health page to alert of Link Items with duplicate Links or matching Hostnames.
+* Each Link Item can have a custom colour, or different style applied.
+* Supports many types of HTTP logging, to assist in log aggregation.
+* Supports either private or public Robots file to prevent or encourage appearing in search engines.
 * GoPage supports many different languages, with contributions always welcome to improve them.
   * Arabic
   * Chinese (Traditional)
-  * English 
+  * English
   * French
   * German
   * Japanese
   * Korean
   * Russian
   * Spanish (Mexico)
-
-![Translations Progress](https://badges.awesome-crowdin.com/translation-15135739-498245.png)
 
 ## Installation
 
@@ -65,14 +62,15 @@ The installation for Docker should be universal for Linux, and Windows, taking o
   * And run it using whatever Port you prefer, giving a name if you'd like, optionally setting the language.
 
 ````(bash)
-docker pull ghcr.io/confused-techie/gopage:0.4
+docker pull ghcr.io/confused-techie/gopage:0.5
 
-docker run -p 7070:8080 -e LANG="en" --name GoPageServer ghcr.io/confused-techie/gopage:0.4
+docker run -p 7070:8080 --name GoPageServer ghcr.io/confused-techie/gopage:0.5
 ````
 
   * Please keep in mind the **7070** shown here can be whatever port you want the Docker Container Exposed on. Whereas **8080** is the default port the GoPage Server will listen to within the container.
 
-  * The `LANG` option is to set the GoPage Server Language. Ensuring to use the [ISO 639-1 two character language abbreviation.](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)
+  * GoPage supports additional variables that can be set. [Please refer to the documentation](docs/docker-environmentVariables.md).
+
 
 ### Windows
 
@@ -88,15 +86,17 @@ Once you've installed GoPage Dashboard you will be able to navigate to it like s
 http://SERVER-IP:PORT/
 ````
 
+If you haven't added any Link Items to GoPage you'll be greeted by the 'First Time Setup' window, helping with tips similar to whats found here. Otherwise feel free to give this a look over.
+
 Once there you can get started by adding new Links by hitting 'Add New Item' and filling in the details on the next page.
 
   * Friendly Name: Will be the name shown to you when you look at this Link.
   * Link: Of Course is the actual Link to navigate to.
   * Category: Is if you so choose a Category you can create for this link, to later on help you find it again. This section will suggest any previously created categories but can always be something new.
 
-If you haven't installed any plugins at this point you can ignore the different Plugin Sections and hit 'Submit'
+If you haven't installed any plugins at this point you can ignore the 'Add Plugin' button and hit 'Submit'
 
-Otherwise if you'd like to get started with some plugins to extend the functionality of GoPage you can navigate to Settings via the Gear Icon in the top left corner then hitting the GoTo button on the right side of the 'Plugin Repo' Listing under Tools.
+Otherwise if you'd like to get started with some plugins to extend the functionality of GoPage you can click 'Plugin Repo' in the top Header.
 
 Or by navigating to:
 
@@ -106,7 +106,7 @@ http://SERVER-IP:PORT/pluginrepo
 
 Once here feel free to read through and explore the Plugins available and download them, which will then give you the ability to set them in the Plugin Fields of a New Link Item or while Editing a Link Item.
 
-## Plugins Available by Default
+## Plugins Available
 
 Many Plugins have already been created for GoPage and are available by default after installation.
 
@@ -117,6 +117,7 @@ Many Plugins have already been created for GoPage and are available by default a
   * Light Theme: Simple Light Theme for those not loving the Dark Theme.
   * Exaggerator Theme: Exaggerator Theme... Just Colourful.
   * AQI Current: Get Air Quality Information at a glance. Via AirNow.gov.
+  * Self Hosted Icons: Get self Hosted High Quality Icons alongside their links.
 
 ## [Contribute](docs/CONTRIBUTING.md)
 
