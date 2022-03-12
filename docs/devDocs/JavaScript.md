@@ -17,7 +17,7 @@
 <dd><p>JavaScript file loaded with every single page for Universal Functions</p>
 </dd>
 <dt><a href="#UniverseJS">UniverseJS</a> : <code>File</code></dt>
-<dd><p>Namespace of functions for easy access to repeatable actions.</p>
+<dd><p>Namespace of functions for easy access to repeatable actions. Aimed at reducing complexity, and duplicity.</p>
 </dd>
 <dt><a href="#UploadImageJS">UploadImageJS</a> : <code>File</code></dt>
 <dd><p>The JavaScript file loaded with the Upload Image Page.</p>
@@ -208,7 +208,7 @@ Queries GoPage APIs to determine and set a background image if needed, injecting
 <a name="UniverseJS"></a>
 
 ## UniverseJS : <code>File</code>
-Namespace of functions for easy access to repeatable actions.
+Namespace of functions for easy access to repeatable actions. Aimed at reducing complexity, and duplicity.
 
 **Kind**: global variable  
 
@@ -226,6 +226,7 @@ Namespace of functions for easy access to repeatable actions.
         * [.FindReturnsString(action, status)](#UniverseJS.universe.FindReturnsString) ⇒ <code>string</code>
         * [.HotReload(elementID, url, callback, callbackArg)](#UniverseJS.universe.HotReload)
         * [.Loader(shouldShow)](#UniverseJS.universe.Loader)
+        * [.ChangeLangAPI(chosenLang)](#UniverseJS.universe.ChangeLangAPI)
 
 <a name="UniverseJS.universe"></a>
 
@@ -247,6 +248,7 @@ The namespace to access all internal functions.
     * [.FindReturnsString(action, status)](#UniverseJS.universe.FindReturnsString) ⇒ <code>string</code>
     * [.HotReload(elementID, url, callback, callbackArg)](#UniverseJS.universe.HotReload)
     * [.Loader(shouldShow)](#UniverseJS.universe.Loader)
+    * [.ChangeLangAPI(chosenLang)](#UniverseJS.universe.ChangeLangAPI)
 
 <a name="UniverseJS.universe.SnackbarCommon"></a>
 
@@ -420,6 +422,17 @@ Simple method of injecting a Loading animation onto the center of the page.
 | --- | --- | --- |
 | shouldShow | <code>boolean</code> | indicates if the loader is being turned off or on. True being on, and False being off. |
 
+<a name="UniverseJS.universe.ChangeLangAPI"></a>
+
+#### universe.ChangeLangAPI(chosenLang)
+Allowing easy universal access to the ChangeLangAPI, by just submitting the chosenLang
+
+**Kind**: static method of [<code>universe</code>](#UniverseJS.universe)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| chosenLang | <code>string</code> | The two digit language code that the server should save |
+
 <a name="UploadImageJS"></a>
 
 ## UploadImageJS : <code>File</code>
@@ -432,6 +445,7 @@ The JavaScript file loaded with the Upload Image Page.
     * [.insertImg(imageLoc)](#UploadImageJS.insertImg) ⇒ <code>string</code>
     * [.setImage(name)](#UploadImageJS.setImage)
     * [.unsetImage()](#UploadImageJS.unsetImage)
+    * [.writeUserSettings()](#UploadImageJS.writeUserSettings)
 
 <a name="UploadImageJS.loadAvailableImages"></a>
 
@@ -470,5 +484,11 @@ Will attempt to save the specified image as the Users background image.
 
 ### UploadImageJS.unsetImage()
 Will query GoPage API's to remove whatever is currently set as the User Image
+
+**Kind**: static method of [<code>UploadImageJS</code>](#UploadImageJS)  
+<a name="UploadImageJS.writeUserSettings"></a>
+
+### UploadImageJS.writeUserSettings()
+Will allow an easy way of writing to user settings and setting up an error callback
 
 **Kind**: static method of [<code>UploadImageJS</code>](#UploadImageJS)  

@@ -156,6 +156,32 @@
     }
   },
   {
+    "name": "selfHostedIcons",
+    "friendlyName": "Self Hosted Icons",
+    "version": "0.1",
+    "description": "Get self Hosted High Quality Icons alongside their links. (All Rights to Image Owners)",
+    "type": "item",
+    "author": "confused-Techie",
+    "license": "GPL-3.0",
+    "infoLink": "https://github.com/confused-Techie/GoPage-Plugins",
+    "downloadLink": "https://github.com/confused-Techie/GoPage-Plugins/releases/download/SelfHostedIcons/SelfHostedIconsV0.1.zip",
+    "installed": false,
+    "config": true,
+    "mainDir": "/selfHostedIcons/",
+    "main": "main.js",
+    "options": {
+      "explain": "The Service you want to represent. Formatted like so: SERVICE Matching the definitions found on Github. Usually lowercase, '-' instead of space.",
+      "autofill": "icon=SERVICE;"
+    },
+    "icon": {
+      "available": false,
+      "type": "",
+      "src": "",
+      "style": "",
+      "symbol": ""
+    }
+  },
+  {
     "name": "statusCheck",
     "friendlyName": "Status Check",
     "version": "0.3",

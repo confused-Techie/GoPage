@@ -293,15 +293,11 @@ class LinkItemDOM {
 
   emptyPlugins() {
     while (document.getElementsByClassName("add-plugin-link").length > 1) {
-      try {
-        document
-          .getElementsByClassName("add-plugin-link")
-          [
-            document.getElementsByClassName("add-plugin-link").length - 1
-          ].parentNode.remove();
-      } catch (err) {
-        throw err;
-      }
+      document
+        .getElementsByClassName("add-plugin-link")
+        [
+          document.getElementsByClassName("add-plugin-link").length - 1
+        ].parentNode.remove();
     }
     // ^^ The above while loop, will run until only 1 elemenet remains for the add-plugin-link dom element
     // each loop gets the HTMLCollection of the element, grabbing only the last one, then selects its parentNode (form-text)
@@ -437,6 +433,7 @@ function disablePluginLocation(element) {
     .setAttribute("disabled", "");
 }
 
+/*eslint-disable-next-line no-unused-vars*/
 function addPluginOptions(element) {
   var pluginContainerParent = element.parentElement.parentElement.parentElement;
   var pluginChosen = element.value;
@@ -460,6 +457,7 @@ function addPluginOptions(element) {
     });
 }
 
+/*eslint-disable-next-line no-unused-vars*/
 function addPluginOptionsHeader(element) {
   var pluginContainerParent = element.parentElement.parentElement.parentElement;
   var pluginChosen = element.value;
@@ -502,6 +500,7 @@ function initInstalledPluginListToForm() {
     });
 }
 
+/*eslint-disable-next-line no-unused-vars*/
 function newItemModal() {
   clearLinkItemForm();
   universe.ShowModal("link-item-modal");
@@ -544,6 +543,7 @@ function newItemModal() {
   };
 }
 
+/*eslint-disable-next-line no-unused-vars*/
 function editItemModal(
   oldID,
   oldFriendlyName,
@@ -727,12 +727,6 @@ function modalDelete(id) {
 
   modalNotDeleteBtn.onclick = function () {
     universe.CloseModal("deleteModal");
-  };
-
-  window.onclick = function (event) {
-    if (event.target == modal) {
-      universe.CloseModal("deleteModal");
-    }
   };
 }
 

@@ -21,26 +21,37 @@
 
 GoPage has been made with the goal of extreme simplicity and convenient extensibility. Where standalone it's a simplistic way to store and manage Links to pages giving them unique user-defined categories, with easy ability to edit them down the line. And if you mix in the existing plugins and extreme ease of creating new ones gives life to these Links to show you the data needed at a moments glance.
 
-![Example of GoPage HomePage](/docs/assets/homepage-utilized-0.4.png)
->An Image of GoPage Version 0.4 with Plugins: Favicon Swiper, Status Check, Jellyfin API, Pihole API, AQI Current installed.
+![Example of GoPage HomePage](/docs/assets/homepage-utilized-0.5.png)
+>An Image of GoPage Version 0.5 with Plugins: Favicon Swiper, Status Check, Jellyfin API, Pihole API, AQI Current, Self Hosted Icons installed.
 
-![GoPage Link Item Closeup](/docs/assets/link-item-closeup-0.4.gif)
+![GoPage Link Item Closeup](/docs/assets/link-item-closeup-0.5.gif)
 >Closeup of GoPage Link Item pointing at a Jellyfin Self Hosted Instance. Using Plugins Favicon Swiper, Status Check, Jellyfin API.
+
+![GoPage Searchbar Closeup](/docs/assets/searchbar-0.5.gif)
+>Closeup of GoPage Searchbar demonstrating the fast and effective search for finding any saved Link Items. Showing Plugins: AQI Current, Self Hosted Icons, Jellyfin API, Favicon Swiper, Status Check.
 
 ## Features
 
 * Full Theme Support from Installed Plugins
 * Custom Background Images
+* Searchable saved Link Items.
+* Filter saved Link Items based on user set categories.
 * Plugin Repo Page:
   * Ability to update Available Plugins
   * Install/Uninstall Existing Plugins
 * Link Health Page:
   * Alerts of Exact Duplicate Links
   * Alerts of Hostname Duplicate Links
-* GoPage has full support for translations, but does need additional contributions to support more languages.
-  * English: 100%
-  * Spanish: 100%
-  * Chinese Traditional: 100%
+* GoPage supports many different languages, with contributions always welcome to improve them.
+  * Arabic
+  * Chinese (Traditional)
+  * English 
+  * French
+  * German
+  * Japanese
+  * Korean
+  * Russian
+  * Spanish (Mexico)
 
 ![Translations Progress](https://badges.awesome-crowdin.com/translation-15135739-498245.png)
 

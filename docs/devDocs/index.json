@@ -3,7 +3,7 @@
     "__docId__": 0,
     "kind": "file",
     "name": "js/home.js",
-    "content": "window.onload = function () {\n  // This is being moved from HTML to JS to reduce global pollution, and other concerns, as well as remove ESLinter complaints\n\n  homePageInit();\n\n  firstTimeSetup();\n\n  // Then functions to fill out data of the forms\n  //addFormCategory();\n  initInstalledPluginListToForm();\n\n  // Functions to allow setting and changing Header Plugins\n  headerPlugins();\n};\n\nfunction homePageInit(type) {\n  // this is called during first page load and as a callback to template hot reloading\n\n  filterSelection(\"all\");\n\n  var btnContainer = document.getElementById(\"btnContainer\");\n  var btns = btnContainer.getElementsByClassName(\"btn\");\n  for (var i = 0; i < btns.length; i++) {\n    btns[i].addEventListener(\"click\", function () {\n      var current = document.getElementsByClassName(\"active\");\n      current[0].className = current[0].className.replace(\" active\", \"\");\n      this.className += \" active\";\n    });\n  }\n\n  // now keeping in mind that once a hot-reload occurs all plugins will lose their references to the DOM.\n  // so plugins must be reloaded, which can easily occur by reattaching thhem to the dom.\n  // plugins do have the custom data-plugin-type=\"iitem\" attached that we can use.\n  if (typeof type === \"string\") {\n    if (type == \"reload\") {\n      reloadPluginJS();\n    }\n  }\n\n  // now we want to also listen on the search bar\n  const searchBar = document.getElementById(\"searchBar\");\n\n  searchBar.addEventListener(\"input\", searchBarUpdate);\n}\n\nfunction reloadPluginJS() {\n  var pluginList = document.querySelectorAll(\"[data-plugin-type]\");\n\n  for (var i = 0; i < pluginList.length; i++) {\n    var newScript = document.createElement(\"script\");\n    // pluginList[i].src returns the process src, as in the absoulte URL, to ensure that its identical, we will grab the relative\n    newScript.src = pluginList[i].attributes.src.nodeValue;\n    // but this still doesn't actual reload the script which may be a browser caching issue, we can add a cache buster\n    if (newScript.src.includes(\"cachebuster\")) {\n      // added check for pre-existing cachebuster value, to only modify the exisitng one, rather than append endlessly\n      newScript.src = newScript.src.replace(\n        /[?]cachebuster=[0-9]+/,\n        `?cachebuster=${new Date().getTime()}`\n      );\n    } else {\n      newScript.src = `${newScript.src}?cachebuster=${new Date().getTime()}`;\n    }\n    newScript.type = pluginList[i].type;\n    newScript.dataset.pluginType = pluginList[i].dataset.pluginType;\n\n    // with the new script dom element created, remove the current one then append thhis one.\n    pluginList[i].remove();\n    document.body.appendChild(newScript);\n  }\n}\n\nfunction filterSelection(c) {\n  var filterDivElement = document.getElementsByClassName(\"filterDiv\");\n\n  if (c == \"all\") {\n    c = \"\";\n  }\n\n  for (var i = 0; i < filterDivElement.length; i++) {\n    removeClass(filterDivElement[i], \"show\");\n    if (filterDivElement[i].className.indexOf(c) > -1) {\n      addClass(filterDivElement[i], \"show\");\n    }\n  }\n}\n\nfunction removeClass(element, name) {\n  var elementClasses = element.className.split(\" \");\n  var provNames = name.split(\" \");\n  for (var i = 0; i < provNames.length; i++) {\n    while (elementClasses.indexOf(provNames[i]) > -1) {\n      elementClasses.splice(elementClasses.indexOf(provNames[i]), 1);\n    }\n  }\n  element.className = elementClasses.join(\" \");\n}\n\nfunction addClass(element, name) {\n  var elementClasses = element.className.split(\" \");\n  var provNames = name.split(\" \");\n  for (var i = 0; i < provNames.length; i++) {\n    if (elementClasses.indexOf(provNames[i]) == -1) {\n      element.className += \" \" + provNames[i];\n    }\n  }\n}\n\nfunction searchBarUpdate(e) {\n  console.log(e.target.value);\n  fetch(`/api/search?source='home'&term='${e.target.value}'`)\n    .then((res) => res.json())\n    .then((result) => {\n      try {\n        var searchResults = document.getElementById(\"searchResult\");\n        // first we want to remove all previous search results\n        while (searchResults.firstChild) {\n          searchResults.removeChild(searchResults.lastChild);\n        }\n\n        for (let i = 0; i < result.Results.length; i++) {\n          var tmpHTML = `<p><a href=\"${result.Results[i].Link}\">${result.Results[i].FriendlyName} #Category: ${result.Results[i].Category}</a></p>`;\n          searchResults.insertAdjacentHTML(\"beforeend\", tmpHTML);\n        }\n        //searchBar.insertAdjacentHTML(\"afterend\", )\n      } catch (err) {\n        console.log(`Error Occured crafting Search Results: ${err}`);\n      }\n    });\n}\n\nclass LinkItemDOM {\n  constructor() {\n    // for non-plugin data we can use the FormData Object Constructor\n    this.FormData = new FormData(document.getElementById(\"link-item-form\"));\n    // An element object is needed to properly retreive some values.\n    this.FormDom = document.getElementById(\"link-item-form\");\n  }\n\n  get jsonObjTemplate() {\n    var _jsonObjTemplate = {\n      id: 0,\n      friendlyName: \"\",\n      link: \"\",\n      category: \"\",\n      colour: \"\",\n      style: \"\",\n      plugins: [],\n    };\n\n    return _jsonObjTemplate;\n  }\n\n  get jsonObjFilled() {\n    var tmpObj = this.jsonObjTemplate;\n\n    tmpObj.id = this.staticIDField;\n    tmpObj.friendlyName = this.friendlyNameField;\n    tmpObj.link = this.linkField;\n    tmpObj.category = this.categoryField;\n    tmpObj.colour = this.colourField;\n    tmpObj.style = this.styleField;\n    tmpObj.plugins = this.pluginField;\n\n    return tmpObj;\n  }\n\n  set jsonObjFill(input) {\n    this.staticIDField = input.id;\n    this.friendlyNameField = input.friendlyName;\n    this.linkField = input.link;\n    this.categoryField = input.category;\n    this.colourField = input.colour;\n    this.styleField = input.style;\n    this.pluginField = input.plugins;\n  }\n\n  jsonObjClear() {\n    this.staticIDField = \"\";\n    this.friendlyNameField = \"\";\n    this.linkField = \"\";\n    this.categoryField = \"\";\n    this.colourField = \"\";\n    this.styleField = \"\";\n    this.emptyPlugins();\n  }\n\n  get staticIDField() {\n    return this.FormData.getAll(\"staticID\")[0];\n  }\n\n  set staticIDField(input) {\n    this.FormDom.querySelector(`[name=\"staticID\"]`).value = input;\n  }\n\n  get friendlyNameField() {\n    return this.FormData.getAll(\"friendlyName\")[0];\n  }\n\n  set friendlyNameField(input) {\n    this.FormDom.querySelector(`[name=\"friendlyName\"]`).value = input;\n  }\n\n  get linkField() {\n    return this.FormData.getAll(\"link\")[0];\n  }\n\n  set linkField(input) {\n    this.FormDom.querySelector(`[name=\"link\"]`).value = input;\n  }\n\n  get categoryField() {\n    return this.FormData.getAll(\"category\")[0];\n  }\n\n  set categoryField(input) {\n    this.FormDom.querySelector(`[name=\"category\"]`).value = input;\n  }\n\n  get colourField() {\n    return this.FormData.getAll(\"colour\")[0];\n  }\n\n  set colourField(input) {\n    this.FormDom.querySelector(`[name=\"colour\"]`).value = input;\n  }\n\n  get styleField() {\n    return this.FormData.getAll(\"style\")[0];\n  }\n\n  set styleField(input) {\n    this.FormDom.querySelector(`[name=\"style\"]`).value = input;\n  }\n\n  get pluginField() {\n    // Using the Element Method querySelectorAll list to get an array of Plugin Form NodeLists\n    var pluginNodeList = this.FormDom.querySelectorAll(\n      `[class=\"additional_info\"]`\n    );\n    var psuedoPluginArray = [];\n\n    for (var i = 0; i < pluginNodeList.length; i++) {\n      // with our []NodeLists we will first take the child section of pluginAddContainer\n      var htmlCollectionPlugin = pluginNodeList[i].children[0];\n\n      var tmpObjPlugin = {\n        name: \"\",\n        location: \"\",\n        options: \"\",\n      };\n      // while this was originally a public field, there was an issue of what seemed to be desctructuring of the object, once added to the array.\n      // where the length of the array was correct, but all values would be the last item added. Meaning the public field\n      // seems to create a reference when instiated as a variable, rather than a new declaration.\n\n      tmpObjPlugin.name =\n        htmlCollectionPlugin.querySelectorAll(`[name=\"pluginName\"]`)[0].value;\n      tmpObjPlugin.location = htmlCollectionPlugin.querySelectorAll(\n        `[name=\"pluginLocation\"]`\n      )[0].value;\n      tmpObjPlugin.options = htmlCollectionPlugin.querySelectorAll(\n        `[name=\"pluginOptions\"]`\n      )[0].value;\n\n      // now before we push we want to do simple validation on this data.\n      if (!this.notEmpty(tmpObjPlugin.name)) {\n        // if no name is assigned, we can skip adding the plugin completely\n        continue;\n      }\n\n      psuedoPluginArray.push(tmpObjPlugin);\n    }\n\n    return psuedoPluginArray;\n  }\n\n  set pluginField(input) {\n    // pluginField expects an input of only plugin array\n    for (var i = 0; i < input.length; i++) {\n      //firstly create the plugin item\n      addPluginToFormV2();\n      var pluginNodeList = this.FormDom.querySelectorAll(\n        `[class=\"additional_info\"]`\n      );\n      var htmlCollectionPlugin = pluginNodeList[i].children[0];\n      htmlCollectionPlugin.querySelectorAll(`[name=\"pluginName\"]`)[0].value =\n        input[i].name;\n      htmlCollectionPlugin.querySelectorAll(\n        `[name=\"pluginLocation\"]`\n      )[0].value = input[i].location;\n      htmlCollectionPlugin.querySelectorAll(`[name=\"pluginOptions\"]`)[0].value =\n        input[i].options;\n    }\n  }\n\n  emptyPlugins() {\n    while (document.getElementsByClassName(\"add-plugin-link\").length > 1) {\n      try {\n        document\n          .getElementsByClassName(\"add-plugin-link\")\n          [\n            document.getElementsByClassName(\"add-plugin-link\").length - 1\n          ].parentNode.remove();\n      } catch (err) {\n        throw err;\n      }\n    }\n    // ^^ The above while loop, will run until only 1 elemenet remains for the add-plugin-link dom element\n    // each loop gets the HTMLCollection of the element, grabbing only the last one, then selects its parentNode (form-text)\n    // and removes it. This should onyl leave the last dom element to add plugins as intended\n\n    // Now we just need to remove any data still present in that last element, and change its display\n    var htmlCollectionPlugin = this.FormDom.querySelectorAll(\n      `[class=\"additional_info\"]`\n    )[0].children[0];\n    htmlCollectionPlugin.querySelectorAll(`[name=\"pluginName\"]`)[0].value = \"\";\n    htmlCollectionPlugin.querySelectorAll(`[name=\"pluginLocation\"]`)[0].value =\n      \"\";\n    htmlCollectionPlugin.querySelectorAll(`[name=\"pluginOptions\"]`)[0].value =\n      \"\";\n    htmlCollectionPlugin.querySelectorAll(`[name=\"pluginExample\"]`)[0].value =\n      \"\";\n    htmlCollectionPlugin.parentElement.style.display = \"none\";\n  }\n\n  notEmpty(input) {\n    if (typeof input === \"string\") {\n      if (input === \"\" || input === \" \") {\n        return false;\n      } else {\n        return true;\n      }\n    } else {\n      // TODO: add support for other types, but this will fail open for now\n      return true;\n    }\n  }\n\n  extraValues(input) {\n    try {\n      if (input.length > 1) {\n        return true;\n      } else {\n        return false;\n      }\n    } catch (err) {\n      // if the length method fails, we can safely assume its not valid, and there are no extra values.\n      return false;\n    }\n  }\n}\n\nfunction addPluginToFormV2() {\n  var lastAddPluginItem =\n    document.getElementsByClassName(\"add-plugin-link\")[\n      document.getElementsByClassName(\"add-plugin-link\").length - 1\n    ];\n  // the last plugin should be the unexpanded plugin, until we change its display mode, and subsequently should have no information entered.\n\n  var clonedParent = lastAddPluginItem.parentElement.cloneNode(true);\n  lastAddPluginItem.parentElement.insertAdjacentElement(\n    \"afterend\",\n    clonedParent\n  );\n  // the lastAddPluginItem is the text adjacent to the plugin form.\n  // getting the parent allows us to have the full form-text div, which is what we want to duplicate and insert.\n\n  // now to chagne the display mode of the descendent div\n  var addInfoDescendent =\n    lastAddPluginItem.parentElement.getElementsByClassName(\n      \"additional_info\"\n    )[0];\n  addInfoDescendent.style.display = \"block\";\n}\n\nfunction getLinkItemForm() {\n  // --------\n  // Cyclomatic Complexity Pre-Class: 14\n  // Cyclomatic Complexity Post-Class: 6\n  // -------\n\n  // parseLinkItemForm will either return an object of JSON, or a string, containing an error message that is safe to display to the user.\n\n  let linkObj = new LinkItemDOM();\n  // We can ask for the filled template from the class\n  var linkObjData = linkObj.jsonObjFilled;\n\n  // now lets check the validity of the data gathered and react accordingly\n  if (!stringValidityNotEmpty(linkObjData.friendlyName)) {\n    return i18n_validateName;\n  } else if (!stringValidityNotEmpty(linkObjData.link)) {\n    return i18n_validateLink;\n  } else if (!stringValidityNotEmpty(linkObjData.category)) {\n    return i18n_validateCategory;\n  }\n\n  // then to check the plugin data validity\n  for (var i = 0; i < linkObjData.plugins.length; i++) {\n    if (!stringValidityNotEmpty(linkObjData.plugins[i].location)) {\n      return i18n_validatePluginLocation;\n    }\n  }\n\n  return linkObjData;\n}\n\nfunction clearLinkItemForm() {\n  // --------\n  // Cyclomatic Complexity Pre-Class: 2\n  // Cyclomatic Complexity Post-Class: 1\n  // -------\n\n  let linkItemObj = new LinkItemDOM();\n  linkItemObj.jsonObjClear();\n}\n\nfunction stringValidityNotEmpty(string) {\n  // this returns true if the passed string seems to be valid, false otherwise\n  try {\n    if (typeof string === \"string\") {\n      if (string == \"\") {\n        return false;\n      } else {\n        return true;\n      }\n    } else {\n      return false;\n    }\n  } catch (err) {\n    return false;\n  }\n}\n\n/*eslint-disable-next-line no-unused-vars*/\nfunction disablePluginLocation(element) {\n  document\n    .getElementById(\"plugin-location-list\")\n    .querySelector(`[value=${element.value}]`)\n    .setAttribute(\"disabled\", \"\");\n}\n\nfunction addPluginOptions(element) {\n  var pluginContainerParent = element.parentElement.parentElement.parentElement;\n  var pluginChosen = element.value;\n  var pluginOptions = pluginContainerParent.querySelector(\n    `[name=\"pluginOptions\"]`\n  );\n  var pluginExample = pluginContainerParent.querySelector(\n    `[name=\"pluginExample\"]`\n  );\n\n  // with the elements we want to modify, lets get the data needed\n  fetch(\"/plugins/installedPlugins.json\")\n    .then((res) => res.json())\n    .then((data) => {\n      data.forEach((element) => {\n        if (pluginChosen == element.name) {\n          pluginOptions.value = element.options.autofill;\n          pluginExample.value = element.options.explain;\n        }\n      });\n    });\n}\n\nfunction initInstalledPluginListToForm() {\n  fetch(\"/plugins/installedPlugins.json\")\n    .then((response) => response.json())\n    .then((data) => {\n      var pluginListToInsertItem, pluginListToInsertHeader;\n\n      data.forEach((element) => {\n        if (element.type == \"item\") {\n          pluginListToInsertItem += `<option value='${element.name}'>`;\n        } else if (element.type == \"header\") {\n          pluginListToInsertHeader += `<option value='${element.name}'>`;\n        }\n      });\n      document.getElementById(\"plugin-installed-list\").innerHTML =\n        pluginListToInsertItem;\n      document.getElementById(\"header-plugin-list\").innerHTML =\n        pluginListToInsertHeader;\n    });\n}\n\nfunction newItemModal() {\n  clearLinkItemForm();\n  universe.ShowModal(\"link-item-modal\");\n\n  var modalSubmit = document.getElementById(\"itemModalSubmit\");\n  var modalClose = document.getElementById(\"itemModalGoBack\");\n\n  modalClose.onclick = function () {\n    universe.CloseModal(\"link-item-modal\");\n  };\n\n  modalSubmit.onclick = function () {\n    // first we will display the loading icon\n    universe.Loader(true);\n\n    var formData = getLinkItemForm();\n\n    if (typeof formData === \"string\") {\n      universe.Loader(false);\n\n      universe.SnackbarError(\n        \"snackbar\",\n        formData,\n        false,\n        i18n_returnValueGenericError\n      );\n    } else if (typeof formData == \"object\") {\n      saveLinkItemModal(\"/api/new/\", formData, i18n_returnsSuccessAdd);\n    } else {\n      // if it fails, we will remove the loader to allow user interaction\n      universe.Loader(false);\n\n      universe.SnackbarError(\n        \"snackbar\",\n        i18n_returnValueGenericError,\n        false,\n        \"Something unexpected happened reading your data.\"\n      );\n    }\n  };\n}\n\nfunction editItemModal(\n  oldID,\n  oldFriendlyName,\n  oldLink,\n  oldCategory,\n  oldColour,\n  oldStyle,\n  oldPlugins\n) {\n  clearLinkItemForm();\n  // with the class for the Link Item DOM, we can work with that directly here, rather than using a useless interface function\n  let linkItemObj = new LinkItemDOM();\n  var jsonTemplate = linkItemObj.jsonObjTemplate;\n\n  jsonTemplate.id = parseInt(oldID);\n  jsonTemplate.friendlyName = oldFriendlyName;\n  jsonTemplate.link = oldLink;\n  jsonTemplate.category = oldCategory;\n  jsonTemplate.colour = oldColour;\n  jsonTemplate.style = oldStyle;\n\n  for (var i = 0; i < oldPlugins.length; i++) {\n    var tmpPluginJSON = {\n      name: oldPlugins[i].name,\n      location: oldPlugins[i].location,\n      options: oldPlugins[i].options,\n    };\n    jsonTemplate.plugins.push(tmpPluginJSON);\n  }\n\n  linkItemObj.jsonObjFill = jsonTemplate;\n\n  // once the data is injected into the page, we can display the modal\n  universe.ShowModal(\"link-item-modal\");\n\n  var modalSubmit = document.getElementById(\"itemModalSubmit\");\n  var modalClose = document.getElementById(\"itemModalGoBack\");\n\n  modalClose.onclick = function () {\n    universe.CloseModal(\"link-item-modal\");\n  };\n\n  modalSubmit.onclick = function () {\n    universe.Loader(true);\n\n    var formData = getLinkItemForm();\n\n    if (typeof formData === \"string\") {\n      universe.SnackbarError(\n        \"snackbar\",\n        formData,\n        false,\n        i18n_returnValueGenericError\n      );\n    } else if (typeof formData === \"object\") {\n      // before submitting this data we need to ensure the ID is an int, otherwise it'll fail.\n      formData.id = parseInt(formData.id);\n      saveLinkItemModal(\"/api/edit/\", formData, i18n_returnsSuccessUpdate);\n    } else {\n      universe.Loader(false);\n\n      universe.SnackbarError(\n        \"snackbar\",\n        i18n_returnValueGenericError,\n        false,\n        \"Something unexpected happned reading your data.\"\n      );\n    }\n  };\n}\n\nfunction saveLinkItemModal(endpoint, data, string) {\n  var rawJSON = JSON.stringify(data);\n\n  var requestOptions = universe.CreateJSONPOSTHeaders(rawJSON);\n\n  fetch(endpoint, requestOptions)\n    .then((response) => response.json())\n    .then((result) => {\n      if (result == \"Success\") {\n        // make sure to disable any loaders that may be displayed\n        universe.Loader(false);\n\n        universe.CloseModal(\"link-item-modal\");\n\n        universe.SnackbarCommon(\n          \"snackbar\",\n          langHandler.UnicornComposite(string, i18n_returnValueLinkItem),\n          universe.HotReload(\"linkItemList\", \"/\", homePageInit, \"reload\")\n        );\n      } else {\n        universe.Loader(false);\n\n        universe.SnackbarError(\n          \"snackbar\",\n          i18n_returnValueGenericError,\n          false,\n          result\n        );\n      }\n    });\n}\n\nfunction firstTimeSetup(dev) {\n  if (typeof dev !== \"boolean\") {\n    dev = false;\n  }\n  // this will check for any saved items, and if there are none, will display a helpful modal of options to get started.\n  fetch(\"/api/items\")\n    .then((res) => res.json())\n    .then((response) => {\n      if (response.length === 0 || dev) {\n        universe.ShowModal(\"firstTimeModal\");\n\n        // once visible we want to register an onclick handler with the now visible close button\n        var modalClose = document.getElementById(\"closeFirstTimeModal\");\n\n        // and another onclick handler for the submit language\n        var modalChangeLang = document.getElementById(\n          \"firstTimeModalLangSubmit\"\n        );\n\n        modalClose.onclick = function () {\n          universe.CloseModal(\"firstTimeModal\");\n        };\n\n        modalChangeLang.onclick = function () {\n          var modalChosenLang = document.getElementById(\"changeLang\");\n          var chosenLang = modalChosenLang.value;\n          fetch(`/api/changelang?lang=${chosenLang}`)\n            .then((res) => res.json())\n            .then((response) => {\n              universe.SnackbarCommon(\n                \"snackbar\",\n                langHandler.UnicornComposite(\n                  i18n_returnsSuccessUpdate,\n                  i18n_returnValueLangauge\n                ),\n                false,\n                false,\n                false,\n                false,\n                response\n              );\n            });\n        };\n      }\n    });\n}\n\n/*eslint disable-next-lin no-unused-vars*/\nfunction dataListInputHeader(ele) {\n  fetch(\"/plugins/installedPlugins.json\")\n    .then((res) => res.json())\n    .then((data) => {\n      data.forEach((element) => {\n        if (ele.value == element.name) {\n          if (element.config) {\n            // since the header modal only allows modifying a signle item at once, we don't need any checking of the element\n            dataListInputCaller(\n              \"header-plugin-label\",\n              \"header-plugin-example\",\n              \"header-plugin-options\",\n              element.options.explain,\n              element.options.autofill\n            );\n          }\n        }\n      });\n    });\n}\n\nfunction dataListInputCaller(\n  view,\n  explain,\n  autofill,\n  explainData,\n  autofillData\n) {\n  dataListInputChangeView(view);\n  dataListInputChangeExplain(explain, explainData);\n  dataListInputChangeAutofill(autofill, autofillData);\n}\n\nfunction dataListInputChangeView(eleName) {\n  var ele = document.getElementById(eleName);\n  ele.classList.remove(\"readonly_id\");\n}\n\nfunction dataListInputChangeExplain(eleName, explain) {\n  var ele = document.getElementById(eleName);\n  ele.innerHTML = explain;\n}\n\nfunction dataListInputChangeAutofill(eleName, autofill) {\n  var ele = document.getElementById(eleName);\n  ele.classList.remove(\"readonly_id\");\n  ele.removeAttribute(\"readonly\");\n  ele.value = autofill;\n}\n\n// Modal based JS\n\n// Previous links to delete in HTML: <div class=\"deleteItem\"> <a href=\"/delete/{{.Id}}\"> <img src=\"/assets/images/trash-2.svg\"> </a> </div>\n/*eslint-disable-next-line no-unused-vars*/\nfunction modalDelete(id) {\n  // this should be called when the delete button is hit\n  universe.ShowModal(\"deleteModal\");\n\n  // Once visible we want to register an onclick handler with the now visible confirm delete button.\n  var modalNotDeleteBtn = document.getElementById(\"notDelete-modal\");\n\n  var modalDeleteBtn = document.getElementById(\"delete-modal\");\n\n  modalDeleteBtn.onclick = function () {\n    //window.location.href = `/delete/${id}`;\n    // Instead of changing the window location to the delete post handler,\n    // we will use the new api to delete this item\n    fetch(`/api/deletelink/${id}`)\n      .then((res) => res.json())\n      .then((response) => {\n        if (response == \"Success\") {\n          universe.CloseModal(\"deleteModal\");\n\n          universe.SnackbarCommon(\n            \"snackbar\",\n            langHandler.UnicornComposite(\n              i18n_returnsSuccessDelete,\n              i18n_returnValueLinkItem\n            ),\n            universe.HotReload(\"linkItemList\", \"/\", homePageInit, \"reload\")\n          );\n        } else {\n          // an error occured during deletion\n          universe.SnackbarError(\n            \"snackbar\",\n            langHandler.UnicornComposite(\n              i18n_returnsFailureDelete,\n              \"Link Item\"\n            ),\n            false,\n            response\n          );\n        }\n      });\n  };\n\n  modalNotDeleteBtn.onclick = function () {\n    universe.CloseModal(\"deleteModal\");\n  };\n\n  window.onclick = function (event) {\n    if (event.target == modal) {\n      universe.CloseModal(\"deleteModal\");\n    }\n  };\n}\n\nfunction headerPlugins() {\n  var headerPluginLeft = document.getElementById(\"headerPluginLeft\");\n  var headerPluginRight = document.getElementById(\"headerPluginRight\");\n\n  const changeHeaderSettings = function (\n    side,\n    pluginName,\n    pluginOptions,\n    modal\n  ) {\n    fetch(\"/api/usersettings\")\n      .then((res) => res.json())\n      .then((data) => {\n        // now with the current user settings, we can modify what we need to\n        data.headerPlugins[side].name = pluginName;\n        data.headerPlugins[side].options = pluginOptions;\n\n        // then to post this data back to GoPage\n\n        var raw = JSON.stringify(data);\n\n        fetch(\"/api/usersettingswrite\", universe.CreateJSONPOSTHeaders(raw))\n          .then((response) => response.json())\n          .then((result) => {\n            if (result == \"Success\") {\n              universe.CloseModal(\"headerPluginModal\");\n\n              universe.SnackbarCommon(\n                \"snackbar\",\n                langHandler.UnicornComposite(\n                  i18n_returnsSuccessUpdate,\n                  i18n_returnValueHeaderPlugin\n                ),\n                universe.HotReload(\"linkItemList\", \"/\", homePageInit, \"reload\")\n              );\n            } else {\n              // error occured\n              console.log(result);\n              universe.SnackbarError(\n                \"snackbar\",\n                i18n_returnValueGenericError,\n                false,\n                result\n              );\n            }\n          });\n      });\n  };\n\n  const handlePluginHeader = function (side) {\n    universe.ShowModal(\"headerPluginModal\");\n\n    var backBtn = document.getElementById(\"headerPlugin-goBack\");\n    backBtn.onclick = function () {\n      universe.CloseModal(\"headerPluginModal\");\n    };\n\n    var submitBtn = document.getElementById(\"headerPlugin-submit\");\n\n    submitBtn.onclick = function () {\n      changeHeaderSettings(\n        side,\n        document.getElementById(\"header-plugin-name\").value,\n        document.getElementById(\"header-plugin-options\").value,\n        modal\n      );\n    };\n  };\n\n  headerPluginLeft.onclick = function () {\n    handlePluginHeader(\"left\");\n  };\n\n  headerPluginRight.onclick = function () {\n    handlePluginHeader(\"right\");\n  };\n}\n",
+    "content": "window.onload = function () {\n  // This is being moved from HTML to JS to reduce global pollution, and other concerns, as well as remove ESLinter complaints\n\n  homePageInit();\n\n  firstTimeSetup();\n\n  // Then functions to fill out data of the forms\n  initInstalledPluginListToForm();\n\n  // Functions to allow setting and changing Header Plugins\n  headerPlugins();\n};\n\nfunction homePageInit(type) {\n  // this is called during first page load and as a callback to template hot reloading\n\n  filterSelection(\"all\");\n\n  var btnContainer = document.getElementById(\"btnContainer\");\n  var btns = btnContainer.getElementsByClassName(\"btn\");\n  for (var i = 0; i < btns.length; i++) {\n    btns[i].addEventListener(\"click\", function () {\n      var current = document.getElementsByClassName(\"active\");\n      current[0].className = current[0].className.replace(\" active\", \"\");\n      this.className += \" active\";\n    });\n  }\n\n  // now keeping in mind that once a hot-reload occurs all plugins will lose their references to the DOM.\n  // so plugins must be reloaded, which can easily occur by reattaching thhem to the dom.\n  // plugins do have the custom data-plugin-type=\"iitem\" attached that we can use.\n  if (typeof type === \"string\") {\n    if (type == \"reload\") {\n      reloadPluginJS();\n    }\n  }\n\n  // now we want to also listen on the search bar\n  const searchBar = document.getElementById(\"searchBar\");\n\n  searchBar.addEventListener(\"input\", searchBarUpdate);\n}\n\nfunction reloadPluginJS() {\n  var pluginList = document.querySelectorAll(\"[data-plugin-type]\");\n\n  for (var i = 0; i < pluginList.length; i++) {\n    var newScript = document.createElement(\"script\");\n    // pluginList[i].src returns the process src, as in the absoulte URL, to ensure that its identical, we will grab the relative\n    newScript.src = pluginList[i].attributes.src.nodeValue;\n    // but this still doesn't actual reload the script which may be a browser caching issue, we can add a cache buster\n    if (newScript.src.includes(\"cachebuster\")) {\n      // added check for pre-existing cachebuster value, to only modify the exisitng one, rather than append endlessly\n      newScript.src = newScript.src.replace(\n        /[?]cachebuster=[0-9]+/,\n        `?cachebuster=${new Date().getTime()}`\n      );\n    } else {\n      newScript.src = `${newScript.src}?cachebuster=${new Date().getTime()}`;\n    }\n    newScript.type = pluginList[i].type;\n    newScript.dataset.pluginType = pluginList[i].dataset.pluginType;\n\n    // with the new script dom element created, remove the current one then append thhis one.\n    pluginList[i].remove();\n    document.body.appendChild(newScript);\n  }\n}\n\nfunction filterSelection(c) {\n  var filterDivElement = document.getElementsByClassName(\"filterDiv\");\n\n  if (c == \"all\") {\n    c = \"\";\n  }\n\n  for (var i = 0; i < filterDivElement.length; i++) {\n    removeClass(filterDivElement[i], \"show\");\n    if (filterDivElement[i].className.indexOf(c) > -1) {\n      addClass(filterDivElement[i], \"show\");\n    }\n  }\n}\n\nfunction removeClass(element, name) {\n  var elementClasses = element.className.split(\" \");\n  var provNames = name.split(\" \");\n  for (var i = 0; i < provNames.length; i++) {\n    while (elementClasses.indexOf(provNames[i]) > -1) {\n      elementClasses.splice(elementClasses.indexOf(provNames[i]), 1);\n    }\n  }\n  element.className = elementClasses.join(\" \");\n}\n\nfunction addClass(element, name) {\n  var elementClasses = element.className.split(\" \");\n  var provNames = name.split(\" \");\n  for (var i = 0; i < provNames.length; i++) {\n    if (elementClasses.indexOf(provNames[i]) == -1) {\n      element.className += \" \" + provNames[i];\n    }\n  }\n}\n\nfunction searchBarUpdate(e) {\n  console.log(e.target.value);\n  fetch(`/api/search?source='home'&term='${e.target.value}'`)\n    .then((res) => res.json())\n    .then((result) => {\n      try {\n        var searchResults = document.getElementById(\"searchResult\");\n        // first we want to remove all previous search results\n        while (searchResults.firstChild) {\n          searchResults.removeChild(searchResults.lastChild);\n        }\n\n        for (let i = 0; i < result.Results.length; i++) {\n          var tmpHTML = `<p><a href=\"${result.Results[i].Link}\">${result.Results[i].FriendlyName} #Category: ${result.Results[i].Category}</a></p>`;\n          searchResults.insertAdjacentHTML(\"beforeend\", tmpHTML);\n        }\n        //searchBar.insertAdjacentHTML(\"afterend\", )\n      } catch (err) {\n        console.log(`Error Occured crafting Search Results: ${err}`);\n      }\n    });\n}\n\nclass LinkItemDOM {\n  constructor() {\n    // for non-plugin data we can use the FormData Object Constructor\n    this.FormData = new FormData(document.getElementById(\"link-item-form\"));\n    // An element object is needed to properly retreive some values.\n    this.FormDom = document.getElementById(\"link-item-form\");\n  }\n\n  get jsonObjTemplate() {\n    var _jsonObjTemplate = {\n      id: 0,\n      friendlyName: \"\",\n      link: \"\",\n      category: \"\",\n      colour: \"\",\n      style: \"\",\n      plugins: [],\n    };\n\n    return _jsonObjTemplate;\n  }\n\n  get jsonObjFilled() {\n    var tmpObj = this.jsonObjTemplate;\n\n    tmpObj.id = this.staticIDField;\n    tmpObj.friendlyName = this.friendlyNameField;\n    tmpObj.link = this.linkField;\n    tmpObj.category = this.categoryField;\n    tmpObj.colour = this.colourField;\n    tmpObj.style = this.styleField;\n    tmpObj.plugins = this.pluginField;\n\n    return tmpObj;\n  }\n\n  set jsonObjFill(input) {\n    this.staticIDField = input.id;\n    this.friendlyNameField = input.friendlyName;\n    this.linkField = input.link;\n    this.categoryField = input.category;\n    this.colourField = input.colour;\n    this.styleField = input.style;\n    this.pluginField = input.plugins;\n  }\n\n  jsonObjClear() {\n    this.staticIDField = \"\";\n    this.friendlyNameField = \"\";\n    this.linkField = \"\";\n    this.categoryField = \"\";\n    this.colourField = \"\";\n    this.styleField = \"\";\n    this.emptyPlugins();\n  }\n\n  get staticIDField() {\n    return this.FormData.getAll(\"staticID\")[0];\n  }\n\n  set staticIDField(input) {\n    this.FormDom.querySelector(`[name=\"staticID\"]`).value = input;\n  }\n\n  get friendlyNameField() {\n    return this.FormData.getAll(\"friendlyName\")[0];\n  }\n\n  set friendlyNameField(input) {\n    this.FormDom.querySelector(`[name=\"friendlyName\"]`).value = input;\n  }\n\n  get linkField() {\n    return this.FormData.getAll(\"link\")[0];\n  }\n\n  set linkField(input) {\n    this.FormDom.querySelector(`[name=\"link\"]`).value = input;\n  }\n\n  get categoryField() {\n    return this.FormData.getAll(\"category\")[0];\n  }\n\n  set categoryField(input) {\n    this.FormDom.querySelector(`[name=\"category\"]`).value = input;\n  }\n\n  get colourField() {\n    return this.FormData.getAll(\"colour\")[0];\n  }\n\n  set colourField(input) {\n    this.FormDom.querySelector(`[name=\"colour\"]`).value = input;\n  }\n\n  get styleField() {\n    return this.FormData.getAll(\"style\")[0];\n  }\n\n  set styleField(input) {\n    this.FormDom.querySelector(`[name=\"style\"]`).value = input;\n  }\n\n  get pluginField() {\n    // Using the Element Method querySelectorAll list to get an array of Plugin Form NodeLists\n    var pluginNodeList = this.FormDom.querySelectorAll(\n      `[class=\"additional_info\"]`\n    );\n    var psuedoPluginArray = [];\n\n    for (var i = 0; i < pluginNodeList.length; i++) {\n      // with our []NodeLists we will first take the child section of pluginAddContainer\n      var htmlCollectionPlugin = pluginNodeList[i].children[0];\n\n      var tmpObjPlugin = {\n        name: \"\",\n        location: \"\",\n        options: \"\",\n      };\n      // while this was originally a public field, there was an issue of what seemed to be desctructuring of the object, once added to the array.\n      // where the length of the array was correct, but all values would be the last item added. Meaning the public field\n      // seems to create a reference when instiated as a variable, rather than a new declaration.\n\n      tmpObjPlugin.name =\n        htmlCollectionPlugin.querySelectorAll(`[name=\"pluginName\"]`)[0].value;\n      tmpObjPlugin.location = htmlCollectionPlugin.querySelectorAll(\n        `[name=\"pluginLocation\"]`\n      )[0].value;\n      tmpObjPlugin.options = htmlCollectionPlugin.querySelectorAll(\n        `[name=\"pluginOptions\"]`\n      )[0].value;\n\n      // now before we push we want to do simple validation on this data.\n      if (!this.notEmpty(tmpObjPlugin.name)) {\n        // if no name is assigned, we can skip adding the plugin completely\n        continue;\n      }\n\n      psuedoPluginArray.push(tmpObjPlugin);\n    }\n\n    return psuedoPluginArray;\n  }\n\n  set pluginField(input) {\n    // pluginField expects an input of only plugin array\n    for (var i = 0; i < input.length; i++) {\n      //firstly create the plugin item\n      addPluginToFormV2();\n      var pluginNodeList = this.FormDom.querySelectorAll(\n        `[class=\"additional_info\"]`\n      );\n      var htmlCollectionPlugin = pluginNodeList[i].children[0];\n      htmlCollectionPlugin.querySelectorAll(`[name=\"pluginName\"]`)[0].value =\n        input[i].name;\n      htmlCollectionPlugin.querySelectorAll(\n        `[name=\"pluginLocation\"]`\n      )[0].value = input[i].location;\n      htmlCollectionPlugin.querySelectorAll(`[name=\"pluginOptions\"]`)[0].value =\n        input[i].options;\n    }\n  }\n\n  emptyPlugins() {\n    while (document.getElementsByClassName(\"add-plugin-link\").length > 1) {\n      document\n        .getElementsByClassName(\"add-plugin-link\")\n        [\n          document.getElementsByClassName(\"add-plugin-link\").length - 1\n        ].parentNode.remove();\n    }\n    // ^^ The above while loop, will run until only 1 elemenet remains for the add-plugin-link dom element\n    // each loop gets the HTMLCollection of the element, grabbing only the last one, then selects its parentNode (form-text)\n    // and removes it. This should onyl leave the last dom element to add plugins as intended\n\n    // Now we just need to remove any data still present in that last element, and change its display\n    var htmlCollectionPlugin = this.FormDom.querySelectorAll(\n      `[class=\"additional_info\"]`\n    )[0].children[0];\n    htmlCollectionPlugin.querySelectorAll(`[name=\"pluginName\"]`)[0].value = \"\";\n    htmlCollectionPlugin.querySelectorAll(`[name=\"pluginLocation\"]`)[0].value =\n      \"\";\n    htmlCollectionPlugin.querySelectorAll(`[name=\"pluginOptions\"]`)[0].value =\n      \"\";\n    htmlCollectionPlugin.querySelectorAll(`[name=\"pluginExample\"]`)[0].value =\n      \"\";\n    htmlCollectionPlugin.parentElement.style.display = \"none\";\n  }\n\n  notEmpty(input) {\n    if (typeof input === \"string\") {\n      if (input === \"\" || input === \" \") {\n        return false;\n      } else {\n        return true;\n      }\n    } else {\n      // TODO: add support for other types, but this will fail open for now\n      return true;\n    }\n  }\n\n  extraValues(input) {\n    try {\n      if (input.length > 1) {\n        return true;\n      } else {\n        return false;\n      }\n    } catch (err) {\n      // if the length method fails, we can safely assume its not valid, and there are no extra values.\n      return false;\n    }\n  }\n}\n\nfunction addPluginToFormV2() {\n  var lastAddPluginItem =\n    document.getElementsByClassName(\"add-plugin-link\")[\n      document.getElementsByClassName(\"add-plugin-link\").length - 1\n    ];\n  // the last plugin should be the unexpanded plugin, until we change its display mode, and subsequently should have no information entered.\n\n  var clonedParent = lastAddPluginItem.parentElement.cloneNode(true);\n  lastAddPluginItem.parentElement.insertAdjacentElement(\n    \"afterend\",\n    clonedParent\n  );\n  // the lastAddPluginItem is the text adjacent to the plugin form.\n  // getting the parent allows us to have the full form-text div, which is what we want to duplicate and insert.\n\n  // now to chagne the display mode of the descendent div\n  var addInfoDescendent =\n    lastAddPluginItem.parentElement.getElementsByClassName(\n      \"additional_info\"\n    )[0];\n  addInfoDescendent.style.display = \"block\";\n}\n\nfunction getLinkItemForm() {\n  // --------\n  // Cyclomatic Complexity Pre-Class: 14\n  // Cyclomatic Complexity Post-Class: 6\n  // -------\n\n  // parseLinkItemForm will either return an object of JSON, or a string, containing an error message that is safe to display to the user.\n\n  let linkObj = new LinkItemDOM();\n  // We can ask for the filled template from the class\n  var linkObjData = linkObj.jsonObjFilled;\n\n  // now lets check the validity of the data gathered and react accordingly\n  if (!stringValidityNotEmpty(linkObjData.friendlyName)) {\n    return i18n_validateName;\n  } else if (!stringValidityNotEmpty(linkObjData.link)) {\n    return i18n_validateLink;\n  } else if (!stringValidityNotEmpty(linkObjData.category)) {\n    return i18n_validateCategory;\n  }\n\n  // then to check the plugin data validity\n  for (var i = 0; i < linkObjData.plugins.length; i++) {\n    if (!stringValidityNotEmpty(linkObjData.plugins[i].location)) {\n      return i18n_validatePluginLocation;\n    }\n  }\n\n  return linkObjData;\n}\n\nfunction clearLinkItemForm() {\n  // --------\n  // Cyclomatic Complexity Pre-Class: 2\n  // Cyclomatic Complexity Post-Class: 1\n  // -------\n\n  let linkItemObj = new LinkItemDOM();\n  linkItemObj.jsonObjClear();\n}\n\nfunction stringValidityNotEmpty(string) {\n  // this returns true if the passed string seems to be valid, false otherwise\n  try {\n    if (typeof string === \"string\") {\n      if (string == \"\") {\n        return false;\n      } else {\n        return true;\n      }\n    } else {\n      return false;\n    }\n  } catch (err) {\n    return false;\n  }\n}\n\n/*eslint-disable-next-line no-unused-vars*/\nfunction disablePluginLocation(element) {\n  document\n    .getElementById(\"plugin-location-list\")\n    .querySelector(`[value=${element.value}]`)\n    .setAttribute(\"disabled\", \"\");\n}\n\n/*eslint-disable-next-line no-unused-vars*/\nfunction addPluginOptions(element) {\n  var pluginContainerParent = element.parentElement.parentElement.parentElement;\n  var pluginChosen = element.value;\n  var pluginOptions = pluginContainerParent.querySelector(\n    `[name=\"pluginOptions\"]`\n  );\n  var pluginExample = pluginContainerParent.querySelector(\n    `[name=\"pluginExample\"]`\n  );\n\n  // with the elements we want to modify, lets get the data needed\n  fetch(\"/plugins/installedPlugins.json\")\n    .then((res) => res.json())\n    .then((data) => {\n      data.forEach((element) => {\n        if (pluginChosen == element.name) {\n          pluginOptions.value = element.options.autofill;\n          pluginExample.value = element.options.explain;\n        }\n      });\n    });\n}\n\n/*eslint-disable-next-line no-unused-vars*/\nfunction addPluginOptionsHeader(element) {\n  var pluginContainerParent = element.parentElement.parentElement.parentElement;\n  var pluginChosen = element.value;\n  var pluginOptions = pluginContainerParent.querySelector(\n    `[name=\"header-plugin-options\"]`\n  );\n  var pluginExample = pluginContainerParent.querySelector(\n    `[name=\"header-plugin-example\"]`\n  );\n\n  fetch(\"/plugins/installedPlugins.json\")\n    .then((res) => res.json())\n    .then((data) => {\n      data.forEach((element) => {\n        if (pluginChosen == element.name) {\n          pluginOptions.value = element.options.autofill;\n          pluginExample.value = element.options.explain;\n        }\n      });\n    });\n}\n\nfunction initInstalledPluginListToForm() {\n  fetch(\"/plugins/installedPlugins.json\")\n    .then((response) => response.json())\n    .then((data) => {\n      var pluginListToInsertItem, pluginListToInsertHeader;\n\n      data.forEach((element) => {\n        if (element.type == \"item\") {\n          pluginListToInsertItem += `<option value='${element.name}'>`;\n        } else if (element.type == \"header\") {\n          pluginListToInsertHeader += `<option value='${element.name}'>`;\n        }\n      });\n      document.getElementById(\"plugin-installed-list\").innerHTML =\n        pluginListToInsertItem;\n      document.getElementById(\"header-plugin-list\").innerHTML =\n        pluginListToInsertHeader;\n    });\n}\n\n/*eslint-disable-next-line no-unused-vars*/\nfunction newItemModal() {\n  clearLinkItemForm();\n  universe.ShowModal(\"link-item-modal\");\n\n  var modalSubmit = document.getElementById(\"itemModalSubmit\");\n  var modalClose = document.getElementById(\"itemModalGoBack\");\n\n  modalClose.onclick = function () {\n    universe.CloseModal(\"link-item-modal\");\n  };\n\n  modalSubmit.onclick = function () {\n    // first we will display the loading icon\n    universe.Loader(true);\n\n    var formData = getLinkItemForm();\n\n    if (typeof formData === \"string\") {\n      universe.Loader(false);\n\n      universe.SnackbarError(\n        \"snackbar\",\n        formData,\n        false,\n        i18n_returnValueGenericError\n      );\n    } else if (typeof formData == \"object\") {\n      saveLinkItemModal(\"/api/new/\", formData, i18n_returnsSuccessAdd);\n    } else {\n      // if it fails, we will remove the loader to allow user interaction\n      universe.Loader(false);\n\n      universe.SnackbarError(\n        \"snackbar\",\n        i18n_returnValueGenericError,\n        false,\n        \"Something unexpected happened reading your data.\"\n      );\n    }\n  };\n}\n\n/*eslint-disable-next-line no-unused-vars*/\nfunction editItemModal(\n  oldID,\n  oldFriendlyName,\n  oldLink,\n  oldCategory,\n  oldColour,\n  oldStyle,\n  oldPlugins\n) {\n  clearLinkItemForm();\n  // with the class for the Link Item DOM, we can work with that directly here, rather than using a useless interface function\n  let linkItemObj = new LinkItemDOM();\n  var jsonTemplate = linkItemObj.jsonObjTemplate;\n\n  jsonTemplate.id = parseInt(oldID);\n  jsonTemplate.friendlyName = oldFriendlyName;\n  jsonTemplate.link = oldLink;\n  jsonTemplate.category = oldCategory;\n  jsonTemplate.colour = oldColour;\n  jsonTemplate.style = oldStyle;\n\n  for (var i = 0; i < oldPlugins.length; i++) {\n    var tmpPluginJSON = {\n      name: oldPlugins[i].name,\n      location: oldPlugins[i].location,\n      options: oldPlugins[i].options,\n    };\n    jsonTemplate.plugins.push(tmpPluginJSON);\n  }\n\n  linkItemObj.jsonObjFill = jsonTemplate;\n\n  // once the data is injected into the page, we can display the modal\n  universe.ShowModal(\"link-item-modal\");\n\n  var modalSubmit = document.getElementById(\"itemModalSubmit\");\n  var modalClose = document.getElementById(\"itemModalGoBack\");\n\n  modalClose.onclick = function () {\n    universe.CloseModal(\"link-item-modal\");\n  };\n\n  modalSubmit.onclick = function () {\n    universe.Loader(true);\n\n    var formData = getLinkItemForm();\n\n    if (typeof formData === \"string\") {\n      universe.SnackbarError(\n        \"snackbar\",\n        formData,\n        false,\n        i18n_returnValueGenericError\n      );\n    } else if (typeof formData === \"object\") {\n      // before submitting this data we need to ensure the ID is an int, otherwise it'll fail.\n      formData.id = parseInt(formData.id);\n      saveLinkItemModal(\"/api/edit/\", formData, i18n_returnsSuccessUpdate);\n    } else {\n      universe.Loader(false);\n\n      universe.SnackbarError(\n        \"snackbar\",\n        i18n_returnValueGenericError,\n        false,\n        \"Something unexpected happned reading your data.\"\n      );\n    }\n  };\n}\n\nfunction saveLinkItemModal(endpoint, data, string) {\n  var rawJSON = JSON.stringify(data);\n\n  var requestOptions = universe.CreateJSONPOSTHeaders(rawJSON);\n\n  fetch(endpoint, requestOptions)\n    .then((response) => response.json())\n    .then((result) => {\n      if (result == \"Success\") {\n        // make sure to disable any loaders that may be displayed\n        universe.Loader(false);\n\n        universe.CloseModal(\"link-item-modal\");\n\n        universe.SnackbarCommon(\n          \"snackbar\",\n          langHandler.UnicornComposite(string, i18n_returnValueLinkItem),\n          universe.HotReload(\"linkItemList\", \"/\", homePageInit, \"reload\")\n        );\n      } else {\n        universe.Loader(false);\n\n        universe.SnackbarError(\n          \"snackbar\",\n          i18n_returnValueGenericError,\n          false,\n          result\n        );\n      }\n    });\n}\n\nfunction firstTimeSetup(dev) {\n  if (typeof dev !== \"boolean\") {\n    dev = false;\n  }\n  // this will check for any saved items, and if there are none, will display a helpful modal of options to get started.\n  fetch(\"/api/items\")\n    .then((res) => res.json())\n    .then((response) => {\n      if (response.length === 0 || dev) {\n        universe.ShowModal(\"firstTimeModal\");\n\n        // once visible we want to register an onclick handler with the now visible close button\n        var modalClose = document.getElementById(\"closeFirstTimeModal\");\n\n        // and another onclick handler for the submit language\n        var modalChangeLang = document.getElementById(\n          \"firstTimeModalLangSubmit\"\n        );\n\n        modalClose.onclick = function () {\n          universe.CloseModal(\"firstTimeModal\");\n        };\n\n        modalChangeLang.onclick = function () {\n          var modalChosenLang = document.getElementById(\"changeLang\");\n          var chosenLang = modalChosenLang.value;\n          universe.ChangeLangAPI(chosenLang);\n        };\n      }\n    });\n}\n\n// Modal based JS\n\n// Previous links to delete in HTML: <div class=\"deleteItem\"> <a href=\"/delete/{{.Id}}\"> <img src=\"/assets/images/trash-2.svg\"> </a> </div>\n/*eslint-disable-next-line no-unused-vars*/\nfunction modalDelete(id) {\n  // this should be called when the delete button is hit\n  universe.ShowModal(\"deleteModal\");\n\n  // Once visible we want to register an onclick handler with the now visible confirm delete button.\n  var modalNotDeleteBtn = document.getElementById(\"notDelete-modal\");\n\n  var modalDeleteBtn = document.getElementById(\"delete-modal\");\n\n  modalDeleteBtn.onclick = function () {\n    //window.location.href = `/delete/${id}`;\n    // Instead of changing the window location to the delete post handler,\n    // we will use the new api to delete this item\n    fetch(`/api/deletelink/${id}`)\n      .then((res) => res.json())\n      .then((response) => {\n        if (response == \"Success\") {\n          universe.CloseModal(\"deleteModal\");\n\n          universe.SnackbarCommon(\n            \"snackbar\",\n            langHandler.UnicornComposite(\n              i18n_returnsSuccessDelete,\n              i18n_returnValueLinkItem\n            ),\n            universe.HotReload(\"linkItemList\", \"/\", homePageInit, \"reload\")\n          );\n        } else {\n          // an error occured during deletion\n          universe.SnackbarError(\n            \"snackbar\",\n            langHandler.UnicornComposite(\n              i18n_returnsFailureDelete,\n              \"Link Item\"\n            ),\n            false,\n            response\n          );\n        }\n      });\n  };\n\n  modalNotDeleteBtn.onclick = function () {\n    universe.CloseModal(\"deleteModal\");\n  };\n}\n\nfunction headerPlugins() {\n  var headerPluginLeft = document.getElementById(\"headerPluginLeft\");\n  var headerPluginRight = document.getElementById(\"headerPluginRight\");\n\n  const changeHeaderSettings = function (side, pluginName, pluginOptions) {\n    fetch(\"/api/usersettings\")\n      .then((res) => res.json())\n      .then((data) => {\n        // now with the current user settings, we can modify what we need to\n        data.headerPlugins[side].name = pluginName;\n        data.headerPlugins[side].options = pluginOptions;\n\n        // then to post this data back to GoPage\n\n        var raw = JSON.stringify(data);\n\n        fetch(\"/api/usersettingswrite\", universe.CreateJSONPOSTHeaders(raw))\n          .then((response) => response.json())\n          .then((result) => {\n            if (result == \"Success\") {\n              universe.CloseModal(\"headerPluginModal\");\n\n              universe.SnackbarCommon(\n                \"snackbar\",\n                langHandler.UnicornComposite(\n                  i18n_returnsSuccessUpdate,\n                  i18n_returnValueHeaderPlugin\n                ),\n                universe.HotReload(\"linkItemList\", \"/\", homePageInit, \"reload\")\n              );\n            } else {\n              // error occured\n              console.log(result);\n              universe.SnackbarError(\n                \"snackbar\",\n                i18n_returnValueGenericError,\n                false,\n                result\n              );\n            }\n          });\n      });\n  };\n\n  const handlePluginHeader = function (side) {\n    fetch(\"/api/usersettings\")\n      .then((response) => response.json())\n      .then((result) => {\n        var headerPluginData = document.getElementById(\"header-plugin-form\");\n\n        console.log(typeof result.headerPlugins[side].name);\n        console.log(result.headerPlugins[side].name);\n        if (\n          typeof result.headerPlugins[side].name === \"string\" &&\n          result.headerPlugins[side].name != \"\"\n        ) {\n          headerPluginData.querySelector(`[name=\"header-plugin-name\"]`).value =\n            result.headerPlugins[side].name;\n          headerPluginData.querySelector(\n            `[name=\"header-plugin-options\"]`\n          ).value = result.headerPlugins[side].options;\n        } else {\n          // this else exists to be a simple way to clear data that may be in the modal from editing thhe previous side plugin.\n          headerPluginData.querySelector(`[name=\"header-plugin-name\"]`).value =\n            \"\";\n          headerPluginData.querySelector(\n            `[name=\"header-plugin-options\"]`\n          ).value = \"\";\n        }\n\n        universe.ShowModal(\"headerPluginModal\");\n\n        var backBtn = document.getElementById(\"headerModalGoBack\");\n        backBtn.onclick = function () {\n          universe.CloseModal(\"headerPluginModal\");\n        };\n\n        var submitBtn = document.getElementById(\"headerModalSubmit\");\n\n        submitBtn.onclick = function () {\n          var headerPluginForm = new FormData(\n            document.getElementById(\"header-plugin-form\")\n          );\n          var pluginChosen = headerPluginForm.getAll(\"header-plugin-name\")[0];\n          var pluginOptions = headerPluginForm.getAll(\n            \"header-plugin-options\"\n          )[0];\n\n          changeHeaderSettings(side, pluginChosen, pluginOptions);\n        };\n      });\n  };\n\n  headerPluginLeft.onclick = function () {\n    handlePluginHeader(\"left\");\n  };\n\n  headerPluginRight.onclick = function () {\n    handlePluginHeader(\"right\");\n  };\n}\n",
     "static": true,
     "longname": "D:/Personal Documents/GitHub Repositories/GoPage/assets/js/home.js",
     "access": null,
@@ -41,7 +41,7 @@
     "importPath": "GoPage/js/home.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 16,
+    "lineNumber": 15,
     "undocument": true
   },
   {
@@ -58,7 +58,7 @@
     "importPath": "GoPage/js/home.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 46,
+    "lineNumber": 45,
     "undocument": true
   },
   {
@@ -75,7 +75,7 @@
     "importPath": "GoPage/js/home.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 72,
+    "lineNumber": 71,
     "undocument": true
   },
   {
@@ -92,7 +92,7 @@
     "importPath": "GoPage/js/home.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 87,
+    "lineNumber": 86,
     "undocument": true
   },
   {
@@ -109,7 +109,7 @@
     "importPath": "GoPage/js/home.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 98,
+    "lineNumber": 97,
     "undocument": true
   },
   {
@@ -126,7 +126,7 @@
     "importPath": "GoPage/js/home.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 108,
+    "lineNumber": 107,
     "undocument": true
   },
   {
@@ -141,7 +141,7 @@
     "importPath": "GoPage/js/home.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 131,
+    "lineNumber": 130,
     "undocument": true,
     "interface": false
   },
@@ -156,7 +156,7 @@
     "longname": "js/home.js~LinkItemDOM#constructor",
     "access": null,
     "description": null,
-    "lineNumber": 132,
+    "lineNumber": 131,
     "undocument": true
   },
   {
@@ -168,7 +168,7 @@
     "longname": "js/home.js~LinkItemDOM#FormData",
     "access": null,
     "description": null,
-    "lineNumber": 134,
+    "lineNumber": 133,
     "undocument": true
   },
   {
@@ -180,7 +180,7 @@
     "longname": "js/home.js~LinkItemDOM#FormDom",
     "access": null,
     "description": null,
-    "lineNumber": 136,
+    "lineNumber": 135,
     "undocument": true
   },
   {
@@ -194,7 +194,7 @@
     "longname": "js/home.js~LinkItemDOM#jsonObjTemplate",
     "access": null,
     "description": null,
-    "lineNumber": 139,
+    "lineNumber": 138,
     "undocument": true
   },
   {
@@ -208,7 +208,7 @@
     "longname": "js/home.js~LinkItemDOM#jsonObjFilled",
     "access": null,
     "description": null,
-    "lineNumber": 153,
+    "lineNumber": 152,
     "undocument": true
   },
   {
@@ -222,7 +222,7 @@
     "longname": "js/home.js~LinkItemDOM#jsonObjFill",
     "access": null,
     "description": null,
-    "lineNumber": 167,
+    "lineNumber": 166,
     "undocument": true
   },
   {
@@ -236,7 +236,7 @@
     "longname": "js/home.js~LinkItemDOM#jsonObjClear",
     "access": null,
     "description": null,
-    "lineNumber": 177,
+    "lineNumber": 176,
     "undocument": true
   },
   {
@@ -250,7 +250,7 @@
     "longname": "js/home.js~LinkItemDOM#staticIDField",
     "access": null,
     "description": null,
-    "lineNumber": 187,
+    "lineNumber": 186,
     "undocument": true
   },
   {
@@ -264,7 +264,7 @@
     "longname": "js/home.js~LinkItemDOM#staticIDField",
     "access": null,
     "description": null,
-    "lineNumber": 191,
+    "lineNumber": 190,
     "undocument": true
   },
   {
@@ -278,7 +278,7 @@
     "longname": "js/home.js~LinkItemDOM#friendlyNameField",
     "access": null,
     "description": null,
-    "lineNumber": 195,
+    "lineNumber": 194,
     "undocument": true
   },
   {
@@ -292,7 +292,7 @@
     "longname": "js/home.js~LinkItemDOM#friendlyNameField",
     "access": null,
     "description": null,
-    "lineNumber": 199,
+    "lineNumber": 198,
     "undocument": true
   },
   {
@@ -306,7 +306,7 @@
     "longname": "js/home.js~LinkItemDOM#linkField",
     "access": null,
     "description": null,
-    "lineNumber": 203,
+    "lineNumber": 202,
     "undocument": true
   },
   {
@@ -320,7 +320,7 @@
     "longname": "js/home.js~LinkItemDOM#linkField",
     "access": null,
     "description": null,
-    "lineNumber": 207,
+    "lineNumber": 206,
     "undocument": true
   },
   {
@@ -334,7 +334,7 @@
     "longname": "js/home.js~LinkItemDOM#categoryField",
     "access": null,
     "description": null,
-    "lineNumber": 211,
+    "lineNumber": 210,
     "undocument": true
   },
   {
@@ -348,7 +348,7 @@
     "longname": "js/home.js~LinkItemDOM#categoryField",
     "access": null,
     "description": null,
-    "lineNumber": 215,
+    "lineNumber": 214,
     "undocument": true
   },
   {
@@ -362,7 +362,7 @@
     "longname": "js/home.js~LinkItemDOM#colourField",
     "access": null,
     "description": null,
-    "lineNumber": 219,
+    "lineNumber": 218,
     "undocument": true
   },
   {
@@ -376,7 +376,7 @@
     "longname": "js/home.js~LinkItemDOM#colourField",
     "access": null,
     "description": null,
-    "lineNumber": 223,
+    "lineNumber": 222,
     "undocument": true
   },
   {
@@ -390,7 +390,7 @@
     "longname": "js/home.js~LinkItemDOM#styleField",
     "access": null,
     "description": null,
-    "lineNumber": 227,
+    "lineNumber": 226,
     "undocument": true
   },
   {
@@ -404,7 +404,7 @@
     "longname": "js/home.js~LinkItemDOM#styleField",
     "access": null,
     "description": null,
-    "lineNumber": 231,
+    "lineNumber": 230,
     "undocument": true
   },
   {
@@ -418,7 +418,7 @@
     "longname": "js/home.js~LinkItemDOM#pluginField",
     "access": null,
     "description": null,
-    "lineNumber": 235,
+    "lineNumber": 234,
     "undocument": true
   },
   {
@@ -432,7 +432,7 @@
     "longname": "js/home.js~LinkItemDOM#pluginField",
     "access": null,
     "description": null,
-    "lineNumber": 276,
+    "lineNumber": 275,
     "undocument": true
   },
   {
@@ -446,7 +446,7 @@
     "longname": "js/home.js~LinkItemDOM#emptyPlugins",
     "access": null,
     "description": null,
-    "lineNumber": 295,
+    "lineNumber": 294,
     "undocument": true
   },
   {
@@ -460,7 +460,7 @@
     "longname": "js/home.js~LinkItemDOM#notEmpty",
     "access": null,
     "description": null,
-    "lineNumber": 325,
+    "lineNumber": 320,
     "undocument": true
   },
   {
@@ -474,7 +474,7 @@
     "longname": "js/home.js~LinkItemDOM#extraValues",
     "access": null,
     "description": null,
-    "lineNumber": 338,
+    "lineNumber": 333,
     "undocument": true
   },
   {
@@ -491,7 +491,7 @@
     "importPath": "GoPage/js/home.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 352,
+    "lineNumber": 347,
     "undocument": true
   },
   {
@@ -508,7 +508,7 @@
     "importPath": "GoPage/js/home.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 375,
+    "lineNumber": 370,
     "undocument": true
   },
   {
@@ -525,7 +525,7 @@
     "importPath": "GoPage/js/home.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 406,
+    "lineNumber": 401,
     "undocument": true
   },
   {
@@ -542,7 +542,7 @@
     "importPath": "GoPage/js/home.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 416,
+    "lineNumber": 411,
     "undocument": true
   },
   {
@@ -559,7 +559,7 @@
     "importPath": "GoPage/js/home.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 434,
+    "lineNumber": 429,
     "undocument": true
   },
   {
@@ -576,11 +576,28 @@
     "importPath": "GoPage/js/home.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 441,
+    "lineNumber": 437,
     "undocument": true
   },
   {
     "__docId__": 52,
+    "kind": "function",
+    "name": "addPluginOptionsHeader",
+    "memberof": "js/home.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "js/home.js~addPluginOptionsHeader",
+    "access": null,
+    "export": false,
+    "importPath": "GoPage/js/home.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 461,
+    "undocument": true
+  },
+  {
+    "__docId__": 53,
     "kind": "function",
     "name": "initInstalledPluginListToForm",
     "memberof": "js/home.js",
@@ -593,11 +610,11 @@
     "importPath": "GoPage/js/home.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 464,
+    "lineNumber": 483,
     "undocument": true
   },
   {
-    "__docId__": 53,
+    "__docId__": 54,
     "kind": "function",
     "name": "newItemModal",
     "memberof": "js/home.js",
@@ -610,11 +627,11 @@
     "importPath": "GoPage/js/home.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 484,
+    "lineNumber": 504,
     "undocument": true
   },
   {
-    "__docId__": 54,
+    "__docId__": 55,
     "kind": "function",
     "name": "editItemModal",
     "memberof": "js/home.js",
@@ -627,11 +644,11 @@
     "importPath": "GoPage/js/home.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 526,
+    "lineNumber": 547,
     "undocument": true
   },
   {
-    "__docId__": 55,
+    "__docId__": 56,
     "kind": "function",
     "name": "saveLinkItemModal",
     "memberof": "js/home.js",
@@ -644,11 +661,11 @@
     "importPath": "GoPage/js/home.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 597,
+    "lineNumber": 618,
     "undocument": true
   },
   {
-    "__docId__": 56,
+    "__docId__": 57,
     "kind": "function",
     "name": "firstTimeSetup",
     "memberof": "js/home.js",
@@ -661,96 +678,11 @@
     "importPath": "GoPage/js/home.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 629,
-    "undocument": true
-  },
-  {
-    "__docId__": 57,
-    "kind": "function",
-    "name": "dataListInputHeader",
-    "memberof": "js/home.js",
-    "generator": false,
-    "async": false,
-    "static": true,
-    "longname": "js/home.js~dataListInputHeader",
-    "access": null,
-    "export": false,
-    "importPath": "GoPage/js/home.js",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 677,
+    "lineNumber": 650,
     "undocument": true
   },
   {
     "__docId__": 58,
-    "kind": "function",
-    "name": "dataListInputCaller",
-    "memberof": "js/home.js",
-    "generator": false,
-    "async": false,
-    "static": true,
-    "longname": "js/home.js~dataListInputCaller",
-    "access": null,
-    "export": false,
-    "importPath": "GoPage/js/home.js",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 698,
-    "undocument": true
-  },
-  {
-    "__docId__": 59,
-    "kind": "function",
-    "name": "dataListInputChangeView",
-    "memberof": "js/home.js",
-    "generator": false,
-    "async": false,
-    "static": true,
-    "longname": "js/home.js~dataListInputChangeView",
-    "access": null,
-    "export": false,
-    "importPath": "GoPage/js/home.js",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 710,
-    "undocument": true
-  },
-  {
-    "__docId__": 60,
-    "kind": "function",
-    "name": "dataListInputChangeExplain",
-    "memberof": "js/home.js",
-    "generator": false,
-    "async": false,
-    "static": true,
-    "longname": "js/home.js~dataListInputChangeExplain",
-    "access": null,
-    "export": false,
-    "importPath": "GoPage/js/home.js",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 715,
-    "undocument": true
-  },
-  {
-    "__docId__": 61,
-    "kind": "function",
-    "name": "dataListInputChangeAutofill",
-    "memberof": "js/home.js",
-    "generator": false,
-    "async": false,
-    "static": true,
-    "longname": "js/home.js~dataListInputChangeAutofill",
-    "access": null,
-    "export": false,
-    "importPath": "GoPage/js/home.js",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 720,
-    "undocument": true
-  },
-  {
-    "__docId__": 62,
     "kind": "function",
     "name": "modalDelete",
     "memberof": "js/home.js",
@@ -763,11 +695,11 @@
     "importPath": "GoPage/js/home.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 731,
+    "lineNumber": 686,
     "undocument": true
   },
   {
-    "__docId__": 63,
+    "__docId__": 59,
     "kind": "function",
     "name": "headerPlugins",
     "memberof": "js/home.js",
@@ -780,11 +712,11 @@
     "importPath": "GoPage/js/home.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 784,
+    "lineNumber": 733,
     "undocument": true
   },
   {
-    "__docId__": 64,
+    "__docId__": 60,
     "kind": "file",
     "name": "js/langHandler.js",
     "content": "/**\n * @member {File} LangHandlerJS\n * @desc Namespace of functions for easy access to Language actions.\n */\n\n/*eslint-disable no-redeclare, no-unused-vars*/\n/**\n * The namepsace to access all internal functions.\n * @namepspace\n * @memberof LangHandlerJS\n */\nvar langHandler = {\n  /**\n   * @desc Implementation of Composite Formatting from C#\n   * This is at its core based on the Stack Overflow Implementation found and reworked by Gabriel Nahmias.\n   * Which was agiain reworked by myself to work as a standalone method.\n   * https://stackoverflow.com/a/18234317/12707685\n   * This will accept a composite formatted string for ease of translations.\n   * @summary Implementation of Composite Formatting from C#.\n   * @param {string} arg0 The String to preform the method on.\n   * @param {string} argN All other arguments afterwards can be keys, with as many as needed to fill the string.\n   * Not enough or to many causing zero errors.\n   * @example\n   * langHandler.UnicornComposite(\"How is this for a {0}, I hope it {1}\", \"Test\", \"Works\");\n   * // Outputs: \"How is this for a Test, I hope it Works.\"\n   */\n  UnicornComposite: function UnicornComposite() {\n    var str = arguments[0];\n    // the first argument should be the string to work on; everything after is repalce keys\n    if (arguments.length > 1) {\n      var t = typeof arguments[1];\n      var key;\n      var args =\n        \"string\" === t || \"number\" === t\n          ? Array.prototype.slice.call(arguments)\n          : arguments[1];\n      // since the conditional ternary operator to define args will liekly include the inital string\n      // if array we want to remove it if array\n      if (Array.isArray(args)) {\n        args.shift();\n      }\n\n      for (key in args) {\n        str = str.replace(new RegExp(\"\\\\{\" + key + \"\\\\}\", \"gi\"), args[key]);\n      }\n    }\n    return str;\n  },\n};\n",
@@ -795,7 +727,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 65,
+    "__docId__": 61,
     "kind": "variable",
     "name": "langHandler",
     "memberof": "js/langHandler.js",
@@ -815,7 +747,7 @@
     ]
   },
   {
-    "__docId__": 66,
+    "__docId__": 62,
     "kind": "file",
     "name": "js/pluginhandler.js",
     "content": "/**\n * @member {File} PluginHandlerJS\n * @desc The JavaScript file to assist installed Plugins\n */\n\n/*eslint-disable no-redeclare, no-unused-vars*/\n/**\n * The namespace to access all PluginHandler internal functions\n * @memberof PluginHandlerJS\n * @namespace\n */\nvar pluginAPI = {\n  /*eslint-enable no-redeclare, no-unused-vars*/\n  /**\n   * @desc Returns a live HTMLCollection that use the specified plugin.\n   * @param {string} pluginName is the name of the Plugin to search for.\n   * @returns {Array.HTMLCollection} Live array of the DOM Element using the plugin.\n   */\n  ReturnItems: function ReturnItems(pluginName) {\n    return document.getElementsByClassName(pluginName);\n  },\n  /**\n   * @desc Parses saved configuration data for plugins.\n   * @param {string} rawConfig takes the raw string confiuration data.\n   * @returns {Object} A Parsed JSON Object of the configuration data.\n   */\n  ParseConfig: function ParseConfig(rawConfig) {\n    // Will parse the generic or otherwise Rev1 config or option data for plugins\n    // option=value;\n\n    // First we will break up the config into its different key value pairs\n    var keyValue = rawConfig.split(\";\");\n    // Then to add these keys with their declaration to the object\n    var obj = {};\n    for (let i = 0; i < keyValue.length; i++) {\n      var keyOrValue = keyValue[i].split(\"=\");\n      if (keyOrValue[0] != \"\") {\n        obj[keyOrValue[0]] = keyOrValue[1];\n      }\n    }\n    return obj;\n  },\n};\n",
@@ -826,7 +758,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 67,
+    "__docId__": 63,
     "kind": "variable",
     "name": "pluginAPI",
     "memberof": "js/pluginhandler.js",
@@ -846,7 +778,7 @@
     ]
   },
   {
-    "__docId__": 68,
+    "__docId__": 64,
     "kind": "file",
     "name": "js/pluginLoad.js",
     "content": "/**\n * @member {File} PluginLoadJS\n * @desc The JavaScript file that handles loading Plugin Scripts on page load.\n */\n\nfunction checkPlugins() {\n  fetch(\"/plugins/installedPlugins.json\")\n    .then((response) => response.json())\n    .then((data) => {\n      data.forEach((element) => {\n        // now with each element, we can try to read its package.json file,\n        // relying on the idea that the folder has the same name as the plugin name\n        if (element.installed) {\n          fetch(`/plugins${element.mainDir}package.json`)\n            .then((packRes) => packRes.json())\n            .then((packData) => {\n              // Adding check for page this is loaded on to reduce duplication of a seperate nonHomeLoad for plugins\n              if (\n                packData.type == \"item\" &&\n                document.title == \"GoPage - Home\"\n              ) {\n                var script = document.createElement(\"script\");\n                script.src = `/plugins${packData.mainDir}${packData.main}`;\n                // Importing the JS as a module here, ensures that any functions or global variables are not in the global scope\n                script.type = \"module\";\n                script.dataset.pluginType = \"item\";\n                document.body.appendChild(script);\n              } else if (packData.type == \"theme\") {\n                var currentTheme = document.getElementById(\"theme\");\n                var pluginTheme = `/plugins${packData.mainDir}${packData.main}`;\n                currentTheme.setAttribute(\"href\", pluginTheme);\n              } else if (packData.type == \"header\") {\n                // if this is a header type, find out where, if at all its assigned, and attach its values.\n                fetch(\"/api/usersettings\")\n                  .then((res) => res.json())\n                  .then((headerData) => {\n                    if (headerData.headerPlugins.right.name == packData.name) {\n                      headerPluginAssignment(\n                        \"headerPluginRight\",\n                        packData.name,\n                        headerData.headerPlugins.right.options\n                      );\n                      loadJS(packData.mainDir, packData.main);\n                    }\n                    if (headerData.headerPlugins.left.name == packData.name) {\n                      headerPluginAssignment(\n                        \"headerPluginLeft\",\n                        packData.name,\n                        headerData.headerPlugins.left.options\n                      );\n                      loadJS(packData.mainDir, packData.main);\n                    } // else the plugin is installed but unassigned and should not be called.\n                  });\n              }\n            });\n        }\n      });\n    });\n}\n\ncheckPlugins();\n\nfunction headerPluginAssignment(elementID, pluginName, pluginOptions) {\n  document\n    .getElementById(elementID)\n    .setAttribute(\"data-pluginName\", pluginName);\n  document.getElementById(elementID).className += ` ${pluginName}`;\n  if (pluginOptions) {\n    document\n      .getElementById(elementID)\n      .setAttribute(\"data-options\", pluginOptions);\n  }\n}\n\nfunction loadJS(dir, file) {\n  var script = document.createElement(\"script\");\n  script.src = `/plugins${dir}${file}`;\n  script.type = \"module\";\n  document.body.appendChild(script);\n}\n",
@@ -857,7 +789,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 69,
+    "__docId__": 65,
     "kind": "function",
     "name": "checkPlugins",
     "memberof": "js/pluginLoad.js",
@@ -873,7 +805,7 @@
     "lineNumber": 6
   },
   {
-    "__docId__": 70,
+    "__docId__": 66,
     "kind": "function",
     "name": "headerPluginAssignment",
     "memberof": "js/pluginLoad.js",
@@ -890,7 +822,7 @@
     "undocument": true
   },
   {
-    "__docId__": 71,
+    "__docId__": 67,
     "kind": "function",
     "name": "loadJS",
     "memberof": "js/pluginLoad.js",
@@ -907,10 +839,10 @@
     "undocument": true
   },
   {
-    "__docId__": 72,
+    "__docId__": 68,
     "kind": "file",
     "name": "js/pluginRepo.js",
-    "content": "// Here we can respond to the install, and uninstall requests of plugins\n\n/*eslint-disable-next-line no-unused-vars */\nfunction installPlugin(pluginUrl, pluginName) {\n  universe.Loader(true);\n\n  pluginFetchWrapperNonBlocking(\n    `/plugins/install?source=${pluginUrl}`,\n    \"install\",\n    pluginName\n  );\n}\n\n/*eslint-disable-next-line no-unused-vars */\nfunction uninstallPlugin(pluginName) {\n  universe.Loader(true);\n\n  pluginFetchWrapperNonBlocking(\n    `/plugins/uninstall?pluginName=${pluginName}`,\n    \"delete\",\n    pluginName\n  );\n}\n\n/*eslint-disable-next-line no-unused-vars */\nfunction updatePlugin() {\n  universe.Loader(true);\n\n  pluginFetchWrapperNonBlocking(\n    \"/plugins/update\",\n    \"update\",\n    i18n_returnValueAvailablePlugins\n  );\n}\n\nfunction pluginFetchWrapperNonBlocking(target, action, targetItem) {\n  // valid actions: delete, install, update\n  // target is the name of the item being actioned against\n\n  fetch(target)\n    .then((res) => {\n      // since this may return error data not properly formatted as json, we need to have a backup\n      try {\n        JSON.parse(res);\n        return res.json();\n      } catch (err) {\n        return res.text();\n      }\n    })\n    .then((data) => {\n      if (data.includes(\"Success!\")) {\n        returnData(targetItem, action, \"pass\", formatModalContent(data));\n      } else {\n        // error of some sort occured.\n        // We can add additional error checking here to make it more human readable.\n        if (data.includes(\"Err\") && data.includes(\"32\")) {\n          // we know this would indicate a golang error 32\n          var tmpData =\n            \"Golang Error 32: The process cannot access the file because it is being used by another process.\";\n          console.log(tmpData);\n          console.log(data);\n          returnData(targetItem, action, \"fail\", tmpData);\n        } else {\n          // currently unhandled error occured.\n          console.log(data);\n          returnData(targetItem, action, \"fail\", formatModalContent(data));\n        }\n      }\n    })\n    .catch((err) => {\n      console.log(err);\n      returnData(targetItem, action, \"fail\", formatModalContent(err));\n    });\n}\n\nfunction formatModalContent(text) {\n  var splitText = text.split(\"...\");\n  var newText = \"\";\n  for (let i = 0; i < splitText.length; i++) {\n    if (splitText[i].includes(\"\\\\n\")) {\n      // Using \\\\ here to escape the newline character\n      var tmpString = splitText[i].replace(\"\\\\n\", \"\");\n      newText += tmpString + \"<br>\";\n    } else {\n      newText += splitText[i] + \"<br>\";\n    }\n  }\n  return newText;\n}\n\nfunction returnData(itemName, action, status, details) {\n  // This is made to work with the template modal & snackbar, using non-blocking design\n  // itemName = The name of the Plugin or Item that has been affected (e.g. Available Plugins, Pihole API)\n  // action = The explicit action taken (e.g. Deleted, Installed, Updated)\n  // action !! valid values: delete, install, update\n  // status = The status of the action (e.g. Successfully, Unsuccessfully)\n  // status !! valid values: fail, pass\n  // details = The long form details, this could be designed error codes, or raw returned data.\n\n  // but first first, lets disbale any active loader\n  universe.Loader(false);\n\n  // first we will validate the multiple options\n  if (status != \"pass\" && status != \"fail\") {\n    console.error(`Invalid status passed to return data: ${status}`);\n  } else {\n    if (action != \"delete\" && action != \"install\" && action != \"update\") {\n      console.error(`Invalid action passed to return data: ${action}`);\n    } else {\n      if (status == \"pass\") {\n        // This will invoke the SnackbarCommon component of the universe Namespace, with the following values in order\n        // \"snackbar\" the template imported snackbar with generic naming\n        // The textToShow within the snackbar: Consisting of:\n        //    UnicornComposite of the Proper String returned by findProperString, which grabs the translated string from global variables\n        //    and the item name we are working with.\n        // then SnackbarCommon: false - callback; false - extraClass; false - false - img; false - alt;\n        // additionalDetails: Being the details passed here.\n        universe.SnackbarCommon(\n          \"snackbar\",\n          langHandler.UnicornComposite(\n            universe.FindReturnsString(action, status),\n            itemName\n          ),\n          universe.HotReload(\"pluginList\", \"/pluginrepo\"),\n          false,\n          false,\n          false,\n          details\n        );\n      } else if (status == \"fail\") {\n        universe.SnackbarError(\n          \"snackbar\",\n          langHandler.UnicornComposite(\n            universe.FindReturnsString(action, status),\n            itemName\n          ),\n          false,\n          details\n        );\n      } else {\n        console.error(\n          \"Something went wrong processing the ReturnData() Request\"\n        );\n      }\n    }\n  }\n}\n",
+    "content": "// Here we can respond to the install, and uninstall requests of plugins\n\n/*eslint-disable-next-line no-unused-vars */\nfunction installPlugin(pluginUrl, pluginName) {\n  universe.Loader(true);\n\n  pluginFetchWrapperNonBlocking(\n    `/plugins/install?source=${pluginUrl}`,\n    \"install\",\n    pluginName\n  );\n}\n\n/*eslint-disable-next-line no-unused-vars */\nfunction uninstallPlugin(pluginName) {\n  universe.Loader(true);\n\n  pluginFetchWrapperNonBlocking(\n    `/plugins/uninstall?pluginName=${pluginName}`,\n    \"delete\",\n    pluginName\n  );\n}\n\n/*eslint-disable-next-line no-unused-vars */\nfunction updatePlugin() {\n  universe.Loader(true);\n\n  pluginFetchWrapperNonBlocking(\n    \"/plugins/update\",\n    \"update\",\n    i18n_returnValueAvailablePlugins\n  );\n}\n\nfunction pluginFetchWrapperNonBlocking(target, action, targetItem) {\n  // valid actions: delete, install, update\n  // target is the name of the item being actioned against\n\n  fetch(target)\n    .then((res) => {\n      // since this may return error data not properly formatted as json, we need to have a backup\n      try {\n        JSON.parse(res);\n        return res.json();\n      } catch (err) {\n        return res.text();\n      }\n    })\n    .then((data) => {\n      if (data.includes(\"Success!\")) {\n        returnData(targetItem, action, \"pass\", formatModalContent(data));\n      } else {\n        // error of some sort occured.\n        // We can add additional error checking here to make it more human readable.\n        if (data.includes(\"Err\") && data.includes(\"32\")) {\n          // we know this would indicate a golang error 32\n          var tmpData =\n            \"Golang Error 32: The process cannot access the file because it is being used by another process.\";\n          console.log(tmpData);\n          console.log(data);\n          returnData(targetItem, action, \"fail\", tmpData);\n        } else {\n          // currently unhandled error occured.\n          console.log(data);\n          returnData(targetItem, action, \"fail\", formatModalContent(data));\n        }\n      }\n    })\n    .catch((err) => {\n      console.log(err);\n      returnData(targetItem, action, \"fail\", formatModalContent(err));\n    });\n}\n\nfunction formatModalContent(text) {\n  text = text.replace(/\"/g, \"\");\n  var splitText = text.split(\"...\");\n  var newText = \"\";\n  for (let i = 0; i < splitText.length; i++) {\n    if (splitText[i].includes(\"\\\\n\")) {\n      // Using \\\\ here to escape the newline character\n      var tmpString = splitText[i].replace(\"\\\\n\", \"\");\n      newText += tmpString + \"<br>\";\n    } else {\n      newText += splitText[i] + \"<br>\";\n    }\n  }\n  return newText;\n}\n\nfunction returnData(itemName, action, status, details) {\n  // This is made to work with the template modal & snackbar, using non-blocking design\n  // itemName = The name of the Plugin or Item that has been affected (e.g. Available Plugins, Pihole API)\n  // action = The explicit action taken (e.g. Deleted, Installed, Updated)\n  // action !! valid values: delete, install, update\n  // status = The status of the action (e.g. Successfully, Unsuccessfully)\n  // status !! valid values: fail, pass\n  // details = The long form details, this could be designed error codes, or raw returned data.\n\n  // but first first, lets disbale any active loader\n  universe.Loader(false);\n\n  // first we will validate the multiple options\n  if (status != \"pass\" && status != \"fail\") {\n    console.error(`Invalid status passed to return data: ${status}`);\n  } else {\n    if (action != \"delete\" && action != \"install\" && action != \"update\") {\n      console.error(`Invalid action passed to return data: ${action}`);\n    } else {\n      if (status == \"pass\") {\n        // This will invoke the SnackbarCommon component of the universe Namespace, with the following values in order\n        // \"snackbar\" the template imported snackbar with generic naming\n        // The textToShow within the snackbar: Consisting of:\n        //    UnicornComposite of the Proper String returned by findProperString, which grabs the translated string from global variables\n        //    and the item name we are working with.\n        // then SnackbarCommon: false - callback; false - extraClass; false - false - img; false - alt;\n        // additionalDetails: Being the details passed here.\n        universe.SnackbarCommon(\n          \"snackbar\",\n          langHandler.UnicornComposite(\n            universe.FindReturnsString(action, status),\n            itemName\n          ),\n          universe.HotReload(\"pluginList\", \"/pluginrepo\"),\n          false,\n          false,\n          false,\n          details\n        );\n      } else if (status == \"fail\") {\n        universe.SnackbarError(\n          \"snackbar\",\n          langHandler.UnicornComposite(\n            universe.FindReturnsString(action, status),\n            itemName\n          ),\n          false,\n          details\n        );\n      } else {\n        console.error(\n          \"Something went wrong processing the ReturnData() Request\"\n        );\n      }\n    }\n  }\n}\n",
     "static": true,
     "longname": "D:/Personal Documents/GitHub Repositories/GoPage/assets/js/pluginRepo.js",
     "access": null,
@@ -918,7 +850,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 73,
+    "__docId__": 69,
     "kind": "function",
     "name": "installPlugin",
     "memberof": "js/pluginRepo.js",
@@ -935,7 +867,7 @@
     "undocument": true
   },
   {
-    "__docId__": 74,
+    "__docId__": 70,
     "kind": "function",
     "name": "uninstallPlugin",
     "memberof": "js/pluginRepo.js",
@@ -952,7 +884,7 @@
     "undocument": true
   },
   {
-    "__docId__": 75,
+    "__docId__": 71,
     "kind": "function",
     "name": "updatePlugin",
     "memberof": "js/pluginRepo.js",
@@ -969,7 +901,7 @@
     "undocument": true
   },
   {
-    "__docId__": 76,
+    "__docId__": 72,
     "kind": "function",
     "name": "pluginFetchWrapperNonBlocking",
     "memberof": "js/pluginRepo.js",
@@ -986,7 +918,7 @@
     "undocument": true
   },
   {
-    "__docId__": 77,
+    "__docId__": 73,
     "kind": "function",
     "name": "formatModalContent",
     "memberof": "js/pluginRepo.js",
@@ -1003,7 +935,7 @@
     "undocument": true
   },
   {
-    "__docId__": 78,
+    "__docId__": 74,
     "kind": "function",
     "name": "returnData",
     "memberof": "js/pluginRepo.js",
@@ -1016,14 +948,14 @@
     "importPath": "GoPage/js/pluginRepo.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 91,
+    "lineNumber": 92,
     "undocument": true
   },
   {
-    "__docId__": 79,
+    "__docId__": 75,
     "kind": "file",
     "name": "js/settings.js",
-    "content": "/**\n * @member {File} SettingsJS\n * @desc The JavaScript file loaded with the Settings Page\n */\nwindow.onload = function () {\n  onclickHandlers();\n};\n\n/**\n * @desc Registers `onclick` handlers wherever relavent within the page.\n * @memberof SettingsJS\n * @implements {universe.SnackbarCommon()}\n * @implements {langHandler.UnicornComposite()}\n * @implements {removeHeaderPlugin()}\n * @implements {changeOptionsAPI()}\n */\nfunction onclickHandlers() {\n  var submitLangBtn = document.getElementById(\"submitLangBtn\");\n  var removeLeftHeaderPluginBtn = document.getElementById(\n    \"removeLeftHeaderPluginBtn\"\n  );\n  var removeRightHheaderPluginBtn = document.getElementById(\n    \"removeRightHheaderPluginBtn\"\n  );\n  var submitLoggingBtn = document.getElementById(\"submitLoggingBtn\");\n  var submitRobotsBtn = document.getElementById(\"submitRobotsBtn\");\n\n  submitLangBtn.onclick = function () {\n    var chosenLang = document.getElementById(\"changeLangInput\").value;\n    fetch(`/api/changelang?lang=${chosenLang}`)\n      .then((res) => res.json())\n      .then((response) => {\n        universe.SnackbarCommon(\n          \"snackbar\",\n          langHandler.UnicornComposite(\n            i18n_returnsSuccessUpdate,\n            i18n_returnValueLanguage\n          ),\n          false,\n          false,\n          false,\n          false,\n          response\n        );\n      });\n  };\n\n  removeLeftHeaderPluginBtn.onclick = function () {\n    removeHeaderPlugin(\"left\");\n  };\n\n  removeRightHheaderPluginBtn.onclick = function () {\n    removeHeaderPlugin(\"right\");\n  };\n\n  submitLoggingBtn.onclick = function () {\n    var chosenLogging = document.getElementById(\"changeLoggingInput\").value;\n    changeOptionsAPI(i18n_returnValueLogging, chosenLogging);\n  };\n\n  submitRobotsBtn.onclick = function () {\n    var chosenRobots = document.getElementById(\"changeRobotsInput\").value;\n    changeOptionsAPI(i18n_returnValueRobots, chosenRobots);\n  };\n}\n\n/**\n * @desc Simplifies removing a Header Plugin from User Settings using GoPage APIs\n * @param {string} side Indicates the which Side the Header Plugin is being removed from.\n * Valid Values: \"right\", \"left\"\n * @memberof SettingsJS\n * @implements {universe.CreateJSONPOSTHeaders()}\n * @implements {universe.SnackbarCommon()}\n * @implements {langHandler.UnicornComposite()}\n * @implements {universe.SnackbarError()}\n */\nfunction removeHeaderPlugin(side) {\n  fetch(\"/api/usersettings\")\n    .then((res) => res.json())\n    .then((data) => {\n      data.headerPlugins[side].name = \"\";\n      data.headerPlugins[side].options = \"\";\n\n      var raw = JSON.stringify(data);\n\n      fetch(\"/api/usersettingswrite\", universe.CreateJSONPOSTHeaders(raw))\n        .then((response) => response.json())\n        .then((result) => {\n          if (result == \"Success\") {\n            universe.SnackbarCommon(\n              \"snackbar\",\n              langHandler.UnicornComposite(\n                i18n_returnsSuccessUpdate,\n                i18n_returnValueHeaderPlugin\n              )\n            );\n          } else {\n            universe.SnackbarError(\n              \"snackbar\",\n              i18n_returnValueGenericError,\n              false,\n              result\n            );\n          }\n        });\n    });\n}\n\n/**\n * @desc Simplified method of making API Calls to GoPage API to change user settings.\n * @param {string} item The Identifier of the Item being changed.\n * @param {string} value The Value said Identifier is being changed to.\n * @memberof SettingsJS\n * @implements {doesJSONParse()}\n * @implements {universe.SnackbarError()}\n * @implements {universe.SnackbarCommon()}\n * @implements {langHandler.UnicornComposite()}\n */\nfunction changeOptionsAPI(item, value) {\n  console.log(value);\n  fetch(`/api/change?id=${item}&value=${value.trim()}`)\n    .then((res) => {\n      if (doesJSONParse(res)) {\n        return res.json();\n      } else {\n        return res.text();\n      }\n    })\n    .then((data) => {\n      if (data.includes(\"Error\")) {\n        universe.SnackbarError(\n          \"snackbar\",\n          i18n_returnValueGenericError,\n          false,\n          data\n        );\n      } else {\n        universe.SnackbarCommon(\n          \"snackbar\",\n          langHandler.UnicornComposite(i18n_returnsSuccessUpdate, item)\n        );\n      }\n    });\n}\n\n/**\n * @desc Method of checking if passed data will parse into JSON without any errors.\n * @returns {boolean} True if successfully parsed, false if it fails to parse.\n * @param {string} data The data to test against.\n * @memberof SettingsJS\n */\nfunction doesJSONParse(data) {\n  try {\n    JSON.parse(data);\n    return true;\n  } catch (err) {\n    return false;\n  }\n}\n",
+    "content": "/**\n * @member {File} SettingsJS\n * @desc The JavaScript file loaded with the Settings Page\n */\nwindow.onload = function () {\n  onclickHandlers();\n};\n\n/**\n * @desc Registers `onclick` handlers wherever relavent within the page.\n * @memberof SettingsJS\n * @implements {universe.SnackbarCommon()}\n * @implements {langHandler.UnicornComposite()}\n * @implements {removeHeaderPlugin()}\n * @implements {changeOptionsAPI()}\n */\nfunction onclickHandlers() {\n  var submitLangBtn = document.getElementById(\"submitLangBtn\");\n  var removeLeftHeaderPluginBtn = document.getElementById(\n    \"removeLeftHeaderPluginBtn\"\n  );\n  var removeRightHheaderPluginBtn = document.getElementById(\n    \"removeRightHheaderPluginBtn\"\n  );\n  var submitLoggingBtn = document.getElementById(\"submitLoggingBtn\");\n  var submitRobotsBtn = document.getElementById(\"submitRobotsBtn\");\n\n  submitLangBtn.onclick = function () {\n    var chosenLang = document.getElementById(\"changeLangInput\").value;\n    universe.ChangeLangAPI(chosenLang);\n  };\n\n  removeLeftHeaderPluginBtn.onclick = function () {\n    removeHeaderPlugin(\"left\");\n  };\n\n  removeRightHheaderPluginBtn.onclick = function () {\n    removeHeaderPlugin(\"right\");\n  };\n\n  submitLoggingBtn.onclick = function () {\n    var chosenLogging = document.getElementById(\"changeLoggingInput\").value;\n    changeOptionsAPI(i18n_returnValueLogging, chosenLogging);\n  };\n\n  submitRobotsBtn.onclick = function () {\n    var chosenRobots = document.getElementById(\"changeRobotsInput\").value;\n    changeOptionsAPI(i18n_returnValueRobots, chosenRobots);\n  };\n}\n\n/**\n * @desc Simplifies removing a Header Plugin from User Settings using GoPage APIs\n * @param {string} side Indicates the which Side the Header Plugin is being removed from.\n * Valid Values: \"right\", \"left\"\n * @memberof SettingsJS\n * @implements {universe.CreateJSONPOSTHeaders()}\n * @implements {universe.SnackbarCommon()}\n * @implements {langHandler.UnicornComposite()}\n * @implements {universe.SnackbarError()}\n */\nfunction removeHeaderPlugin(side) {\n  fetch(\"/api/usersettings\")\n    .then((res) => res.json())\n    .then((data) => {\n      data.headerPlugins[side].name = \"\";\n      data.headerPlugins[side].options = \"\";\n\n      var raw = JSON.stringify(data);\n\n      fetch(\"/api/usersettingswrite\", universe.CreateJSONPOSTHeaders(raw))\n        .then((response) => response.json())\n        .then((result) => {\n          if (result == \"Success\") {\n            universe.SnackbarCommon(\n              \"snackbar\",\n              langHandler.UnicornComposite(\n                i18n_returnsSuccessUpdate,\n                i18n_returnValueHeaderPlugin\n              )\n            );\n          } else {\n            universe.SnackbarError(\n              \"snackbar\",\n              i18n_returnValueGenericError,\n              false,\n              result\n            );\n          }\n        });\n    });\n}\n\n/**\n * @desc Simplified method of making API Calls to GoPage API to change user settings.\n * @param {string} item The Identifier of the Item being changed.\n * @param {string} value The Value said Identifier is being changed to.\n * @memberof SettingsJS\n * @implements {doesJSONParse()}\n * @implements {universe.SnackbarError()}\n * @implements {universe.SnackbarCommon()}\n * @implements {langHandler.UnicornComposite()}\n */\nfunction changeOptionsAPI(item, value) {\n  console.log(value);\n  fetch(`/api/change?id=${item}&value=${value.trim()}`)\n    .then((res) => {\n      if (doesJSONParse(res)) {\n        return res.json();\n      } else {\n        return res.text();\n      }\n    })\n    .then((data) => {\n      if (data.includes(\"Error\")) {\n        universe.SnackbarError(\n          \"snackbar\",\n          i18n_returnValueGenericError,\n          false,\n          data\n        );\n      } else {\n        universe.SnackbarCommon(\n          \"snackbar\",\n          langHandler.UnicornComposite(i18n_returnsSuccessUpdate, item)\n        );\n      }\n    });\n}\n\n/**\n * @desc Method of checking if passed data will parse into JSON without any errors.\n * @returns {boolean} True if successfully parsed, false if it fails to parse.\n * @param {string} data The data to test against.\n * @memberof SettingsJS\n */\nfunction doesJSONParse(data) {\n  try {\n    JSON.parse(data);\n    return true;\n  } catch (err) {\n    return false;\n  }\n}\n",
     "static": true,
     "longname": "D:/Personal Documents/GitHub Repositories/GoPage/assets/js/settings.js",
     "access": null,
@@ -1031,7 +963,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 80,
+    "__docId__": 76,
     "kind": "function",
     "name": "onload",
     "memberof": "js/settings.js",
@@ -1047,7 +979,7 @@
     "lineNumber": 5
   },
   {
-    "__docId__": 81,
+    "__docId__": 77,
     "kind": "function",
     "name": "onclickHandlers",
     "memberof": "js/settings.js",
@@ -1081,7 +1013,7 @@
     ]
   },
   {
-    "__docId__": 82,
+    "__docId__": 78,
     "kind": "function",
     "name": "removeHeaderPlugin",
     "memberof": "js/settings.js",
@@ -1094,7 +1026,7 @@
     "importPath": "GoPage/js/settings.js",
     "importStyle": null,
     "description": "Simplifies removing a Header Plugin from User Settings using GoPage APIs",
-    "lineNumber": 77,
+    "lineNumber": 62,
     "unknown": [
       {
         "tagName": "@implements",
@@ -1127,7 +1059,7 @@
     ]
   },
   {
-    "__docId__": 83,
+    "__docId__": 79,
     "kind": "function",
     "name": "changeOptionsAPI",
     "memberof": "js/settings.js",
@@ -1140,7 +1072,7 @@
     "importPath": "GoPage/js/settings.js",
     "importStyle": null,
     "description": "Simplified method of making API Calls to GoPage API to change user settings.",
-    "lineNumber": 119,
+    "lineNumber": 104,
     "unknown": [
       {
         "tagName": "@implements",
@@ -1183,7 +1115,7 @@
     ]
   },
   {
-    "__docId__": 84,
+    "__docId__": 80,
     "kind": "function",
     "name": "doesJSONParse",
     "memberof": "js/settings.js",
@@ -1196,7 +1128,7 @@
     "importPath": "GoPage/js/settings.js",
     "importStyle": null,
     "description": "Method of checking if passed data will parse into JSON without any errors.",
-    "lineNumber": 152,
+    "lineNumber": 137,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1225,10 +1157,10 @@
     }
   },
   {
-    "__docId__": 85,
+    "__docId__": 81,
     "kind": "file",
     "name": "js/universal.js",
-    "content": "// Stored only for functions used on every page or nearly every page\n\n/**\n * @member {File} UniversalJS\n * @desc JavaScript file loaded with every single page for Universal Functions\n */\n\nloadTimeStamp();\nupdaterTimeStamp();\ncheckCustomBackgroundImage();\n\n/**\n * @desc Loads the TimeStamp and modifies the HTML to reflect the current time.\n * @memberof UniversalJS\n */\nfunction loadTimeStamp() {\n  if (document.getElementById(\"timeStamp\") != null) {\n    const dateToDisplay = new Date();\n    document.getElementById(\n      \"timeStamp\"\n    ).innerHTML = `<h2>${dateToDisplay.toLocaleTimeString()} ${dateToDisplay.toLocaleDateString()}</h2>`;\n  }\n}\n\n/**\n * @desc Uses `setInterval` to call `loadTimeStamp()` every 1000 milliseconds (1 Second)\n * @memberof UniversalJS\n * @implements {loadTimeStamp()}\n */\nfunction updaterTimeStamp() {\n  // This function is purely for making any updates as needed.\n\n  // This first function should update the time shown every second.\n  setInterval(loadTimeStamp, 1000);\n}\n\nwindow.addEventListener(\"DOMContentLoaded\", () => {\n  //langHandler.DetermineLang().then(() => {\n  // once this returns, we can start a lookup of the strings\n  //langHandler.InsertLang();\n  // Testing the new Metered connection to reduce network abuse\n  //langHandler.InsertLangMetered();\n  //});\n  // with translations now part of templating, we no longer need to do a lookup at page load.\n});\n\n/*eslint-disable no-redeclare*/\n/**\n * @desc Queries GoPage APIs to determine and set a background image if needed, injecting it into the DOM.\n * @memberof UniversalJS\n */\nfunction checkCustomBackgroundImage() {\n  /*eslint-enable no-redeclare*/\n  // This will be used to see if a background image is set, and load it if it is\n  fetch(\"/api/usersettings\")\n    .then((res) => res.json())\n    .then((data) => {\n      if (data.customBackground.set) {\n        //var locString = `/assets/userImages/test.jpg`;\n        var locString = `/assets/userImages/${data.customBackground.src}`;\n        try {\n          // It seems odly enough this wouldn't accept building this string as I normally would. But this does work\n          document.body.style.backgroundImage = \"url('\" + locString + \"')\";\n          // The rest of these values should be ignored in the future, and left up to CSS to ensure a responsive image design.\n          // the rest of these values should be taken from the JSON data\n\n          // Valid Values: repeat, repeat-x, repeat-y, no-repeat, initial, inherit :: https://www.w3schools.com/jsref/prop_style_backgroundrepeat.asp\n          //document.body.style.backgroundRepeat = data.customBackground.repeat;\n\n          // Valid Values: auto, length, percentage, cover, contain, initial, inherit :: https://www.w3schools.com/jsref/prop_style_backgroundsize.asp\n          //document.body.style.backgroundSize = data.customBackground.size;\n        } catch (err) {\n          console.log(err);\n        }\n      } else {\n        // image is not set\n        // but since this will be called to hotreload the visible background image, this will also remove any url there.\n        try {\n          document.body.style.backgroundImage = \"\";\n        } catch (err) {\n          console.log(err);\n        }\n      }\n    });\n}\n",
+    "content": "// Stored only for functions used on every page or nearly every page\n\n/**\n * @member {File} UniversalJS\n * @desc JavaScript file loaded with every single page for Universal Functions\n */\n\nloadTimeStamp();\nupdaterTimeStamp();\ncheckCustomBackgroundImage();\n\n/**\n * @desc Loads the TimeStamp and modifies the HTML to reflect the current time.\n * @memberof UniversalJS\n */\nfunction loadTimeStamp() {\n  if (document.getElementById(\"timeStamp\") != null) {\n    const dateToDisplay = new Date();\n    document.getElementById(\n      \"timeStamp\"\n    ).innerHTML = `<h2>${dateToDisplay.toLocaleTimeString()} ${dateToDisplay.toLocaleDateString()}</h2>`;\n  }\n}\n\n/**\n * @desc Uses `setInterval` to call `loadTimeStamp()` every 1000 milliseconds (1 Second)\n * @memberof UniversalJS\n * @implements {loadTimeStamp()}\n */\nfunction updaterTimeStamp() {\n  setInterval(loadTimeStamp, 1000);\n}\n\n/*eslint-disable no-redeclare*/\n/**\n * @desc Queries GoPage APIs to determine and set a background image if needed, injecting it into the DOM.\n * @memberof UniversalJS\n */\nfunction checkCustomBackgroundImage() {\n  /*eslint-enable no-redeclare*/\n  fetch(\"/api/usersettings\")\n    .then((res) => res.json())\n    .then((data) => {\n      if (data.customBackground.set) {\n        var locString = `/assets/userImages/${data.customBackground.src}`;\n        try {\n          // It seems oddly enough this wouldn't accept building this string as I normally would. But this does work\n          document.body.style.backgroundImage = \"url('\" + locString + \"')\";\n        } catch (err) {\n          console.log(err);\n        }\n      } else {\n        // image is not set\n        // but since this will be called to hotreload the visible background image, this will also remove any url there.\n        try {\n          document.body.style.backgroundImage = \"\";\n        } catch (err) {\n          console.log(err);\n        }\n      }\n    });\n}\n",
     "static": true,
     "longname": "D:/Personal Documents/GitHub Repositories/GoPage/assets/js/universal.js",
     "access": null,
@@ -1236,7 +1168,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 86,
+    "__docId__": 82,
     "kind": "function",
     "name": "loadTimeStamp",
     "memberof": "js/universal.js",
@@ -1252,7 +1184,7 @@
     "lineNumber": 16
   },
   {
-    "__docId__": 87,
+    "__docId__": 83,
     "kind": "function",
     "name": "updaterTimeStamp",
     "memberof": "js/universal.js",
@@ -1274,7 +1206,7 @@
     ]
   },
   {
-    "__docId__": 88,
+    "__docId__": 84,
     "kind": "function",
     "name": "checkCustomBackgroundImage",
     "memberof": "js/universal.js",
@@ -1287,13 +1219,13 @@
     "importPath": "GoPage/js/universal.js",
     "importStyle": null,
     "description": "Queries GoPage APIs to determine and set a background image if needed, injecting it into the DOM.",
-    "lineNumber": 52
+    "lineNumber": 39
   },
   {
-    "__docId__": 89,
+    "__docId__": 85,
     "kind": "file",
     "name": "js/universe.js",
-    "content": "/**\n * @member {File} UniverseJS\n * @desc Namespace of functions for easy access to repeatable actions.\n */\n// This will be a namespace to handle common functions and features within GoPage\n// Aimed at reducing complexity, and duplicity\n\n// Since a global variable within eslint is defined here, we turn off the redeclare warning\n/*eslint-disable no-redeclare, no-unused-vars*/\n/**\n * The namespace to access all internal functions.\n * @namespace\n * @memberof UniverseJS\n */\nvar universe = {\n  /*eslint-enable no-redeclare, no-unused-vars*/\n  /**\n   * @desc Common method for creating Snackbars onscreen, usually not directly accessed, instead accessed through a higher level function.\n   * @implements {ShowTemplateModal()}\n   * @param {string} id Div ID of the Snackbar to target.\n   * @param {string} textToShow The Text that will appear within the Snackbar.\n   * @param {function} [callback] Optional function to execute after the Snackbar has disappeared.\n   * @param {string} [extraClass] Optional className to provide. Not needed to be set when accessing from a higher function.\n   * @param {string} [img] Optional Relative path to an Image Icon to display alongside the text.\n   * @param {string} [alt] Optional ALT tag for the Image thats being displayed.\n   * @param {string} [additionalDetails] Optional details that will show in a modal if the Snackbar image is clicked. Setting additional details also makes the Snackbar Image clickable.\n   * @example\n   * universe.SnackbarCommon(\"homePageSnackbar\", \"Success\", universe.ReloadCallback());\n   * @example <caption>A More Complex Example</caption>\n   * universe.SnackbarCommon(\n   *   \"snackbar\",\n   *   langHandler.UnicornComposite(string, i18n_returnValueLinkItem),\n   *   universe.HotReload(\"linkItemList\", \"/\", homePageInit, \"reload\")\n   *   );\n   */\n  SnackbarCommon: function (\n    id,\n    textToShow,\n    callback,\n    extraClass,\n    img,\n    alt,\n    additionalDetails\n  ) {\n    // EXAMPLE:: universe.SnackbarCommon(\"homePageSnackbar\", \"Success\", universe.ReloadCallback())\n    // id = the div id of the snackbar to target, textToShow = the text that will appear within the div\n    // callback is an optional function to execute after the snackbar has disappeared.\n    // extraClass is an optional className to provide. Not needed to ever be set manually, with the snackbar Error function\n    // additionally contains img, a relative path to an image icon to display alongside the text\n    //    this is optional and will be set manually through use ot the SnackbarError\n    // the alt is a arg that should be filled automatically, but insures an equal experience no matter the user.\n\n    var snackbar = document.getElementById(id);\n\n    var snackbarMsg = snackbar.getElementsByClassName(\"msg\")[0];\n    var snackbarIcon = snackbar.getElementsByClassName(\"icon\")[0];\n\n    snackbarMsg.innerText = textToShow;\n\n    if (typeof img === \"string\") {\n      snackbarIcon.querySelector(\"img\").src = img;\n      snackbarIcon.querySelector(\"img\").alt = alt ? alt : \"\"; // protect the alt from an undeclared value just in case.\n    } else {\n      // ensure this is always set to default in case this page instance has multiple calls\n      snackbarIcon.querySelector(\"img\").src =\n        \"/assets/images/check-circle-white.svg\";\n      snackbarIcon.querySelector(\"img\").alt =\n        \"Check Mark with a Cirle surrounded it.\";\n    }\n\n    if (typeof additionalDetails === \"string\") {\n      // If additional details have been specified, we want to then allow the icon to be clickable\n\n      snackbar.className += \" clickable\";\n\n      var showModalTemplateHandler = () => {\n        this.ShowTemplateModal(additionalDetails);\n      };\n      snackbarIcon.onclick = function () {\n        showModalTemplateHandler();\n      };\n    }\n\n    if (typeof extraClass === \"string\") {\n      snackbar.className += extraClass;\n    }\n    snackbar.className += \" show\";\n\n    var eleAnim = document.getElementsByClassName(\"snackbar\")[0];\n    // this will get the snackbar bby the class, assuming only one exists on the page\n    // and will be used to hopefully sync the timeout of removing the element, and css animation\n\n    eleAnim.addEventListener(\"animationend\", function (event) {\n      // since the snackbar uses snack-fadein, and snack-fadeout\n      // we know we only want to exit when fadein finishes\n      if (event.animationName == \"snack-fadeout\") {\n        snackbar.className = snackbar.className.replace(\" show\", \"\");\n        if (typeof extraClass === \"string\") {\n          snackbar.className = snackbar.className.replace(extraClass, \"\");\n        }\n        // also remove the clickable class if the snackbar has extra details to show\n        if (typeof additionalDetails === \"string\") {\n          snackbar.className = snackbar.className.replace(\" clickable\", \"\");\n        }\n        if (typeof callback === \"function\") {\n          callback();\n        }\n      }\n    });\n  },\n  /**\n   * @desc Simple way to create an Error Snackbar, defaulting many values passed to SnackbarCommon.\n   * @implements {SnackbarCommon()}\n   * @param {string} id Div ID of Snackbar to target.\n   * @param {string} textToShow The Text that will appear within the Snackbar.\n   * @param {function} [callback] Optional function to execute after the Snackbar has disappeared.\n   * @param {string} [details] Optional details that will show in a modal if the Snackbar Image is clicked.\n   */\n  SnackbarError: function (id, textToShow, callback, details) {\n    // A simple way to invoke SnackbarCommon while assigning the error class to the snackbar\n    this.SnackbarCommon(\n      id,\n      textToShow,\n      callback,\n      \" error\",\n      \"/assets/images/info-white.svg\",\n      \"White Informational 'i' Icon\",\n      details\n    );\n  },\n  /**\n   * @desc Provides a simple way to reload the page within callbacks. Since the standard `location.reload()` losses scope inside a callback.\n   * @returns {function} Globally Scoped function to reload page: `window.location.reload.bind(window.location)`\n   */\n  ReloadCallback: function () {\n    // Since passing the standard location.reload() doesn't work within the callback as it losses the this scope\n    // we can bind it to the window.location, but this is a tad verbose.\n    // So defining it here as a return variable allows easy access, to pass this as a callback to the snackbar\n    return window.location.reload.bind(window.location);\n  },\n  /**\n   * @desc Provides a simple way to retreive POST JSON Headers for use with Fetch requests.\n   * @returns {Object} Fetch Request Options with provided data.\n   * @param {string} data JSON Object to set as the body of the Fetch details.\n   */\n  CreateJSONPOSTHeaders: function (data) {\n    // This will take a JSON object and return the headers for a fetch request\n    // with the method being post, and providing json\n    var newHeaders = new Headers();\n\n    newHeaders.append(\"Content-Type\", \"application/json\");\n\n    var requestOptions = {\n      method: \"POST\",\n      headers: newHeaders,\n      body: data,\n      redirect: \"follow\",\n    };\n\n    return requestOptions;\n  },\n  /**\n   * @desc Sets a Modal's Display to \"block\" to show it on the page.\n   * @param {string} id Is the DOM ID of the Modal to Display.\n   */\n  ShowModal: function (id) {\n    // Used for displaying a modal, based on the provided id.\n    var modal = document.getElementById(id);\n    modal.style.display = \"block\";\n  },\n  /**\n   * @desc Sets a Modal's Display to \"none\" to remove it from the page.\n   * @param {string} id Is the DOM ID of the Modal to Remove.\n   */\n  CloseModal: function (id) {\n    // Used to close a modal, based on the provided id\n    var modal = document.getElementById(id);\n    modal.style.display = \"none\";\n  },\n  /**\n   * @desc Will show an onscreen modal assuming the Template Modal Page is used. And will handle the closing of said modal.\n   * @param {string} text Is the Text to show within the Modal.\n   * @implements {CloseModal()}\n   * @implements {ShowModal()}\n   */\n  ShowTemplateModal: function (text) {\n    var modal = document.getElementById(\"modal\");\n    // since this is only for template modals, we can use a static ID\n    var modalText = modal.querySelector(\".msg\").querySelector(\"p\");\n\n    modalText.innerText = text;\n\n    var clearModalBtn = document.getElementById(\"clearModal\");\n    // assigning as an anonymous arrow function since it seems that the this context is defined during the onclick\n    // handler rather than during initialization of the onclick, causing the this namespace to be undefined, or at least\n    // have the CloseModal function undefined.\n    var closeTemplateModal = () => {\n      this.CloseModal(\"modal\");\n    };\n    clearModalBtn.onclick = function () {\n      closeTemplateModal();\n    };\n\n    this.ShowModal(\"modal\");\n  },\n  /**\n   * @desc Uses GoPage APIs to set new UserSettings to the Server.\n   * @param {string} requestOptions Will be the Request Options passed to Fetch for the request\n   * @param {function} successCallback The function to execute if the query is successful.\n   * @param {function} errorCallback The function to execute if the query fails. The error callback is **REQUIRED** to accept a JSON Object of the error.\n   */\n  WriteUserSettings: function (requestOptions, successCallback, errorCallback) {\n    fetch(\"/api/usersettingswrite\", requestOptions)\n      .then((response) => response.json())\n      .then((result) => {\n        if (result == \"Success\") {\n          successCallback();\n        } else {\n          // error occured\n          errorCallback(result);\n        }\n      });\n  },\n  /**\n   * @desc Intended to be a simple way to create an Error Snackbar that has now been superseded by SnackbarError.\n   * @param {string} snackbar DOM ID of the Snackbar to Target.\n   * @param {string} msg The Message to display in the text of the Snackbar and to output to the console.\n   * @implements {SnackbarError()}\n   * @todo Determine if this is still needed or in use.\n   */\n  GenericErrorHandler: function (snackbar, msg) {\n    // For a generic error we want to do two things.\n    // Log the error to console, and then create the snackbar.\n    console.log(msg);\n    universe.SnackbarError(snackbar, `Error: ${msg}`);\n\n    // TODO: This method is outdated\n  },\n  /**\n   * @desc Can be used to help determine the right translated message.\n   * This does require that returnGlobalJS template is in use on the page.\n   * This will use the Global Strings to attempt to return the right action that has been preformed.\n   * @param {string} action Is the action that has occured. Valid values: \"delete\", \"install\", \"update\"\n   * @param {string} status Is the status of said action. Valid Values: \"pass\", \"fail\"\n   * @returns {string} The translated string needed, **Remember** this will likely be a Composite String and shouldn't be displayed as is.\n   */\n  FindReturnsString: function (action, status) {\n    // This requires that the returnsGlobalJS template is used.\n    // this will use the global translated strings, to help find the right return action string\n    // made especially for use with the snackbar.\n    // Also note that likely anything returned here will be a composite string\n    // Valid Values:\n    //    action: delete, install, update\n    //    status: pass, fail\n    if (status != \"pass\" && status != \"fail\") {\n      console.log(`universe.FindReturnString: Invalid status: ${status}`);\n      return false;\n    } else {\n      if (action != \"delete\" && action != \"install\" && action != \"update\") {\n        console.log(`universe.FindReturnString: Invalid action: ${action}`);\n        return false;\n      } else {\n        if (action == \"delete\" && status == \"pass\") {\n          return i18n_returnsSuccessDelete;\n        } else if (action == \"delete\" && status == \"fail\") {\n          return i18n_returnsFailureDelete;\n        } else if (action == \"install\" && status == \"pass\") {\n          return i18n_returnsSuccessInstall;\n        } else if (action == \"install\" && status == \"fail\") {\n          return i18n_returnsFailureInstall;\n        } else if (action == \"update\" && status == \"pass\") {\n          return i18n_returnsSuccessUpdate;\n        } else if (action == \"update\" && status == \"fail\") {\n          return i18n_returnsFailureUpdate;\n        }\n      }\n    }\n  },\n  /**\n   * @desc Adds an easy way to Hot-Reload pages that are capable of doing so server side.\n   * @param {string} elementID The DOM ID of the element to replace in the Hot-Reload Action.\n   * @param {string} url The URL to query for Hot-Reloading page data.\n   * @param {function} callback Function to execute after the Hot-Reload is finished. Useful for calling any functions needed to add Event Handlers or process data on the page.\n   * @param {string} callbackArg Arguments to pass to the callback function, useful if the callback needs to identify that its a callback.\n   * @example\n   * universe.HotReload(\"linkItemList\", \"/\", homePageInit, \"reload\");\n   */\n  HotReload: function (elementID, url, callback, callbackArg) {\n    // this is a function to add hot-reload capabilities to pages.\n    // requiring both the ID of the element to replace, and the url to query\n    // for the hot reload data.\n    // now it also supports a callback if one is needed to initialize or reload parts of a page\n    if (typeof elementID === \"string\" && typeof url === \"string\") {\n      var newHeaders = new Headers();\n\n      // append the custom hot-reload headers that go server will look for\n      newHeaders.append(\"GoPage-Action\", \"hot-reload\");\n\n      var requestOptions = {\n        headers: newHeaders,\n      };\n\n      fetch(url, requestOptions)\n        .then((response) => response.text())\n        .then((data) => {\n          var e = document.getElementById(elementID);\n          e.innerHTML = data;\n\n          if (typeof callback === \"function\") {\n            if (typeof callbackArg === \"string\") {\n              callback(callbackArg);\n            } else {\n              callback();\n            }\n          }\n        })\n        .catch((err) => {\n          console.error(`universe.HotReload ERROR: ${err}`);\n        });\n    } else {\n      console.error(\n        `Invalid args passed to universe.HotReload! Element ID: ${elementID}, URL: ${url}`\n      );\n    }\n  },\n  /**\n   * @desc Simple method of injecting a Loading animation onto the center of the page.\n   * @param {boolean} shouldShow indicates if the loader is being turned off or on. True being on, and False being off.\n   */\n  Loader: function (shouldShow) {\n    // 1st argument shouldShow = boolean specifying weather this is turning it off, or on\n    var loaderEle = document.getElementsByClassName(\"loader\")[0];\n\n    if (typeof shouldShow === \"boolean\") {\n      if (shouldShow) {\n        loaderEle.style.display = \"flex\";\n      } else {\n        loaderEle.style.display = \"none\";\n      }\n    } else {\n      console.log(\n        \"Loader expects first argument Boolean of whether or not to show the loader.\"\n      );\n    }\n  },\n};\n",
+    "content": "/**\n * @member {File} UniverseJS\n * @desc Namespace of functions for easy access to repeatable actions. Aimed at reducing complexity, and duplicity.\n */\n\n// Since a global variable within eslint is defined here, we turn off the redeclare warning\n/*eslint-disable no-redeclare, no-unused-vars*/\n/**\n * The namespace to access all internal functions.\n * @namespace\n * @memberof UniverseJS\n */\nvar universe = {\n  /*eslint-enable no-redeclare, no-unused-vars*/\n  /**\n   * @desc Common method for creating Snackbars onscreen, usually not directly accessed, instead accessed through a higher level function.\n   * @implements {ShowTemplateModal()}\n   * @param {string} id Div ID of the Snackbar to target.\n   * @param {string} textToShow The Text that will appear within the Snackbar.\n   * @param {function} [callback] Optional function to execute after the Snackbar has disappeared.\n   * @param {string} [extraClass] Optional className to provide. Not needed to be set when accessing from a higher function.\n   * @param {string} [img] Optional Relative path to an Image Icon to display alongside the text.\n   * @param {string} [alt] Optional ALT tag for the Image thats being displayed.\n   * @param {string} [additionalDetails] Optional details that will show in a modal if the Snackbar image is clicked. Setting additional details also makes the Snackbar Image clickable.\n   * @example\n   * universe.SnackbarCommon(\"homePageSnackbar\", \"Success\", universe.ReloadCallback());\n   * @example <caption>A More Complex Example</caption>\n   * universe.SnackbarCommon(\n   *   \"snackbar\",\n   *   langHandler.UnicornComposite(string, i18n_returnValueLinkItem),\n   *   universe.HotReload(\"linkItemList\", \"/\", homePageInit, \"reload\")\n   *   );\n   */\n  SnackbarCommon: function (\n    id,\n    textToShow,\n    callback,\n    extraClass,\n    img,\n    alt,\n    additionalDetails\n  ) {\n    var snackbar = document.getElementById(id);\n\n    var snackbarMsg = snackbar.getElementsByClassName(\"msg\")[0];\n    var snackbarIcon = snackbar.getElementsByClassName(\"icon\")[0];\n\n    snackbarMsg.innerText = textToShow;\n\n    if (typeof img === \"string\") {\n      snackbarIcon.querySelector(\"img\").src = img;\n      snackbarIcon.querySelector(\"img\").alt = alt ? alt : \"\"; // protect the alt from an undeclared value just in case.\n    } else {\n      // ensure this is always set to default in case this page instance has multiple calls\n      snackbarIcon.querySelector(\"img\").src =\n        \"/assets/images/check-circle-white.svg\";\n      snackbarIcon.querySelector(\"img\").alt =\n        \"Check Mark with a Cirle surrounded it.\";\n    }\n\n    if (typeof additionalDetails === \"string\") {\n      // If additional details have been specified, we want to then allow the icon to be clickable\n\n      snackbar.className += \" clickable\";\n\n      var showModalTemplateHandler = () => {\n        this.ShowTemplateModal(additionalDetails);\n      };\n      snackbarIcon.onclick = function () {\n        showModalTemplateHandler();\n      };\n    }\n\n    if (typeof extraClass === \"string\") {\n      snackbar.className += extraClass;\n    }\n    snackbar.className += \" show\";\n\n    var eleAnim = document.getElementsByClassName(\"snackbar\")[0];\n    // this will get the snackbar bby the class, assuming only one exists on the page\n    // and will be used to hopefully sync the timeout of removing the element, and css animation\n\n    eleAnim.addEventListener(\"animationend\", function (event) {\n      // since the snackbar uses snack-fadein, and snack-fadeout\n      // we know we only want to exit when fadein finishes\n      if (event.animationName == \"snack-fadeout\") {\n        snackbar.className = snackbar.className.replace(\" show\", \"\");\n        if (typeof extraClass === \"string\") {\n          snackbar.className = snackbar.className.replace(extraClass, \"\");\n        }\n        // also remove the clickable class if the snackbar has extra details to show\n        if (typeof additionalDetails === \"string\") {\n          snackbar.className = snackbar.className.replace(\" clickable\", \"\");\n        }\n        if (typeof callback === \"function\") {\n          callback();\n        }\n      }\n    });\n  },\n  /**\n   * @desc Simple way to create an Error Snackbar, defaulting many values passed to SnackbarCommon.\n   * @implements {SnackbarCommon()}\n   * @param {string} id Div ID of Snackbar to target.\n   * @param {string} textToShow The Text that will appear within the Snackbar.\n   * @param {function} [callback] Optional function to execute after the Snackbar has disappeared.\n   * @param {string} [details] Optional details that will show in a modal if the Snackbar Image is clicked.\n   */\n  SnackbarError: function (id, textToShow, callback, details) {\n    this.SnackbarCommon(\n      id,\n      textToShow,\n      callback,\n      \" error\",\n      \"/assets/images/info-white.svg\",\n      \"White Informational 'i' Icon\",\n      details\n    );\n  },\n  /**\n   * @desc Provides a simple way to reload the page within callbacks. Since the standard `location.reload()` losses scope inside a callback.\n   * @returns {function} Globally Scoped function to reload page: `window.location.reload.bind(window.location)`\n   */\n  ReloadCallback: function () {\n    return window.location.reload.bind(window.location);\n  },\n  /**\n   * @desc Provides a simple way to retreive POST JSON Headers for use with Fetch requests.\n   * @returns {Object} Fetch Request Options with provided data.\n   * @param {string} data JSON Object to set as the body of the Fetch details.\n   */\n  CreateJSONPOSTHeaders: function (data) {\n    var newHeaders = new Headers();\n\n    newHeaders.append(\"Content-Type\", \"application/json\");\n\n    var requestOptions = {\n      method: \"POST\",\n      headers: newHeaders,\n      body: data,\n      redirect: \"follow\",\n    };\n\n    return requestOptions;\n  },\n  /**\n   * @desc Sets a Modal's Display to \"block\" to show it on the page.\n   * @param {string} id Is the DOM ID of the Modal to Display.\n   */\n  ShowModal: function (id) {\n    var modal = document.getElementById(id);\n    modal.style.display = \"block\";\n  },\n  /**\n   * @desc Sets a Modal's Display to \"none\" to remove it from the page.\n   * @param {string} id Is the DOM ID of the Modal to Remove.\n   */\n  CloseModal: function (id) {\n    var modal = document.getElementById(id);\n    modal.style.display = \"none\";\n  },\n  /**\n   * @desc Will show an onscreen modal assuming the Template Modal Page is used. And will handle the closing of said modal.\n   * @param {string} text Is the Text to show within the Modal.\n   * @implements {CloseModal()}\n   * @implements {ShowModal()}\n   */\n  ShowTemplateModal: function (text) {\n    var modal = document.getElementById(\"modal\");\n    // since this is only for template modals, we can use a static ID\n    var modalText = modal.querySelector(\".msg\").querySelector(\"p\");\n\n    modalText.textContent = text;\n\n    var clearModalBtn = document.getElementById(\"clearModal\");\n    // assigning as an anonymous arrow function since it seems that the this context is defined during the onclick\n    // handler rather than during initialization of the onclick, causing the this namespace to be undefined, or at least\n    // have the CloseModal function undefined.\n    var closeTemplateModal = () => {\n      this.CloseModal(\"modal\");\n    };\n    clearModalBtn.onclick = function () {\n      closeTemplateModal();\n    };\n\n    this.ShowModal(\"modal\");\n  },\n  /**\n   * @desc Uses GoPage APIs to set new UserSettings to the Server.\n   * @param {string} requestOptions Will be the Request Options passed to Fetch for the request\n   * @param {function} successCallback The function to execute if the query is successful.\n   * @param {function} errorCallback The function to execute if the query fails. The error callback is **REQUIRED** to accept a JSON Object of the error.\n   */\n  WriteUserSettings: function (requestOptions, successCallback, errorCallback) {\n    fetch(\"/api/usersettingswrite\", requestOptions)\n      .then((response) => response.json())\n      .then((result) => {\n        if (result == \"Success\") {\n          successCallback();\n        } else {\n          errorCallback(result);\n        }\n      });\n  },\n  /**\n   * @desc Intended to be a simple way to create an Error Snackbar that has now been superseded by SnackbarError.\n   * @param {string} snackbar DOM ID of the Snackbar to Target.\n   * @param {string} msg The Message to display in the text of the Snackbar and to output to the console.\n   * @implements {SnackbarError()}\n   * @todo Determine if this is still needed or in use.\n   */\n  GenericErrorHandler: function (snackbar, msg) {\n    // For a generic error we want to do two things.\n    // Log the error to console, and then create the snackbar.\n    console.log(msg);\n    universe.SnackbarError(snackbar, `Error: ${msg}`);\n\n    // TODO: This method is outdated\n  },\n  /**\n   * @desc Can be used to help determine the right translated message.\n   * This does require that returnGlobalJS template is in use on the page.\n   * This will use the Global Strings to attempt to return the right action that has been preformed.\n   * @param {string} action Is the action that has occured. Valid values: \"delete\", \"install\", \"update\"\n   * @param {string} status Is the status of said action. Valid Values: \"pass\", \"fail\"\n   * @returns {string} The translated string needed, **Remember** this will likely be a Composite String and shouldn't be displayed as is.\n   */\n  FindReturnsString: function (action, status) {\n    if (status != \"pass\" && status != \"fail\") {\n      console.log(`universe.FindReturnString: Invalid status: ${status}`);\n      return false;\n    } else {\n      if (action != \"delete\" && action != \"install\" && action != \"update\") {\n        console.log(`universe.FindReturnString: Invalid action: ${action}`);\n        return false;\n      } else {\n        if (action == \"delete\" && status == \"pass\") {\n          return i18n_returnsSuccessDelete;\n        } else if (action == \"delete\" && status == \"fail\") {\n          return i18n_returnsFailureDelete;\n        } else if (action == \"install\" && status == \"pass\") {\n          return i18n_returnsSuccessInstall;\n        } else if (action == \"install\" && status == \"fail\") {\n          return i18n_returnsFailureInstall;\n        } else if (action == \"update\" && status == \"pass\") {\n          return i18n_returnsSuccessUpdate;\n        } else if (action == \"update\" && status == \"fail\") {\n          return i18n_returnsFailureUpdate;\n        }\n      }\n    }\n  },\n  /**\n   * @desc Adds an easy way to Hot-Reload pages that are capable of doing so server side.\n   * @param {string} elementID The DOM ID of the element to replace in the Hot-Reload Action.\n   * @param {string} url The URL to query for Hot-Reloading page data.\n   * @param {function} callback Function to execute after the Hot-Reload is finished. Useful for calling any functions needed to add Event Handlers or process data on the page.\n   * @param {string} callbackArg Arguments to pass to the callback function, useful if the callback needs to identify that its a callback.\n   * @example\n   * universe.HotReload(\"linkItemList\", \"/\", homePageInit, \"reload\");\n   */\n  HotReload: function (elementID, url, callback, callbackArg) {\n    if (typeof elementID === \"string\" && typeof url === \"string\") {\n      var newHeaders = new Headers();\n\n      // append the custom hot-reload headers that go server will look for\n      newHeaders.append(\"GoPage-Action\", \"hot-reload\");\n\n      var requestOptions = {\n        headers: newHeaders,\n      };\n\n      fetch(url, requestOptions)\n        .then((response) => response.text())\n        .then((data) => {\n          var e = document.getElementById(elementID);\n          e.innerHTML = data;\n\n          if (typeof callback === \"function\") {\n            if (typeof callbackArg === \"string\") {\n              callback(callbackArg);\n            } else {\n              callback();\n            }\n          }\n        })\n        .catch((err) => {\n          console.error(`universe.HotReload ERROR: ${err}`);\n        });\n    } else {\n      console.error(\n        `Invalid args passed to universe.HotReload! Element ID: ${elementID}, URL: ${url}`\n      );\n    }\n  },\n  /**\n   * @desc Simple method of injecting a Loading animation onto the center of the page.\n   * @param {boolean} shouldShow indicates if the loader is being turned off or on. True being on, and False being off.\n   */\n  Loader: function (shouldShow) {\n    var loaderEle = document.getElementsByClassName(\"loader\")[0];\n\n    if (typeof shouldShow === \"boolean\") {\n      if (shouldShow) {\n        loaderEle.style.display = \"flex\";\n      } else {\n        loaderEle.style.display = \"none\";\n      }\n    } else {\n      console.log(\n        \"Loader expects first argument Boolean of whether or not to show the loader.\"\n      );\n    }\n  },\n  /**\n   * @desc Allowing easy universal access to the ChangeLangAPI, by just submitting the chosenLang\n   * @param {string} chosenLang The two digit language code that the server should save\n   */\n  ChangeLangAPI: function (chosenLang) {\n    fetch(`/api/changelang?lang=${chosenLang}`)\n      .then((res) => res.json())\n      .then((response) => {\n        this.SnackbarCommon(\n          \"snackbar\",\n          langHandler.UnicornComposite(\n            i18n_returnsSuccessUpdate,\n            i18n_returnValueLanguage\n          ),\n          false,\n          false,\n          false,\n          false,\n          response\n        );\n      });\n  },\n};\n",
     "static": true,
     "longname": "D:/Personal Documents/GitHub Repositories/GoPage/assets/js/universe.js",
     "access": null,
@@ -1301,7 +1233,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 90,
+    "__docId__": 86,
     "kind": "variable",
     "name": "universe",
     "memberof": "js/universe.js",
@@ -1312,7 +1244,7 @@
     "importPath": "GoPage/js/universe.js",
     "importStyle": null,
     "description": "The namespace to access all internal functions.",
-    "lineNumber": 15,
+    "lineNumber": 13,
     "unknown": [
       {
         "tagName": "@namespace",
@@ -1321,10 +1253,10 @@
     ]
   },
   {
-    "__docId__": 91,
+    "__docId__": 87,
     "kind": "file",
     "name": "js/uploadImage.js",
-    "content": "/**\n * @member {File} UploadImageJS\n * @desc The JavaScript file loaded with the Upload Image Page.\n */\n\n/**\n * @desc Builds the main content of the UploadImage Page. By using GoPage API's to check saved images, and display them.\n * @todo Inline with the Neutuer JavaScript Initiative, this should be done in Golang, and injected into the template.\n * @memberof UploadImageJS\n * @kind function\n */\nfunction loadAvailableImages() {\n  // first we want to grab the list of all images in the userImages dir\n  fetch(\"/userimages\")\n    .then((res) => res.json())\n    .then((data) => {\n      // Since this data is very roughly encoded we need to parse it accordingly\n      // each value is the filename, split by ,\n      var imageList = data.split(\",\");\n\n      var insertHTML = \"\";\n      insertHTML += \"<div class='image-row'>\";\n      for (var i = 0; i < imageList.length; i++) {\n        // since the gitignore was added to this folder, we need to ensure we don't grab it. Although in release builds it should be remvoed\n        if (imageList[i] != null && imageList[i] != \"\") {\n          // after validating this is good data, we also need to ensure to break the column every four lines\n\n          // we need to account for the first image-column entry\n          // the below will break up the images' column every four images by checking the modulus or remainder\n          if (i === 0) {\n            insertHTML += \"<div class='image-column'>\";\n            insertHTML += insertImg(imageList[i]);\n          } else if (i % 4 === 0) {\n            insertHTML += \"</div>\";\n            insertHTML += \"<div class='image-column'>\";\n            insertHTML += insertImg(imageList[i]);\n          } else {\n            insertHTML += insertImg(imageList[i]);\n          }\n        } // else likely invalid data\n      }\n      // then in case the last row of elements didn't contain a perfect four values, we want to check that the last div is closed\n      if (!insertHTML.endsWith(\"</div>\")) {\n        insertHTML += \"</div>\";\n      }\n      // then we want to close the div for the image row\n      insertHTML += \"</div>\";\n\n      document.getElementById(\"existingImages\").innerHTML = insertHTML;\n    });\n}\n\n/**\n * @desc Helps loadAvailableImages to build the page, by returned an HTML string\n * @returns {string} HTML typed string, containing an IMG DOM Element\n * @param {string} imageLoc is the URL to access the image.\n * @memberof UploadImageJS\n */\nfunction insertImg(imageLoc) {\n  var imgSrc = `/assets/userImages/${imageLoc}`;\n  return `<img src=\"${imgSrc}\" onclick=\"setImage('${imageLoc}');\">`;\n}\n\n/*eslint-disable no-unused-vars*/\n/**\n * @desc Will attempt to save the specified image as the Users background image.\n * @param {string} name is the name of the image you want to set as the background image.\n * @memberof UploadImageJS\n */\nfunction setImage(name) {\n  /*eslint-enable no-unused-vars*/\n  fetch(\"/api/usersettings\")\n    .then((res) => res.json())\n    .then((data) => {\n      // with the originally config we want to modify this to use the image selected\n      data.customBackground.set = true;\n      data.customBackground.src = name;\n\n      const successHandler = function () {\n        universe.SnackbarCommon(\n          \"snackbar\",\n          langHandler.UnicornComposite(\n            i18n_generatedUploadSuccessSnackbar,\n            name\n          )\n        );\n        checkCustomBackgroundImage();\n        // this shhould call the function from universal.js\n      };\n\n      universe.WriteUserSettings(\n        universe.CreateJSONPOSTHeaders(JSON.stringify(data)),\n        successHandler,\n        function (err) {\n          universe.SnackbarError(\n            \"snackbar\",\n            i18n_returnValueGenericError,\n            false,\n            err\n          );\n        }\n      );\n      // The above is attempted to be simplified to the greatest extent.\n      // WriteUserSettings(requestOptions, successCallback, errorCallback)\n      // requestOptions: CreateJSONPOSTHeaders with the stringified Data.\n      // successCallback: The defined const successHandler. Which must be defined to contain logic of Composite String Method\n      // errorCallback: An inline function taking the err passed, and then passing that to the GenericErrorHandler with the proper snackbar id\n    });\n}\n\n/*eslint-disable no-unused-vars*/\n/**\n * @desc Will query GoPage API's to remove whatever is currently set as the User Image\n * @memberof UploadImageJS\n */\nfunction unsetImage() {\n  /*eslint-enable no-unused-vars*/\n  fetch(\"/api/usersettings\")\n    .then((res) => res.json())\n    .then((data) => {\n      // with the originally config we want to modify this to set it to fase\n      data.customBackground.set = false;\n\n      // then to post this data back to GoPage\n\n      var successHandler = function () {\n        universe.SnackbarCommon(\"snackbar\", i18n_generatedRemoveImageSuccess);\n        checkCustomBackgroundImage();\n      };\n\n      universe.WriteUserSettings(\n        universe.CreateJSONPOSTHeaders(JSON.stringify(data)),\n        successHandler,\n        function (err) {\n          universe.SnackbarError(\n            \"snackbar\",\n            i18n_returnValueGenericError,\n            false,\n            err\n          );\n        }\n      );\n    });\n}\n\nloadAvailableImages();\n",
+    "content": "/**\n * @member {File} UploadImageJS\n * @desc The JavaScript file loaded with the Upload Image Page.\n */\n\n/**\n * @desc Builds the main content of the UploadImage Page. By using GoPage API's to check saved images, and display them.\n * @todo Inline with the Neutuer JavaScript Initiative, this should be done in Golang, and injected into the template.\n * @memberof UploadImageJS\n * @kind function\n */\nfunction loadAvailableImages() {\n  // first we want to grab the list of all images in the userImages dir\n  fetch(\"/userimages\")\n    .then((res) => res.json())\n    .then((data) => {\n      // Since this data is very roughly encoded we need to parse it accordingly\n      // each value is the filename, split by ,\n      var imageList = data.split(\",\");\n\n      var insertHTML = \"\";\n      insertHTML += \"<div class='image-row'>\";\n      for (var i = 0; i < imageList.length; i++) {\n        // since the gitignore was added to this folder, we need to ensure we don't grab it. Although in release builds it should be remvoed\n        if (imageList[i] != null && imageList[i] != \"\") {\n          // after validating this is good data, we also need to ensure to break the column every four lines\n\n          // we need to account for the first image-column entry\n          // the below will break up the images' column every four images by checking the modulus or remainder\n          if (i === 0) {\n            insertHTML += \"<div class='image-column'>\";\n            insertHTML += insertImg(imageList[i]);\n          } else if (i % 4 === 0) {\n            insertHTML += \"</div>\";\n            insertHTML += \"<div class='image-column'>\";\n            insertHTML += insertImg(imageList[i]);\n          } else {\n            insertHTML += insertImg(imageList[i]);\n          }\n        } // else likely invalid data\n      }\n      // then in case the last row of elements didn't contain a perfect four values, we want to check that the last div is closed\n      if (!insertHTML.endsWith(\"</div>\")) {\n        insertHTML += \"</div>\";\n      }\n      // then we want to close the div for the image row\n      insertHTML += \"</div>\";\n\n      document.getElementById(\"existingImages\").innerHTML = insertHTML;\n    });\n}\n\n/**\n * @desc Helps loadAvailableImages to build the page, by returned an HTML string\n * @returns {string} HTML typed string, containing an IMG DOM Element\n * @param {string} imageLoc is the URL to access the image.\n * @memberof UploadImageJS\n */\nfunction insertImg(imageLoc) {\n  var imgSrc = `/assets/userImages/${imageLoc}`;\n  return `<img src=\"${imgSrc}\" onclick=\"setImage('${imageLoc}');\">`;\n}\n\n/*eslint-disable no-unused-vars*/\n/**\n * @desc Will attempt to save the specified image as the Users background image.\n * @param {string} name is the name of the image you want to set as the background image.\n * @memberof UploadImageJS\n */\nfunction setImage(name) {\n  /*eslint-enable no-unused-vars*/\n  fetch(\"/api/usersettings\")\n    .then((res) => res.json())\n    .then((data) => {\n      // with the originally config we want to modify this to use the image selected\n      data.customBackground.set = true;\n      data.customBackground.src = name;\n\n      const successHandler = function () {\n        universe.SnackbarCommon(\n          \"snackbar\",\n          langHandler.UnicornComposite(\n            i18n_generatedUploadSuccessSnackbar,\n            name\n          )\n        );\n        checkCustomBackgroundImage();\n        // this shhould call the function from universal.js\n      };\n\n      writeUserSettings(data, successHandler);\n    });\n}\n\n/*eslint-disable no-unused-vars*/\n/**\n * @desc Will query GoPage API's to remove whatever is currently set as the User Image\n * @memberof UploadImageJS\n */\nfunction unsetImage() {\n  /*eslint-enable no-unused-vars*/\n  fetch(\"/api/usersettings\")\n    .then((res) => res.json())\n    .then((data) => {\n      // with the originally config we want to modify this to set it to fase\n      data.customBackground.set = false;\n\n      // then to post this data back to GoPage\n\n      var successHandler = function () {\n        universe.SnackbarCommon(\"snackbar\", i18n_generatedRemoveImageSuccess);\n        checkCustomBackgroundImage();\n      };\n\n      writeUserSettings(data, successHandler);\n    });\n}\n\n/**\n * @desc Will allow an easy way of writing to user settings and setting up an error callback\n * @memberof UploadImageJS\n */\nfunction writeUserSettings(data, successHandler) {\n  universe.WriteUserSettings(\n    universe.CreateJSONPOSTHeaders(JSON.stringify(data)),\n    successHandler,\n    function (err) {\n      universe.SnackbarError(\n        \"snackbar\",\n        i18n_returnValueGenericError,\n        false,\n        err\n      );\n    }\n  );\n  // The above is attempted to be simplified to the greatest extent.\n  // WriteUserSettings(requestOptions, successCallback, errorCallback)\n  // requestOptions: CreateJSONPOSTHeaders with the stringified Data.\n  // successCallback: The defined const successHandler. Which must be defined to contain logic of Composite String Method\n  // errorCallback: An inline function taking the err passed, and then passing that to the GenericErrorHandler with the proper snackbar id\n}\n\nloadAvailableImages();\n",
     "static": true,
     "longname": "D:/Personal Documents/GitHub Repositories/GoPage/assets/js/uploadImage.js",
     "access": null,
@@ -1332,7 +1264,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 92,
+    "__docId__": 88,
     "kind": "function",
     "name": "loadAvailableImages",
     "memberof": "js/uploadImage.js",
@@ -1351,7 +1283,7 @@
     ]
   },
   {
-    "__docId__": 93,
+    "__docId__": 89,
     "kind": "function",
     "name": "insertImg",
     "memberof": "js/uploadImage.js",
@@ -1393,7 +1325,7 @@
     }
   },
   {
-    "__docId__": 94,
+    "__docId__": 90,
     "kind": "function",
     "name": "setImage",
     "memberof": "js/uploadImage.js",
@@ -1421,7 +1353,7 @@
     ]
   },
   {
-    "__docId__": 95,
+    "__docId__": 91,
     "kind": "function",
     "name": "unsetImage",
     "memberof": "js/uploadImage.js",
@@ -1434,11 +1366,27 @@
     "importPath": "GoPage/js/uploadImage.js",
     "importStyle": null,
     "description": "Will query GoPage API's to remove whatever is currently set as the User Image",
-    "lineNumber": 116
+    "lineNumber": 100
+  },
+  {
+    "__docId__": 92,
+    "kind": "function",
+    "name": "writeUserSettings",
+    "memberof": "js/uploadImage.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "js/uploadImage.js~writeUserSettings",
+    "access": null,
+    "export": false,
+    "importPath": "GoPage/js/uploadImage.js",
+    "importStyle": null,
+    "description": "Will allow an easy way of writing to user settings and setting up an error callback",
+    "lineNumber": 123
   },
   {
     "kind": "index",
-    "content": "# GoPage\r\n\r\n>A simple Website Shortcut Dashboard written in Go.\r\n\r\n[![Lighthouse Performance](https://img.shields.io/badge/Lighthouse%20Performance%20-100%25-success)](#)\r\n[![Lighthouse Accessibility](https://img.shields.io/badge/Lighthouse%20Accessibility-100%25-success)](#)\r\n[![Lighthouse Best Practices](https://img.shields.io/badge/Lighthouse%20Best%20Practices-98.6%25-success)](#)\r\n[![Lighthouse SEO](https://img.shields.io/badge/Lighthouse%20SEO-100%25-success)](#)\r\n[![Lighthouse PWA](https://img.shields.io/badge/Lighthouse%20PWA-0%25-inactive)](#)\r\n\r\n[![Go Report Card](https://goreportcard.com/badge/github.com/confused-Techie/GoPage)](https://goreportcard.com/report/github.com/confused-Techie/GoPage)\r\n[![Codacy Badge](https://app.codacy.com/project/badge/Grade/aaadbe13d42448a6b4a942be881544c3)](https://www.codacy.com/gh/confused-Techie/GoPage/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=confused-Techie/GoPage&amp;utm_campaign=Badge_Grade)\r\n[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)\r\n\r\n[![Latest Release](https://badgen.net/github/release/confused-Techie/GoPage)](https://github.com/confused-Techie/GoPage/releases/latest)\r\n[![License](https://badgen.net/github/license/confused-Techie/GoPage)](https://github.com/confused-Techie/GoPage/blob/main/LICENSE)\r\n[![Last Commit](https://img.shields.io/github/last-commit/confused-Techie/GoPage)](https://github.com/confused-Techie/GoPage/commits/main)\r\n\r\n[![Crowdin](https://badges.crowdin.net/gopage/localized.svg)](https://crowdin.com/project/gopage)\r\n[![Documentation](/docs/devDocs/badge.svg)](/docs/devDocs/JavaScript.md)\r\n\r\nGoPage has been made with the goal of extreme simplicity and convenient extensibility. Where standalone it's a simplistic way to store and manage Links to pages giving them unique user-defined categories, with easy ability to edit them down the line. And if you mix in the existing plugins and extreme ease of creating new ones gives life to these Links to show you the data needed at a moments glance.\r\n\r\n![Example of GoPage HomePage](/docs/assets/homepage-utilized-0.4.png)\r\n>An Image of GoPage Version 0.4 with Plugins: Favicon Swiper, Status Check, Jellyfin API, Pihole API, AQI Current installed.\r\n\r\n![GoPage Link Item Closeup](/docs/assets/link-item-closeup-0.4.gif)\r\n>Closeup of GoPage Link Item pointing at a Jellyfin Self Hosted Instance. Using Plugins Favicon Swiper, Status Check, Jellyfin API.\r\n\r\n## Features\r\n\r\n* Full Theme Support from Installed Plugins\r\n* Custom Background Images\r\n* Plugin Repo Page:\r\n  * Ability to update Available Plugins\r\n  * Install/Uninstall Existing Plugins\r\n* Link Health Page:\r\n  * Alerts of Exact Duplicate Links\r\n  * Alerts of Hostname Duplicate Links\r\n* GoPage has full support for translations, but does need additional contributions to support more languages.\r\n  * English: 100%\r\n  * Spanish: 100%\r\n  * Chinese Traditional: 100%\r\n\r\n![Translations Progress](https://badges.awesome-crowdin.com/translation-15135739-498245.png)\r\n\r\n## Installation\r\n\r\n### Docker\r\n\r\nThe installation for Docker should be universal for Linux, and Windows, taking only a few commands.\r\n\r\n  * First just download the Container\r\n  * And run it using whatever Port you prefer, giving a name if you'd like, optionally setting the language.\r\n\r\n````(bash)\r\ndocker pull ghcr.io/confused-techie/gopage:0.4\r\n\r\ndocker run -p 7070:8080 -e LANG=\"en\" --name GoPageServer ghcr.io/confused-techie/gopage:0.4\r\n````\r\n\r\n  * Please keep in mind the **7070** shown here can be whatever port you want the Docker Container Exposed on. Whereas **8080** is the default port the GoPage Server will listen to within the container.\r\n\r\n  * The `LANG` option is to set the GoPage Server Language. Ensuring to use the [ISO 639-1 two character language abbreviation.](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)\r\n\r\n### Windows\r\n\r\nIf you'd just like to give this a quick go or aren't a fan of Docker you can install the Windows Only Application in the releases Section. [V0.4 Available Here](https://github.com/confused-Techie/GoPage/releases/tag/v0.4)\r\n\r\n  * Simply download the installer and run it, walking through the options it shows. Keep in mind the resulting application must be running in order for you to be able to connect to the GoPage Dashboard.\r\n\r\n## First Time Configuration\r\n\r\nOnce you've installed GoPage Dashboard you will be able to navigate to it like so\r\n\r\n````(bash)\r\nhttp://SERVER-IP:PORT/\r\n````\r\n\r\nOnce there you can get started by adding new Links by hitting 'Add New Item' and filling in the details on the next page.\r\n\r\n  * Friendly Name: Will be the name shown to you when you look at this Link.\r\n  * Link: Of Course is the actual Link to navigate to.\r\n  * Category: Is if you so choose a Category you can create for this link, to later on help you find it again. This section will suggest any previously created categories but can always be something new.\r\n\r\nIf you haven't installed any plugins at this point you can ignore the different Plugin Sections and hit 'Submit'\r\n\r\nOtherwise if you'd like to get started with some plugins to extend the functionality of GoPage you can navigate to Settings via the Gear Icon in the top left corner then hitting the GoTo button on the right side of the 'Plugin Repo' Listing under Tools.\r\n\r\nOr by navigating to:\r\n\r\n````\r\nhttp://SERVER-IP:PORT/pluginrepo\r\n````\r\n\r\nOnce here feel free to read through and explore the Plugins available and download them, which will then give you the ability to set them in the Plugin Fields of a New Link Item or while Editing a Link Item.\r\n\r\n## Plugins Available by Default\r\n\r\nMany Plugins have already been created for GoPage and are available by default after installation.\r\n\r\n  * Status Check: Simple way to see if the address is currently reachable.\r\n  * Favicon Swiper: Retrieve Favicons via known methods or Google API's as a fallback.\r\n  * Jellyfin API: Get information about your Jellyfin Instance.\r\n  * Pihole API: Get information from your Pihole Instance.\r\n  * Light Theme: Simple Light Theme for those not loving the Dark Theme.\r\n  * Exaggerator Theme: Exaggerator Theme... Just Colourful.\r\n  * AQI Current: Get Air Quality Information at a glance. Via AirNow.gov.\r\n\r\n## [Contribute](docs/CONTRIBUTING.md)\r\n\r\n## Learning More\r\n\r\n### [Exploring GoPage](docs/exploringGopage.md)\r\n\r\n### [Exploring Plugins](docs/exploringPlugins.md)\r\n\r\n### [Creating Plugins](docs/createPlugins.md)\r\n",
+    "content": "# GoPage\r\n\r\n>A simple Website Shortcut Dashboard written in Go.\r\n\r\n[![Lighthouse Performance](https://img.shields.io/badge/Lighthouse%20Performance%20-100%25-success)](#)\r\n[![Lighthouse Accessibility](https://img.shields.io/badge/Lighthouse%20Accessibility-100%25-success)](#)\r\n[![Lighthouse Best Practices](https://img.shields.io/badge/Lighthouse%20Best%20Practices-98.6%25-success)](#)\r\n[![Lighthouse SEO](https://img.shields.io/badge/Lighthouse%20SEO-100%25-success)](#)\r\n[![Lighthouse PWA](https://img.shields.io/badge/Lighthouse%20PWA-0%25-inactive)](#)\r\n\r\n[![Go Report Card](https://goreportcard.com/badge/github.com/confused-Techie/GoPage)](https://goreportcard.com/report/github.com/confused-Techie/GoPage)\r\n[![Codacy Badge](https://app.codacy.com/project/badge/Grade/aaadbe13d42448a6b4a942be881544c3)](https://www.codacy.com/gh/confused-Techie/GoPage/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=confused-Techie/GoPage&amp;utm_campaign=Badge_Grade)\r\n[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)\r\n\r\n[![Latest Release](https://badgen.net/github/release/confused-Techie/GoPage)](https://github.com/confused-Techie/GoPage/releases/latest)\r\n[![License](https://badgen.net/github/license/confused-Techie/GoPage)](https://github.com/confused-Techie/GoPage/blob/main/LICENSE)\r\n[![Last Commit](https://img.shields.io/github/last-commit/confused-Techie/GoPage)](https://github.com/confused-Techie/GoPage/commits/main)\r\n\r\n[![Crowdin](https://badges.crowdin.net/gopage/localized.svg)](https://crowdin.com/project/gopage)\r\n[![Documentation](/docs/devDocs/badge.svg)](/docs/devDocs/JavaScript.md)\r\n\r\nGoPage has been made with the goal of extreme simplicity and convenient extensibility. Where standalone it's a simplistic way to store and manage Links to pages giving them unique user-defined categories, with easy ability to edit them down the line. And if you mix in the existing plugins and extreme ease of creating new ones gives life to these Links to show you the data needed at a moments glance.\r\n\r\n![Example of GoPage HomePage](/docs/assets/homepage-utilized-0.5.png)\r\n>An Image of GoPage Version 0.5 with Plugins: Favicon Swiper, Status Check, Jellyfin API, Pihole API, AQI Current, Self Hosted Icons installed.\r\n\r\n![GoPage Link Item Closeup](/docs/assets/link-item-closeup-0.5.gif)\r\n>Closeup of GoPage Link Item pointing at a Jellyfin Self Hosted Instance. Using Plugins Favicon Swiper, Status Check, Jellyfin API.\r\n\r\n![GoPage Searchbar Closeup](/docs/assets/searchbar-0.5.gif)\r\n>Closeup of GoPage Searchbar demonstrating the fast and effective search for finding any saved Link Items. Showing Plugins: AQI Current, Self Hosted Icons, Jellyfin API, Favicon Swiper, Status Check.\r\n\r\n## Features\r\n\r\n* Full Theme Support from Installed Plugins\r\n* Custom Background Images\r\n* Searchable saved Link Items.\r\n* Filter saved Link Items based on user set categories.\r\n* Plugin Repo Page:\r\n  * Ability to update Available Plugins\r\n  * Install/Uninstall Existing Plugins\r\n* Link Health Page:\r\n  * Alerts of Exact Duplicate Links\r\n  * Alerts of Hostname Duplicate Links\r\n* GoPage supports many different languages, with contributions always welcome to improve them.\r\n  * Arabic\r\n  * Chinese (Traditional)\r\n  * English \r\n  * French\r\n  * German\r\n  * Japanese\r\n  * Korean\r\n  * Russian\r\n  * Spanish (Mexico)\r\n\r\n![Translations Progress](https://badges.awesome-crowdin.com/translation-15135739-498245.png)\r\n\r\n## Installation\r\n\r\n### Docker\r\n\r\nThe installation for Docker should be universal for Linux, and Windows, taking only a few commands.\r\n\r\n  * First just download the Container\r\n  * And run it using whatever Port you prefer, giving a name if you'd like, optionally setting the language.\r\n\r\n````(bash)\r\ndocker pull ghcr.io/confused-techie/gopage:0.4\r\n\r\ndocker run -p 7070:8080 -e LANG=\"en\" --name GoPageServer ghcr.io/confused-techie/gopage:0.4\r\n````\r\n\r\n  * Please keep in mind the **7070** shown here can be whatever port you want the Docker Container Exposed on. Whereas **8080** is the default port the GoPage Server will listen to within the container.\r\n\r\n  * The `LANG` option is to set the GoPage Server Language. Ensuring to use the [ISO 639-1 two character language abbreviation.](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)\r\n\r\n### Windows\r\n\r\nIf you'd just like to give this a quick go or aren't a fan of Docker you can install the Windows Only Application in the releases Section. [V0.4 Available Here](https://github.com/confused-Techie/GoPage/releases/tag/v0.4)\r\n\r\n  * Simply download the installer and run it, walking through the options it shows. Keep in mind the resulting application must be running in order for you to be able to connect to the GoPage Dashboard.\r\n\r\n## First Time Configuration\r\n\r\nOnce you've installed GoPage Dashboard you will be able to navigate to it like so\r\n\r\n````(bash)\r\nhttp://SERVER-IP:PORT/\r\n````\r\n\r\nOnce there you can get started by adding new Links by hitting 'Add New Item' and filling in the details on the next page.\r\n\r\n  * Friendly Name: Will be the name shown to you when you look at this Link.\r\n  * Link: Of Course is the actual Link to navigate to.\r\n  * Category: Is if you so choose a Category you can create for this link, to later on help you find it again. This section will suggest any previously created categories but can always be something new.\r\n\r\nIf you haven't installed any plugins at this point you can ignore the different Plugin Sections and hit 'Submit'\r\n\r\nOtherwise if you'd like to get started with some plugins to extend the functionality of GoPage you can navigate to Settings via the Gear Icon in the top left corner then hitting the GoTo button on the right side of the 'Plugin Repo' Listing under Tools.\r\n\r\nOr by navigating to:\r\n\r\n````\r\nhttp://SERVER-IP:PORT/pluginrepo\r\n````\r\n\r\nOnce here feel free to read through and explore the Plugins available and download them, which will then give you the ability to set them in the Plugin Fields of a New Link Item or while Editing a Link Item.\r\n\r\n## Plugins Available by Default\r\n\r\nMany Plugins have already been created for GoPage and are available by default after installation.\r\n\r\n  * Status Check: Simple way to see if the address is currently reachable.\r\n  * Favicon Swiper: Retrieve Favicons via known methods or Google API's as a fallback.\r\n  * Jellyfin API: Get information about your Jellyfin Instance.\r\n  * Pihole API: Get information from your Pihole Instance.\r\n  * Light Theme: Simple Light Theme for those not loving the Dark Theme.\r\n  * Exaggerator Theme: Exaggerator Theme... Just Colourful.\r\n  * AQI Current: Get Air Quality Information at a glance. Via AirNow.gov.\r\n\r\n## [Contribute](docs/CONTRIBUTING.md)\r\n\r\n## Learning More\r\n\r\n### [Exploring GoPage](docs/exploringGopage.md)\r\n\r\n### [Exploring Plugins](docs/exploringPlugins.md)\r\n\r\n### [Creating Plugins](docs/createPlugins.md)\r\n",
     "longname": "D:\\Personal Documents\\GitHub Repositories\\GoPage\\README.md",
     "name": "./README.md",
     "static": true,
