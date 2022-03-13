@@ -110,7 +110,9 @@ This will be an object containing data for any options preset if `config: true`
   "autofill": "url=http://your-server:port;apiKey=yourKey;"
   ````
 
-### `icon`
+### `icon` <b>DEPRECIATED</b>
+
+<b>Keep in mind that at this time the Icon is no longer shown in the Plugin Repo, and will be phased out later on.</b>
 
 This will declare the Icon for your plugin that will show in the Plugin Repo. It allows for some basic styling of an Icon, or a URL can be specified that has an image available, or lastly any Image built into GoPage can be used for this.
 
@@ -132,7 +134,7 @@ But does contain some options to specify the above.
 
   ##### `src`
 
-  If your Icon Type is `image`, `src` can be used to specify the URL of the image. Simply use "/assets/images/..." to specify an image that's built into GoPage, or use a standard URL for any other image. 
+  If your Icon Type is `image`, `src` can be used to specify the URL of the image. Simply use "/assets/images/..." to specify an image that's built into GoPage, or use a standard URL for any other image.
 
   ##### `style`
 

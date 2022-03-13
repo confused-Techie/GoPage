@@ -52,6 +52,19 @@ GoPage has been made with the goal of extreme simplicity and convenient extensib
   * Russian
   * Spanish (Mexico)
 
+## Plugins Available
+
+Many Plugins have already been created for GoPage and are available by default after installation.
+
+  * Status Check: Simple way to see if the address is currently reachable.
+  * Favicon Swiper: Retrieve Favicons via known methods or Google API's as a fallback.
+  * Jellyfin API: Get information about your Jellyfin Instance.
+  * Pihole API: Get information from your Pihole Instance.
+  * Light Theme: Simple Light Theme for those not loving the Dark Theme.
+  * Exaggerator Theme: Exaggerator Theme... Just Colourful.
+  * AQI Current: Get Air Quality Information at a glance. Via AirNow.gov.
+  * Self Hosted Icons: Get self Hosted High Quality Icons alongside their links.
+
 ## Installation
 
 ### Docker
@@ -105,19 +118,6 @@ http://SERVER-IP:PORT/pluginrepo
 ````
 
 Once here feel free to read through and explore the Plugins available and download them, which will then give you the ability to set them in the Plugin Fields of a New Link Item or while Editing a Link Item.
-
-## Plugins Available
-
-Many Plugins have already been created for GoPage and are available by default after installation.
-
-  * Status Check: Simple way to see if the address is currently reachable.
-  * Favicon Swiper: Retrieve Favicons via known methods or Google API's as a fallback.
-  * Jellyfin API: Get information about your Jellyfin Instance.
-  * Pihole API: Get information from your Pihole Instance.
-  * Light Theme: Simple Light Theme for those not loving the Dark Theme.
-  * Exaggerator Theme: Exaggerator Theme... Just Colourful.
-  * AQI Current: Get Air Quality Information at a glance. Via AirNow.gov.
-  * Self Hosted Icons: Get self Hosted High Quality Icons alongside their links.
 
 ## [Contribute](docs/CONTRIBUTING.md)
 

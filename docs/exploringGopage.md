@@ -4,14 +4,17 @@ While GoPage is obviously split up into its separate pages there are two Univers
 
 ### Header
 
-The Header contains three sections with the Settings Gear Icon in the Top Left that will take you to the Settings page as long as that isn't the current page you are on.
+The Header contains all pages within GoPage, as well as when on the homepage any Header Plugins installed and setup.
 
-The Header contains three sections:
+The Header:
 
-* The Settings Gear Icon in the top left that will take you to the Settings page as long as that is not your current page.
-
-* GoPage Banner, a Banner indicating the service currently being used, that will bring you to the Home Page as long as that is not your current page.
-
+* GoPage Banner: a Banner indicating the service currently being used, that will bring you to the Home Page.
+* Plugin Repo: A link to the Plugin Repo allowing installing, uninstalling, and updating plugins.
+* Background Image: Allowing to upload custom background images, set the current background image, or unset the image to leave it blank.
+* Link Health: A Page that will show if any Link Items you have the same Host Name or are the exact same link.
+* Settings: A page to modify all settings available within GoPage.
+* Left Header Plugin: If not set, a blank on the header, otherwise will display whatever is set as this Header Plugin.
+* Right Header Plugin: If not set, a blank on the header, otherwise will display whatever is set as this Header Plugin.
 * Clock, a simple clock updating every section that will show the current date and time in your current locale.
 
 ### Footer
@@ -24,7 +27,11 @@ The Homepage is the obvious landing or entry point into GoPage, Having a simple 
 
 * The Category Selector will get all of the declared Categories in your different Link Items and show them as tab-able Items, meaning you can click each one to show only Link Items belonging to that category for easy searching.
 
-* Each Link Item will get its own small box, showing the Friendly Name, you've attributed and the data from any Plugins Attached. With an edit and delete button in each bottom corner.
+* On the right side of the Category Selector will be a button to add a New Link Item, bringing up a modal with options.
+
+* On the left side of the Category Selector is a search bar that allows searching all saved Link Items.
+
+* Each Link Item will get its own small box, showing the Friendly Name, you've attributed and the data from any Plugins Attached. With an edit and delete button available after hovering over the Link Item then additionally hovering over the three vertical dots on the right side of the Link Item. Clicking either brings up a modal with additional options.
 
 ## Settings Page
 

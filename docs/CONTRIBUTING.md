@@ -46,4 +46,4 @@ Some plugins that can example a valid theme are below:
 
 Translating GoPage is needed to allow GoPage to be useful to as many people as possible.
 
-The easiest way to get started translating GoPage would be to copy `strings.en.json` and replace `en` with the language you plan to translate to ensuring to keep in line with [ISO 639-1 two character language abbreviation](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes). Then from there translate the text on the right hand side of each item, keeping in mind that if an item is missing or empty that is totally fine and will default to the English Translation if needed.
+GoPage uses Crowdin for translations making it as easy as possible to assist. Just visit [Crowdin](https://crowdin.com/project/gopage) and take a look at any language that either is not complete or improve the existing translations that have already been done. As of now translations for Arabic, German, and Russian were done by those without knowledge of the language relying on Machine translation, or translations found in other projects. So those could likely use the most assistance.
