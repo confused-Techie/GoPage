@@ -61,13 +61,13 @@
   "i18n-uploadPromptButton": "이미지 업로드하기",
   "i18n-unsetImagePrompt": "배경 이미지를 사용하지 마세요",
   "i18n-unsetImageButton": "이미지를 제거하다",
-  "i18n-returnsSuccessDelete": "Successfully Deleted '{0}'",
+  "i18n-returnsSuccessDelete": "성공적으로 삭제'{0}'",
   "i18n_returnsFailureDelete": "Unsuccessfully Deleted '{0}'",
-  "i18n_returnsSuccessInstall": "Successfully Installed '{0}'",
+  "i18n_returnsSuccessInstall": "'{0}' 을(를) 성공적으로 설치했습니다.",
   "i18n_returnsFailureInstall": "Unsuccessfully Installed '{0}'",
-  "i18n_returnsSuccessUpdate": "Successfully Updated '{0}'",
+  "i18n_returnsSuccessUpdate": "성공적으로 업데이트 '{0}'",
   "i18n_returnsFailureUpdate": "Unsuccessfully Updated '{0}'",
-  "i18n_returnsSuccessAdd": "Successfully Added '{0}'",
+  "i18n_returnsSuccessAdd": "성공적으로 추가되었습니다 '{0}'",
   "i18n_returnsFailureAdd": "Unsuccessfully Added '{0}'",
   "i18n_returnValueGenericError": "에러 발생",
   "i18n_validateCategory": "Bad Category Value Entered.",
@@ -84,5 +84,7 @@
   "i18n-activeTheme": "활성 테마",
   "i18n-labelCustomColour": "Optional Custom Colour:",
   "i18n-labelCustomStyle": "Optional Custom Style:",
-  "i18n-LHNoOffendingLinks": "No offending Links Found."
+  "i18n-LHNoOffendingLinks": "No offending Links Found.",
+  "i18n-labelPluginOptionsExample": "Plugin Options Example:",
+  "i18n-addPluginPrompt": "플러그인 추가"
 }

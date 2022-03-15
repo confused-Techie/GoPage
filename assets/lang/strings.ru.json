@@ -84,5 +84,7 @@
   "i18n-activeTheme": "Активная тема",
   "i18n-labelCustomColour": "Необязательный пользовательский цвет:",
   "i18n-labelCustomStyle": "Дополнительный пользовательский стиль:",
-  "i18n-LHNoOffendingLinks": "No offending Links Found."
+  "i18n-LHNoOffendingLinks": "Нет оскорбительных ссылок.",
+  "i18n-labelPluginOptionsExample": "Пример параметров плагина:",
+  "i18n-addPluginPrompt": "Добавить плагин"
 }
