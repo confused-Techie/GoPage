@@ -11,6 +11,9 @@
     "ecmaVersion": "latest",
     "sourceType": "script"
   },
+  "rules": {
+    "no-unexpected-multiline": "off"
+  },
   "globals": {
     "langHandler": "readonly",
     "pluginAPI": "readonly",
