@@ -294,9 +294,10 @@ class LinkItemDOM {
   emptyPlugins() {
     while (document.getElementsByClassName("add-plugin-link").length > 1) {
       document
-        .getElementsByClassName("add-plugin-link")[
-          document.getElementsByClassName("add-plugin-link").length - 1]
-          .parentNode.remove();
+        .getElementsByClassName("add-plugin-link")
+        [
+          document.getElementsByClassName("add-plugin-link").length - 1
+        ].parentNode.remove();
     }
     // ^^ The above while loop, will run until only 1 elemenet remains for the add-plugin-link dom element
     // each loop gets the HTMLCollection of the element, grabbing only the last one, then selects its parentNode (form-text)

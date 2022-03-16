@@ -21,13 +21,13 @@ type ServerConfigurations struct {
 
 // DirectoriesConfigurations struct contains the options within the yaml specific to the location of other data
 type DirectoriesConfigurations struct {
-	StaticAssets string
-	Templates    string
-	Data         string
-	Plugin       string
+	StaticAssets  string
+	Templates     string
+	Data          string
+	Plugin        string
 	ServerSetting string
-	UserSetting string
-	Script       string
+	UserSetting   string
+	Script        string
 }
 
 // LoadConfig is needed for viper to load the config file
