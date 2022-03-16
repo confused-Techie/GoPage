@@ -86,5 +86,6 @@
   "i18n-labelCustomStyle": "Estilo personalizado opcional:",
   "i18n-LHNoOffendingLinks": "No se encontraron enlaces ofensivos.",
   "i18n-labelPluginOptionsExample": "Ejemplo de opciones de plugin:",
-  "i18n-addPluginPrompt": "Añadir Plugin"
+  "i18n-addPluginPrompt": "Añadir Plugin",
+  "i18n_validatePluginLocation": "A Plugin location is required."
 }
