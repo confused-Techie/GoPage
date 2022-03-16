@@ -86,5 +86,6 @@
   "i18n-labelCustomStyle": "任意のカスタムスタイル:",
   "i18n-LHNoOffendingLinks": "問題のリンクが見つかりませんでした。",
   "i18n-labelPluginOptionsExample": "プラグインオプションの例:",
-  "i18n-addPluginPrompt": "プラグインを追加"
+  "i18n-addPluginPrompt": "プラグインを追加",
+  "i18n_validatePluginLocation": "A Plugin location is required."
 }
