@@ -4,7 +4,8 @@ server:
 directories:
   staticAssets: './assets/'
   templates: './templates/'
-  data: './list.json'
-  plugin: './plugins/'
-  setting: './settings/'
+  data: './data/list.json'
+  plugin: './data/plugins/'
+  serverSetting: './settings/serverSettings.json'
+  userSetting: './data/userSettings.json'
   script: './scripts/'

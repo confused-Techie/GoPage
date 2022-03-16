@@ -20,6 +20,13 @@ Dockerfile
 .dockerignore
 # Remove reporting stats for build size consideration
 reporting/
+# No need to include translation configs.
+crowdin.yml
+# We can happily exclude All build tools.
+gulpfile.js
+package.json
+postcss.config.js
+package-lock.json
 # Exclude Documentation for Development
 DEV-docs/
 # Exclude node_modules Globally
@@ -33,4 +40,4 @@ binaries/
 # Exclude main data file to avoid PII leakage
 list.json
 # Exclude userSettings file to avoid PII leakage
-settings/userSettings.json
+data/userSettings.json

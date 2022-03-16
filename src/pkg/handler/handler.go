@@ -341,7 +341,7 @@ func UserSettingSet(rw http.ResponseWriter, req *http.Request) {
 	// now after confirming the data can be unmarshalled into the struct, we can write it
 	newUserSetting, err := json.MarshalIndent(&upldUsr, "", "")
 	errorHandler.JSONLoadError(rw, err)
-	ioutil.WriteFile(viper.GetString("directories.setting")+"/userSettings.json", newUserSetting, 0666)
+	ioutil.WriteFile(viper.GetString("directories.userSetting"), newUserSetting, 0666)
 	json.NewEncoder(rw).Encode("Success")
 }
 

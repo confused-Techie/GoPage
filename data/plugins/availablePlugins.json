@@ -26,6 +26,28 @@
 }
 },
 {
+  "name": "devserviceIcons",
+  "friendlyName": "Dev Service Icons",
+  "version": "0.1",
+  "description": "Devicons Wrapper for GoPage Link Items.",
+  "type": "item",
+  "author": "confused-Techie",
+  "license": "GPL-3.0",
+  "infoLink": "https://github.com/confused-Techie/GoPage-Plugins#dev-service-icons",
+  "downloadLink": "https://github.com/confused-Techie/GoPage-Plugin/releases/download/DevServiceIconsV0.1/DevServiceIconsV0.1.zip",
+  "installed": false,
+  "config": true,
+  "mainDir": "/devserviceIcons/",
+  "main": "main.js",
+  "options": {
+    "explain": "The Service you want the Icon of.",
+    "autofill": "icon=SERVICE;"
+  },
+  "icon": {
+    "available": false
+  }
+},
+{
 "name": "exaggeratorTheme",
 "friendlyName": "Exaggerator Theme",
 "version": "0.1",
@@ -158,13 +180,13 @@
 {
 "name": "selfHostedIcons",
 "friendlyName": "Self Hosted Icons",
-"version": "0.1",
+"version": "0.2",
 "description": "Get self Hosted High Quality Icons alongside their links. (All Rights to Image Owners)",
 "type": "item",
 "author": "confused-Techie",
 "license": "GPL-3.0",
 "infoLink": "https://github.com/confused-Techie/GoPage-Plugins",
-"downloadLink": "https://github.com/confused-Techie/GoPage-Plugins/releases/download/SelfHostedIcons/SelfHostedIconsV0.1.zip",
+"downloadLink": "https://github.com/confused-Techie/GoPage-Plugins/releases/download/SelfHostedIconsV0.2/SelfHostedIconsV0.2.zip",
 "installed": false,
 "config": true,
 "mainDir": "/selfHostedIcons/",

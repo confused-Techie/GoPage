@@ -25,6 +25,8 @@ type DirectoriesConfigurations struct {
 	Templates    string
 	Data         string
 	Plugin       string
+	ServerSetting string
+	UserSetting string
 	Script       string
 }
 

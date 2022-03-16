@@ -41,4 +41,4 @@ binaries/
 # Exclude main data file to avoid PII leakage
 list.json
 # Exclude userSettings file to avoid PII leakage
-settings/userSettings.json
+data/userSettings.json

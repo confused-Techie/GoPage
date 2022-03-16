@@ -31,7 +31,7 @@
       "action": "exclude"
     },
     {
-      "location": "settings/userSettings.json",
+      "location": "data/userSettings.json",
       "comment": "Exclude userSettings file to avoid PII leakage",
       "action": "exclude"
     }
@@ -95,6 +95,28 @@
       "location": "reporting/",
       "comment": "Remove reporting stats for build size consideration",
       "action": "exclude"
+    },
+    {
+    "location": "crowdin.yml",
+    "comment": "No need to include translation configs.",
+    "action": "exclude"
+    },
+    {
+    "location": "gulpfile.js",
+    "comment": "We can happily exclude All build tools.",
+    "action": "exclude"
+    },
+    {
+    "location": "package.json",
+    "action": "exclude"
+    },
+    {
+    "location": "postcss.config.js",
+    "action": "exclude"
+    },
+    {
+    "location": "package-lock.json",
+    "action": "exclude"
     }
   ],
   "gitignore": [

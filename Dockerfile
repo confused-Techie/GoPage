@@ -13,7 +13,7 @@ ENV LOGGING="custom"
 WORKDIR /app
 
 # Copy the local package files to the container's workspace
-ADD . ./
+COPY . ./
 
 # Build the gopage command inside the container
 # And any dependencies
@@ -21,10 +21,11 @@ RUN go get github.com/spf13/viper && go install . && go build -o /gopage
 # RUN go install .
 
 # move the data file  from clean files to the root
-COPY /cleanFiles/list.json /app/list.json
+COPY /cleanFiles/list.json /app/data/list.json
 # Move the userSettings file from clean files to its proper location
-COPY /cleanFiles/userSettings.json /app/settings/userSettings.json
+COPY /cleanFiles/userSettings.json /app/data/userSettings.json
 
+VOLUME /app/data
 # Build the application
 #RUN go build -o /gopage
 
