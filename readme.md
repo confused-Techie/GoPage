@@ -64,6 +64,7 @@ Many Plugins have already been created for GoPage and are available by default a
   * Exaggerator Theme: Exaggerator Theme... Just Colourful.
   * AQI Current: Get Air Quality Information at a glance. Via AirNow.gov.
   * Self Hosted Icons: Get self Hosted High Quality Icons alongside their links.
+  * Dev Service Icons: Devicons Wrapper for GoPage Link Items.
 
 ## Installation
 
@@ -71,17 +72,33 @@ Many Plugins have already been created for GoPage and are available by default a
 
 The installation for Docker should be universal for Linux, and Windows, taking only a few commands.
 
-  * First just download the Container
-  * And run it using whatever Port you prefer, giving a name if you'd like, optionally setting the language.
-
+* First download the Docker Image.
 ````(bash)
-docker pull ghcr.io/confused-techie/gopage:0.5
-
-docker run -p 7070:8080 --name GoPageServer ghcr.io/confused-techie/gopage:0.5
+docker pull ghcr.io/confused-techie/gopage:0.5.1
 ````
 
-  * Please keep in mind the **7070** shown here can be whatever port you want the Docker Container Exposed on. Whereas **8080** is the default port the GoPage Server will listen to within the container.
+* Then you will need to create a Named Docker Volume. This allows data to persist during updates.
+  * Saving all your Link Items and their associated data.
+  * Installed Plugins, and currently available Plugins. (But the 'Update Available Plugins' Button on the Plugin Repo will successfully update the available Plugins)
+  * User Settings: Background Image, Header Plugins.
 
+````(bash)
+docker volume create --name GoPageV
+````
+
+* Finally with the Named Docker Volume created, and Image downloaded, we can run the Image.
+
+````(bash)
+docker run -it -p 7070:8080 --name GoPage -v GoPageV:/app/data ghcr.io/confused-techie/gopage:0.5.1
+````
+
+When running the container, the above is all that's required, but there are many more options that can be set during this process.
+
+And for testing purposes the Named Volume can be excluded but your data will not persist updates or removal of the Container.
+
+  * `-v GoPageV:/app/data` The Named Volume here should be whatever you created yours as during `docker volume create --name --`
+  * `-it` Ensures to detach the shell allowing you to retain control of the TTY shell easily. Since in some circumstances SIGTERM may not be passed appropriately to the right context.
+  * Please keep in mind the **7070** shown here can be whatever port you want the Docker Container Exposed on. Whereas **8080** is the default port the GoPage Server will listen to within the container.
   * GoPage supports additional variables that can be set. [Please refer to the documentation](docs/docker-environmentVariables.md).
 
 
