@@ -76,7 +76,11 @@ var i18n_validateName =
     (index .DefaultStrings "i18n_validateName")
   }};
 
-var i18n_validatePluginLocation = "A Plugin location is required.";
+var i18n_validatePluginLocation =
+  {{ or
+    (index .TargetStrings "i18n_validatePluginLocation")
+    (index .DefaultStrings "i18n_validatePluginLocation")
+  }};
 
 var i18n_returnValueAvailablePlugins =
   {{ or

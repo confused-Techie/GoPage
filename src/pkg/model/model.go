@@ -312,7 +312,7 @@ func UserSettingGet() (au *UserSetting) {
 // HTTPReqInfo is used for the HTTP logging middleware as a simple struct to pack its logged info into for easy access
 type HTTPReqInfo struct {
 	Method    string
-	Uri       string
+	URI       string
 	Referer   string
 	Ipaddr    string
 	Code      int

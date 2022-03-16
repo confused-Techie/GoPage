@@ -165,7 +165,7 @@ func logRequestHandler(h http.Handler) http.Handler {
 		//h.ServeHTTP(w, r)
 		ri := &model.HTTPReqInfo{
 			Method:    r.Method,
-			Uri:       r.URL.String(),
+			URI:       r.URL.String(),
 			Referer:   r.Header.Get("Referer"),
 			UserAgent: r.Header.Get("User-Agent"),
 			Protocol:  r.Proto,
@@ -185,13 +185,13 @@ func logRequestHandler(h http.Handler) http.Handler {
 		date := time.Now()
 
 		if logMethod == "combined" {
-			fmt.Printf("%s  - - [%s] '%s %s %s' %d %d '%s' '%s'\n", universalMethods.LogInjectionAvoidance(ri.Ipaddr), date.Format(NCSACommonFormat), universalMethods.LogInjectionAvoidance(ri.Method), universalMethods.LogInjectionAvoidance(ri.Uri), universalMethods.LogInjectionAvoidance(ri.Protocol), ri.Code, ri.Size, universalMethods.LogInjectionAvoidance(ri.Referer), universalMethods.LogInjectionAvoidance(ri.UserAgent))
+			fmt.Printf("%s  - - [%s] '%s %s %s' %d %d '%s' '%s'\n", universalMethods.LogInjectionAvoidance(ri.Ipaddr), date.Format(NCSACommonFormat), universalMethods.LogInjectionAvoidance(ri.Method), universalMethods.LogInjectionAvoidance(ri.URI), universalMethods.LogInjectionAvoidance(ri.Protocol), ri.Code, ri.Size, universalMethods.LogInjectionAvoidance(ri.Referer), universalMethods.LogInjectionAvoidance(ri.UserAgent))
 		}
 		if logMethod == "common" {
-			fmt.Printf("%s - - [%s] '%s %s %s' %d %d\n", universalMethods.LogInjectionAvoidance(ri.Ipaddr), date.Format(NCSACommonFormat), universalMethods.LogInjectionAvoidance(ri.Method), universalMethods.LogInjectionAvoidance(ri.Uri), universalMethods.LogInjectionAvoidance(ri.Protocol), ri.Code, ri.Size)
+			fmt.Printf("%s - - [%s] '%s %s %s' %d %d\n", universalMethods.LogInjectionAvoidance(ri.Ipaddr), date.Format(NCSACommonFormat), universalMethods.LogInjectionAvoidance(ri.Method), universalMethods.LogInjectionAvoidance(ri.URI), universalMethods.LogInjectionAvoidance(ri.Protocol), ri.Code, ri.Size)
 		}
 		if logMethod == "custom" {
-			log.Printf("'%s %s' from %s - %d %dB in %v\n", universalMethods.LogInjectionAvoidance(ri.Method), universalMethods.LogInjectionAvoidance(ri.Uri), universalMethods.LogInjectionAvoidance(ri.Ipaddr), ri.Code, ri.Size, ri.Duration)
+			log.Printf("'%s %s' from %s - %d %dB in %v\n", universalMethods.LogInjectionAvoidance(ri.Method), universalMethods.LogInjectionAvoidance(ri.URI), universalMethods.LogInjectionAvoidance(ri.Ipaddr), ri.Code, ri.Size, ri.Duration)
 		}
 	})
 
