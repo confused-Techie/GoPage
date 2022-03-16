@@ -18,7 +18,6 @@ COPY . ./
 # Build the gopage command inside the container
 # And any dependencies
 RUN go get github.com/spf13/viper && go install . && go build -o /gopage
-# RUN go install .
 
 # move the data file  from clean files to the root
 COPY /cleanFiles/list.json /app/data/list.json
@@ -26,11 +25,6 @@ COPY /cleanFiles/list.json /app/data/list.json
 COPY /cleanFiles/userSettings.json /app/data/userSettings.json
 
 VOLUME /app/data
-# Build the application
-#RUN go build -o /gopage
-
-# Run the gopage command by default when the container starts
-#ENTRYPOINT /go/bin/gopage
 
 # Document that the service listens on port 8080
 EXPOSE 8080
