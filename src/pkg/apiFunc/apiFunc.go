@@ -423,7 +423,7 @@ func UniversalAvailableUpdate() (string, error) {
 		return "", err
 	}
 
-	resp, err := http.Get("https://raw.githubusercontent.com/confused-Techie/GoPage/main/plugins/availablePlugins.json")
+	resp, err := http.Get("https://raw.githubusercontent.com/confused-Techie/GoPage/main/data/plugins/availablePlugins.json")
 	if err != nil {
 		return "", err
 	}
