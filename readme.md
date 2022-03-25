@@ -74,7 +74,7 @@ The installation for Docker should be universal for Linux, and Windows, taking o
 
 * First download the Docker Image.
 ````(bash)
-docker pull ghcr.io/confused-techie/gopage:0.5.1
+docker pull ghcr.io/confused-techie/gopage:0.5.2
 ````
 
 * Then you will need to create a Named Docker Volume. This allows data to persist during updates.
@@ -89,7 +89,7 @@ docker volume create --name GoPageV
 * Finally with the Named Docker Volume created, and Image downloaded, we can run the Image.
 
 ````(bash)
-docker run -it -p 7070:8080 --name GoPage -v GoPageV:/app/data ghcr.io/confused-techie/gopage:0.5.1
+docker run -it -p 7070:8080 --name GoPage -v GoPageV:/app/data ghcr.io/confused-techie/gopage:0.5.2
 ````
 
 When running the container, the above is all that's required, but there are many more options that can be set during this process.
