@@ -87,5 +87,5 @@
   "i18n-LHNoOffendingLinks": "問題のリンクが見つかりませんでした。",
   "i18n-labelPluginOptionsExample": "プラグインオプションの例:",
   "i18n-addPluginPrompt": "プラグインを追加",
-  "i18n_validatePluginLocation": "A Plugin location is required."
+  "i18n_validatePluginLocation": "プラグインの場所が必要です。"
 }
