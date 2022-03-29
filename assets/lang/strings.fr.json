@@ -87,5 +87,5 @@
   "i18n-LHNoOffendingLinks": "Aucun lien offensant trouvé.",
   "i18n-labelPluginOptionsExample": "Exemple d'options de plugin:",
   "i18n-addPluginPrompt": "Ajouter un Plugin",
-  "i18n_validatePluginLocation": "A Plugin location is required."
+  "i18n_validatePluginLocation": "Un emplacement de plugin est requis."
 }
