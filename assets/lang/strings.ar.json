@@ -87,5 +87,5 @@
   "i18n-LHNoOffendingLinks": "لا توجد روابط مخالفة.",
   "i18n-labelPluginOptionsExample": "مثال على خيارات الإضافة:",
   "i18n-addPluginPrompt": "أضف إضافة",
-  "i18n_validatePluginLocation": "A Plugin location is required."
+  "i18n_validatePluginLocation": "موقع الإضافة مطلوب."
 }
