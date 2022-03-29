@@ -87,5 +87,5 @@
   "i18n-LHNoOffendingLinks": "Нет оскорбительных ссылок.",
   "i18n-labelPluginOptionsExample": "Пример параметров плагина:",
   "i18n-addPluginPrompt": "Добавить плагин",
-  "i18n_validatePluginLocation": "A Plugin location is required."
+  "i18n_validatePluginLocation": "Необходимо указать местоположение плагина."
 }
