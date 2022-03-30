@@ -181,6 +181,7 @@ class LinkItemDOM {
     this.colourField = "";
     this.styleField = "";
     this.emptyPlugins();
+    this.enablePluginLocations();
   }
 
   get staticIDField() {
@@ -315,6 +316,16 @@ class LinkItemDOM {
     htmlCollectionPlugin.querySelectorAll(`[name="pluginExample"]`)[0].value =
       "";
     htmlCollectionPlugin.parentElement.style.display = "none";
+  }
+
+  enablePluginLocations() {
+    var pluginLocations = [ "top-right", "top-left", "center", "bottom-left", "bottom-right" ];
+    for (var i = 0; i < pluginLocations.length; i++) {
+      document
+        .getElementById("plugin-location-list")
+        .querySelector(`[value=${pluginLocations[i]}]`)
+        .setAttribute("disabled", "");
+    }
   }
 
   notEmpty(input) {
