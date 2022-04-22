@@ -266,6 +266,8 @@ func main() {
 	// Components Endpoints
 	mux.Handle("/robots.txt", http.HandlerFunc(handler.RobotsHandler))
 	mux.Handle("/sitemap.xml", http.HandlerFunc(handler.SitemapHandler))
+	mux.Handle("/favicon.ico", logRequestHandler(http.HandlerFunc(handler.FaviconHandler)))
+	mux.Handle("/favicon_48x48.png", logRequestHandler(http.HandlerFunc(handler.Favicon48Handler)))
 
 	// UploadPage Endpoints: Used for the functionality of the uploadPage
 	mux.Handle("/upload", http.HandlerFunc(handler.UploadHandler))

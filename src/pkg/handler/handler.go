@@ -329,6 +329,14 @@ func SitemapHandler(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, viper.GetString("directories.staticAssets")+"static/sitemap.xml")
 }
 
+func FaviconHandler(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, viper.GetString("directories.staticAssets")+"static/favicon/favicon.ico")
+}
+
+func Favicon48Handler(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, viper.GetString("directories.staticAssets")+"static/favicon/duckasaurus_rainbow_transparent_48x48.png")
+}
+
 // ------------ User Settings Modifiers
 
 // UserSettingSet is user to write new user settings to disk
