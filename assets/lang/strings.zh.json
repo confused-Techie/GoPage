@@ -84,8 +84,8 @@
   "i18n-activeTheme": "使用中主題",
   "i18n-labelCustomColour": "Optional Custom Colour:",
   "i18n-labelCustomStyle": "Optional Custom Style:",
-  "i18n-LHNoOffendingLinks": "No offending Links Found.",
-  "i18n-labelPluginOptionsExample": "Plugin Options Example:",
+  "i18n-LHNoOffendingLinks": "未找到違規鏈接",
+  "i18n-labelPluginOptionsExample": "外挂程式選項例子:",
   "i18n-addPluginPrompt": "新增插件",
-  "i18n_validatePluginLocation": "A Plugin location is required."
+  "i18n_validatePluginLocation": "需要外掛程式的地點"
 }
