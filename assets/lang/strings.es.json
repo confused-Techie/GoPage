@@ -1,7 +1,7 @@
 {
   "i18n-footerSourceCode": "Código Fuente",
   "i18n-footerContribute": "Contribuir",
-  "i18n-footerThanksFeather": "Gracias especiales a Feather Icons",
+  "i18n-footerThanksFeather": "Gracias especiales a Feather Icons ❤",
   "i18n-modalDeleteConfirmationMessage": "¿Está seguro de que desea eliminar este artículo?",
   "i18n-modalDeleteConfirm": "Confirmar",
   "i18n-modalDeleteNevermind": "Cancelar",
@@ -86,5 +86,6 @@
   "i18n-labelCustomStyle": "Estilo personalizado opcional:",
   "i18n-LHNoOffendingLinks": "No se encontraron enlaces ofensivos.",
   "i18n-labelPluginOptionsExample": "Ejemplo de opciones de plugin:",
-  "i18n-addPluginPrompt": "Añadir Plugin"
+  "i18n-addPluginPrompt": "Añadir Plugin",
+  "i18n_validatePluginLocation": "Se requiere una ubicación del plugin."
 }

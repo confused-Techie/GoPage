@@ -1,7 +1,7 @@
 {
   "i18n-footerSourceCode": "Quellcode",
   "i18n-footerContribute": "Beitragen",
-  "i18n-footerThanksFeather": "Besonderer Dank Feather Icons",
+  "i18n-footerThanksFeather": "Besonderer Dank Feather Icons ❤",
   "i18n-modalDeleteConfirmationMessage": "Sind Sie sicher, dass Sie dieses Element löschen möchten?",
   "i18n-modalDeleteConfirm": "Bestätigen",
   "i18n-modalDeleteNevermind": "Egal",
@@ -86,5 +86,6 @@
   "i18n-labelCustomStyle": "Optionaler benutzerdefinierter Stil:",
   "i18n-LHNoOffendingLinks": "Keine anstößigen Links gefunden.",
   "i18n-labelPluginOptionsExample": "Plugin-Optionen Beispiel:",
-  "i18n-addPluginPrompt": "Plugin hinzufügen"
+  "i18n-addPluginPrompt": "Plugin hinzufügen",
+  "i18n_validatePluginLocation": "Ein Standort wird benötigt."
 }

@@ -1,7 +1,7 @@
 {
   "i18n-footerSourceCode": "ソースコード",
   "i18n-footerContribute": "今すぐ寄付",
-  "i18n-footerThanksFeather": "Feather Icons ❤",
+  "i18n-footerThanksFeather": "Feather Icons に感謝します ❤",
   "i18n-modalDeleteConfirmationMessage": "このアイテムを削除してもよろしいですか？",
   "i18n-modalDeleteConfirm": "確認",
   "i18n-modalDeleteNevermind": "辞める",
@@ -86,5 +86,6 @@
   "i18n-labelCustomStyle": "任意のカスタムスタイル:",
   "i18n-LHNoOffendingLinks": "問題のリンクが見つかりませんでした。",
   "i18n-labelPluginOptionsExample": "プラグインオプションの例:",
-  "i18n-addPluginPrompt": "プラグインを追加"
+  "i18n-addPluginPrompt": "プラグインを追加",
+  "i18n_validatePluginLocation": "プラグインの場所が必要です。"
 }
